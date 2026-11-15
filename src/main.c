@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "vector.h"
 #include "sort.h"
 #include "metrics.h"
@@ -14,6 +15,9 @@ int main()
     int size = 0;
     int choice;
     int *numbers;
+
+    /* Seeds rand() once, with the current time, so each run gets different numbers */
+    srand((unsigned)time(NULL));
 
     printf("Digite o tamanho do vetor: ");
     if (scanf("%d", &size) != 1 || size <= 0)

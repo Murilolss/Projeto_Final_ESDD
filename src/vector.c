@@ -1,11 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "vector.h"
-#include "search.h"
 
-static int random_number(int min, int max)
+/* Random index in 0..max.
+   On MinGW RAND_MAX is only 32767, so a single rand() never reaches positions above
+   32767 in a vector of 50000. Two calls are combined into one bigger number:
+   first * (RAND_MAX + 1) + second goes from 0 up to about 1 billion. */
+static int random_index(int max)
 {
-    return min + rand() % (max - min + 1);
+    long big = (long)rand() * (RAND_MAX + 1L) + rand();
+    return (int)(big % (max + 1));
 }
 
 int *vector_create(int size)
@@ -22,30 +26,27 @@ int *vector_create(int size)
     return v;
 }
 
-/* TODO(T03): srand() is never called, so every run produces the same numbers.
-   TODO(T03): the first loop searches positions that were not initialized yet, and the
-   second loop overwrites the unique values with rand 1..512 (duplicates).
-   TODO(T03): there are only 2048 unique values, so size > 2048 never leaves the first loop. */
+/* Fills the array with the values 1..size, each one exactly once, in random order.
+   Fisher-Yates shuffle: walks from the last position to the second one and swaps
+   each position i with a random position j between 0 and i. */
 void vector_fill_random(int *v, int size)
 {
-    int value, n = 0;
+    int i, j, aux;
 
     if (v == NULL || size <= 0)
         return;
 
-    while (n < size)
+    for (i = 0; i < size; i++)
     {
-        value = random_number(1, 2048);
-        if (sequential_search(v, size, value) == -1)
-        {
-            v[n] = value;
-            n++;
-        }
+        v[i] = i + 1;
     }
 
-    for (int i = 0; i < size; i++)
+    for (i = size - 1; i > 0; i--)
     {
-        v[i] = random_number(1, 512);
+        j = random_index(i);
+        aux = v[i];
+        v[i] = v[j];
+        v[j] = aux;
     }
 }
 

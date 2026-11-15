@@ -3,8 +3,11 @@
 #include <time.h>
 #include "sort.h"
 
+/* Every sort function returns 1 on success and 0 on failure.
+   Only the Merge Sorts can fail (they allocate memory); the others always return 1. */
+
 /* ---------- Bubble Sort ---------- */
-void bubble_sort(int *array, int size, Metrics *m)
+int bubble_sort(int *array, int size, Metrics *m)
 {
     int i, keep_going, aux;
     do
@@ -23,10 +26,12 @@ void bubble_sort(int *array, int size, Metrics *m)
             }
         }
     } while (keep_going);
+
+    return 1;
 }
 
 /* ---------- Insertion Sort ---------- */
-void insertion_sort(int *array, int size, Metrics *m)
+int insertion_sort(int *array, int size, Metrics *m)
 {
     for (int i = 1; i < size; i++)
     {
@@ -45,6 +50,8 @@ void insertion_sort(int *array, int size, Metrics *m)
         }
         array[j + 1] = key; /* Inserts key in its correct position */
     }
+
+    return 1;
 }
 
 /* ---------- Merge (shared by both Merge Sorts) ---------- */
@@ -53,16 +60,34 @@ static int min_int(int a, int b)
     return (a < b) ? a : b;
 }
 
-/* Merges array[left..middle] and array[middle+1..right], both already sorted. */
-static void merge(int *array, int left, int middle, int right, Metrics *m)
+/* Merges array[left..middle] and array[middle+1..right], both already sorted.
+   The two halves are copied to temporary arrays allocated on the heap (malloc).
+   Returns 1 on success, 0 if there is not enough memory. */
+static int merge(int *array, int left, int middle, int right, Metrics *m)
 {
     int i, j, k;
     int n1 = middle - left + 1;
     int n2 = right - middle;
+    int *left_part;
+    int *right_part;
 
-    /* TODO(T03): VLAs live on the stack and overflow with large arrays; use malloc. */
-    int left_part[n1];
-    int right_part[n2];
+    /* The iterative version can call merge with an empty right half (e.g. size 10,
+       current_size 4, left 8). The left half is already sorted, so there is nothing to do.
+       Returning here also avoids malloc(0), which may return NULL. */
+    if (n1 <= 0 || n2 <= 0)
+        return 1;
+
+    left_part = (int *)malloc(n1 * sizeof(int));
+    if (left_part == NULL)
+        return 0;
+
+    right_part = (int *)malloc(n2 * sizeof(int));
+    if (right_part == NULL)
+    {
+        free(left_part);
+        left_part = NULL;
+        return 0;
+    }
 
     for (i = 0; i < n1; i++)
         left_part[i] = array[left + i];
@@ -106,10 +131,17 @@ static void merge(int *array, int left, int middle, int right, Metrics *m)
         j++;
         k++;
     }
+
+    free(left_part);
+    left_part = NULL;
+    free(right_part);
+    right_part = NULL;
+
+    return 1;
 }
 
 /* ---------- Merge Sort (iterative) ---------- */
-void merge_sort_iterative(int *array, int size, Metrics *m)
+int merge_sort_iterative(int *array, int size, Metrics *m)
 {
     /* current_size is the size of the subarrays being merged (1, 2, 4, 8...) */
     for (int current_size = 1; current_size <= size - 1; current_size = 2 * current_size)
@@ -120,28 +152,35 @@ void merge_sort_iterative(int *array, int size, Metrics *m)
             int middle = min_int(left + current_size - 1, size - 1);
             int right = min_int(left + 2 * current_size - 1, size - 1);
 
-            merge(array, left, middle, right, m);
+            if (merge(array, left, middle, right, m) == 0)
+                return 0;
         }
     }
+
+    return 1;
 }
 
 /* ---------- Merge Sort (recursive) ---------- */
-static void merge_sort_rec(int *array, int left, int right, Metrics *m)
+static int merge_sort_rec(int *array, int left, int right, Metrics *m)
 {
     if (left < right)
     {
         int middle = left + (right - left) / 2;
 
-        merge_sort_rec(array, left, middle, m);
-        merge_sort_rec(array, middle + 1, right, m);
+        if (merge_sort_rec(array, left, middle, m) == 0)
+            return 0;
+        if (merge_sort_rec(array, middle + 1, right, m) == 0)
+            return 0;
 
-        merge(array, left, middle, right, m);
+        return merge(array, left, middle, right, m);
     }
+
+    return 1;
 }
 
-void merge_sort_recursive(int *array, int size, Metrics *m)
+int merge_sort_recursive(int *array, int size, Metrics *m)
 {
-    merge_sort_rec(array, 0, size - 1, m);
+    return merge_sort_rec(array, 0, size - 1, m);
 }
 
 /* ---------- Quick Sort (first element as pivot) ---------- */
@@ -184,9 +223,10 @@ static void quick_sort_first_rec(int *array, int start, int end, Metrics *m)
     }
 }
 
-void quick_sort_first_pivot(int *array, int size, Metrics *m)
+int quick_sort_first_pivot(int *array, int size, Metrics *m)
 {
     quick_sort_first_rec(array, 0, size - 1, m);
+    return 1;
 }
 
 /* ---------- Quick Sort (last element as pivot) ---------- */
@@ -228,13 +268,14 @@ static void quick_sort_last_rec(int *array, int start, int end, Metrics *m)
     }
 }
 
-void quick_sort_last_pivot(int *array, int size, Metrics *m)
+int quick_sort_last_pivot(int *array, int size, Metrics *m)
 {
     quick_sort_last_rec(array, 0, size - 1, m);
+    return 1;
 }
 
 /* ---------- Selection Sort ---------- */
-void selection_sort(int *array, int size, Metrics *m)
+int selection_sort(int *array, int size, Metrics *m)
 {
     int i, j, min_pos, aux;
     for (i = 0; i < size - 1; i++)
@@ -254,6 +295,8 @@ void selection_sort(int *array, int size, Metrics *m)
             m->swaps++;
         }
     }
+
+    return 1;
 }
 
 /* ---------- Algorithm table ---------- */
@@ -286,6 +329,7 @@ const char *sort_name(int index)
 int sort_run(int index, const int *source, int *dest, int size, Metrics *out)
 {
     clock_t start, end;
+    int ok;
 
     if (index < 0 || index >= SORT_COUNT)
         return 0;
@@ -299,9 +343,9 @@ int sort_run(int index, const int *source, int *dest, int size, Metrics *out)
     metrics_init(out, algorithms[index].name);
 
     start = clock();
-    algorithms[index].function(dest, size, out);
+    ok = algorithms[index].function(dest, size, out);
     end = clock();
 
     out->time_ms = (double)(end - start) * 1000.0 / CLOCKS_PER_SEC;
-    return 1;
+    return ok;
 }
