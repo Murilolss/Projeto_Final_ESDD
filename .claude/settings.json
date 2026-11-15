@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "S=\"$CLAUDE_PROJECT_DIR/.claude/hooks/log_prompt.py\"; IN=$(cat); for p in python python3 py; do printf '%s' \"$IN\" | \"$p\" \"$S\" 2>/dev/null && break; done; exit 0",
+            "timeout": 15,
+            "statusMessage": "Registrando prompt no AI_LOG.md..."
+          }
+        ]
+      }
+    ]
+  }
+}
