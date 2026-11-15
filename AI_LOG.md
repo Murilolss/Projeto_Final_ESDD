@@ -448,6 +448,42 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** fez um commit na `ESDD/murilo` com o PDF `contexto/projeto-exemplo/Testes de algoritmos de ordenação.pdf`, o novo `contexto/slides/Testes de algoritmos de ordenação.md`, a linha atualizada do `CLAUDE.md` e as entradas #021–#023 do `AI_LOG.md`. Sem push.
 - **Adaptações / correções:** nenhuma. O PDF entrou no commit porque o `.md` e o `CLAUDE.md` apontam para ele (os outros PDFs de `contexto/` também são versionados).
 
+## #024 — Domingo, 15/11/2026
+
+- **Autor:** Murilo Leandro
+- **Prompt:**
+  > faz o push
+- **Objetivo:** enviar o commit do enunciado v1 para o GitHub.
+- **Resposta da IA (resumo):** rodou `git push origin ESDD/murilo`. A branch remota foi de `cbac53f` para `0c53a42`. Nenhum arquivo de código mudou.
+- **Adaptações / correções:** nenhuma. Esta entrada fica pendente de commit, pois o hook a gravou depois do commit enviado.
+
+## #025 — Domingo, 15/11/2026
+
+- **Autor:** Murilo Leandro
+- **Prompt:**
+  > o que falta do primeiro enunciado para esse novo projeto?
+- **Objetivo:** saber quais itens do enunciado v1 (`Testes de algoritmos de ordenação`) ainda faltam no projeto.
+- **Resposta da IA (resumo):** conferiu `src/` (menu, `metrics.c`, `vector.h`, `sort.h`). Concluiu que faltam dois itens: geração de dados **ordenados** e **invertidos** e o **modo passo a passo** (tela atualizada a cada troca). O resto da v1 já está pronto. Sugeriu um tipo de dados no gerador e um callback de passo nos algoritmos, que também serviria ao Undo e à exportação JSON/CSV. Nenhum arquivo de código mudou.
+- **Adaptações / correções:** nenhuma (só análise).
+
+## #026 — Domingo, 15/11/2026
+
+- **Autor:** Murilo Leandro
+- **Prompt:**
+  > adicione nas tasks do artefato
+- **Objetivo:** incluir no plano do projeto (artefato "Plano Projeto ESDD") os dois itens do enunciado v1 que faltam.
+- **Resposta da IA (resumo):** republicou o artefato no mesmo link com duas tarefas novas: **T25** "Gerar dados ordenados e invertidos" (fase 1) e **T26** "Modo passo a passo" (primeira da fase 3, por ser a base da exportação T10 e do Undo T11). Ambas têm a etiqueta "Enunciado v1". O código da página passou a aceitar um número fixo por tarefa, e a barra do cronograma mostra faixas como "T01–T05, T25". Nenhum arquivo do repositório mudou além deste log.
+- **Adaptações / correções:** as tarefas novas não receberam os números T06/T10, como a ordem na lista daria, para não renumerar T06–T24, que já são citadas em commits e nas notas de sessão. O progresso marcado não se perde, porque ele é salvo pelo id interno da tarefa, e não pelo número.
+
+## #027 — Domingo, 15/11/2026
+
+- **Autor:** Murilo Leandro
+- **Prompt:**
+  > faz o commit e o push
+- **Objetivo:** commitar e enviar ao GitHub as entradas pendentes do AI_LOG.
+- **Resposta da IA (resumo):** fez um commit na `ESDD/murilo` só com o `AI_LOG.md` (entradas #024–#027) e o enviou com `git push origin ESDD/murilo`. O plano (artefato) não fica no repositório, por isso não entrou no commit.
+- **Adaptações / correções:** nenhuma.
+
 ---
 
 <!--
