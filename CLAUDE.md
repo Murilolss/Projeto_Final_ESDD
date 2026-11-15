@@ -32,7 +32,7 @@ Isso atende à exigência do enunciado ("Registro de Prompts") e serve de materi
 
 ## Regras obrigatórias para o código
 
-- **Idioma do código: inglês.** Nomes de funções, variáveis, tipos, comentários e o `README.md` em inglês (exigência do enunciado). Conversa com o usuário continua em português.
+- **Idioma do código: inglês.** Nomes de funções, variáveis, tipos, comentários e o `README.md` em inglês (exigência do enunciado). Os textos exibidos ao usuário (`printf`, nomes dos algoritmos no menu) ficam em **português sem acento** (decisão da equipe; o console do Windows estraga acentos). Conversa com o usuário continua em português.
 - **Seguir os padrões da disciplina** (proibição de "caixa-preta"): o código deve se parecer com o dos exemplos das aulas e ser explicável na arguição oral.
   - TAD em 3 arquivos: `.h` (contrato, `typedef struct X X;` opaco + protótipos), `.c` (struct real + implementação), `main.c` (cliente). Nunca `#include "arquivo.c"`.
   - Include guards corretos (`#ifndef X_H / #define X_H / ... / #endif`).

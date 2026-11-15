@@ -98,6 +98,88 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** fez o primeiro commit do repositório, na branch `master`, com todos os arquivos: `CLAUDE.md`, `AI_LOG.md`, `README.md` (ainda vazio), o hook e a skill em `.claude/`, e a pasta `contexto/` (PDFs, slides em `.md`, códigos das aulas, `projeto-exemplo` e a nota de memória). O repositório não tem remote, então nada foi enviado ao GitHub.
 - **Adaptações / correções:** nenhuma.
 
+## #010 — Domingo, 15/11/2026
+
+- **Autor:** Murilo Leandro
+- **Prompt:**
+  > <browser_instruction># Claude in Chrome browser automation
+  >
+  > You have access to browser automation tools (mcp__claude-in-chrome__*) for interacting with web pages in Chrome. Follow these guidelines for effective browser automation.
+  >
+  > ## Loading deferred tools
+  >
+  > If the mcp__claude-in-chrome__* tools are deferred (must be loaded via ToolSearch before use), load every tool you expect to need in ONE ToolSearch call — the select query accepts a comma-separated list — never one call per tool. Start with the core set:
+  >
+  > ToolSearch with query "select:mcp__claude-in-chrome__tabs_context_mcp,mcp__claude-in-chrome__navigate,mcp__claude-in-chrome__computer,mcp__claude-in-chrome__read_page,mcp__claude-in-chrome__tabs_create_mcp,mcp__claude-in-chrome__tabs_close_mcp"
+  >
+  > Add task-specific tools to the same call when the task obviously needs them: read_console_messages / read_network_requests for debugging, form_input for forms, gif_creator for recordings, javascript_tool for page scripting.
+  >
+  > ## GIF recording
+  >
+  > When performing multi-step browser interactions that the user may want to review or share, use mcp__claude-in-chrome__gif_creator to record them.
+  >
+  > You must ALWAYS:
+  > * Capture extra frames before and after taking actions to ensure smooth playback
+  > * Name the file meaningfully to help the user identify it later (e.g., "login_process.gif")
+  >
+  > ## Console log debugging
+  >
+  > You can use mcp__claude-in-chrome__read_console_messages to read console output. Console output may be verbose. If you are looking for specific log entries, use the 'pattern' parameter with a regex-compatible pattern. This filters results efficiently and avoids overwhelming output. For example, use pattern: "[MyApp]" to filter for application-specific logs rather than reading all console output.
+  >
+  > ## Alerts and dialogs
+  >
+  > IMPORTANT: Do not trigger JavaScript alerts, confirms, prompts, or browser modal dialogs through your actions. These browser dialogs block all further browser events and will prevent the extension from receiving any subsequent commands. Instead, when possible, use console.log for debugging and then use the mcp__claude-in-chrome__read_console_messages tool to read those log messages. If a page has dialog-triggering elements:
+  > 1. Avoid clicking buttons or links that may trigger alerts (e.g., "Delete" buttons with confirmation dialogs)
+  > 2. If you must interact with such elements, warn the user first that this may interrupt the session
+  > 3. Use mcp__claude-in-chrome__javascript_tool to check for and dismiss any existing dialogs before proceeding
+  >
+  > If you accidentally trigger a dialog and lose responsiveness, inform the user they need to manually dismiss it in the browser.
+  >
+  > ## Avoid rabbit holes and loops
+  >
+  > When using browser automation tools, stay focused on the specific task. If you encounter any of the following, stop and ask the user for guidance:
+  > - Unexpected complexity or tangential browser exploration
+  > - Browser tool calls failing or returning errors after 2-3 attempts
+  > - No response from the browser extension
+  > - Page elements not responding to clicks or input
+  > - Pages not loading or timing out
+  > - Unable to complete the browser task despite multiple approaches
+  >
+  > Explain what you attempted, what went wrong, and ask how the user would like to proceed. Do not keep retrying the same failing browser action or explore unrelated pages without checking in first.
+  >
+  > ## Tab context and session startup
+  >
+  > IMPORTANT: At the start of each browser automation session, call mcp__claude-in-chrome__tabs_context_mcp first to get information about the user's current browser tabs. Use this context to understand what the user might want to work with before creating new tabs.
+  >
+  > Never reuse tab IDs from a previous/other session. Follow these guidelines:
+  > 1. Only reuse an existing tab if the user explicitly asks to work with it
+  > 2. Otherwise, create a new tab with mcp__claude-in-chrome__tabs_create_mcp
+  > 3. If a tool returns an error indicating the tab doesn't exist or is invalid, call tabs_context_mcp to get fresh tab IDs
+  > 4. When a tab is closed by the user or a navigation error occurs, call tabs_context_mcp to see what tabs are available</browser_instruction>
+  > Vamos fazer a T05, me explica o plano
+- **Objetivo:** fazer a T05 do plano: trocar os 7 blocos `case` duplicados do menu de ordenação, e o bloco repetido 7 vezes na tela de métricas, por uma tabela de algoritmos (vetor de structs com nome e ponteiro para função).
+- **Resposta da IA (resumo):** a T05 depende da T02, porque `sort.c` e `main.c` ainda não existiam. A IA perguntou o escopo e a equipe escolheu fazer T02 + T05 juntas. A IA criou a pasta `src/` em inglês a partir do `projeto-exemplo`: `metrics.h/.c`, `search.h/.c`, `vector.h/.c`, `sort.h/.c` e `main.c`, sem nenhum `#include "*.c"`. Em `sort.c`, a tabela `static const SortAlgorithm algorithms[SORT_COUNT]` guarda o nome e a função de cada algoritmo. `sort_run()` copia o vetor, inicia as métricas, mede o tempo e chama o algoritmo (retorna 1/0), e `sort_name()` devolve o nome para o menu. No `main.c`, o menu é gerado por um `for` sobre a tabela e a comparação geral virou um único laço. A opção "Exit" do submenu agora volta ao `main` e libera o vetor, em vez de chamar `exit(0)`. A IA também criou o `.gitignore` (`*.exe`, `*.o`). Testes: compila com `gcc -Wall -Wextra` sem warnings, os 7 algoritmos ordenam corretamente, opções inválidas são rejeitadas e comparações e trocas ficam idênticas às do protótipo com N = 10 e N = 1000.
+- **Adaptações / correções:** os bugs da T03 não foram corrigidos, só marcados com `TODO(T03)` no código (srand, VLAs do merge, leitura fora do vetor em `sequential_search`, duplicatas). A IA também achou um bug que não estava na lista: com N > 2048, `vector_fill_random` entra em laço infinito (só existem 2048 valores únicos). Ponteiro para função não aparece no material das aulas, por isso `sort.h` tem um comentário explicando o `typedef` e o assunto fica para a equipe estudar antes da arguição. O hook registrou por engano, nesta entrada, um bloco `<browser_instruction>` que a extensão do navegador acrescenta ao prompt. O bloco não foi apagado e a correção do `log_prompt.py` ficou pendente. Na #011 a equipe pediu que os textos exibidos ao usuário (`printf`) fiquem em português, e não em inglês como a IA tinha feito.
+
+## #011 — Domingo, 15/11/2026
+
+- **Autor:** Murilo Leandro
+- **Prompt:**
+  > <ide_opened_file>The user opened the file c:\Users\Admin\Documents\IFSP\Professores\2_Semestre\ESDD_Estrutura_de_Dados\Eduardo_Leal\Projeto_Final_ESDD\src\main.c in the IDE. This may or may not be related to the current task.</ide_opened_file>
+  > os printf pode ser em portugues mesmo
+- **Objetivo:** deixar em português os textos que o programa mostra ao usuário, mantendo o código (identificadores e comentários) em inglês.
+- **Resposta da IA (resumo):** traduziu para português sem acento todos os `printf` de `src/main.c` e `src/metrics.c` (menus, mensagens de erro, relatório e tabela de métricas) e os nomes dos algoritmos na tabela de `src/sort.c` ("Merge Sort Iterativo", "Quick Sort Pivo Inicio" etc.). Registrou a regra no `CLAUDE.md` (textos ao usuário em português sem acento; código em inglês). Recompilou com `-Wall -Wextra` sem warnings e testou os menus.
+- **Adaptações / correções:** a equipe corrigiu a resposta da #010, em que a IA tinha colocado também os textos da interface em inglês. A IA tirou os acentos por conta própria, seguindo o protótipo, porque o console do Windows costuma exibi-los errado. Este prompt também foi registrado com um bloco `<ide_opened_file>` que a extensão do VS Code acrescenta, o mesmo problema do hook citado na #010.
+
+## #012 — Domingo, 15/11/2026
+
+- **Autor:** Murilo Leandro
+- **Prompt:**
+  > faz o commit de tudo isso
+- **Objetivo:** versionar no git o trabalho das T02 e T05 e os ajustes da #011.
+- **Resposta da IA (resumo):** criou a branch `t02-t05-sort-table` a partir da `master` e fez nela um commit com a pasta `src/` (metrics, search, vector, sort com a tabela de algoritmos e main), o `.gitignore`, a regra de idioma da interface no `CLAUDE.md` e as entradas #010–#012 deste log. Nada foi enviado ao GitHub (sem push).
+- **Adaptações / correções:** a IA commitou numa branch separada em vez de direto na `master` (como na #009), para que outro integrante revise as T02/T05 antes do merge, como pede a regra do plano.
+
 ---
 
 <!--
