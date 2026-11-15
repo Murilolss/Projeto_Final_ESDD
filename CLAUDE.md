@@ -61,7 +61,7 @@ Isso atende à exigência do enunciado ("Registro de Prompts") e serve de materi
 | `contexto/codigo-exemplos/` | códigos das aulas (padrão de estilo a seguir) — recursão, ordenação, busca, hash (endereçamento aberto), ponteiros, TAD (carrinho), lista sequencial estática, lista simplesmente encadeada |
 | `contexto/pdfs/` | slides das aulas + `Enunciado.pdf` |
 | `contexto/slides/` | um `.md` por PDF (consultar estes em vez dos PDFs) |
-| `contexto/projeto-exemplo/` | protótipo feito à mão (menu de ordenação + métricas em vetor) — ponto de partida, não o padrão final |
+| `contexto/projeto-exemplo/` | protótipo feito à mão (menu de ordenação + métricas em vetor) — ponto de partida, não o padrão final. Inclui `Testes de algoritmos de ordenação.pdf`, a **1ª versão do enunciado** em que o protótipo se baseou (resumo e comparação com o final em `contexto/slides/Testes de algoritmos de ordenação.md`) |
 | `contexto/memory/` | uma nota por sessão, criada ou atualizada com `/salvar-memoria` (ler a mais recente ao iniciar) |
 
 Os PDFs de pilhas/filas e lista dupla **não** têm código em `codigo-exemplos`; o código de referência está nos `.md` correspondentes em `contexto/slides/`. Não há material de lista circular.

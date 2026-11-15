@@ -367,6 +367,87 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** fez dois commits na `ESDD/murilo`. O da T03 usa a cópia da versão só com a T03, guardada no scratchpad durante a implementação. O da T04 traz a versão final, o módulo `memory`, este log (#015–#020) e as notas das sessões 02 e 03. Depois avançou a `main` até a `ESDD/murilo` por fast-forward, sem commit de merge, e enviou a `main` e a `ESDD/murilo` ao GitHub.
 - **Adaptações / correções:** pedido do usuário contra a regra do `CLAUDE.md` ("nunca commitar direto em `main`" e passar por revisão na `dev`). Os commits foram feitos na branch pessoal e a `main` só foi avançada até ela. Como a T03/T04 depende do código da T02/T05, a `main` também recebeu os commits `8a3f44c` (T02/T05) e `cb1b238`, que ainda não tinham revisão. A `dev` ficou para trás da `main`.
 
+## #021 — Domingo, 15/11/2026
+
+- **Autor:** Murilo Leandro
+- **Prompt:**
+  > sim, atualiza a dev também
+- **Objetivo:** deixar a `dev` igual à `main`, com T02–T05.
+- **Resposta da IA (resumo):** avançou a `dev` no GitHub até a `main` (`cbac53f`) por fast-forward, com `git push origin main:dev`, e atualizou a `dev` local. Agora `main`, `dev` e `ESDD/murilo` estão no mesmo commit. Nenhum arquivo de código mudou.
+- **Adaptações / correções:** a primeira tentativa (`git checkout dev`) falhou porque o hook já tinha gravado esta entrada no `AI_LOG.md`, que estava com alterações locais. Os comandos seguintes da mesma linha rodaram, mas não mudaram nada. A segunda tentativa atualizou a `dev` sem trocar de branch.
+
+## #022 — Domingo, 15/11/2026
+
+- **Autor:** Murilo Leandro
+- **Prompt:**
+  > <browser_instruction># Claude in Chrome browser automation
+  >
+  > You have access to browser automation tools (mcp__claude-in-chrome__*) for interacting with web pages in Chrome. Follow these guidelines for effective browser automation.
+  >
+  > ## Loading deferred tools
+  >
+  > If the mcp__claude-in-chrome__* tools are deferred (must be loaded via ToolSearch before use), load every tool you expect to need in ONE ToolSearch call — the select query accepts a comma-separated list — never one call per tool. Start with the core set:
+  >
+  > ToolSearch with query "select:mcp__claude-in-chrome__tabs_context_mcp,mcp__claude-in-chrome__navigate,mcp__claude-in-chrome__computer,mcp__claude-in-chrome__read_page,mcp__claude-in-chrome__tabs_create_mcp,mcp__claude-in-chrome__tabs_close_mcp"
+  >
+  > Add task-specific tools to the same call when the task obviously needs them: read_console_messages / read_network_requests for debugging, form_input for forms, gif_creator for recordings, javascript_tool for page scripting.
+  >
+  > ## GIF recording
+  >
+  > When performing multi-step browser interactions that the user may want to review or share, use mcp__claude-in-chrome__gif_creator to record them.
+  >
+  > You must ALWAYS:
+  > * Capture extra frames before and after taking actions to ensure smooth playback
+  > * Name the file meaningfully to help the user identify it later (e.g., "login_process.gif")
+  >
+  > ## Console log debugging
+  >
+  > You can use mcp__claude-in-chrome__read_console_messages to read console output. Console output may be verbose. If you are looking for specific log entries, use the 'pattern' parameter with a regex-compatible pattern. This filters results efficiently and avoids overwhelming output. For example, use pattern: "[MyApp]" to filter for application-specific logs rather than reading all console output.
+  >
+  > ## Alerts and dialogs
+  >
+  > IMPORTANT: Do not trigger JavaScript alerts, confirms, prompts, or browser modal dialogs through your actions. These browser dialogs block all further browser events and will prevent the extension from receiving any subsequent commands. Instead, when possible, use console.log for debugging and then use the mcp__claude-in-chrome__read_console_messages tool to read those log messages. If a page has dialog-triggering elements:
+  > 1. Avoid clicking buttons or links that may trigger alerts (e.g., "Delete" buttons with confirmation dialogs)
+  > 2. If you must interact with such elements, warn the user first that this may interrupt the session
+  > 3. Use mcp__claude-in-chrome__javascript_tool to check for and dismiss any existing dialogs before proceeding
+  >
+  > If you accidentally trigger a dialog and lose responsiveness, inform the user they need to manually dismiss it in the browser.
+  >
+  > ## Avoid rabbit holes and loops
+  >
+  > When using browser automation tools, stay focused on the specific task. If you encounter any of the following, stop and ask the user for guidance:
+  > - Unexpected complexity or tangential browser exploration
+  > - Browser tool calls failing or returning errors after 2-3 attempts
+  > - No response from the browser extension
+  > - Page elements not responding to clicks or input
+  > - Pages not loading or timing out
+  > - Unable to complete the browser task despite multiple approaches
+  >
+  > Explain what you attempted, what went wrong, and ask how the user would like to proceed. Do not keep retrying the same failing browser action or explore unrelated pages without checking in first.
+  >
+  > ## Tab context and session startup
+  >
+  > IMPORTANT: At the start of each browser automation session, call mcp__claude-in-chrome__tabs_context_mcp first to get information about the user's current browser tabs. Use this context to understand what the user might want to work with before creating new tabs.
+  >
+  > Never reuse tab IDs from a previous/other session. Follow these guidelines:
+  > 1. Only reuse an existing tab if the user explicitly asks to work with it
+  > 2. Otherwise, create a new tab with mcp__claude-in-chrome__tabs_create_mcp
+  > 3. If a tool returns an error indicating the tab doesn't exist or is invalid, call tabs_context_mcp to get fresh tab IDs
+  > 4. When a tab is closed by the user or a navigation error occurs, call tabs_context_mcp to see what tabs are available</browser_instruction>
+  > Adicionei um pdf no projeto de exemplo, aquele pdf é a primeira versão do enunciado final e foi nele que eu me basiei para para fazer o projeto de exemplo, adicionei ele para você ter o contexto, crie um arquivo .md para ele e pegue o contexto dele
+- **Objetivo:** transcrever o PDF da 1ª versão do enunciado (`contexto/projeto-exemplo/Testes de algoritmos de ordenação.pdf`), base do protótipo, para Markdown e usar como contexto.
+- **Resposta da IA (resumo):** criou `contexto/slides/Testes de algoritmos de ordenação.md` com o conteúdo do PDF (recursos, dados exibidos, módulos, `struct Metricas`, fluxo de execução), uma tabela comparando a v1 com o enunciado final e outra com a situação no código atual em `src/`. Encontrou dois itens da v1 que ainda faltam: geração de dados **ordenados/invertidos** e **modo passo a passo**. Atualizou a linha de `contexto/projeto-exemplo/` na tabela de pastas do `CLAUDE.md`.
+- **Adaptações / correções:** o `.md` ficou em `contexto/slides/` (e não em `projeto-exemplo/`) para seguir a convenção de um `.md` por PDF nessa pasta. Os dois itens faltantes não são exigidos pelo enunciado final; ficaram registrados como sugestão. A entrada do prompt voltou a gravar o bloco `<browser_instruction>` (pendência já conhecida do `log_prompt.py`).
+
+## #023 — Domingo, 15/11/2026
+
+- **Autor:** Murilo Leandro
+- **Prompt:**
+  > faz o commit disso
+- **Objetivo:** commitar o resumo da 1ª versão do enunciado e os arquivos ligados a ele.
+- **Resposta da IA (resumo):** fez um commit na `ESDD/murilo` com o PDF `contexto/projeto-exemplo/Testes de algoritmos de ordenação.pdf`, o novo `contexto/slides/Testes de algoritmos de ordenação.md`, a linha atualizada do `CLAUDE.md` e as entradas #021–#023 do `AI_LOG.md`. Sem push.
+- **Adaptações / correções:** nenhuma. O PDF entrou no commit porque o `.md` e o `CLAUDE.md` apontam para ele (os outros PDFs de `contexto/` também são versionados).
+
 ---
 
 <!--
