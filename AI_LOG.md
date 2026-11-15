@@ -198,6 +198,175 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** conferiu que a conta tem permissão de admin, enviou as três branches com `git push -u` e trocou a branch padrão do repositório de `master` para `main` (`gh repo edit --default-branch main`). Depois commitou na `ESDD/murilo` o que estava pendente (entradas #013–#014 deste log e a seção "Branches (git)" do `CLAUDE.md`) e enviou de novo. A `master` antiga continua no GitHub, no mesmo commit da `main`.
 - **Adaptações / correções:** a IA não apagou a `master` do GitHub porque isso não foi pedido. A equipe decide se remove.
 
+## #015 — Domingo, 15/11/2026
+
+- **Autor:** Murilo Leandro
+- **Prompt:**
+  > pode apagar a master do GitHub
+- **Objetivo:** remover a branch `master` do GitHub, que sobrou depois da troca para `main`.
+- **Resposta da IA (resumo):** antes de apagar, conferiu que a `master` remota estava no mesmo commit da `main` (`4984778`, nada a perder) e que nenhum pull request apontava para ela. Apagou com `git push origin --delete master` e limpou a referência local com `git remote prune origin`. O GitHub agora tem só `main` (padrão), `dev` e `ESDD/murilo`.
+- **Adaptações / correções:** nenhuma.
+
+## #016 — Domingo, 15/11/2026
+
+- **Autor:** Murilo Leandro
+- **Prompt:**
+  > /salvar-memoria
+- **Objetivo:** salvar a memória desta sessão com a skill `/salvar-memoria`.
+- **Resposta da IA (resumo):** criou a nota `contexto/memory/2026-11-15_sessao-02_tabela-algoritmos-branches.md` (prompts #010–#016). Ela registra as T02/T05 feitas, o fluxo de branches, o bug do laço infinito com N > 2048, que ponteiro para função não está no material das aulas e as pendências (branches dos outros integrantes, PR para a `dev`, correção do hook).
+- **Adaptações / correções:** nenhuma.
+
+## #017 — Domingo, 15/11/2026
+
+- **Autor:** Murilo Leandro
+- **Prompt:**
+  > <browser_instruction># Claude in Chrome browser automation
+  >
+  > You have access to browser automation tools (mcp__claude-in-chrome__*) for interacting with web pages in Chrome. Follow these guidelines for effective browser automation.
+  >
+  > ## Loading deferred tools
+  >
+  > If the mcp__claude-in-chrome__* tools are deferred (must be loaded via ToolSearch before use), load every tool you expect to need in ONE ToolSearch call — the select query accepts a comma-separated list — never one call per tool. Start with the core set:
+  >
+  > ToolSearch with query "select:mcp__claude-in-chrome__tabs_context_mcp,mcp__claude-in-chrome__navigate,mcp__claude-in-chrome__computer,mcp__claude-in-chrome__read_page,mcp__claude-in-chrome__tabs_create_mcp,mcp__claude-in-chrome__tabs_close_mcp"
+  >
+  > Add task-specific tools to the same call when the task obviously needs them: read_console_messages / read_network_requests for debugging, form_input for forms, gif_creator for recordings, javascript_tool for page scripting.
+  >
+  > ## GIF recording
+  >
+  > When performing multi-step browser interactions that the user may want to review or share, use mcp__claude-in-chrome__gif_creator to record them.
+  >
+  > You must ALWAYS:
+  > * Capture extra frames before and after taking actions to ensure smooth playback
+  > * Name the file meaningfully to help the user identify it later (e.g., "login_process.gif")
+  >
+  > ## Console log debugging
+  >
+  > You can use mcp__claude-in-chrome__read_console_messages to read console output. Console output may be verbose. If you are looking for specific log entries, use the 'pattern' parameter with a regex-compatible pattern. This filters results efficiently and avoids overwhelming output. For example, use pattern: "[MyApp]" to filter for application-specific logs rather than reading all console output.
+  >
+  > ## Alerts and dialogs
+  >
+  > IMPORTANT: Do not trigger JavaScript alerts, confirms, prompts, or browser modal dialogs through your actions. These browser dialogs block all further browser events and will prevent the extension from receiving any subsequent commands. Instead, when possible, use console.log for debugging and then use the mcp__claude-in-chrome__read_console_messages tool to read those log messages. If a page has dialog-triggering elements:
+  > 1. Avoid clicking buttons or links that may trigger alerts (e.g., "Delete" buttons with confirmation dialogs)
+  > 2. If you must interact with such elements, warn the user first that this may interrupt the session
+  > 3. Use mcp__claude-in-chrome__javascript_tool to check for and dismiss any existing dialogs before proceeding
+  >
+  > If you accidentally trigger a dialog and lose responsiveness, inform the user they need to manually dismiss it in the browser.
+  >
+  > ## Avoid rabbit holes and loops
+  >
+  > When using browser automation tools, stay focused on the specific task. If you encounter any of the following, stop and ask the user for guidance:
+  > - Unexpected complexity or tangential browser exploration
+  > - Browser tool calls failing or returning errors after 2-3 attempts
+  > - No response from the browser extension
+  > - Page elements not responding to clicks or input
+  > - Pages not loading or timing out
+  > - Unable to complete the browser task despite multiple approaches
+  >
+  > Explain what you attempted, what went wrong, and ask how the user would like to proceed. Do not keep retrying the same failing browser action or explore unrelated pages without checking in first.
+  >
+  > ## Tab context and session startup
+  >
+  > IMPORTANT: At the start of each browser automation session, call mcp__claude-in-chrome__tabs_context_mcp first to get information about the user's current browser tabs. Use this context to understand what the user might want to work with before creating new tabs.
+  >
+  > Never reuse tab IDs from a previous/other session. Follow these guidelines:
+  > 1. Only reuse an existing tab if the user explicitly asks to work with it
+  > 2. Otherwise, create a new tab with mcp__claude-in-chrome__tabs_create_mcp
+  > 3. If a tool returns an error indicating the tab doesn't exist or is invalid, call tabs_context_mcp to get fresh tab IDs
+  > 4. When a tab is closed by the user or a navigation error occurs, call tabs_context_mcp to see what tabs are available</browser_instruction>
+  > Quais as tasks que foram feitas ?
+- **Objetivo:** saber quais tarefas do plano já foram feitas.
+- **Resposta da IA (resumo):** comparou o código e o git com o progresso salvo no artefato "Plano Projeto ESDD". No código, T02 e T05 estão prontas na branch `ESDD/murilo`, aguardando revisão. No plano, só a T02 está marcada como concluída e a T05 ainda não. As outras 22 tarefas não foram começadas. Nenhum arquivo mudou além deste log.
+- **Adaptações / correções:** nenhuma.
+
+## #018 — Domingo, 15/11/2026
+
+- **Autor:** Murilo Leandro
+- **Prompt:**
+  > <browser_instruction># Claude in Chrome browser automation
+  >
+  > You have access to browser automation tools (mcp__claude-in-chrome__*) for interacting with web pages in Chrome. Follow these guidelines for effective browser automation.
+  >
+  > ## Loading deferred tools
+  >
+  > If the mcp__claude-in-chrome__* tools are deferred (must be loaded via ToolSearch before use), load every tool you expect to need in ONE ToolSearch call — the select query accepts a comma-separated list — never one call per tool. Start with the core set:
+  >
+  > ToolSearch with query "select:mcp__claude-in-chrome__tabs_context_mcp,mcp__claude-in-chrome__navigate,mcp__claude-in-chrome__computer,mcp__claude-in-chrome__read_page,mcp__claude-in-chrome__tabs_create_mcp,mcp__claude-in-chrome__tabs_close_mcp"
+  >
+  > Add task-specific tools to the same call when the task obviously needs them: read_console_messages / read_network_requests for debugging, form_input for forms, gif_creator for recordings, javascript_tool for page scripting.
+  >
+  > ## GIF recording
+  >
+  > When performing multi-step browser interactions that the user may want to review or share, use mcp__claude-in-chrome__gif_creator to record them.
+  >
+  > You must ALWAYS:
+  > * Capture extra frames before and after taking actions to ensure smooth playback
+  > * Name the file meaningfully to help the user identify it later (e.g., "login_process.gif")
+  >
+  > ## Console log debugging
+  >
+  > You can use mcp__claude-in-chrome__read_console_messages to read console output. Console output may be verbose. If you are looking for specific log entries, use the 'pattern' parameter with a regex-compatible pattern. This filters results efficiently and avoids overwhelming output. For example, use pattern: "[MyApp]" to filter for application-specific logs rather than reading all console output.
+  >
+  > ## Alerts and dialogs
+  >
+  > IMPORTANT: Do not trigger JavaScript alerts, confirms, prompts, or browser modal dialogs through your actions. These browser dialogs block all further browser events and will prevent the extension from receiving any subsequent commands. Instead, when possible, use console.log for debugging and then use the mcp__claude-in-chrome__read_console_messages tool to read those log messages. If a page has dialog-triggering elements:
+  > 1. Avoid clicking buttons or links that may trigger alerts (e.g., "Delete" buttons with confirmation dialogs)
+  > 2. If you must interact with such elements, warn the user first that this may interrupt the session
+  > 3. Use mcp__claude-in-chrome__javascript_tool to check for and dismiss any existing dialogs before proceeding
+  >
+  > If you accidentally trigger a dialog and lose responsiveness, inform the user they need to manually dismiss it in the browser.
+  >
+  > ## Avoid rabbit holes and loops
+  >
+  > When using browser automation tools, stay focused on the specific task. If you encounter any of the following, stop and ask the user for guidance:
+  > - Unexpected complexity or tangential browser exploration
+  > - Browser tool calls failing or returning errors after 2-3 attempts
+  > - No response from the browser extension
+  > - Page elements not responding to clicks or input
+  > - Pages not loading or timing out
+  > - Unable to complete the browser task despite multiple approaches
+  >
+  > Explain what you attempted, what went wrong, and ask how the user would like to proceed. Do not keep retrying the same failing browser action or explore unrelated pages without checking in first.
+  >
+  > ## Tab context and session startup
+  >
+  > IMPORTANT: At the start of each browser automation session, call mcp__claude-in-chrome__tabs_context_mcp first to get information about the user's current browser tabs. Use this context to understand what the user might want to work with before creating new tabs.
+  >
+  > Never reuse tab IDs from a previous/other session. Follow these guidelines:
+  > 1. Only reuse an existing tab if the user explicitly asks to work with it
+  > 2. Otherwise, create a new tab with mcp__claude-in-chrome__tabs_create_mcp
+  > 3. If a tool returns an error indicating the tab doesn't exist or is invalid, call tabs_context_mcp to get fresh tab IDs
+  > 4. When a tab is closed by the user or a navigation error occurs, call tabs_context_mcp to see what tabs are available</browser_instruction>
+  > Olá claude, vamos fazer o T03 e T04, qual será o plano?
+- **Objetivo:** planejar e implementar a T03 (corrigir os bugs herdados do protótipo) e a T04 (medir o consumo de memória).
+- **Resposta da IA (resumo):** montou o plano em modo de planejamento e perguntou três decisões à equipe. Depois da aprovação, implementou:
+  - **T03:** `srand(time(NULL))` uma vez no `main`; `vector_fill_random` reescrito como permutação 1..N com Fisher-Yates (acabou o laço infinito com N > 2048 e a sobrescrita por 1..512), com `random_index` combinando dois `rand()` porque `RAND_MAX` = 32767 no MinGW; VLAs do `merge` trocados por alocação no heap com checagem de `NULL`; `merge` e os 7 algoritmos passaram a retornar `int` (1/0), e `SortFunction` mudou para `int (*)(...)`; condição da `sequential_search` invertida (`i < size` primeiro).
+  - **T04:** novo módulo `memory.h/.c` (`mem_alloc`, `mem_realloc`, `mem_free` com tamanho explícito, `mem_current`, `mem_peak`, `mem_reset_peak`); `Metrics` ganhou `memory_bytes` (pico de memória extra), exibido no relatório e numa nova coluna da tabela; `vector_resize` com `realloc` num ponteiro temporário; `vector_destroy` recebe o tamanho; nova opção 4 do menu "Alterar tamanho do vetor"; "Mostrar vetor" mostra a memória; na saída aparece "Memoria nao liberada" (deve ser 0).
+  - Arquivos: `src/main.c`, `src/vector.c/.h`, `src/sort.c/.h`, `src/metrics.c/.h`, `src/search.c`, novos `src/memory.c/.h`.
+  - Verificação: compila com `-Wall -Wextra` sem warnings. Um teste temporário (fora do repositório) com N = 1, 2, 3, 10, 1.000, 10.000 e 50.000 confirmou: permutação válida, os 7 algoritmos ordenam, memória extra = N × 4 bytes nos dois Merge Sorts e 0 nos demais, contador volta a 0 (sem vazamento), `vector_resize` para cima e para baixo. Execução real do menu: vetores diferentes a cada execução e "Memoria nao liberada: 0 bytes".
+- **Adaptações / correções:**
+  - Decisões da equipe nas perguntas: permutação 1..N (em vez de valores com repetição), tamanho explícito no `mem_free` (em vez de cabeçalho escondido antes do bloco) e opção de menu para o `realloc`.
+  - Caso-limite achado na implementação, fora do plano: no Merge Sort iterativo o `merge` pode ser chamado com a metade direita vazia (ex.: N = 10, passo 4, `left` = 8), e `malloc(0)` pode devolver `NULL`, o que pareceria falta de memória. O `merge` agora retorna 1 sem fazer nada quando uma das metades está vazia. Efeito colateral: nesses casos o contador de trocas do Merge Sort iterativo fica um pouco menor que no protótipo, porque a cópia inútil da metade esquerda deixou de ser contada.
+  - Com N = 50.000, Bubble Sort leva ~20 s, Selection ~6 s e Insertion ~4 s na máquina de teste. Na T09 vale avisar o usuário antes de rodar "Comparar todos" com N grande.
+
+## #019 — Domingo, 15/11/2026
+
+- **Autor:** Murilo Leandro
+- **Prompt:**
+  > /salvar-memoria
+- **Objetivo:** salvar a nota de memória desta sessão (T03 e T04).
+- **Resposta da IA (resumo):** criou `contexto/memory/2026-11-15_sessao-03_bugs-e-memoria.md` com o que foi feito na T03/T04, as decisões da equipe, as armadilhas encontradas (`RAND_MAX` do MinGW, `malloc(0)` no Merge Sort iterativo), as pendências (commits, PR) e os próximos passos.
+- **Adaptações / correções:** nenhuma.
+
+## #020 — Domingo, 15/11/2026
+
+- **Autor:** Murilo Leandro
+- **Prompt:**
+  > faça dois commits separados, um para T03 e outro para T04, pode subir direto para main sem PR
+- **Objetivo:** registrar a T03 e a T04 em commits separados e publicar na `main` sem PR.
+- **Resposta da IA (resumo):** fez dois commits na `ESDD/murilo`. O da T03 usa a cópia da versão só com a T03, guardada no scratchpad durante a implementação. O da T04 traz a versão final, o módulo `memory`, este log (#015–#020) e as notas das sessões 02 e 03. Depois avançou a `main` até a `ESDD/murilo` por fast-forward, sem commit de merge, e enviou a `main` e a `ESDD/murilo` ao GitHub.
+- **Adaptações / correções:** pedido do usuário contra a regra do `CLAUDE.md` ("nunca commitar direto em `main`" e passar por revisão na `dev`). Os commits foram feitos na branch pessoal e a `main` só foi avançada até ela. Como a T03/T04 depende do código da T02/T05, a `main` também recebeu os commits `8a3f44c` (T02/T05) e `cb1b238`, que ainda não tinham revisão. A `dev` ficou para trás da `main`.
+
 ---
 
 <!--

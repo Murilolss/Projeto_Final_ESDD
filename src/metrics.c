@@ -13,6 +13,7 @@ void metrics_init(Metrics *m, const char *name)
     m->comparisons = 0;
     m->swaps = 0;
     m->time_ms = 0.0;
+    m->memory_bytes = 0;
 }
 
 void metrics_print(const Metrics *m, int size)
@@ -26,6 +27,7 @@ void metrics_print(const Metrics *m, int size)
     printf("Tempo:        %.3f ms\n", m->time_ms);
     printf("Comparacoes:  %lld\n", m->comparisons);
     printf("Trocas:       %lld\n", m->swaps);
+    printf("Memoria extra: %lld bytes\n", m->memory_bytes);
     printf("===================================\n");
 }
 
@@ -34,14 +36,16 @@ void metrics_print_table(const Metrics *list, int count, int size)
     if (list == NULL)
         return;
 
-    printf("\n=================== Metricas dos Metodos de Ordenacao ===================\n");
+    printf("\n============================ Metricas dos Metodos de Ordenacao ============================\n");
     printf("Itens no vetor: %d\n\n", size);
-    printf("%-22s %12s %15s %15s\n", "Algoritmo", "Tempo (ms)", "Comparacoes", "Trocas");
-    printf("-------------------------------------------------------------------------\n");
+    printf("%-22s %12s %15s %15s %14s\n", "Algoritmo", "Tempo (ms)", "Comparacoes", "Trocas", "Memoria (B)");
+    printf("-------------------------------------------------------------------------------------------\n");
     for (int i = 0; i < count; i++)
     {
-        printf("%-22s %12.3f %15lld %15lld\n",
-               list[i].name, list[i].time_ms, list[i].comparisons, list[i].swaps);
+        printf("%-22s %12.3f %15lld %15lld %14lld\n",
+               list[i].name, list[i].time_ms, list[i].comparisons, list[i].swaps,
+               list[i].memory_bytes);
     }
-    printf("=========================================================================\n");
+    printf("===========================================================================================\n");
+    printf("Memoria (B) = pico de memoria extra alocada pelo algoritmo, alem do vetor.\n");
 }

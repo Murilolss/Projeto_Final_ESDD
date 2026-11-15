@@ -9,6 +9,7 @@ typedef struct {
     long long comparisons;
     long long swaps;
     double time_ms;
+    long long memory_bytes; /* peak of extra heap memory used by the algorithm */
 } Metrics;
 
 void metrics_init(Metrics *m, const char *name);

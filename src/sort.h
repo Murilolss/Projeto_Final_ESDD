@@ -26,7 +26,7 @@ int selection_sort(int *array, int size, Metrics *m);
 const char *sort_name(int index);
 
 /* Copies source into dest (both with size elements), sorts dest with the algorithm at
-   position index and fills out with its metrics and time.
+   position index and fills out with its metrics, time and extra memory (peak bytes).
    Returns 1 on success, 0 on invalid arguments or if the algorithm fails. */
 int sort_run(int index, const int *source, int *dest, int size, Metrics *out);
 

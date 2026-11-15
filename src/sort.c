@@ -2,6 +2,7 @@
 #include <string.h>
 #include <time.h>
 #include "sort.h"
+#include "memory.h"
 
 /* Every sort function returns 1 on success and 0 on failure.
    Only the Merge Sorts can fail (they allocate memory); the others always return 1. */
@@ -61,7 +62,8 @@ static int min_int(int a, int b)
 }
 
 /* Merges array[left..middle] and array[middle+1..right], both already sorted.
-   The two halves are copied to temporary arrays allocated on the heap (malloc).
+   The two halves are copied to temporary arrays allocated on the heap (mem_alloc).
+   This is the extra memory of the Merge Sort: n1 + n2 ints, at most size ints at once.
    Returns 1 on success, 0 if there is not enough memory. */
 static int merge(int *array, int left, int middle, int right, Metrics *m)
 {
@@ -73,18 +75,18 @@ static int merge(int *array, int left, int middle, int right, Metrics *m)
 
     /* The iterative version can call merge with an empty right half (e.g. size 10,
        current_size 4, left 8). The left half is already sorted, so there is nothing to do.
-       Returning here also avoids malloc(0), which may return NULL. */
+       Returning here also avoids allocating 0 bytes (mem_alloc(0) returns NULL). */
     if (n1 <= 0 || n2 <= 0)
         return 1;
 
-    left_part = (int *)malloc(n1 * sizeof(int));
+    left_part = (int *)mem_alloc(n1 * sizeof(int));
     if (left_part == NULL)
         return 0;
 
-    right_part = (int *)malloc(n2 * sizeof(int));
+    right_part = (int *)mem_alloc(n2 * sizeof(int));
     if (right_part == NULL)
     {
-        free(left_part);
+        mem_free(left_part, n1 * sizeof(int));
         left_part = NULL;
         return 0;
     }
@@ -132,9 +134,9 @@ static int merge(int *array, int left, int middle, int right, Metrics *m)
         k++;
     }
 
-    free(left_part);
+    mem_free(left_part, n1 * sizeof(int));
     left_part = NULL;
-    free(right_part);
+    mem_free(right_part, n2 * sizeof(int));
     right_part = NULL;
 
     return 1;
@@ -329,6 +331,7 @@ const char *sort_name(int index)
 int sort_run(int index, const int *source, int *dest, int size, Metrics *out)
 {
     clock_t start, end;
+    long long baseline;
     int ok;
 
     if (index < 0 || index >= SORT_COUNT)
@@ -342,10 +345,17 @@ int sort_run(int index, const int *source, int *dest, int size, Metrics *out)
     memcpy(dest, source, size * sizeof(int));
     metrics_init(out, algorithms[index].name);
 
+    /* Extra memory = highest amount allocated during the sort minus what was already
+       allocated before it (the vectors themselves). The recursion stack is not counted:
+       it is not heap memory. */
+    mem_reset_peak();
+    baseline = mem_current();
+
     start = clock();
     ok = algorithms[index].function(dest, size, out);
     end = clock();
 
     out->time_ms = (double)(end - start) * 1000.0 / CLOCKS_PER_SEC;
+    out->memory_bytes = mem_peak() - baseline;
     return ok;
 }

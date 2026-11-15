@@ -1,14 +1,23 @@
+#define __USE_MINGW_ANSI_STDIO 1 /* enables %lld on MinGW (must come before stdio.h) */
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include "vector.h"
 #include "sort.h"
 #include "metrics.h"
+#include "memory.h"
+
+#define OPTION_SORT 1
+#define OPTION_SHOW 2
+#define OPTION_COMPARE 3
+#define OPTION_RESIZE 4
+#define OPTION_EXIT 5
 
 static void clear_input(void);
 static void wait_enter(void);
 static int menu_sort(const int *vector, int size);
 static void menu_compare_all(const int *vector, int size);
+static void menu_resize(int **vector, int *size);
 
 int main()
 {
@@ -39,10 +48,11 @@ int main()
     {
         system("cls");
         printf("---- Selecione uma opcao ----\n");
-        printf("1 - Metodos de ordenacao\n");
-        printf("2 - Mostrar vetor\n");
-        printf("3 - Comparar todos os algoritmos\n");
-        printf("4 - Encerrar programa\n");
+        printf("%d - Metodos de ordenacao\n", OPTION_SORT);
+        printf("%d - Mostrar vetor\n", OPTION_SHOW);
+        printf("%d - Comparar todos os algoritmos\n", OPTION_COMPARE);
+        printf("%d - Alterar tamanho do vetor\n", OPTION_RESIZE);
+        printf("%d - Encerrar programa\n", OPTION_EXIT);
         printf("-----------------------------\n");
         printf("Digite uma opcao: ");
         choice = 0;
@@ -51,24 +61,32 @@ int main()
 
         switch (choice)
         {
-        case 1:
+        case OPTION_SORT:
             if (menu_sort(numbers, size) == 1)
-                choice = 4; /* the user chose Exit inside the submenu */
+                choice = OPTION_EXIT; /* the user chose Exit inside the submenu */
             break;
 
-        case 2:
+        case OPTION_SHOW:
             system("cls");
             printf("\nVetor: ");
             vector_print(numbers, size);
+            printf("\nMemoria do vetor: %d x %d = %lld bytes\n",
+                   size, (int)sizeof(int), (long long)size * (long long)sizeof(int));
+            printf("Memoria alocada no programa: %lld bytes\n", mem_current());
             wait_enter();
             break;
 
-        case 3:
+        case OPTION_COMPARE:
             system("cls");
             menu_compare_all(numbers, size);
             break;
 
-        case 4:
+        case OPTION_RESIZE:
+            system("cls");
+            menu_resize(&numbers, &size);
+            break;
+
+        case OPTION_EXIT:
             break;
 
         default:
@@ -76,10 +94,13 @@ int main()
             wait_enter();
             break;
         }
-    } while (choice != 4);
+    } while (choice != OPTION_EXIT);
 
     printf("\nEncerrando o programa.\n");
-    vector_destroy(&numbers);
+    vector_destroy(&numbers, size);
+
+    /* Everything was freed, so this must be 0. Any other value means a memory leak. */
+    printf("Memoria nao liberada: %lld bytes\n", mem_current());
     return 0;
 }
 
@@ -147,7 +168,7 @@ static int menu_sort(const int *vector, int size)
         }
         else if (choice == back_option || choice == exit_option)
         {
-            vector_destroy(&copy);
+            vector_destroy(&copy, size);
             return (choice == exit_option) ? 1 : 0;
         }
         else
@@ -179,8 +200,41 @@ static void menu_compare_all(const int *vector, int size)
             count++;
     }
 
-    vector_destroy(&copy);
+    vector_destroy(&copy, size);
 
     metrics_print_table(results, count, size);
+    wait_enter();
+}
+
+/* Asks for a new size, resizes the array with realloc and fills it again
+   with a new random permutation of 1..new size. */
+static void menu_resize(int **vector, int *size)
+{
+    int new_size = 0;
+    long long before = mem_current();
+
+    printf("Tamanho atual: %d\n", *size);
+    printf("Digite o novo tamanho do vetor: ");
+    if (scanf("%d", &new_size) != 1 || new_size <= 0)
+    {
+        clear_input();
+        printf("\nTamanho invalido.\n");
+        wait_enter();
+        return;
+    }
+    clear_input();
+
+    if (vector_resize(vector, *size, new_size) == 0)
+    {
+        printf("\nErro ao realocar memoria. O vetor continua com %d itens.\n", *size);
+        wait_enter();
+        return;
+    }
+
+    *size = new_size;
+    vector_fill_random(*vector, *size);
+
+    printf("\nVetor realocado com %d itens e preenchido de novo.\n", *size);
+    printf("Memoria alocada no programa: %lld -> %lld bytes\n", before, mem_current());
     wait_enter();
 }
