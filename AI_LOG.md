@@ -178,7 +178,25 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
   > faz o commit de tudo isso
 - **Objetivo:** versionar no git o trabalho das T02 e T05 e os ajustes da #011.
 - **Resposta da IA (resumo):** criou a branch `t02-t05-sort-table` a partir da `master` e fez nela um commit com a pasta `src/` (metrics, search, vector, sort com a tabela de algoritmos e main), o `.gitignore`, a regra de idioma da interface no `CLAUDE.md` e as entradas #010–#012 deste log. Nada foi enviado ao GitHub (sem push).
-- **Adaptações / correções:** a IA commitou numa branch separada em vez de direto na `master` (como na #009), para que outro integrante revise as T02/T05 antes do merge, como pede a regra do plano.
+- **Adaptações / correções:** a IA commitou numa branch separada em vez de direto na `master` (como na #009), para que outro integrante revise as T02/T05 antes do merge, como pede a regra do plano. Na #013 a equipe trocou a branch por tarefa pelo fluxo `ESDD/<integrante>` → `dev` → `main`, e `t02-t05-sort-table` foi renomeada para `ESDD/murilo`.
+
+## #013 — Domingo, 15/11/2026
+
+- **Autor:** Murilo Leandro
+- **Prompt:**
+  > na vdd cria branch main(prod), dev e a ESDD/integrante
+- **Objetivo:** organizar as branches do repositório em `main` (produção), `dev` (integração) e uma `ESDD/<integrante>` por pessoa.
+- **Resposta da IA (resumo):** só no repositório local: renomeou `master` para `main` (e desfez o vínculo com `origin/master`), criou `dev` a partir da `main` e renomeou `t02-t05-sort-table` para `ESDD/murilo`, que fica com o commit das T02/T05. `main` e `dev` continuam no commit inicial até a revisão. Nada foi enviado ao GitHub, que ainda tem só a `master`.
+- **Adaptações / correções:** corrige a #012: a equipe preferiu um fluxo fixo `ESDD/<integrante>` → `dev` → `main` em vez de uma branch por tarefa. As branches dos outros integrantes não foram criadas porque os nomes ainda não foram informados.
+
+## #014 — Domingo, 15/11/2026
+
+- **Autor:** Murilo Leandro
+- **Prompt:**
+  > pode fazer o push e trocar a padrão para main
+- **Objetivo:** publicar no GitHub as branches `main`, `dev` e `ESDD/murilo` e tornar a `main` a branch padrão do repositório.
+- **Resposta da IA (resumo):** conferiu que a conta tem permissão de admin, enviou as três branches com `git push -u` e trocou a branch padrão do repositório de `master` para `main` (`gh repo edit --default-branch main`). Depois commitou na `ESDD/murilo` o que estava pendente (entradas #013–#014 deste log e a seção "Branches (git)" do `CLAUDE.md`) e enviou de novo. A `master` antiga continua no GitHub, no mesmo commit da `main`.
+- **Adaptações / correções:** a IA não apagou a `master` do GitHub porque isso não foi pedido. A equipe decide se remove.
 
 ---
 

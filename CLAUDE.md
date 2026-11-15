@@ -44,6 +44,11 @@ Isso atende à exigência do enunciado ("Registro de Prompts") e serve de materi
   - Código simples e didático, sem truques — cada integrante precisa explicar o funcionamento interno.
 - Toda sugestão gerada com IA fica registrada no `AI_LOG.md` (ver seção acima).
 
+## Branches (git)
+
+- `main` = produção (versão de entrega); `dev` = integração; `ESDD/<integrante>` = trabalho de cada pessoa (ex.: `ESDD/murilo`).
+- Fluxo: commitar na própria `ESDD/<integrante>` → merge em `dev` depois da revisão de outro integrante → merge de `dev` em `main` quando estável. Nunca commitar direto em `main` ou `dev`.
+
 ## Ambiente
 
 - Windows 11, compilador MinGW (gcc). O `projeto-exemplo` usa `#define __USE_MINGW_ANSI_STDIO 1` para `%lld`, `system("cls")` e `sleep()` de `unistd.h`.
