@@ -6,18 +6,21 @@
 #include "sort.h"
 #include "metrics.h"
 #include "memory.h"
+#include "singly_list.h"
 
 #define OPTION_SORT 1
 #define OPTION_SHOW 2
 #define OPTION_COMPARE 3
 #define OPTION_RESIZE 4
 #define OPTION_KIND 5
-#define OPTION_EXIT 6
+#define OPTION_LIST 6
+#define OPTION_EXIT 7
 
 static void clear_input(void);
 static void wait_enter(void);
 static int read_data_kind(void);
 static int menu_sort(const int *vector, int size, int data_kind);
+static int menu_list_sort(const int *vector, int size, int data_kind);
 static void menu_compare_all(const int *vector, int size, int data_kind);
 static void menu_resize(int **vector, int *size, int data_kind);
 static void menu_kind(int *vector, int size, int *data_kind);
@@ -65,6 +68,7 @@ int main()
         printf("%d - Comparar todos os algoritmos\n", OPTION_COMPARE);
         printf("%d - Alterar tamanho do vetor\n", OPTION_RESIZE);
         printf("%d - Alterar tipo dos dados\n", OPTION_KIND);
+        printf("%d - Ordenar lista encadeada\n", OPTION_LIST);
         printf("%d - Encerrar programa\n", OPTION_EXIT);
         printf("-----------------------------\n");
         printf("Digite uma opcao: ");
@@ -103,6 +107,11 @@ int main()
         case OPTION_KIND:
             system("cls");
             menu_kind(numbers, size, &data_kind);
+            break;
+
+        case OPTION_LIST:
+            if (menu_list_sort(numbers, size, data_kind) == 1)
+                choice = OPTION_EXIT; /* the user chose Exit inside the submenu */
             break;
 
         case OPTION_EXIT:
@@ -220,12 +229,78 @@ static int menu_sort(const int *vector, int size, int data_kind)
     }
 }
 
-/* Runs every algorithm of the table on the same array and shows all results together. */
+/* Builds a singly linked list with the values of the array and sorts it with the list
+   algorithm chosen. The array itself is not changed.
+   Returns 1 if the user chose Exit, 0 if the user chose Back. */
+static int menu_list_sort(const int *vector, int size, int data_kind)
+{
+    int choice;
+    int back_option = SLIST_SORT_COUNT + 1;
+    int exit_option = SLIST_SORT_COUNT + 2;
+    SinglyList *list;
+    Metrics m;
+
+    list = slist_create();
+    if (list == NULL)
+    {
+        printf("Erro ao alocar memoria.\n");
+        wait_enter();
+        return 0;
+    }
+
+    while (1)
+    {
+        system("cls");
+        printf("---- Ordenar lista simplesmente encadeada ----\n");
+        for (int i = 0; i < SLIST_SORT_COUNT; i++)
+        {
+            printf("%d - %s\n", i + 1, slist_sort_name(i));
+        }
+        printf("%d - Voltar\n", back_option);
+        printf("%d - Encerrar programa\n", exit_option);
+        printf("----------------------------------------------\n");
+        printf("Digite uma opcao: ");
+        choice = 0;
+        scanf("%d", &choice);
+        clear_input();
+
+        if (choice >= 1 && choice <= SLIST_SORT_COUNT)
+        {
+            if (slist_sort_run(choice - 1, vector, size, list, &m) == 1)
+            {
+                printf("\nLista ordenada: ");
+                slist_print(list);
+                metrics_print(&m, size, vector_fill_name(data_kind));
+                printf("Memoria da lista: %lld bytes (vetor: %lld bytes)\n",
+                       slist_memory_bytes(list), (long long)size * (long long)sizeof(int));
+            }
+            else
+            {
+                printf("\nNao foi possivel executar o algoritmo.\n");
+            }
+            wait_enter();
+        }
+        else if (choice == back_option || choice == exit_option)
+        {
+            slist_destroy(&list);
+            return (choice == exit_option) ? 1 : 0;
+        }
+        else
+        {
+            printf("\nOpcao invalida! Digite novamente.\n");
+            wait_enter();
+        }
+    }
+}
+
+/* Runs every algorithm of the table on the same array, then every list algorithm on a
+   list with the same values, and shows all results together. */
 static void menu_compare_all(const int *vector, int size, int data_kind)
 {
-    Metrics results[SORT_COUNT];
+    Metrics results[SORT_COUNT + SLIST_SORT_COUNT];
     int count = 0;
     int *copy;
+    SinglyList *list;
 
     copy = vector_create(size);
     if (copy == NULL)
@@ -242,6 +317,21 @@ static void menu_compare_all(const int *vector, int size, int data_kind)
     }
 
     vector_destroy(&copy, size);
+
+    list = slist_create();
+    if (list == NULL)
+    {
+        printf("Erro ao alocar memoria para a lista.\n");
+    }
+    else
+    {
+        for (int i = 0; i < SLIST_SORT_COUNT; i++)
+        {
+            if (slist_sort_run(i, vector, size, list, &results[count]) == 1)
+                count++;
+        }
+        slist_destroy(&list);
+    }
 
     metrics_print_table(results, count, size, vector_fill_name(data_kind));
     wait_enter();

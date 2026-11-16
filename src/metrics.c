@@ -41,17 +41,18 @@ void metrics_print_table(const Metrics *list, int count, int size, const char *d
     if (data_kind == NULL)
         data_kind = "-";
 
-    printf("\n============================ Metricas dos Metodos de Ordenacao ============================\n");
+    printf("\n============================= Metricas dos Metodos de Ordenacao =============================\n");
     printf("Itens no vetor: %d\n", size);
     printf("Dados: %s\n\n", data_kind);
-    printf("%-22s %12s %15s %15s %14s\n", "Algoritmo", "Tempo (ms)", "Comparacoes", "Trocas", "Memoria (B)");
-    printf("-------------------------------------------------------------------------------------------\n");
+    printf("%-24s %12s %15s %15s %14s\n", "Algoritmo", "Tempo (ms)", "Comparacoes", "Trocas", "Memoria (B)");
+    printf("---------------------------------------------------------------------------------------------\n");
     for (int i = 0; i < count; i++)
     {
-        printf("%-22s %12.3f %15lld %15lld %14lld\n",
+        printf("%-24s %12.3f %15lld %15lld %14lld\n",
                list[i].name, list[i].time_ms, list[i].comparisons, list[i].swaps,
                list[i].memory_bytes);
     }
-    printf("===========================================================================================\n");
-    printf("Memoria (B) = pico de memoria extra alocada pelo algoritmo, alem do vetor.\n");
+    printf("=============================================================================================\n");
+    printf("Memoria (B) = pico de memoria extra alocada pelo algoritmo, alem do vetor ou da lista.\n");
+    printf("Nas listas, Trocas = nos religados em outra posicao (nenhum valor e copiado).\n");
 }
