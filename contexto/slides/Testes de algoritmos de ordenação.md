@@ -81,10 +81,10 @@ O enunciado final mantém a ideia da v1 (menu em C, métricas, vários algoritmo
 | `struct Metricas` | Feito como `Metrics` em `src/metrics.h`, em inglês e com `memory_bytes` |
 | Tamanho via `scanf`, menu no terminal, relatório final | Feito (`src/main.c`) |
 | Dados **aleatórios** | Feito (`vector_fill_random`, permutação 1..N) |
-| Dados **ordenados** e **invertidos** | **Falta** (`src/vector.h` só tem preenchimento aleatório) |
+| Dados **ordenados** e **invertidos** | Feito na T25 (`vector_fill` com `FILL_SORTED`/`FILL_REVERSED` e opção 5 do menu, "Alterar tipo dos dados") |
 | **Modo passo a passo** (tela atualiza a cada troca) | **Falta** (no enunciado final vira o passo a passo com Undo pela pilha) |
 
-Os dois itens que faltam não são exigidos pelo enunciado final, mas valem a pena:
+Os dois itens que faltavam não são exigidos pelo enunciado final, mas valem a pena:
 
 - **Ordenado e invertido** são o melhor e o pior caso de vários algoritmos (Insertion Sort em vetor ordenado é O(n); Quick Sort com pivô no início em vetor ordenado é O(n²)). Isso enriquece a comparação e a arguição.
 - O **passo a passo** é a base do Undo da pilha e do log de trocas/comparações que a interface Web vai animar.

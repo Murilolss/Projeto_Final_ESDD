@@ -13,7 +13,8 @@ typedef struct {
 } Metrics;
 
 void metrics_init(Metrics *m, const char *name);
-void metrics_print(const Metrics *m, int size);
-void metrics_print_table(const Metrics *list, int count, int size);
+/* data_kind is the name of the kind of data that was sorted (e.g. "Ordenado"); it can be NULL. */
+void metrics_print(const Metrics *m, int size, const char *data_kind);
+void metrics_print_table(const Metrics *list, int count, int size, const char *data_kind);
 
 #endif

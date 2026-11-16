@@ -215,13 +215,29 @@ static int partition_first(int *array, int start, int end, Metrics *m)
     return (i - 1);
 }
 
+/* Only the smaller part goes to the recursion; the bigger part is sorted by the loop,
+   which moves start or end and partitions again. Each recursive call gets at most half
+   of the elements, so the recursion depth is at most log2(n).
+   Without this, a sorted or reversed array puts the pivot at one end every time:
+   the recursion goes n levels deep and overflows the stack (crash with n = 50000).
+   The partitions are the same as in the plain version, so the comparisons and swaps
+   are the same too. */
 static void quick_sort_first_rec(int *array, int start, int end, Metrics *m)
 {
-    if (start < end)
+    while (start < end)
     {
         int pivot = partition_first(array, start, end, m);
-        quick_sort_first_rec(array, start, pivot - 1, m);
-        quick_sort_first_rec(array, pivot + 1, end, m);
+
+        if (pivot - start < end - pivot)
+        {
+            quick_sort_first_rec(array, start, pivot - 1, m); /* left part is smaller */
+            start = pivot + 1;
+        }
+        else
+        {
+            quick_sort_first_rec(array, pivot + 1, end, m); /* right part is smaller */
+            end = pivot - 1;
+        }
     }
 }
 
@@ -260,13 +276,23 @@ static int partition_last(int *array, int start, int end, Metrics *m)
     return (i + 1);
 }
 
+/* Same idea as quick_sort_first_rec: recursion only on the smaller part. */
 static void quick_sort_last_rec(int *array, int start, int end, Metrics *m)
 {
-    if (start < end)
+    while (start < end)
     {
         int pivot = partition_last(array, start, end, m);
-        quick_sort_last_rec(array, start, pivot - 1, m);
-        quick_sort_last_rec(array, pivot + 1, end, m);
+
+        if (pivot - start < end - pivot)
+        {
+            quick_sort_last_rec(array, start, pivot - 1, m); /* left part is smaller */
+            start = pivot + 1;
+        }
+        else
+        {
+            quick_sort_last_rec(array, pivot + 1, end, m); /* right part is smaller */
+            end = pivot - 1;
+        }
     }
 }
 

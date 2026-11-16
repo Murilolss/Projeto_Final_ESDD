@@ -11,17 +11,21 @@
 #define OPTION_SHOW 2
 #define OPTION_COMPARE 3
 #define OPTION_RESIZE 4
-#define OPTION_EXIT 5
+#define OPTION_KIND 5
+#define OPTION_EXIT 6
 
 static void clear_input(void);
 static void wait_enter(void);
-static int menu_sort(const int *vector, int size);
-static void menu_compare_all(const int *vector, int size);
-static void menu_resize(int **vector, int *size);
+static int read_data_kind(void);
+static int menu_sort(const int *vector, int size, int data_kind);
+static void menu_compare_all(const int *vector, int size, int data_kind);
+static void menu_resize(int **vector, int *size, int data_kind);
+static void menu_kind(int *vector, int size, int *data_kind);
 
 int main()
 {
     int size = 0;
+    int data_kind;
     int choice;
     int *numbers;
 
@@ -36,22 +40,31 @@ int main()
     }
     clear_input();
 
+    data_kind = read_data_kind();
+    if (data_kind == 0)
+    {
+        printf("Tipo de dados invalido.\n");
+        return 1;
+    }
+
     numbers = vector_create(size);
     if (numbers == NULL)
     {
         printf("Erro ao alocar memoria.\n");
         return 1;
     }
-    vector_fill_random(numbers, size);
+    vector_fill(numbers, size, data_kind);
 
     do
     {
         system("cls");
+        printf("Vetor: %d itens, dados %s\n\n", size, vector_fill_name(data_kind));
         printf("---- Selecione uma opcao ----\n");
         printf("%d - Metodos de ordenacao\n", OPTION_SORT);
         printf("%d - Mostrar vetor\n", OPTION_SHOW);
         printf("%d - Comparar todos os algoritmos\n", OPTION_COMPARE);
         printf("%d - Alterar tamanho do vetor\n", OPTION_RESIZE);
+        printf("%d - Alterar tipo dos dados\n", OPTION_KIND);
         printf("%d - Encerrar programa\n", OPTION_EXIT);
         printf("-----------------------------\n");
         printf("Digite uma opcao: ");
@@ -62,13 +75,14 @@ int main()
         switch (choice)
         {
         case OPTION_SORT:
-            if (menu_sort(numbers, size) == 1)
+            if (menu_sort(numbers, size, data_kind) == 1)
                 choice = OPTION_EXIT; /* the user chose Exit inside the submenu */
             break;
 
         case OPTION_SHOW:
             system("cls");
-            printf("\nVetor: ");
+            printf("\nDados: %s\n", vector_fill_name(data_kind));
+            printf("Vetor: ");
             vector_print(numbers, size);
             printf("\nMemoria do vetor: %d x %d = %lld bytes\n",
                    size, (int)sizeof(int), (long long)size * (long long)sizeof(int));
@@ -78,12 +92,17 @@ int main()
 
         case OPTION_COMPARE:
             system("cls");
-            menu_compare_all(numbers, size);
+            menu_compare_all(numbers, size, data_kind);
             break;
 
         case OPTION_RESIZE:
             system("cls");
-            menu_resize(&numbers, &size);
+            menu_resize(&numbers, &size, data_kind);
+            break;
+
+        case OPTION_KIND:
+            system("cls");
+            menu_kind(numbers, size, &data_kind);
             break;
 
         case OPTION_EXIT:
@@ -118,9 +137,31 @@ static void wait_enter(void)
     clear_input();
 }
 
+/* Asks the user for the kind of data.
+   Returns FILL_RANDOM, FILL_SORTED or FILL_REVERSED, or 0 if the answer is invalid. */
+static int read_data_kind(void)
+{
+    int kind = 0;
+
+    printf("\n---- Tipo dos dados ----\n");
+    printf("%d - %s\n", FILL_RANDOM, vector_fill_name(FILL_RANDOM));
+    printf("%d - %s\n", FILL_SORTED, vector_fill_name(FILL_SORTED));
+    printf("%d - %s\n", FILL_REVERSED, vector_fill_name(FILL_REVERSED));
+    printf("------------------------\n");
+    printf("Digite uma opcao: ");
+    if (scanf("%d", &kind) != 1)
+        kind = 0;
+    clear_input();
+
+    if (vector_fill_name(kind) == NULL)
+        return 0;
+
+    return kind;
+}
+
 /* Menu built from the algorithm table: option i + 1 runs the algorithm at index i.
    Returns 1 if the user chose Exit, 0 if the user chose Back. */
-static int menu_sort(const int *vector, int size)
+static int menu_sort(const int *vector, int size, int data_kind)
 {
     int choice;
     int back_option = SORT_COUNT + 1;
@@ -158,7 +199,7 @@ static int menu_sort(const int *vector, int size)
             {
                 printf("\nVetor ordenado: ");
                 vector_print(copy, size);
-                metrics_print(&m, size);
+                metrics_print(&m, size, vector_fill_name(data_kind));
             }
             else
             {
@@ -180,7 +221,7 @@ static int menu_sort(const int *vector, int size)
 }
 
 /* Runs every algorithm of the table on the same array and shows all results together. */
-static void menu_compare_all(const int *vector, int size)
+static void menu_compare_all(const int *vector, int size, int data_kind)
 {
     Metrics results[SORT_COUNT];
     int count = 0;
@@ -202,13 +243,13 @@ static void menu_compare_all(const int *vector, int size)
 
     vector_destroy(&copy, size);
 
-    metrics_print_table(results, count, size);
+    metrics_print_table(results, count, size, vector_fill_name(data_kind));
     wait_enter();
 }
 
 /* Asks for a new size, resizes the array with realloc and fills it again
-   with a new random permutation of 1..new size. */
-static void menu_resize(int **vector, int *size)
+   with the current kind of data (random, sorted or reversed). */
+static void menu_resize(int **vector, int *size, int data_kind)
 {
     int new_size = 0;
     long long before = mem_current();
@@ -232,9 +273,29 @@ static void menu_resize(int **vector, int *size)
     }
 
     *size = new_size;
-    vector_fill_random(*vector, *size);
+    vector_fill(*vector, *size, data_kind);
 
-    printf("\nVetor realocado com %d itens e preenchido de novo.\n", *size);
+    printf("\nVetor realocado com %d itens e preenchido de novo (dados %s).\n",
+           *size, vector_fill_name(data_kind));
     printf("Memoria alocada no programa: %lld -> %lld bytes\n", before, mem_current());
+    wait_enter();
+}
+
+/* Asks for a new kind of data and fills the array again (the size does not change). */
+static void menu_kind(int *vector, int size, int *data_kind)
+{
+    int kind;
+
+    printf("Tipo atual: %s\n", vector_fill_name(*data_kind));
+    kind = read_data_kind();
+    if (kind == 0 || vector_fill(vector, size, kind) == 0)
+    {
+        printf("\nTipo invalido. O vetor nao foi alterado.\n");
+        wait_enter();
+        return;
+    }
+
+    *data_kind = kind;
+    printf("\nVetor preenchido de novo com dados %s.\n", vector_fill_name(*data_kind));
     wait_enter();
 }

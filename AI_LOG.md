@@ -484,6 +484,88 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** fez um commit na `ESDD/murilo` só com o `AI_LOG.md` (entradas #024–#027) e o enviou com `git push origin ESDD/murilo`. O plano (artefato) não fica no repositório, por isso não entrou no commit.
 - **Adaptações / correções:** nenhuma.
 
+## #028 — Domingo, 15/11/2026
+
+- **Autor:** Murilo Leandro
+- **Prompt:**
+  > <browser_instruction># Claude in Chrome browser automation
+  >
+  > You have access to browser automation tools (mcp__claude-in-chrome__*) for interacting with web pages in Chrome. Follow these guidelines for effective browser automation.
+  >
+  > ## Loading deferred tools
+  >
+  > If the mcp__claude-in-chrome__* tools are deferred (must be loaded via ToolSearch before use), load every tool you expect to need in ONE ToolSearch call — the select query accepts a comma-separated list — never one call per tool. Start with the core set:
+  >
+  > ToolSearch with query "select:mcp__claude-in-chrome__tabs_context_mcp,mcp__claude-in-chrome__navigate,mcp__claude-in-chrome__computer,mcp__claude-in-chrome__read_page,mcp__claude-in-chrome__tabs_create_mcp,mcp__claude-in-chrome__tabs_close_mcp"
+  >
+  > Add task-specific tools to the same call when the task obviously needs them: read_console_messages / read_network_requests for debugging, form_input for forms, gif_creator for recordings, javascript_tool for page scripting.
+  >
+  > ## GIF recording
+  >
+  > When performing multi-step browser interactions that the user may want to review or share, use mcp__claude-in-chrome__gif_creator to record them.
+  >
+  > You must ALWAYS:
+  > * Capture extra frames before and after taking actions to ensure smooth playback
+  > * Name the file meaningfully to help the user identify it later (e.g., "login_process.gif")
+  >
+  > ## Console log debugging
+  >
+  > You can use mcp__claude-in-chrome__read_console_messages to read console output. Console output may be verbose. If you are looking for specific log entries, use the 'pattern' parameter with a regex-compatible pattern. This filters results efficiently and avoids overwhelming output. For example, use pattern: "[MyApp]" to filter for application-specific logs rather than reading all console output.
+  >
+  > ## Alerts and dialogs
+  >
+  > IMPORTANT: Do not trigger JavaScript alerts, confirms, prompts, or browser modal dialogs through your actions. These browser dialogs block all further browser events and will prevent the extension from receiving any subsequent commands. Instead, when possible, use console.log for debugging and then use the mcp__claude-in-chrome__read_console_messages tool to read those log messages. If a page has dialog-triggering elements:
+  > 1. Avoid clicking buttons or links that may trigger alerts (e.g., "Delete" buttons with confirmation dialogs)
+  > 2. If you must interact with such elements, warn the user first that this may interrupt the session
+  > 3. Use mcp__claude-in-chrome__javascript_tool to check for and dismiss any existing dialogs before proceeding
+  >
+  > If you accidentally trigger a dialog and lose responsiveness, inform the user they need to manually dismiss it in the browser.
+  >
+  > ## Avoid rabbit holes and loops
+  >
+  > When using browser automation tools, stay focused on the specific task. If you encounter any of the following, stop and ask the user for guidance:
+  > - Unexpected complexity or tangential browser exploration
+  > - Browser tool calls failing or returning errors after 2-3 attempts
+  > - No response from the browser extension
+  > - Page elements not responding to clicks or input
+  > - Pages not loading or timing out
+  > - Unable to complete the browser task despite multiple approaches
+  >
+  > Explain what you attempted, what went wrong, and ask how the user would like to proceed. Do not keep retrying the same failing browser action or explore unrelated pages without checking in first.
+  >
+  > ## Tab context and session startup
+  >
+  > IMPORTANT: At the start of each browser automation session, call mcp__claude-in-chrome__tabs_context_mcp first to get information about the user's current browser tabs. Use this context to understand what the user might want to work with before creating new tabs.
+  >
+  > Never reuse tab IDs from a previous/other session. Follow these guidelines:
+  > 1. Only reuse an existing tab if the user explicitly asks to work with it
+  > 2. Otherwise, create a new tab with mcp__claude-in-chrome__tabs_create_mcp
+  > 3. If a tool returns an error indicating the tab doesn't exist or is invalid, call tabs_context_mcp to get fresh tab IDs
+  > 4. When a tab is closed by the user or a navigation error occurs, call tabs_context_mcp to see what tabs are available</browser_instruction>
+  > Vamos fazer o T25, qual é o plano para essa task?
+- **Objetivo:** planejar e implementar a T25, que gera dados ordenados (1..N) e invertidos (N..1) além do aleatório e deixa o usuário escolher o tipo no menu.
+- **Resposta da IA (resumo):** primeiro montou um plano (modo de planejamento), que o usuário aprovou, e depois o implementou. `src/vector.h/.c`: constantes `FILL_RANDOM/FILL_SORTED/FILL_REVERSED`, funções `vector_fill_sorted`, `vector_fill_reversed`, `vector_fill(v, size, kind)` (retorna 1/0) e `vector_fill_name`. O `vector_fill_random` passou a reaproveitar o `vector_fill_sorted`. `src/metrics.h/.c`: `metrics_print` e `metrics_print_table` recebem o nome do tipo e mostram "Dados: X". `src/main.c`: pergunta o tipo depois do tamanho, ganhou a opção 5 "Alterar tipo dos dados" (Encerrar virou 6), o cabeçalho do menu mostra o tipo, e "Alterar tamanho" mantém o tipo atual. `src/sort.c`: os dois Quick Sorts chamam a recursão só na parte menor e tratam a maior com um `while`. `contexto/slides/Testes de algoritmos de ordenação.md`: o item virou "Feito". Os testes temporários (no scratchpad) cobriram N = 1 a 50.000 e os 3 tipos: tudo ordena, Insertion Sort tem N−1 comparações e 0 trocas com dados ordenados, não sobra memória, e as contagens do Quick Sort são idênticas às da versão anterior (117 casos).
+- **Adaptações / correções:** a IA viu que, com dados ordenados ou invertidos, o Quick Sort recursa N níveis. A versão antiga com N = 50.000 fechava com `C00000FD` (estouro de pilha). Entre as opções apresentadas (recursão no lado menor, aumentar a pilha no gcc, limitar N ou só documentar), o usuário escolheu a recursão no lado menor. Para o menu, escolheu perguntar o tipo no início e ter também uma opção no menu. Fica de fora (T09): o aviso de demora dos O(n²) com N grande. Com N = 50.000 ordenado, o Quick Sort leva cerca de 12 s.
+
+## #029 — Domingo, 15/11/2026
+
+- **Autor:** Murilo Leandro
+- **Prompt:**
+  > <ide_opened_file>The user opened the file c:\Users\Admin\Documents\IFSP\Professores\2_Semestre\ESDD_Estrutura_de_Dados\Eduardo_Leal\Projeto_Final_ESDD\src\main.c in the IDE. This may or may not be related to the current task.</ide_opened_file>
+  > /salvar-memoria
+- **Objetivo:** registrar a nota da sessão 04 (T25) em `contexto/memory/`.
+- **Resposta da IA (resumo):** criou `contexto/memory/2026-11-15_sessao-04_dados-ordenados-invertidos.md` com o que foi feito na T25, a decisão sobre o estouro de pilha do Quick Sort, os tempos medidos, as pendências (commit, recompilar o `main.exe`, revisão) e os próximos passos.
+- **Adaptações / correções:** nenhuma.
+
+## #030 — Domingo, 15/11/2026
+
+- **Autor:** Murilo Leandro
+- **Prompt:**
+  > faz o commit e o push
+- **Objetivo:** commitar a T25 e a nota da sessão 04 e enviar tudo ao GitHub.
+- **Resposta da IA (resumo):** fez um commit na `ESDD/murilo` com o código da T25 (`src/vector.*`, `src/sort.c`, `src/metrics.*`, `src/main.c`), o `.md` do enunciado v1, a nota `contexto/memory/2026-11-15_sessao-04_dados-ordenados-invertidos.md` e as entradas #028–#030 do AI_LOG, e o enviou com `git push origin ESDD/murilo`.
+- **Adaptações / correções:** nenhuma.
+
 ---
 
 <!--
