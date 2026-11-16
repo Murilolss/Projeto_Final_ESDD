@@ -584,6 +584,96 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** fez um commit na `ESDD/murilo` com `.claude/skills/atualizar-branch/SKILL.md`, a linha nova do `CLAUDE.md` e as entradas #031–#032 do AI_LOG, e o enviou com `git push origin ESDD/murilo`.
 - **Adaptações / correções:** nenhuma.
 
+## #033 — Domingo, 15/11/2026
+
+- **Autor:** Murilo Leandro
+- **Prompt:**
+  > /salvar-memoria
+- **Objetivo:** atualizar a nota da sessão 04 com o que aconteceu depois da primeira gravação.
+- **Resposta da IA (resumo):** atualizou `contexto/memory/2026-11-15_sessao-04_dados-ordenados-invertidos.md`: faixa de prompts #028–#033, os commits `3ea8ce3` (T25) e `9812b4d` (skill), a decisão de copiar e adaptar a `/atualizar-branch` do projeto de INOO com push automático, a pendência resolvida do commit da T25 e os próximos passos refeitos (PR para a `dev`, uso da skill pelos outros integrantes).
+- **Adaptações / correções:** nenhuma.
+
+## #034 — Segunda-feira, 16/11/2026
+
+- **Autor:** Murilo Leandro
+- **Prompt:**
+  > <browser_instruction># Claude in Chrome browser automation
+  >
+  > You have access to browser automation tools (mcp__claude-in-chrome__*) for interacting with web pages in Chrome. Follow these guidelines for effective browser automation.
+  >
+  > ## Loading deferred tools
+  >
+  > If the mcp__claude-in-chrome__* tools are deferred (must be loaded via ToolSearch before use), load every tool you expect to need in ONE ToolSearch call — the select query accepts a comma-separated list — never one call per tool. Start with the core set:
+  >
+  > ToolSearch with query "select:mcp__claude-in-chrome__tabs_context_mcp,mcp__claude-in-chrome__navigate,mcp__claude-in-chrome__computer,mcp__claude-in-chrome__read_page,mcp__claude-in-chrome__tabs_create_mcp,mcp__claude-in-chrome__tabs_close_mcp"
+  >
+  > Add task-specific tools to the same call when the task obviously needs them: read_console_messages / read_network_requests for debugging, form_input for forms, gif_creator for recordings, javascript_tool for page scripting.
+  >
+  > ## GIF recording
+  >
+  > When performing multi-step browser interactions that the user may want to review or share, use mcp__claude-in-chrome__gif_creator to record them.
+  >
+  > You must ALWAYS:
+  > * Capture extra frames before and after taking actions to ensure smooth playback
+  > * Name the file meaningfully to help the user identify it later (e.g., "login_process.gif")
+  >
+  > ## Console log debugging
+  >
+  > You can use mcp__claude-in-chrome__read_console_messages to read console output. Console output may be verbose. If you are looking for specific log entries, use the 'pattern' parameter with a regex-compatible pattern. This filters results efficiently and avoids overwhelming output. For example, use pattern: "[MyApp]" to filter for application-specific logs rather than reading all console output.
+  >
+  > ## Alerts and dialogs
+  >
+  > IMPORTANT: Do not trigger JavaScript alerts, confirms, prompts, or browser modal dialogs through your actions. These browser dialogs block all further browser events and will prevent the extension from receiving any subsequent commands. Instead, when possible, use console.log for debugging and then use the mcp__claude-in-chrome__read_console_messages tool to read those log messages. If a page has dialog-triggering elements:
+  > 1. Avoid clicking buttons or links that may trigger alerts (e.g., "Delete" buttons with confirmation dialogs)
+  > 2. If you must interact with such elements, warn the user first that this may interrupt the session
+  > 3. Use mcp__claude-in-chrome__javascript_tool to check for and dismiss any existing dialogs before proceeding
+  >
+  > If you accidentally trigger a dialog and lose responsiveness, inform the user they need to manually dismiss it in the browser.
+  >
+  > ## Avoid rabbit holes and loops
+  >
+  > When using browser automation tools, stay focused on the specific task. If you encounter any of the following, stop and ask the user for guidance:
+  > - Unexpected complexity or tangential browser exploration
+  > - Browser tool calls failing or returning errors after 2-3 attempts
+  > - No response from the browser extension
+  > - Page elements not responding to clicks or input
+  > - Pages not loading or timing out
+  > - Unable to complete the browser task despite multiple approaches
+  >
+  > Explain what you attempted, what went wrong, and ask how the user would like to proceed. Do not keep retrying the same failing browser action or explore unrelated pages without checking in first.
+  >
+  > ## Tab context and session startup
+  >
+  > IMPORTANT: At the start of each browser automation session, call mcp__claude-in-chrome__tabs_context_mcp first to get information about the user's current browser tabs. Use this context to understand what the user might want to work with before creating new tabs.
+  >
+  > Never reuse tab IDs from a previous/other session. Follow these guidelines:
+  > 1. Only reuse an existing tab if the user explicitly asks to work with it
+  > 2. Otherwise, create a new tab with mcp__claude-in-chrome__tabs_create_mcp
+  > 3. If a tool returns an error indicating the tab doesn't exist or is invalid, call tabs_context_mcp to get fresh tab IDs
+  > 4. When a tab is closed by the user or a navigation error occurs, call tabs_context_mcp to see what tabs are available</browser_instruction>
+  > Olá claude, vamos fazer a task06? Qual é o plano para ela?
+- **Objetivo:** Planejar e implementar a T06: lista simplesmente encadeada com Insertion Sort e Merge Sort que só religam ponteiros.
+- **Resposta da IA (resumo):** Primeiro um plano (modo de plano), aprovado pelo usuário, e depois a implementação. Arquivos novos: `src/singly_list.h/.c`, um TAD opaco com nós criados por `mem_alloc`/`mem_free`, `slist_from_array` (insere no início, de trás para frente, em O(n)), `to_array`, `print`, `clear`, `destroy` e a tabela `SLIST_SORT_COUNT`/`slist_sort_name`/`slist_sort_run` no mesmo padrão da T05. O Insertion religa os nós no lugar, com `sorted_tail` e a busca começando pelo `head`. O Merge é recursivo, divide com os ponteiros lento e rápido e intercala de forma iterativa. Em `src/main.c`, a opção 6 é a nova "Ordenar lista encadeada" (Encerrar virou 7), com submenu, e a tela "Comparar todos" passou a mostrar 9 linhas. Em `src/metrics.c`, a coluna do nome ficou mais larga e o rodapé explica as "Trocas" das listas. Teste temporário no scratchpad com N de 1 a 50.000 nos 3 tipos de dados: tudo ordena e não sobra memória. Insertion com dados ordenados = N-1 comparações e 0 movimentos; com invertidos = 2(N-1) comparações e N-1 movimentos. Memória extra = 0. O menu também foi testado com entrada automática.
+- **Adaptações / correções:** O usuário escolheu a integração ao menu (opção nova + "Comparar todos"). Sobre o que contar como "Trocas", ele pediu a opção mais próxima do material do professor. A IA escolheu "nós movidos": a 1ª versão do enunciado fala em "movimentações", e mover um nó é o `remover` + `inserir` do `lista.c` da aula. O merge foi feito iterativo para não estourar a pilha com N = 50.000. Observação para a T09: com dados aleatórios e N = 50.000, o Insertion da lista leva ~13 s (o do vetor leva ~4 s), por causa do acesso por ponteiros.
+
+## #035 — Segunda-feira, 16/11/2026
+
+- **Autor:** Murilo Leandro
+- **Prompt:**
+  > /salvar-memoria
+- **Objetivo:** Registrar a nota da sessão 05 (T06) em `contexto/memory/`.
+- **Resposta da IA (resumo):** Criada a nota `contexto/memory/2026-11-16_sessao-05_lista-simplesmente-encadeada.md`, com o que foi feito na T06, as decisões (o que conta como "Trocas" na lista, montar a lista inserindo no início, merge iterativo), os números de N = 50.000 para a T09, as pendências (commit, revisão, hook) e os próximos passos (T07/T08).
+- **Adaptações / correções:** Nenhuma.
+
+## #036 — Segunda-feira, 16/11/2026
+
+- **Autor:** Murilo Leandro
+- **Prompt:**
+  > faz o commit da T06 e dá push
+- **Objetivo:** Commitar a T06 na `ESDD/murilo` e enviar ao GitHub.
+- **Resposta da IA (resumo):** Dois commits na `ESDD/murilo`, como nas tarefas anteriores. O primeiro, "Add singly linked list with insertion and merge sort (T06)", tem `src/singly_list.h/.c`, `src/main.c` e `src/metrics.c`. O segundo tem o AI_LOG #033–#036 e as notas das sessões 04 e 05 em `contexto/memory/`. Depois, `git push origin ESDD/murilo`.
+- **Adaptações / correções:** Nenhuma.
+
 ---
 
 <!--
