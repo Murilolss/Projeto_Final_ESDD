@@ -566,6 +566,24 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** fez um commit na `ESDD/murilo` com o código da T25 (`src/vector.*`, `src/sort.c`, `src/metrics.*`, `src/main.c`), o `.md` do enunciado v1, a nota `contexto/memory/2026-11-15_sessao-04_dados-ordenados-invertidos.md` e as entradas #028–#030 do AI_LOG, e o enviou com `git push origin ESDD/murilo`.
 - **Adaptações / correções:** nenhuma.
 
+## #031 — Domingo, 15/11/2026
+
+- **Autor:** Murilo Leandro
+- **Prompt:**
+  > crie a skill /atualizar-branch para atualizações das branch
+- **Objetivo:** criar a skill `/atualizar-branch` para trazer as novidades da `dev` para a branch de cada integrante.
+- **Resposta da IA (resumo):** perguntou o escopo e o push. O usuário pediu para copiar a skill do projeto de INOO (`Projeto_Final_INOO/.claude/skills/atualizar-branch`) e escolheu o push automático. A IA criou `.claude/skills/atualizar-branch/SKILL.md`: confere se a branch começa com `ESDD/`, roda `git pull --no-edit origin dev`, para e mostra o problema se houver conflito, e faz `git push origin <branch>` quando o pull traz commits. Também citou a skill na tabela de pastas do `CLAUDE.md`.
+- **Adaptações / correções:** a IA tinha proposto escrever a skill do zero. O usuário preferiu reaproveitar a do INOO. Na adaptação, o prefixo `logitech/` virou `ESDD/` e entrou o passo de push, que a versão original proibia, mas só para a própria `ESDD/<integrante>` e nunca com `--force`.
+
+## #032 — Domingo, 15/11/2026
+
+- **Autor:** Murilo Leandro
+- **Prompt:**
+  > faz o commit e o push
+- **Objetivo:** commitar a skill `/atualizar-branch` e enviar ao GitHub.
+- **Resposta da IA (resumo):** fez um commit na `ESDD/murilo` com `.claude/skills/atualizar-branch/SKILL.md`, a linha nova do `CLAUDE.md` e as entradas #031–#032 do AI_LOG, e o enviou com `git push origin ESDD/murilo`.
+- **Adaptações / correções:** nenhuma.
+
 ---
 
 <!--

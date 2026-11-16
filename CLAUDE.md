@@ -57,7 +57,7 @@ Isso atende à exigência do enunciado ("Registro de Prompts") e serve de materi
 
 | Pasta | Conteúdo |
 |---|---|
-| `.claude/` | hooks e skills do projeto (`/salvar-memoria` grava a nota da sessão em `contexto/memory/`) |
+| `.claude/` | hooks e skills do projeto (`/salvar-memoria` grava a nota da sessão em `contexto/memory/`; `/atualizar-branch` faz `git pull origin dev` na `ESDD/<integrante>` e o push) |
 | `contexto/codigo-exemplos/` | códigos das aulas (padrão de estilo a seguir) — recursão, ordenação, busca, hash (endereçamento aberto), ponteiros, TAD (carrinho), lista sequencial estática, lista simplesmente encadeada |
 | `contexto/pdfs/` | slides das aulas + `Enunciado.pdf` |
 | `contexto/slides/` | um `.md` por PDF (consultar estes em vez dos PDFs) |
