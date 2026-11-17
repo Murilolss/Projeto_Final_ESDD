@@ -9,6 +9,7 @@
 #include "singly_list.h"
 #include "doubly_list.h"
 #include "circular_list.h"
+#include "benchmark.h"
 
 #define OPTION_SORT 1
 #define OPTION_SHOW 2
@@ -16,7 +17,8 @@
 #define OPTION_RESIZE 4
 #define OPTION_KIND 5
 #define OPTION_LIST 6
-#define OPTION_EXIT 7
+#define OPTION_BENCHMARK 7
+#define OPTION_EXIT 8
 
 static void clear_input(void);
 static void wait_enter(void);
@@ -26,6 +28,7 @@ static int menu_list_sort(const int *vector, int size, int data_kind);
 static void menu_compare_all(const int *vector, int size, int data_kind);
 static void menu_resize(int **vector, int *size, int data_kind);
 static void menu_kind(int *vector, int size, int *data_kind);
+static void menu_benchmark(void);
 
 int main()
 {
@@ -71,6 +74,8 @@ int main()
         printf("%d - Alterar tamanho do vetor\n", OPTION_RESIZE);
         printf("%d - Alterar tipo dos dados\n", OPTION_KIND);
         printf("%d - Ordenar listas encadeadas\n", OPTION_LIST);
+        printf("%d - Comparativo vetor x listas (N = %d, %d e %d)\n", OPTION_BENCHMARK,
+               benchmark_size(0), benchmark_size(1), benchmark_size(2));
         printf("%d - Encerrar programa\n", OPTION_EXIT);
         printf("-----------------------------\n");
         printf("Digite uma opcao: ");
@@ -114,6 +119,11 @@ int main()
         case OPTION_LIST:
             if (menu_list_sort(numbers, size, data_kind) == 1)
                 choice = OPTION_EXIT; /* the user chose Exit inside the submenu */
+            break;
+
+        case OPTION_BENCHMARK:
+            system("cls");
+            menu_benchmark();
             break;
 
         case OPTION_EXIT:
@@ -478,5 +488,39 @@ static void menu_kind(int *vector, int size, int *data_kind)
 
     *data_kind = kind;
     printf("\nVetor preenchido de novo com dados %s.\n", vector_fill_name(*data_kind));
+    wait_enter();
+}
+
+/* Warns the user that the comparison takes minutes, asks for confirmation and runs it.
+   The array of the main menu is not used nor changed. */
+static void menu_benchmark(void)
+{
+    int answer = 0;
+    long long before;
+
+    printf("---- Comparativo vetor x listas ----\n");
+    printf("Roda os 7 algoritmos do vetor e os 2 de cada lista (simples, dupla e circular)\n");
+    printf("com N = %d, %d e %d, nos dados aleatorios, ordenados e invertidos:\n",
+           benchmark_size(0), benchmark_size(1), benchmark_size(2));
+    printf("9 tabelas de 13 linhas. Todos os algoritmos de uma tabela recebem os mesmos valores.\n\n");
+    printf("ATENCAO: com N = %d, os algoritmos O(n^2) (Bubble, Selection, os Insertion do\n",
+           benchmark_size(BENCHMARK_SIZE_COUNT - 1));
+    printf("vetor e das listas e os Quick Sort com dados ordenados ou invertidos) levam\n");
+    printf("varios segundos cada. O comparativo inteiro pode levar alguns minutos.\n");
+    printf("O vetor do menu principal nao e alterado.\n\n");
+    printf("Digite 1 para continuar ou 0 para voltar: ");
+    if (scanf("%d", &answer) != 1)
+        answer = 0;
+    clear_input();
+
+    if (answer != 1)
+        return;
+
+    before = mem_current();
+    if (benchmark_run_all() == 0)
+        printf("\nO comparativo nao terminou: faltou memoria para algum algoritmo.\n");
+
+    /* Everything allocated by the comparison was freed, so this must be 0 */
+    printf("\nMemoria nao liberada pelo comparativo: %lld bytes\n", mem_current() - before);
     wait_enter();
 }
