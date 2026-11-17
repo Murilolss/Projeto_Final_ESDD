@@ -8,6 +8,7 @@
 #include "memory.h"
 #include "singly_list.h"
 #include "doubly_list.h"
+#include "circular_list.h"
 
 #define OPTION_SORT 1
 #define OPTION_SHOW 2
@@ -230,29 +231,33 @@ static int menu_sort(const int *vector, int size, int data_kind)
     }
 }
 
-/* Builds a linked list (singly or doubly) with the values of the array and sorts it
-   with the list algorithm chosen. The array itself is not changed.
+/* Builds a linked list (singly, doubly or circular) with the values of the array and
+   sorts it with the list algorithm chosen. The array itself is not changed.
    Options 1 .. SLIST_SORT_COUNT use the singly list; the next DLIST_SORT_COUNT options
-   use the doubly list.
+   use the doubly list and the next CLIST_SORT_COUNT options use the circular list.
    Returns 1 if the user chose Exit, 0 if the user chose Back. */
 static int menu_list_sort(const int *vector, int size, int data_kind)
 {
     int choice;
     int first_doubly = SLIST_SORT_COUNT + 1; /* option of the first doubly list algorithm */
-    int back_option = SLIST_SORT_COUNT + DLIST_SORT_COUNT + 1;
-    int exit_option = SLIST_SORT_COUNT + DLIST_SORT_COUNT + 2;
+    int first_circular = first_doubly + DLIST_SORT_COUNT; /* first circular list algorithm */
+    int back_option = first_circular + CLIST_SORT_COUNT;
+    int exit_option = back_option + 1;
     long long vector_bytes = (long long)size * (long long)sizeof(int);
     SinglyList *slist;
     DoublyList *dlist;
+    CircularList *clist;
     Metrics m;
 
     slist = slist_create();
     dlist = dlist_create();
-    if (slist == NULL || dlist == NULL)
+    clist = clist_create();
+    if (slist == NULL || dlist == NULL || clist == NULL)
     {
         printf("Erro ao alocar memoria.\n");
         slist_destroy(&slist);
         dlist_destroy(&dlist);
+        clist_destroy(&clist);
         wait_enter();
         return 0;
     }
@@ -268,6 +273,10 @@ static int menu_list_sort(const int *vector, int size, int data_kind)
         for (int i = 0; i < DLIST_SORT_COUNT; i++)
         {
             printf("%d - %s\n", first_doubly + i, dlist_sort_name(i));
+        }
+        for (int i = 0; i < CLIST_SORT_COUNT; i++)
+        {
+            printf("%d - %s\n", first_circular + i, clist_sort_name(i));
         }
         printf("%d - Voltar\n", back_option);
         printf("%d - Encerrar programa\n", exit_option);
@@ -311,10 +320,27 @@ static int menu_list_sort(const int *vector, int size, int data_kind)
             }
             wait_enter();
         }
+        else if (choice >= first_circular && choice < first_circular + CLIST_SORT_COUNT)
+        {
+            if (clist_sort_run(choice - first_circular, vector, size, clist, &m) == 1)
+            {
+                printf("\nLista ordenada: ");
+                clist_print(clist);
+                metrics_print(&m, size, vector_fill_name(data_kind));
+                printf("Memoria da lista: %lld bytes (vetor: %lld bytes)\n",
+                       clist_memory_bytes(clist), vector_bytes);
+            }
+            else
+            {
+                printf("\nNao foi possivel executar o algoritmo.\n");
+            }
+            wait_enter();
+        }
         else if (choice == back_option || choice == exit_option)
         {
             slist_destroy(&slist);
             dlist_destroy(&dlist);
+            clist_destroy(&clist);
             return (choice == exit_option) ? 1 : 0;
         }
         else
@@ -326,14 +352,16 @@ static int menu_list_sort(const int *vector, int size, int data_kind)
 }
 
 /* Runs every algorithm of the table on the same array, then every list algorithm
-   (singly and doubly) on lists with the same values, and shows all results together. */
+   (singly, doubly and circular) on lists with the same values, and shows all results
+   together. */
 static void menu_compare_all(const int *vector, int size, int data_kind)
 {
-    Metrics results[SORT_COUNT + SLIST_SORT_COUNT + DLIST_SORT_COUNT];
+    Metrics results[SORT_COUNT + SLIST_SORT_COUNT + DLIST_SORT_COUNT + CLIST_SORT_COUNT];
     int count = 0;
     int *copy;
     SinglyList *list;
     DoublyList *dlist;
+    CircularList *clist;
 
     copy = vector_create(size);
     if (copy == NULL)
@@ -379,6 +407,21 @@ static void menu_compare_all(const int *vector, int size, int data_kind)
                 count++;
         }
         dlist_destroy(&dlist);
+    }
+
+    clist = clist_create();
+    if (clist == NULL)
+    {
+        printf("Erro ao alocar memoria para a lista circular.\n");
+    }
+    else
+    {
+        for (int i = 0; i < CLIST_SORT_COUNT; i++)
+        {
+            if (clist_sort_run(i, vector, size, clist, &results[count]) == 1)
+                count++;
+        }
+        clist_destroy(&clist);
     }
 
     metrics_print_table(results, count, size, vector_fill_name(data_kind));
