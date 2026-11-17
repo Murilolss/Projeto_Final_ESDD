@@ -674,6 +674,168 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Dois commits na `ESDD/murilo`, como nas tarefas anteriores. O primeiro, "Add singly linked list with insertion and merge sort (T06)", tem `src/singly_list.h/.c`, `src/main.c` e `src/metrics.c`. O segundo tem o AI_LOG #033–#036 e as notas das sessões 04 e 05 em `contexto/memory/`. Depois, `git push origin ESDD/murilo`.
 - **Adaptações / correções:** Nenhuma.
 
+## #037 — Segunda-feira, 16/11/2026
+
+- **Autor:** Murilo Leandro
+- **Prompt:**
+  > como não integrante ainda não precisa abrir pr pode fazer merge direto
+- **Objetivo:** Mesclar a `ESDD/murilo` na `dev` sem PR, porque ainda não há outros integrantes para revisar.
+- **Resposta da IA (resumo):** A `dev` não tinha commits próprios, então o merge foi um fast-forward de `cbac53f` para `3b65262` (T03 a T06, T25, `/atualizar-branch` e logs), feito sem trocar de branch (`git fetch . ESDD/murilo:dev`) e enviado com `git push origin dev`. A `main` não foi alterada. A combinação "merge direto na dev enquanto não houver outros integrantes" foi salva na memória do Claude.
+- **Adaptações / correções:** Exceção temporária ao fluxo do `CLAUDE.md` (revisão de outro integrante antes da `dev`), autorizada pelo usuário. Quando a equipe entrar no repositório, volta o fluxo com PR.
+
+## #038 — Terça-feira, 17/11/2026
+
+- **Autor:** Murilo Leandro
+- **Prompt:**
+  > <browser_instruction># Claude in Chrome browser automation
+  >
+  > You have access to browser automation tools (mcp__claude-in-chrome__*) for interacting with web pages in Chrome. Follow these guidelines for effective browser automation.
+  >
+  > ## Loading deferred tools
+  >
+  > If the mcp__claude-in-chrome__* tools are deferred (must be loaded via ToolSearch before use), load every tool you expect to need in ONE ToolSearch call — the select query accepts a comma-separated list — never one call per tool. Start with the core set:
+  >
+  > ToolSearch with query "select:mcp__claude-in-chrome__tabs_context_mcp,mcp__claude-in-chrome__navigate,mcp__claude-in-chrome__computer,mcp__claude-in-chrome__read_page,mcp__claude-in-chrome__tabs_create_mcp,mcp__claude-in-chrome__tabs_close_mcp"
+  >
+  > Add task-specific tools to the same call when the task obviously needs them: read_console_messages / read_network_requests for debugging, form_input for forms, gif_creator for recordings, javascript_tool for page scripting.
+  >
+  > ## GIF recording
+  >
+  > When performing multi-step browser interactions that the user may want to review or share, use mcp__claude-in-chrome__gif_creator to record them.
+  >
+  > You must ALWAYS:
+  > * Capture extra frames before and after taking actions to ensure smooth playback
+  > * Name the file meaningfully to help the user identify it later (e.g., "login_process.gif")
+  >
+  > ## Console log debugging
+  >
+  > You can use mcp__claude-in-chrome__read_console_messages to read console output. Console output may be verbose. If you are looking for specific log entries, use the 'pattern' parameter with a regex-compatible pattern. This filters results efficiently and avoids overwhelming output. For example, use pattern: "[MyApp]" to filter for application-specific logs rather than reading all console output.
+  >
+  > ## Alerts and dialogs
+  >
+  > IMPORTANT: Do not trigger JavaScript alerts, confirms, prompts, or browser modal dialogs through your actions. These browser dialogs block all further browser events and will prevent the extension from receiving any subsequent commands. Instead, when possible, use console.log for debugging and then use the mcp__claude-in-chrome__read_console_messages tool to read those log messages. If a page has dialog-triggering elements:
+  > 1. Avoid clicking buttons or links that may trigger alerts (e.g., "Delete" buttons with confirmation dialogs)
+  > 2. If you must interact with such elements, warn the user first that this may interrupt the session
+  > 3. Use mcp__claude-in-chrome__javascript_tool to check for and dismiss any existing dialogs before proceeding
+  >
+  > If you accidentally trigger a dialog and lose responsiveness, inform the user they need to manually dismiss it in the browser.
+  >
+  > ## Avoid rabbit holes and loops
+  >
+  > When using browser automation tools, stay focused on the specific task. If you encounter any of the following, stop and ask the user for guidance:
+  > - Unexpected complexity or tangential browser exploration
+  > - Browser tool calls failing or returning errors after 2-3 attempts
+  > - No response from the browser extension
+  > - Page elements not responding to clicks or input
+  > - Pages not loading or timing out
+  > - Unable to complete the browser task despite multiple approaches
+  >
+  > Explain what you attempted, what went wrong, and ask how the user would like to proceed. Do not keep retrying the same failing browser action or explore unrelated pages without checking in first.
+  >
+  > ## Tab context and session startup
+  >
+  > IMPORTANT: At the start of each browser automation session, call mcp__claude-in-chrome__tabs_context_mcp first to get information about the user's current browser tabs. Use this context to understand what the user might want to work with before creating new tabs.
+  >
+  > Never reuse tab IDs from a previous/other session. Follow these guidelines:
+  > 1. Only reuse an existing tab if the user explicitly asks to work with it
+  > 2. Otherwise, create a new tab with mcp__claude-in-chrome__tabs_create_mcp
+  > 3. If a tool returns an error indicating the tab doesn't exist or is invalid, call tabs_context_mcp to get fresh tab IDs
+  > 4. When a tab is closed by the user or a navigation error occurs, call tabs_context_mcp to see what tabs are available</browser_instruction>
+  > Claude vamos fazer a t07, qual é o plano para essa task?
+- **Objetivo:** Planejar e implementar a T07: lista duplamente encadeada com Insertion Sort e Merge Sort que só mudam ponteiros, integrada ao menu e à comparação geral.
+- **Resposta da IA (resumo):** Primeiro veio o plano (modo de planejamento), aprovado pelo usuário, e depois o código. Arquivos novos: `src/doubly_list.h/.c`, um TAD opaco com `head`, `tail` e `size`, seguindo o slide de lista dupla (`inserirFim` → `dlist_insert_back`, `mostrarFim` → `dlist_print_reverse`, `remover` sem `free` para desligar o nó no Insertion). O Insertion procura a posição andando para trás pelo `prev`, como no vetor; com dados invertidos faz N(N−1)/2 comparações, contra 2(N−1) da lista simples, e move só N−1 nós. O Merge é o da T06, acertando também o `prev` de cada nó ligado e o `tail` no final, e não usa memória extra. Em `src/main.c`, a opção 6 virou "Ordenar listas encadeadas", com os 4 algoritmos (a lista dupla também é impressa do fim ao início), e "Comparar todos" passou a ter 11 linhas. Compila sem avisos (`-Wall -Wextra`). Um teste caixa-branca no scratchpad, fora do repositório, rodou N de 0 a 50.000 nos 3 tipos de dados: tudo ordena, os ponteiros ficam consistentes nos dois sentidos, as contagens previstas batem, a memória extra é 0 e não há vazamento. O menu real também foi testado com entrada automática.
+- **Adaptações / correções:** Nenhuma. Observação para a T09: com N = 50.000 e dados aleatórios, o Insertion da lista dupla levou ~20 s (a simples, ~13 s), mesmo fazendo metade das comparações do caso invertido (~12,8 s). O motivo provável é que andar por nós espalhados na memória gera muitos acessos fora da cache.
+
+## #039 — Terça-feira, 17/11/2026
+
+- **Autor:** Murilo Leandro
+- **Prompt:**
+  > pode commitar a T07
+- **Objetivo:** Commitar a T07 na branch `ESDD/murilo`.
+- **Resposta da IA (resumo):** Conferi a branch (`ESDD/murilo`) e o formato do commit da T06. A resposta foi interrompida antes do commit e terminou na entrada #040.
+- **Adaptações / correções:** Nenhuma.
+
+## #040 — Terça-feira, 17/11/2026
+
+- **Autor:** Murilo Leandro
+- **Prompt:**
+  > Continue from where you left off.
+- **Objetivo:** Terminar o commit da T07 pedido na entrada #039.
+- **Resposta da IA (resumo):** Commit `5b06661` "Add doubly linked list with insertion and merge sort (T07)" na `ESDD/murilo`, só com o código (`src/doubly_list.h`, `src/doubly_list.c` e `src/main.c`), no mesmo formato do commit da T06. O `AI_LOG.md` ficou de fora, para um commit de log separado, como já vinha sendo feito.
+- **Adaptações / correções:** Nenhuma.
+
+## #041 — Terça-feira, 17/11/2026
+
+- **Autor:** Murilo Leandro
+- **Prompt:**
+  > /salvar-memoria
+- **Objetivo:** Registrar a nota da sessão 06 (T07) em `contexto/memory/`.
+- **Resposta da IA (resumo):** Criada a nota `contexto/memory/2026-11-17_sessao-06_lista-duplamente-encadeada.md`, com o que foi feito na T07 (arquivos, teste, commit `5b06661`), as decisões (busca para trás pelo `prev` no Insertion, `insert_back` com `tail`, memória de 12 bytes por nó), os números de N = 50.000 para a T09, as pendências (commit do log, merge na `dev`, revisão, hook) e os próximos passos (T08).
+- **Adaptações / correções:** Nenhuma.
+
+## #042 — Terça-feira, 17/11/2026
+
+- **Autor:** Murilo Leandro
+- **Prompt:**
+  > <browser_instruction># Claude in Chrome browser automation
+  >
+  > You have access to browser automation tools (mcp__claude-in-chrome__*) for interacting with web pages in Chrome. Follow these guidelines for effective browser automation.
+  >
+  > ## Loading deferred tools
+  >
+  > If the mcp__claude-in-chrome__* tools are deferred (must be loaded via ToolSearch before use), load every tool you expect to need in ONE ToolSearch call — the select query accepts a comma-separated list — never one call per tool. Start with the core set:
+  >
+  > ToolSearch with query "select:mcp__claude-in-chrome__tabs_context_mcp,mcp__claude-in-chrome__navigate,mcp__claude-in-chrome__computer,mcp__claude-in-chrome__read_page,mcp__claude-in-chrome__tabs_create_mcp,mcp__claude-in-chrome__tabs_close_mcp"
+  >
+  > Add task-specific tools to the same call when the task obviously needs them: read_console_messages / read_network_requests for debugging, form_input for forms, gif_creator for recordings, javascript_tool for page scripting.
+  >
+  > ## GIF recording
+  >
+  > When performing multi-step browser interactions that the user may want to review or share, use mcp__claude-in-chrome__gif_creator to record them.
+  >
+  > You must ALWAYS:
+  > * Capture extra frames before and after taking actions to ensure smooth playback
+  > * Name the file meaningfully to help the user identify it later (e.g., "login_process.gif")
+  >
+  > ## Console log debugging
+  >
+  > You can use mcp__claude-in-chrome__read_console_messages to read console output. Console output may be verbose. If you are looking for specific log entries, use the 'pattern' parameter with a regex-compatible pattern. This filters results efficiently and avoids overwhelming output. For example, use pattern: "[MyApp]" to filter for application-specific logs rather than reading all console output.
+  >
+  > ## Alerts and dialogs
+  >
+  > IMPORTANT: Do not trigger JavaScript alerts, confirms, prompts, or browser modal dialogs through your actions. These browser dialogs block all further browser events and will prevent the extension from receiving any subsequent commands. Instead, when possible, use console.log for debugging and then use the mcp__claude-in-chrome__read_console_messages tool to read those log messages. If a page has dialog-triggering elements:
+  > 1. Avoid clicking buttons or links that may trigger alerts (e.g., "Delete" buttons with confirmation dialogs)
+  > 2. If you must interact with such elements, warn the user first that this may interrupt the session
+  > 3. Use mcp__claude-in-chrome__javascript_tool to check for and dismiss any existing dialogs before proceeding
+  >
+  > If you accidentally trigger a dialog and lose responsiveness, inform the user they need to manually dismiss it in the browser.
+  >
+  > ## Avoid rabbit holes and loops
+  >
+  > When using browser automation tools, stay focused on the specific task. If you encounter any of the following, stop and ask the user for guidance:
+  > - Unexpected complexity or tangential browser exploration
+  > - Browser tool calls failing or returning errors after 2-3 attempts
+  > - No response from the browser extension
+  > - Page elements not responding to clicks or input
+  > - Pages not loading or timing out
+  > - Unable to complete the browser task despite multiple approaches
+  >
+  > Explain what you attempted, what went wrong, and ask how the user would like to proceed. Do not keep retrying the same failing browser action or explore unrelated pages without checking in first.
+  >
+  > ## Tab context and session startup
+  >
+  > IMPORTANT: At the start of each browser automation session, call mcp__claude-in-chrome__tabs_context_mcp first to get information about the user's current browser tabs. Use this context to understand what the user might want to work with before creating new tabs.
+  >
+  > Never reuse tab IDs from a previous/other session. Follow these guidelines:
+  > 1. Only reuse an existing tab if the user explicitly asks to work with it
+  > 2. Otherwise, create a new tab with mcp__claude-in-chrome__tabs_create_mcp
+  > 3. If a tool returns an error indicating the tab doesn't exist or is invalid, call tabs_context_mcp to get fresh tab IDs
+  > 4. When a tab is closed by the user or a navigation error occurs, call tabs_context_mcp to see what tabs are available</browser_instruction>
+  > pode commitar o log e mandar para a dev
+- **Objetivo:** Commitar o log (#038–#042) e a nota da sessão 06, e levar a `ESDD/murilo` para a `dev`.
+- **Resposta da IA (resumo):** Commit "Log AI prompts #038-#042 and session note 06" na `ESDD/murilo`, com o `AI_LOG.md` e `contexto/memory/2026-11-17_sessao-06_lista-duplamente-encadeada.md`. A `dev` não tinha commits próprios, então o merge foi um fast-forward a partir de `3b65262` (T07 e logs), feito sem trocar de branch (`git fetch . ESDD/murilo:dev`). Push da `dev` e da `ESDD/murilo` para o `origin`. A `main` não foi alterada.
+- **Adaptações / correções:** Merge direto na `dev`, sem PR, como combinado no #037 enquanto não houver outros integrantes.
+
 ---
 
 <!--
