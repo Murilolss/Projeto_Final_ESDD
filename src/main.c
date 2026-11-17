@@ -7,6 +7,7 @@
 #include "metrics.h"
 #include "memory.h"
 #include "singly_list.h"
+#include "doubly_list.h"
 
 #define OPTION_SORT 1
 #define OPTION_SHOW 2
@@ -68,7 +69,7 @@ int main()
         printf("%d - Comparar todos os algoritmos\n", OPTION_COMPARE);
         printf("%d - Alterar tamanho do vetor\n", OPTION_RESIZE);
         printf("%d - Alterar tipo dos dados\n", OPTION_KIND);
-        printf("%d - Ordenar lista encadeada\n", OPTION_LIST);
+        printf("%d - Ordenar listas encadeadas\n", OPTION_LIST);
         printf("%d - Encerrar programa\n", OPTION_EXIT);
         printf("-----------------------------\n");
         printf("Digite uma opcao: ");
@@ -229,21 +230,29 @@ static int menu_sort(const int *vector, int size, int data_kind)
     }
 }
 
-/* Builds a singly linked list with the values of the array and sorts it with the list
-   algorithm chosen. The array itself is not changed.
+/* Builds a linked list (singly or doubly) with the values of the array and sorts it
+   with the list algorithm chosen. The array itself is not changed.
+   Options 1 .. SLIST_SORT_COUNT use the singly list; the next DLIST_SORT_COUNT options
+   use the doubly list.
    Returns 1 if the user chose Exit, 0 if the user chose Back. */
 static int menu_list_sort(const int *vector, int size, int data_kind)
 {
     int choice;
-    int back_option = SLIST_SORT_COUNT + 1;
-    int exit_option = SLIST_SORT_COUNT + 2;
-    SinglyList *list;
+    int first_doubly = SLIST_SORT_COUNT + 1; /* option of the first doubly list algorithm */
+    int back_option = SLIST_SORT_COUNT + DLIST_SORT_COUNT + 1;
+    int exit_option = SLIST_SORT_COUNT + DLIST_SORT_COUNT + 2;
+    long long vector_bytes = (long long)size * (long long)sizeof(int);
+    SinglyList *slist;
+    DoublyList *dlist;
     Metrics m;
 
-    list = slist_create();
-    if (list == NULL)
+    slist = slist_create();
+    dlist = dlist_create();
+    if (slist == NULL || dlist == NULL)
     {
         printf("Erro ao alocar memoria.\n");
+        slist_destroy(&slist);
+        dlist_destroy(&dlist);
         wait_enter();
         return 0;
     }
@@ -251,14 +260,18 @@ static int menu_list_sort(const int *vector, int size, int data_kind)
     while (1)
     {
         system("cls");
-        printf("---- Ordenar lista simplesmente encadeada ----\n");
+        printf("---- Ordenar listas encadeadas ----\n");
         for (int i = 0; i < SLIST_SORT_COUNT; i++)
         {
             printf("%d - %s\n", i + 1, slist_sort_name(i));
         }
+        for (int i = 0; i < DLIST_SORT_COUNT; i++)
+        {
+            printf("%d - %s\n", first_doubly + i, dlist_sort_name(i));
+        }
         printf("%d - Voltar\n", back_option);
         printf("%d - Encerrar programa\n", exit_option);
-        printf("----------------------------------------------\n");
+        printf("-----------------------------------\n");
         printf("Digite uma opcao: ");
         choice = 0;
         scanf("%d", &choice);
@@ -266,13 +279,31 @@ static int menu_list_sort(const int *vector, int size, int data_kind)
 
         if (choice >= 1 && choice <= SLIST_SORT_COUNT)
         {
-            if (slist_sort_run(choice - 1, vector, size, list, &m) == 1)
+            if (slist_sort_run(choice - 1, vector, size, slist, &m) == 1)
             {
                 printf("\nLista ordenada: ");
-                slist_print(list);
+                slist_print(slist);
                 metrics_print(&m, size, vector_fill_name(data_kind));
                 printf("Memoria da lista: %lld bytes (vetor: %lld bytes)\n",
-                       slist_memory_bytes(list), (long long)size * (long long)sizeof(int));
+                       slist_memory_bytes(slist), vector_bytes);
+            }
+            else
+            {
+                printf("\nNao foi possivel executar o algoritmo.\n");
+            }
+            wait_enter();
+        }
+        else if (choice >= first_doubly && choice < first_doubly + DLIST_SORT_COUNT)
+        {
+            if (dlist_sort_run(choice - first_doubly, vector, size, dlist, &m) == 1)
+            {
+                printf("\nLista ordenada: ");
+                dlist_print(dlist);
+                printf("Do fim ao inicio: ");
+                dlist_print_reverse(dlist);
+                metrics_print(&m, size, vector_fill_name(data_kind));
+                printf("Memoria da lista: %lld bytes (vetor: %lld bytes)\n",
+                       dlist_memory_bytes(dlist), vector_bytes);
             }
             else
             {
@@ -282,7 +313,8 @@ static int menu_list_sort(const int *vector, int size, int data_kind)
         }
         else if (choice == back_option || choice == exit_option)
         {
-            slist_destroy(&list);
+            slist_destroy(&slist);
+            dlist_destroy(&dlist);
             return (choice == exit_option) ? 1 : 0;
         }
         else
@@ -293,14 +325,15 @@ static int menu_list_sort(const int *vector, int size, int data_kind)
     }
 }
 
-/* Runs every algorithm of the table on the same array, then every list algorithm on a
-   list with the same values, and shows all results together. */
+/* Runs every algorithm of the table on the same array, then every list algorithm
+   (singly and doubly) on lists with the same values, and shows all results together. */
 static void menu_compare_all(const int *vector, int size, int data_kind)
 {
-    Metrics results[SORT_COUNT + SLIST_SORT_COUNT];
+    Metrics results[SORT_COUNT + SLIST_SORT_COUNT + DLIST_SORT_COUNT];
     int count = 0;
     int *copy;
     SinglyList *list;
+    DoublyList *dlist;
 
     copy = vector_create(size);
     if (copy == NULL)
@@ -331,6 +364,21 @@ static void menu_compare_all(const int *vector, int size, int data_kind)
                 count++;
         }
         slist_destroy(&list);
+    }
+
+    dlist = dlist_create();
+    if (dlist == NULL)
+    {
+        printf("Erro ao alocar memoria para a lista dupla.\n");
+    }
+    else
+    {
+        for (int i = 0; i < DLIST_SORT_COUNT; i++)
+        {
+            if (dlist_sort_run(i, vector, size, dlist, &results[count]) == 1)
+                count++;
+        }
+        dlist_destroy(&dlist);
     }
 
     metrics_print_table(results, count, size, vector_fill_name(data_kind));
