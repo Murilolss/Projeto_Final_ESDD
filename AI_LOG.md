@@ -1035,6 +1035,15 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
   O `CLAUDE.md` ganhou uma linha apontando para o guia. Foram feitos dois commits na `ESDD/murilo`: o do guia e o dos registros #046–#050 com a nota da sessão 08.
 - **Adaptações / correções:** O guia ficou em português, como o `CLAUDE.md`: ele é para a equipe e para o Claude, não é o `README.md`, que o enunciado exige em inglês. O guia propõe uma convenção nova, ainda a confirmar com a equipe: em conflito de numeração no merge (duas branches com o mesmo `#NNN` no AI_LOG ou a mesma `sessao-NN`), manter as duas e renumerar as da própria branch. Não foi feito push.
 
+## #051 — Terça-feira, 17/11/2026
+
+- **Autor:** Murilo Leandro
+- **Prompt:**
+  > faz o push e o merge na dev
+- **Objetivo:** Enviar a `ESDD/murilo` ao GitHub e levar para a `dev` a T09, o guia `PRIMEIROS_PASSOS.md` e os registros #046–#051.
+- **Resposta da IA (resumo):** A IA conferiu que a `dev` podia avançar por fast-forward (a `origin/dev` é ancestral da `ESDD/murilo`) e commitou esta entrada (#051). Depois fez o push da `ESDD/murilo` e avançou a `dev` sem trocar de branch (`git fetch . ESDD/murilo:dev` + `git push origin dev`), sem PR, pela exceção combinada enquanto o Murilo é o único integrante. A `main` não foi tocada.
+- **Adaptações / correções:** Nenhuma.
+
 ---
 
 <!--
