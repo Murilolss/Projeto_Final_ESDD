@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/.claude/hooks/log_prompt.py\"",
+            "commandWindows": "python .claude/hooks/log_prompt.py",
+            "timeout": 15,
+            "statusMessage": "Registrando prompt no AI_LOG.md..."
+          }
+        ]
+      }
+    ]
+  }
+}
