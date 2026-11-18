@@ -917,6 +917,124 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Commit do log e da nota na `ESDD/murilo` e push dessa branch. Depois, fast-forward da `dev` até a `ESDD/murilo` (`git fetch . ESDD/murilo:dev`, sem trocar de branch) e push da `dev`, sem PR, como combinado enquanto não houver outros integrantes. A `main` não foi tocada.
 - **Adaptações / correções:** Nenhuma.
 
+## #046 — Terça-feira, 17/11/2026
+
+- **Autor:** Murilo Leandro
+- **Prompt:**
+  > <browser_instruction># Claude in Chrome browser automation
+  >
+  > You have access to browser automation tools (mcp__claude-in-chrome__*) for interacting with web pages in Chrome. Follow these guidelines for effective browser automation.
+  >
+  > ## Loading deferred tools
+  >
+  > If the mcp__claude-in-chrome__* tools are deferred (must be loaded via ToolSearch before use), load every tool you expect to need in ONE ToolSearch call — the select query accepts a comma-separated list — never one call per tool. Start with the core set:
+  >
+  > ToolSearch with query "select:mcp__claude-in-chrome__tabs_context_mcp,mcp__claude-in-chrome__navigate,mcp__claude-in-chrome__computer,mcp__claude-in-chrome__read_page,mcp__claude-in-chrome__tabs_create_mcp,mcp__claude-in-chrome__tabs_close_mcp"
+  >
+  > Add task-specific tools to the same call when the task obviously needs them: read_console_messages / read_network_requests for debugging, form_input for forms, gif_creator for recordings, javascript_tool for page scripting.
+  >
+  > ## GIF recording
+  >
+  > When performing multi-step browser interactions that the user may want to review or share, use mcp__claude-in-chrome__gif_creator to record them.
+  >
+  > You must ALWAYS:
+  > * Capture extra frames before and after taking actions to ensure smooth playback
+  > * Name the file meaningfully to help the user identify it later (e.g., "login_process.gif")
+  >
+  > ## Console log debugging
+  >
+  > You can use mcp__claude-in-chrome__read_console_messages to read console output. Console output may be verbose. If you are looking for specific log entries, use the 'pattern' parameter with a regex-compatible pattern. This filters results efficiently and avoids overwhelming output. For example, use pattern: "[MyApp]" to filter for application-specific logs rather than reading all console output.
+  >
+  > ## Alerts and dialogs
+  >
+  > IMPORTANT: Do not trigger JavaScript alerts, confirms, prompts, or browser modal dialogs through your actions. These browser dialogs block all further browser events and will prevent the extension from receiving any subsequent commands. Instead, when possible, use console.log for debugging and then use the mcp__claude-in-chrome__read_console_messages tool to read those log messages. If a page has dialog-triggering elements:
+  > 1. Avoid clicking buttons or links that may trigger alerts (e.g., "Delete" buttons with confirmation dialogs)
+  > 2. If you must interact with such elements, warn the user first that this may interrupt the session
+  > 3. Use mcp__claude-in-chrome__javascript_tool to check for and dismiss any existing dialogs before proceeding
+  >
+  > If you accidentally trigger a dialog and lose responsiveness, inform the user they need to manually dismiss it in the browser.
+  >
+  > ## Avoid rabbit holes and loops
+  >
+  > When using browser automation tools, stay focused on the specific task. If you encounter any of the following, stop and ask the user for guidance:
+  > - Unexpected complexity or tangential browser exploration
+  > - Browser tool calls failing or returning errors after 2-3 attempts
+  > - No response from the browser extension
+  > - Page elements not responding to clicks or input
+  > - Pages not loading or timing out
+  > - Unable to complete the browser task despite multiple approaches
+  >
+  > Explain what you attempted, what went wrong, and ask how the user would like to proceed. Do not keep retrying the same failing browser action or explore unrelated pages without checking in first.
+  >
+  > ## Tab context and session startup
+  >
+  > IMPORTANT: At the start of each browser automation session, call mcp__claude-in-chrome__tabs_context_mcp first to get information about the user's current browser tabs. Use this context to understand what the user might want to work with before creating new tabs.
+  >
+  > Never reuse tab IDs from a previous/other session. Follow these guidelines:
+  > 1. Only reuse an existing tab if the user explicitly asks to work with it
+  > 2. Otherwise, create a new tab with mcp__claude-in-chrome__tabs_create_mcp
+  > 3. If a tool returns an error indicating the tab doesn't exist or is invalid, call tabs_context_mcp to get fresh tab IDs
+  > 4. When a tab is closed by the user or a navigation error occurs, call tabs_context_mcp to see what tabs are available</browser_instruction>
+  > Vamos fazer a T09, qual é o plano?
+- **Objetivo:** Planejar e implementar a T09: comparar o vetor contíguo com as três listas encadeadas usando os mesmos dados, com N = 1.000, 10.000 e 50.000, e mostrar tempo, memória, comparações e trocas em tabela.
+- **Resposta da IA (resumo):** Primeiro a IA fez o plano, que o usuário aprovou, e depois implementou. Arquivos novos: `src/benchmark.h/.c`, um módulo de funções sem estado (`benchmark_size`, `benchmark_run_all`). Ele cria as três listas uma vez e, para cada tipo de dados e cada N, preenche um vetor uma única vez e roda sobre ele os 7 algoritmos do vetor (`sort_run`) e os 2 de cada lista (`*_sort_run`). O resultado são 9 tabelas, com as colunas Estrutura, Algoritmo, Tempo, Comparacoes, Trocas, Estrutura (B) e Extra (B). Cada linha é impressa assim que o algoritmo termina (`fflush`). `src/main.c` ganhou a opção 7 "Comparativo vetor x listas" (Encerrar passou a ser a 8), com um aviso de demora, uma confirmação (1/0) e a checagem "Memoria nao liberada pelo comparativo". O código compila com `-Wall -Wextra` sem warnings. O teste pelo menu real levou cerca de 3 min: 9 tabelas, nenhuma falha e 0 bytes não liberados. A resposta 0 no aviso também foi testada. Commit `f7da2ea` na `ESDD/murilo`.
+- **Adaptações / correções:** O usuário escolheu rodar os três tipos de dados (a recomendação era só o tipo atual) e todos os 7 algoritmos do vetor (a recomendação era só Insertion e Merge). A impressão ficou no próprio `benchmark.c`, sem mexer no `metrics.c`, para não alterar o "Comparar todos". Números com N = 50.000 (esta máquina): com dados aleatórios, Insertion do vetor 4,0 s, da lista simples 10,5 s, da dupla 16,4 s e da circular 10,7 s, com as mesmas ~624–626 milhões de comparações. O Merge fica entre 15 e 45 ms em todas as estruturas. Com dados invertidos, as listas simples e circular fazem só 2(N−1) comparações (0 ms), porque buscam a partir do início, enquanto a dupla (busca para trás) e o vetor fazem N²/2 (~11 s). Memória com N = 50.000: o vetor ocupa 200.000 B, as listas simples e circular 400.008 B e a dupla 600.012 B. O Merge do vetor usa mais 200.000 B de memória extra, e o das listas, 0.
+
+## #047 — Terça-feira, 17/11/2026
+
+- **Autor:** Murilo Leandro
+- **Prompt:**
+  > ok, me avisa quando terminar
+- **Objetivo:** Esperar o fim do teste completo do comparativo da T09 (rodando em segundo plano) e receber o resultado.
+- **Resposta da IA (resumo):** A IA confirmou que vai avisar quando o teste terminar. Nenhum arquivo de código mudou. O resultado do teste fica registrado na entrada #046.
+- **Adaptações / correções:** Nenhuma.
+
+## #048 — Terça-feira, 17/11/2026
+
+- **Autor:** Murilo Leandro
+- **Prompt:**
+  > <task-notification>
+  > <task-id>bqwl3zjke</task-id>
+  > <tool-use-id>toolu_013ree7uSSNtgoBUQe34kqKY</tool-use-id>
+  > <output-file>C:\Users\Admin\AppData\Local\Temp\claude\ed04ad21958f2954\feca3ad7-0e0f-4724-b5e6-f31af34d103a\tasks\bqwl3zjke.output</output-file>
+  > <status>completed</status>
+  > <summary>Background command "Run the full benchmark through the real menu" completed (exit code 0)</summary>
+  > </task-notification>
+- **Objetivo:** Não é um prompt do usuário: é o aviso automático do Claude Code de que o teste do comparativo, que rodava em segundo plano, terminou. O hook registrou esse aviso como se fosse um prompt.
+- **Resposta da IA (resumo):** A IA conferiu a saída do teste (9 tabelas, nenhuma falha, 0 bytes não liberados), fez o commit `f7da2ea` só com o código e preencheu as entradas #046 e #048.
+- **Adaptações / correções:** Nenhuma. Observação: o `log_prompt.py` também grava as notificações `<task-notification>`. Convém filtrá-las junto com os blocos `<browser_instruction>`.
+
+## #049 — Terça-feira, 17/11/2026
+
+- **Autor:** Murilo Leandro
+- **Prompt:**
+  > /salvar-memoria
+- **Objetivo:** Registrar a sessão 08 (T09) em uma nota de memória.
+- **Resposta da IA (resumo):** Criada a nota `contexto/memory/2026-11-17_sessao-08_comparativo-vetor-listas.md`, com:
+  - o que foi feito na T09 (módulo `benchmark`, opção 7 do menu, teste completo, commit `f7da2ea`);
+  - as decisões (três tipos de dados e os 7 algoritmos do vetor, por escolha do usuário; impressão própria no `benchmark.c`; coluna "Estrutura (B)");
+  - os números de N = 50.000 para a arguição;
+  - as pendências (commit do log, merge na `dev`, revisão, filtro do hook) e os próximos passos (T26, T10, T11).
+- **Adaptações / correções:** Nenhuma.
+
+## #050 — Terça-feira, 17/11/2026
+
+- **Autor:** Murilo Leandro
+- **Prompt:**
+  > Claude, cria um arquivo.md guia de primeiros passos para esse projeto, Branch, como funciona, branch dos integrantes locais, outro claude irá ler esse arquivo então deixe detalhado como funciona, após isso, faça o commit
+- **Objetivo:** Ter um guia de primeiros passos, detalhado o bastante para outra sessão do Claude ou um integrante novo seguir: branches, como criar a branch local de cada integrante e o fluxo de trabalho.
+- **Resposta da IA (resumo):** Criado o `PRIMEIROS_PASSOS.md` na raiz, com estas seções:
+  - o que ler primeiro (CLAUDE.md, nota de sessão mais recente, plano T01–T26);
+  - pré-requisitos (MinGW 32 bits, Python para o hook);
+  - configuração inicial (clone, `git config user.name`, `mkdir -p src/output`, porque o `.exe` é ignorado e a pasta não vem no clone);
+  - branches `main`/`dev`/`ESDD/<integrante>`, com os comandos para criar a branch local a partir da `origin/dev` e publicar com `push -u`, o estado atual e a exceção temporária do merge direto na `dev`;
+  - o fluxo diário (`/atualizar-branch`, plano antes de codar, `mem_alloc`, compilar e testar com entrada por pipe, commits de código e de registros separados, PR + revisão);
+  - os registros obrigatórios (AI_LOG e `/salvar-memoria`);
+  - o mapa do `src/` e um checklist para o Claude no início da sessão.
+
+  O `CLAUDE.md` ganhou uma linha apontando para o guia. Foram feitos dois commits na `ESDD/murilo`: o do guia e o dos registros #046–#050 com a nota da sessão 08.
+- **Adaptações / correções:** O guia ficou em português, como o `CLAUDE.md`: ele é para a equipe e para o Claude, não é o `README.md`, que o enunciado exige em inglês. O guia propõe uma convenção nova, ainda a confirmar com a equipe: em conflito de numeração no merge (duas branches com o mesmo `#NNN` no AI_LOG ou a mesma `sessao-NN`), manter as duas e renumerar as da própria branch. Não foi feito push.
+
 ---
 
 <!--
