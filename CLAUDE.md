@@ -6,6 +6,8 @@
 
 Requisitos completos: [contexto/slides/Enunciado.md](contexto/slides/Enunciado.md) (original em `contexto/pdfs/Enunciado.pdf`).
 
+Primeira vez no projeto (integrante novo ou sessão nova do Claude): leia [PRIMEIROS_PASSOS.md](PRIMEIROS_PASSOS.md), com a configuração, a criação da branch `ESDD/<integrante>`, o fluxo de trabalho e os registros obrigatórios.
+
 Resumo dos requisitos:
 1. Vetores com alocação dinâmica (`malloc`/`realloc`/`free`) + métricas de **tempo** e **consumo de memória**.
 2. Listas **simplesmente**, **duplamente** encadeadas e **circulares**, com **Insertion Sort** e **Merge Sort** manipulando ponteiros; comparar com vetores contíguos.
