@@ -1044,6 +1044,60 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** A IA conferiu que a `dev` podia avançar por fast-forward (a `origin/dev` é ancestral da `ESDD/murilo`) e commitou esta entrada (#051). Depois fez o push da `ESDD/murilo` e avançou a `dev` sem trocar de branch (`git fetch . ESDD/murilo:dev` + `git push origin dev`), sem PR, pela exceção combinada enquanto o Murilo é o único integrante. A `main` não foi tocada.
 - **Adaptações / correções:** Nenhuma.
 
+## #052 — Terça-feira, 17/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Prompt:**
+  > leia .claude e as skils
+- **Objetivo:** Carregar no contexto da IA a configuração do projeto em `.claude/` (hook e skills).
+- **Resposta da IA (resumo):** Lidos `.claude/settings.json` (hook `UserPromptSubmit`), `.claude/hooks/log_prompt.py` e as skills `/salvar-memoria` e `/atualizar-branch`. Resumo do funcionamento de cada um apresentado ao usuário, com observações (o hook ainda não remove os blocos injetados pelas extensões). Nenhum arquivo alterado além deste registro.
+- **Adaptações / correções:** Nenhuma.
+
+## #053 — Terça-feira, 17/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Prompt:**
+  > /atualizar-branch
+- **Objetivo:** Atualizar a branch de trabalho da integrante com a `dev` e enviar ao GitHub.
+- **Resposta da IA (resumo):** A skill parou no passo 1: a branch atual é `dev`, não `ESDD/<integrante>`. Nenhum pull nem push foi feito; a usuária foi orientada a trocar para (ou criar) a sua branch `ESDD/<nome>`.
+- **Adaptações / correções:** Nenhuma.
+
+## #054 — Terça-feira, 17/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Prompt:**
+  > leia PRIMEIROS_PASSOS.md
+- **Objetivo:** Carregar o guia de trabalho da equipe (ambiente, branches, fluxo, registros) no contexto da IA.
+- **Resposta da IA (resumo):** Lido `PRIMEIROS_PASSOS.md` e, seguindo o checklist da seção 8 do guia, conferidos a branch (`dev`), o `git status`/`git log` e a nota de sessão mais recente (sessão 08, T09). Resumo apresentado à usuária, com a orientação de criar a branch `ESDD/<nome>` a partir de `origin/dev` (seção 4.2). Nenhum arquivo alterado além deste registro.
+- **Adaptações / correções:** Complementa a primeira leitura desta sessão (prompt "leia contexto e todas as suas subpastas"), feita na `main`, que parou na T04 (notas até a sessão 03). Na `dev` o projeto já vai até a T09 (notas das sessões 04–08). Aquele prompt foi registrado como #021 no AI_LOG da `main`, mas a entrada se perdeu na troca para a `dev` (na `dev`, a #021 é outra entrada, de 15/11).
+
+## #055 — Terça-feira, 17/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Prompt:**
+  > crie a branch ESDD/liliane
+- **Objetivo:** Criar a branch de trabalho da integrante, local e no GitHub, seguindo a seção 4.2 do `PRIMEIROS_PASSOS.md`.
+- **Resposta da IA (resumo):** `git fetch origin`, `git switch -c ESDD/liliane origin/dev` e `git push -u origin ESDD/liliane`. A branch nasceu no commit `60f612f` (mesmo da `dev`) e está ligada a `origin/ESDD/liliane`. As edições não commitadas do `AI_LOG.md` (#052–#055) vieram junto para a branch nova.
+- **Adaptações / correções:** Nenhuma.
+
+## #056 — Terça-feira, 17/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Prompt:**
+  > deixe para o fim da sessão
+- **Objetivo:** Adiar o commit dos registros do AI_LOG para o fim da sessão.
+- **Resposta da IA (resumo):** Nenhum commit feito. O `AI_LOG.md` (#052 em diante) segue modificado na `ESDD/liliane`, para ser commitado no fim da sessão junto com a nota do `/salvar-memoria`.
+- **Adaptações / correções:** A usuária escolheu adiar o commit (a IA tinha oferecido fazer na hora ou no fim da sessão).
+
+## #057 — Terça-feira, 17/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Prompt:**
+  > /salvar-memoria
+- **Objetivo:** Salvar a nota de memória desta sessão.
+- **Resposta da IA (resumo):** Criada `contexto/memory/2026-11-17_sessao-09_onboarding-liliane.md` (leituras de onboarding, criação da `ESDD/liliane`, perda da entrada #021 na troca de branch, pendências). Corrigidas as menções à #021 nas entradas #054–#056, porque ela não existe neste `AI_LOG.md`.
+- **Adaptações / correções:** Nenhuma.
+
 ---
 
 <!--
