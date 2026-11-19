@@ -1212,6 +1212,26 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Configurou a identidade na cópia local e criou o commit de código `f5bc813` na branch `ESDD/lucas`. O AI_LOG e a nota de sessão ficaram em um commit separado.
 - **Adaptações / correções:** O e-mail informado foi usado nos metadados do Git e removido deste registro.
 
+## #057 — Quinta-feira, 19/11/2026
+
+- **Autor:** xXLucasCruzXx
+- **Ferramenta:** Codex
+- **Prompt:**
+  > Faça o push dos commits da T12 para a branch ESDD/lucas no GitHub.
+- **Objetivo:** Publicar os dois commits locais da T12 na branch remota `ESDD/lucas`.
+- **Resposta da IA (resumo):** Publicou `f5bc813` e `8af6864`, vinculou a branch local à remota e verificou que ambas apontam para o mesmo commit.
+- **Adaptações / correções:** Depois que o Lucas autorizou o login no GitHub, foi aceito o convite de escrita enviado pelo Murilo para o repositório.
+
+## #058 — Quinta-feira, 19/11/2026
+
+- **Autor:** xXLucasCruzXx
+- **Ferramenta:** Codex
+- **Prompt:**
+  > Faça a T11 porém não envie para o GITHUB ainda
+- **Objetivo:** Implementar a pilha de desfazer da T11 na branch local.
+- **Resposta da IA (resumo):** Criou o TAD `Stack` em `src/stack.h` e `src/stack.c`, com registro de pares de índices e reversão de trocas em ordem LIFO. Compilou o programa com GCC MinGW de 32 bits. Os testes da pilha cobriram desfazer, crescimento, falhas de alocação e liberação de memória. Os testes da T12 também passaram. O código foi commitado em `afd76a5` na branch local `ESDD/lucas`.
+- **Adaptações / correções:** O histórico cresce conforme necessário e permanece íntegro se a realocação falhar. A integração com o menu depende da T26. Os commits ficaram locais a pedido do Lucas.
+
 ---
 
 <!--
