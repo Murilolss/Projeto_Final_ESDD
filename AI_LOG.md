@@ -1180,6 +1180,58 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** O relatório foi usado para escrever o `.codex/hooks.json` e o trecho do PRIMEIROS_PASSOS sobre o `/hooks` (ver #052). Nesta mesma resposta, o `log_prompt.py` passou a ignorar `<agent-message>` e `<task-notification>`.
 - **Adaptações / correções:** A entrada foi mantida porque entradas antigas não se apagam. A partir de agora, esse tipo de aviso não gera entrada.
 
+## #054 — Quinta-feira, 19/11/2026
+
+- **Autor:** Lucas Cruz
+- **Ferramenta:** Codex
+- **Prompt:**
+  > Leia o documento PRIMEIROS_PASSOS. Caminho: [caminho local removido]
+- **Objetivo:** Ler o guia do projeto e identificar as tarefas abertas do Lucas.
+- **Resposta da IA (resumo):** Leu o guia e listou T12, T11, T13 e T14 na ordem sugerida, com suas dependências.
+- **Adaptações / correções:** O quadro não abriu na consulta. A lista foi conferida no espelho da branch `dev`. O caminho pessoal foi removido deste registro.
+
+## #055 — Quinta-feira, 19/11/2026
+
+- **Autor:** Lucas Cruz
+- **Ferramenta:** Codex
+- **Prompt:**
+  > faça a T12.
+- **Objetivo:** Implementar a fila de testes de ordenação em lote.
+- **Resposta da IA (resumo):** Criou o TAD de fila circular em `src/queue.h` e `src/queue.c` e integrou a opção 9 em `src/main.c`. O lote executa os testes em ordem de chegada e exibe as métricas existentes para cada teste. Compilou com GCC MinGW de 32 bits e verificou a circularidade, o menu, os limites de entrada e as falhas de alocação, com zero bytes pendentes nas execuções.
+- **Adaptações / correções:** Foi adotada uma capacidade fixa de dez testes por lote. Os testes usam o tipo de dados selecionado no menu principal e um vetor próprio para cada execução. A opção 8 continua encerrando o programa. O registro foi preenchido manualmente porque o chat começou fora da raiz do repositório.
+
+## #056 — Quinta-feira, 19/11/2026
+
+- **Autor:** xXLucasCruzXx
+- **Ferramenta:** Codex
+- **Prompt:**
+  > Faça o commit para mim:
+  > email: [removido]
+  > user: xXLucasCruzXx
+- **Objetivo:** Criar o commit da T12 usando a identidade Git fornecida.
+- **Resposta da IA (resumo):** Configurou a identidade na cópia local e criou o commit de código `f5bc813` na branch `ESDD/lucas`. O AI_LOG e a nota de sessão ficaram em um commit separado.
+- **Adaptações / correções:** O e-mail informado foi usado nos metadados do Git e removido deste registro.
+
+## #057 — Quinta-feira, 19/11/2026
+
+- **Autor:** xXLucasCruzXx
+- **Ferramenta:** Codex
+- **Prompt:**
+  > Faça o push dos commits da T12 para a branch ESDD/lucas no GitHub.
+- **Objetivo:** Publicar os dois commits locais da T12 na branch remota `ESDD/lucas`.
+- **Resposta da IA (resumo):** Publicou `f5bc813` e `8af6864`, vinculou a branch local à remota e verificou que ambas apontam para o mesmo commit.
+- **Adaptações / correções:** Depois que o Lucas autorizou o login no GitHub, foi aceito o convite de escrita enviado pelo Murilo para o repositório.
+
+## #058 — Quinta-feira, 19/11/2026
+
+- **Autor:** xXLucasCruzXx
+- **Ferramenta:** Codex
+- **Prompt:**
+  > Faça a T11 porém não envie para o GITHUB ainda
+- **Objetivo:** Implementar a pilha de desfazer da T11 na branch local.
+- **Resposta da IA (resumo):** Criou o TAD `Stack` em `src/stack.h` e `src/stack.c`, com registro de pares de índices e reversão de trocas em ordem LIFO. Compilou o programa com GCC MinGW de 32 bits. Os testes da pilha cobriram desfazer, crescimento, falhas de alocação e liberação de memória. Os testes da T12 também passaram. O código foi commitado em `afd76a5` na branch local `ESDD/lucas`.
+- **Adaptações / correções:** O histórico cresce conforme necessário e permanece íntegro se a realocação falhar. A integração com o menu depende da T26. Os commits ficaram locais a pedido do Lucas.
+
 ---
 
 <!--
