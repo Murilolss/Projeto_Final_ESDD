@@ -1,3 +1,6 @@
 # Build output
 *.exe
 *.o
+
+# Python cache
+__pycache__/

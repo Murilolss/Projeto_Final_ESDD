@@ -55,7 +55,7 @@ Regras:
 
 - **Ao atualizar**, mescle: mantenha o que ainda é verdade, acrescente o que é novo, mova para "O que foi feito" as pendências resolvidas e apague o que ficou errado. Não duplique itens.
 - Faixa de prompts: veja no `AI_LOG.md` as entradas desta sessão (a primeira e a última criadas nesta conversa).
-- Cite tarefas do plano pelo número (T01…T24) quando for o caso. O plano está em https://claude.ai/artifact/G6eqVDUisHMbyCAS5mDpfr.
+- Cite tarefas do plano pelo número (T01…T26) quando for o caso. O plano está em https://claude.ai/artifact/G6eqVDUisHMbyCAS5mDpfr.
 - Não copie o que já está no código, no git ou no `CLAUDE.md`. Registre o que **não** dá para deduzir deles: decisões, motivos, dúvidas e combinados da equipe.
 - Nada de dados sensíveis (senhas, tokens, e-mails → `[removido]`).
 

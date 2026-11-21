@@ -8,6 +8,10 @@ Requisitos completos: [contexto/slides/Enunciado.md](contexto/slides/Enunciado.m
 
 Primeira vez no projeto (integrante novo ou sessão nova do Claude): leia [PRIMEIROS_PASSOS.md](PRIMEIROS_PASSOS.md), com a configuração, a criação da branch `ESDD/<integrante>`, o fluxo de trabalho e os registros obrigatórios.
 
+**Claude + Codex:** o Murilo usa o Claude Code e o Lucas usa o Codex, em paralelo e em computadores diferentes. O Codex lê o [AGENTS.md](AGENTS.md), que manda seguir **este** arquivo. Toda regra nova vai para cá, nunca só para o `AGENTS.md`. Os dois assistentes usam o mesmo hook do AI_LOG.
+
+**Quadro de tarefas:** o artefato "Plano Projeto ESDD" (https://claude.ai/artifact/G6eqVDUisHMbyCAS5mDpfr; responsáveis e status na coleção `tasks`, lida com `ArtifactData`) tem um espelho em texto, o [contexto/TAREFAS.md](contexto/TAREFAS.md), que é o que o Codex consegue ler. Ao mudar o status ou o responsável de uma tarefa num dos dois, atualize o outro também.
+
 Resumo dos requisitos:
 1. Vetores com alocação dinâmica (`malloc`/`realloc`/`free`) + métricas de **tempo** e **consumo de memória**.
 2. Listas **simplesmente**, **duplamente** encadeadas e **circulares**, com **Insertion Sort** e **Merge Sort** manipulando ponteiros; comparar com vetores contíguos.
@@ -21,7 +25,7 @@ Resumo dos requisitos:
 
 Todo prompt enviado neste projeto é registrado em [AI_LOG.md](AI_LOG.md).
 
-**Parte automática (hook):** o hook `UserPromptSubmit` em [.claude/settings.json](.claude/settings.json) roda [.claude/hooks/log_prompt.py](.claude/hooks/log_prompt.py) a cada prompt. Ele cria a entrada numerada (`## #NNN — <Dia da semana>, DD/MM/AAAA`), com autor (`git config user.name`) e o prompt literal, troca e-mails por `[removido]` e avisa ao Claude o número da entrada (mensagem `[AI_LOG] ... #NNN`). Requer Python 3 no PATH (`python`, `python3` ou `py`).
+**Parte automática (hook):** o hook `UserPromptSubmit` em [.claude/settings.json](.claude/settings.json) (no Codex, [.codex/hooks.json](.codex/hooks.json)) roda [.claude/hooks/log_prompt.py](.claude/hooks/log_prompt.py) a cada prompt. Ele cria a entrada numerada (`## #NNN — <Dia da semana>, DD/MM/AAAA`), com autor (`git config user.name`), ferramenta (`Claude Code`/`Codex`) e o prompt literal, troca e-mails por `[removido]` e avisa ao assistente o número da entrada (mensagem `[AI_LOG] ... #NNN`). Blocos injetados por extensões são removidos, e avisos automáticos (`<task-notification>`, `<agent-message>`) não viram entrada: o aviso diz que não é um prompt do usuário, e então não se cria entrada manual. Requer Python 3 no PATH (`python`, `python3` ou `py`).
 
 **Parte do Claude:**
 
@@ -60,6 +64,8 @@ Isso atende à exigência do enunciado ("Registro de Prompts") e serve de materi
 | Pasta | Conteúdo |
 |---|---|
 | `.claude/` | hooks e skills do projeto (`/salvar-memoria` grava a nota da sessão em `contexto/memory/`; `/atualizar-branch` faz `git pull origin dev` na `ESDD/<integrante>` e o push) |
+| `.codex/`, `.agents/skills/`, `AGENTS.md` | configuração do Codex: hook (o mesmo script do `.claude/hooks/`), as mesmas skills (apontam para as do `.claude/skills/`) e as instruções |
+| `contexto/TAREFAS.md` | espelho em texto do quadro de tarefas (T01–T26) |
 | `contexto/codigo-exemplos/` | códigos das aulas (padrão de estilo a seguir) — recursão, ordenação, busca, hash (endereçamento aberto), ponteiros, TAD (carrinho), lista sequencial estática, lista simplesmente encadeada |
 | `contexto/pdfs/` | slides das aulas + `Enunciado.pdf` |
 | `contexto/slides/` | um `.md` por PDF (consultar estes em vez dos PDFs) |
