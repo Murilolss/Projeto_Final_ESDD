@@ -1331,6 +1331,138 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Commit na `ESDD/liliane` com `src/sort.h`, `src/sort.c`, `src/step_view.h`, `src/step_view.c`, `src/main.c` e as entradas #063–#068 do `AI_LOG.md`. Sem push, porque ele não foi pedido. O `contexto/TAREFAS.md` não foi alterado: pela regra escrita nele, uma tarefa só vira "concluída" depois da revisão de outro integrante, e o quadro e o arquivo precisam bater.
 - **Adaptações / correções:** Nenhuma.
 
+## #069 — Sábado, 21/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > pode fazer o push. Quem ficou como reviewer para que eu saiba quando marcar como concluido? Ou isso sou eu quem especifico?
+- **Objetivo:** Fazer o push da T26 e saber quem revisa a tarefa antes de ela ser marcada como concluída.
+- **Resposta da IA (resumo):** Push da `ESDD/liliane` feito (`293697e..7e49ee3`). Explicado que não há revisor fixo: pelo `PRIMEIROS_PASSOS.md` (seção 5.6), quem terminou abre um PR `ESDD/<nome>` → `dev`, escolhe "outro integrante" para revisar, e a tarefa só é marcada como concluída no quadro e no `TAREFAS.md` depois da revisão e do merge. Sugerido o Lucas como revisor, porque a T11 dele depende do `StepObserver`. Foi oferecido abrir o PR com `gh pr create --base dev`. Também existe um PR aberto do Lucas (T12) esperando revisão.
+- **Adaptações / correções:** O commit `7e49ee3` juntou código e `AI_LOG.md`, e o `PRIMEIROS_PASSOS.md` (5.5) pede commits separados. Ele não foi reescrito, porque já estava no GitHub e reescrever exigiria `--force`. Daqui em diante, código e registros vão em commits separados.
+
+## #070 — Sábado, 21/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > Quero já partir para o T10. Faço o pedido de pr agora ou espero concluirmos tudo?
+- **Objetivo:** Decidir se o PR da T26 é aberto agora ou só quando as tarefas da fase 3 terminarem.
+- **Resposta da IA (resumo):** Recomendado abrir o PR da T26 agora. Motivos: PR pequeno é mais fácil de revisar e explicar na arguição; o Lucas precisa do `StepObserver` na `dev` para integrar a T11; e a revisão corre enquanto a T10 é feita. Cuidado: o PR acompanha a branch, então todo push na `ESDD/liliane` entra no PR aberto. Por isso a T10 fica commitada só localmente até o PR da T26 ser mesclado (ou entra no mesmo PR, se o revisor concordar). Oferecido abrir o PR e já começar a T10. Nenhum arquivo de código foi alterado.
+- **Adaptações / correções:** Nenhuma.
+
+## #071 — Sábado, 21/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > pode abrir o PR  com a descrição explicando o que foi feito e os pontos de atenção do T11, com o Lucas de revisor. Verifique se há algum pr aberto que eu já posso revisar.
+- **Objetivo:** Abrir o PR da T26 para a `dev`, com a descrição do que foi feito, os pontos de atenção para a T11 e o Lucas como revisor. Ver também se há algum PR aberto que a Liliane possa revisar.
+- **Resposta da IA (resumo):**
+  - Aberto o PR #2 (`ESDD/liliane` → `dev`, "T26: step-by-step mode with step notification"), com revisão pedida a `xXLucasCruzXx`. A descrição traz o resumo por arquivo, os testes e os pontos para a T11:
+    - ligar a pilha como outra `StepFunction`;
+    - `STEP_WRITE` (Insertion e Merge) não é desfeito pelo `SwapIndices`: opção A, pilha com o valor antigo; opção B, Undo só para Bubble, Quick e Selection;
+    - o aviso chega depois da escrita, então o valor antigo já foi perdido;
+    - a troca de uma posição com ela mesma no Quick Sort com pivô no início.
+  - O diff do PR também traz registros: `AI_LOG.md`, a nota de sessão 09 e uma linha do `PRIMEIROS_PASSOS.md`.
+  - PR aberto que a Liliane pode revisar: o #1 ("T12: circular queue for batch tests", `ESDD/lucas` → `dev`), aberto pelo Murilo, sem revisões e sem conflitos com a `dev`. Ele traz também o commit da pilha da T11 (`stack.h` / `stack.c`), e a descrição já lista pontos a ajustar (ordem do menu, `read_batch_int` complexa, numeração do AI_LOG, autor).
+- **Adaptações / correções:** Nenhuma. Esta entrada fica sem commit e sem push por enquanto, porque todo push na `ESDD/liliane` entra no PR #2.
+
+## #072 — Sábado, 21/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > Sim leia o pr para revisarmos
+- **Objetivo:** Ler o PR #1 do Lucas (T12, fila de testes em lote, mais a pilha da T11) para a Liliane revisar.
+- **Resposta da IA (resumo):**
+  - O que foi lido: `queue.h`/`queue.c`, `stack.h`/`stack.c` e as mudanças no `main.c` (`read_batch_int`, `run_batch`, `menu_batch`).
+  - Testes num worktree temporário, já removido: compila sem warnings com `-Wall -Wextra`. O lote com Bubble (N = 1000) e Merge Recursivo (N = 500) rodou na ordem certa. Algoritmo inválido, tamanho inválido e "-1 Voltar" foram tratados. Memória não liberada: 0 bytes.
+  - Merge de teste com a `ESDD/liliane`: conflito em `src/main.c` (includes e protótipos) e em `AI_LOG.md`.
+  - Pontos apresentados para a revisão:
+    - a fila está correta e segue o slide (`start` + `count` + `% capacity`);
+    - a pilha usa `top` = próxima posição livre, mas não está ligada a nada (fica para a integração com a T26);
+    - `size_t`/`SIZE_MAX`/`stdint.h` na fila e na pilha, e `read_batch_int` (`fgets`/`strtol`/`errno`), vão além do estilo das aulas;
+    - a opção 9 aparece depois de "Encerrar";
+    - o "-1 - Voltar" foge do padrão dos outros menus;
+    - o `max_size` de cerca de 1 bilhão permite testes que travam o programa por horas (Bubble com N grande);
+    - o comentário "before the caller applies it" na `stack.h`;
+    - os conflitos de AI_LOG e `main.c` com o PR #2.
+  - Nenhum comentário foi publicado no GitHub; ficou um rascunho para a Liliane aprovar.
+- **Adaptações / correções:** Nenhuma.
+
+## #073 — Sábado, 21/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > mostra o texto completo antes de enviar
+- **Objetivo:** Ver o texto completo da revisão do PR #1 antes de ele ser publicado no GitHub.
+- **Resposta da IA (resumo):** Rascunho da revisão escrito e mostrado à Liliane. Ele traz os testes feitos, o que está bom, três pontos para ajustar (ordem do menu, estilo das aulas na `read_batch_int` e no `size_t`, tamanho máximo do teste), duas sugestões que não bloqueiam ("-1 Voltar" e o comentário da `stack.h` versus o `StepObserver`) e os conflitos com o PR #2. Salvo num arquivo temporário (`review_pr1.md`). Nada foi publicado.
+- **Adaptações / correções:** Nenhuma.
+
+## #074 — Sábado, 21/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > pode enviar com request changes
+- **Objetivo:** Publicar no PR #1 a revisão aprovada (entrada #073), com o veredito "Request changes".
+- **Resposta da IA (resumo):** Revisão enviada com `gh pr review 1 --request-changes` pela conta `lilianeperim-ifsp`, com o mesmo texto mostrado na #073. O PR #1 ficou com o status `CHANGES_REQUESTED`. Nenhum arquivo do projeto foi alterado.
+- **Adaptações / correções:** Nenhuma. O texto foi enviado como estava.
+
+## #075 — Sábado, 21/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > pode começar a T10 com a proposta de formato
+- **Objetivo:** Começar a T10 propondo o formato do log de comparações e trocas, que a T14 do Lucas vai ler para animar as barras.
+- **Resposta da IA (resumo):** Proposta, ainda sem código:
+  - **Formato:** JSON, um arquivo por execução, com `algorithm`, `data_kind`, `size`, `initial` (vetor inicial), `steps` (um objeto por linha: `type` compare/swap/write, `i`, `j` e `value` só no write), `final` e `metrics`.
+  - **Estado do vetor:** o vetor inteiro não é gravado em cada passo, porque com N = 1000 no Bubble Sort seriam cerca de 750 mil passos de 1000 números cada (gigabytes). A interface parte do `initial` e reaplica os passos.
+  - **Arquivo e limite:** nome `logs/<algoritmo>_n<N>_<AAAAMMDD_HHMMSS>.json` e limite de exportação de N ≤ 1000.
+  - **Menu:** a pergunta "Exportar log?" no `menu_sort`, independente do passo a passo.
+  - **Quando gravar:** o arquivo é escrito durante a ordenação, então o tempo medido inclui a escrita.
+  - **Decisões pedidas à Liliane:** JSON ou CSV, o limite de N, a pasta `logs/` e se o formato vai para o Lucas antes do código.
+  - Nenhum arquivo de código foi alterado.
+- **Adaptações / correções:** Nenhuma.
+
+## #076 — Sábado, 21/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > 1. Pode utilizar JSON.
+  > 2.  Utilize este limite e se possivel deixe um comentario explicando o porque caso o usuario opte por exportar com um valor maior e não conseguir. 
+  > 3. Me explique qual seria a melhor decisão neste caso. é uma prarica comum fazer desta froma?
+  > 4. Sim
+- **Objetivo:** Fechar as decisões do formato da T10 e escrever a especificação para o Lucas. Decisões: JSON; limite N ≤ 1000 com aviso explicando o motivo; explicação sobre a pasta `logs/` no `.gitignore`.
+- **Resposta da IA (resumo):**
+  - Sobre a pasta `logs/`: é prática comum não versionar arquivos gerados pelo programa (como já acontece com `.exe` e `.o`), porque eles são recriados a cada execução, podem ter dezenas de MB e causariam conflitos no Git. Recomendado ignorar `logs/*`, manter a pasta no repositório com um `.gitkeep` (o Git não guarda pasta vazia e o C padrão não cria pastas) e versionar só um log pequeno de exemplo para a T14.
+  - Criado `contexto/formato_log.md`, escrito para o Lucas: exemplo, tabela de campos, tipos de passo, observações por algoritmo, pseudocódigo em JavaScript para reaplicar os passos, nome do arquivo, tabela do tamanho do arquivo por N (justifica o limite de 1000) e três pontos para ele confirmar.
+  - Combinado que o limite de 1000 terá constante e comentário no código, e uma mensagem ao usuário explicando o motivo quando N for maior.
+  - Ainda sem código; aguardando a confirmação da Liliane sobre a pasta `logs/`.
+- **Adaptações / correções:** Nenhuma.
+
+## #077 — Sábado, 21/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > pode seguir com a pasta logs e incluir no PR #2
+- **Objetivo:** Seguir com a pasta `logs/` (ignorada no Git, com `.gitkeep` e um exemplo), incluir a especificação do formato no PR #2 e implementar a T10.
+- **Resposta da IA (resumo):**
+  - **PR #2:** commit `1f544b3` com o `contexto/formato_log.md`, push e um comentário no PR avisando o Lucas e pedindo que ele confirme os pontos do fim do arquivo.
+  - **Código da T10** (commitado só localmente, porque o PR #2 está aberto):
+    - `src/export.h` / `src/export.c` (TAD opaco `Exporter`): `export_open` cria `logs/<algoritmo>_n<N>_<AAAAMMDD_HHMMSS>.json` (com `_2`, `_3`... se o nome já existir) e grava o cabeçalho e o vetor inicial; `export_step` é a `StepFunction` que grava um passo por linha; `export_close` grava o vetor final e as métricas, confere erros de escrita (`ferror`/`fclose`) e libera a memória.
+    - `EXPORT_MAX_SIZE` = 1000, com um comentário explicando o crescimento quadrático do arquivo.
+    - `src/main.c`: o `run_step_by_step` virou `run_sort`, que pergunta pelo passo a passo e pela exportação e escolhe a função de passo (`step_view_show`, `export_step` ou `step_both`, que repassa o passo às duas). O `ask_export` mostra uma mensagem explicando o limite quando N > 1000. Se a pasta `logs/` não existir, outra mensagem pede que o programa seja rodado a partir da raiz.
+    - `.gitignore` com `logs/*` e exceções para `logs/.gitkeep` e `logs/exemplo_bubble_sort_n10.json`.
+    - A especificação foi atualizada: status, regra do `_2`, link para o exemplo e tabela de tamanho com o pior caso medido.
+  - **Testes:** compila sem warnings. Logs dos 7 algoritmos (N = 30) e de um passo a passo junto com exportação (N = 8) foram validados num script Python: JSON válido, a reaplicação dos passos chega ao `final` ordenado e as comparações batem com as métricas. Também testados: N = 2000 (mensagem do limite), pasta ausente (mensagem de erro), três exportações no mesmo segundo (nomes com `_2` e `_3`) e N = 1000 (cerca de 10 s e 67 MB com dados invertidos). Memória não liberada: 0 bytes.
+- **Adaptações / correções:** A estimativa inicial de 30 MB para N = 1000 valia para dados aleatórios. Com dados invertidos, o arquivo medido teve 67 MB, e o comentário do `export.h` e a tabela da especificação foram corrigidos. O limite de 1000 foi mantido.
+
 ---
 
 <!--
