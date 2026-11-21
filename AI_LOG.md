@@ -1463,6 +1463,34 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
   - **Testes:** compila sem warnings. Logs dos 7 algoritmos (N = 30) e de um passo a passo junto com exportação (N = 8) foram validados num script Python: JSON válido, a reaplicação dos passos chega ao `final` ordenado e as comparações batem com as métricas. Também testados: N = 2000 (mensagem do limite), pasta ausente (mensagem de erro), três exportações no mesmo segundo (nomes com `_2` e `_3`) e N = 1000 (cerca de 10 s e 67 MB com dados invertidos). Memória não liberada: 0 bytes.
 - **Adaptações / correções:** A estimativa inicial de 30 MB para N = 1000 valia para dados aleatórios. Com dados invertidos, o arquivo medido teve 67 MB, e o comentário do `export.h` e a tabela da especificação foram corrigidos. O limite de 1000 foi mantido.
 
+## #078 — Sábado, 21/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > Salve a memória da sessão para continuarmos depois o card T10. Certifique de que o Lucas irá receber um aviso sobre a revisão dele no pr e os comentários para que ele realize suas próximas tarefas.
+- **Objetivo:** Salvar a memória da sessão para continuar a T10 depois e garantir que o Lucas seja avisado da revisão no PR e dos comentários com as próximas tarefas dele.
+- **Resposta da IA (resumo):**
+  - **Nota da sessão:** criada `contexto/memory/2026-11-21_sessao-10_passo-a-passo-exportacao.md` (prompts #058–#078), com o que foi feito na T26 e na T10, as decisões, as pendências e os próximos passos.
+  - **Avisos ao Lucas:** foram conferidos no GitHub.
+    - No PR #2, ele está como revisor pedido e o GitHub já o avisa disso e dos comentários.
+    - O PR #1 foi aberto pelo Murilo, então o Lucas poderia não receber o aviso da revisão. Por isso foi publicado lá um comentário marcando o `@xXLucasCruzXx`, com o resumo das tarefas: ajustes 1–3 do PR #1, a revisão do PR #2 com os pontos do Undo e a confirmação do formato do log.
+  - Commit local "Log AI prompts #078 and session note 10", sem push, porque o PR #2 está aberto.
+- **Adaptações / correções:** Ao fazer o commit, apareceu que `896583f` (T10) e `0b802f3` (AI_LOG) já estavam no GitHub, enviados fora do Claude, e portanto dentro do PR #2. A nota da sessão foi corrigida. Ficaram desatualizados a descrição do PR #2 (só fala da T26) e o comentário no PR #1 ("o PR da exportação sai depois que o #2 for mesclado"). A decisão foi levada à Liliane.
+
+## #079 — Sábado, 21/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > pode manter a T10 no PR #2 e atualizar a descrição, mas eu quero revisar o T10 depois. Depois disso, salve a memoria da sessão
+- **Objetivo:** Manter a T10 no PR #2, atualizar a descrição deixando claro que a Liliane ainda vai revisar a T10, e salvar a memória da sessão.
+- **Resposta da IA (resumo):**
+  - PR #2 renomeado para "T26 + T10: step-by-step mode and JSON step log". A descrição ganhou a seção "T10", com um aviso de não fazer o merge antes da revisão da Liliane, e traz commits, arquivos e testes.
+  - Corrigidos os comentários do PR #2 (para o Lucas, sobre o formato) e do PR #1 (resumo das tarefas dele), que diziam que a T10 viria num PR separado.
+  - Nota `contexto/memory/2026-11-21_sessao-10_passo-a-passo-exportacao.md` atualizada (prompts #058–#079, nova pendência "Liliane revisa a T10", próximos passos refeitos). Commit da nota e do AI_LOG enviado para a `ESDD/liliane`, o que também o leva ao PR #2.
+- **Adaptações / correções:** Nenhuma.
+
 ---
 
 <!--
