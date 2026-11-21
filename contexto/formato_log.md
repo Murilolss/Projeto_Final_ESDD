@@ -1,6 +1,6 @@
 # Formato do log de passos (T10 → T14)
 
-Proposta da Liliane (T10, exportação) para o Lucas (T14, interface que desenha e anima as barras). **Status: proposta, aguardando o OK do Lucas.** Se algum nome de campo precisar mudar, combine antes de a T10 ser implementada.
+Proposta da Liliane (T10, exportação) para o Lucas (T14, interface que desenha e anima as barras). **Status: implementado na T10 (`src/export.h` / `src/export.c`), aguardando o OK do Lucas.** Se algum nome de campo precisar mudar, avise a Liliane: a mudança no C é pequena.
 
 ## Resumo
 
@@ -86,19 +86,19 @@ for (const step of log.steps) {
 
 - Pasta `logs/`, na raiz do projeto (rodar o programa a partir da raiz).
 - Nome: `<algoritmo>_n<N>_<AAAAMMDD>_<HHMMSS>.json`, com o algoritmo em minúsculas e `_` no lugar de espaço. Exemplo: `logs/bubble_sort_n10_20261121_153000.json`.
-- Cada execução cria um arquivo novo; nenhum log é sobrescrito.
-- Os `.json` gerados não vão para o GitHub (`.gitignore`). Um arquivo de exemplo pequeno fica versionado para a T14 poder ser desenvolvida sem rodar o programa.
+- Cada execução cria um arquivo novo; nenhum log é sobrescrito. Se duas exportações caírem no mesmo segundo, a segunda ganha `_2` no fim do nome, a terceira `_3`, e assim por diante.
+- Os `.json` gerados não vão para o GitHub (`.gitignore`). O arquivo de exemplo [`logs/exemplo_bubble_sort_n10.json`](../logs/exemplo_bubble_sort_n10.json) (Bubble Sort, N = 10, dados aleatórios) fica versionado para a T14 poder ser desenvolvida sem rodar o programa.
 
 ## Limite de tamanho (N ≤ 1000)
 
-O número de passos cresce muito com N. No Bubble Sort, que faz por volta de N²/2 comparações:
+O número de passos cresce com o quadrado de N. No Bubble Sort, que faz por volta de N²/2 comparações (dados aleatórios) ou N² comparações (dados invertidos, o pior caso):
 
-| N | passos (aprox.) | tamanho do arquivo (aprox.) |
-|---|---|---|
-| 100 | 7 mil | 300 KB |
-| 1.000 | 750 mil | 30 MB |
-| 10.000 | 75 milhões | 3 GB |
-| 50.000 | 1,9 bilhão | 75 GB |
+| N | passos, aleatório | arquivo, aleatório | arquivo, invertido |
+|---|---|---|---|
+| 100 | 7 mil | 300 KB | 670 KB |
+| 1.000 | 750 mil | 30 MB | 67 MB (medido) |
+| 10.000 | 75 milhões | 3 GB | 7 GB |
+| 50.000 | 1,9 bilhão | 75 GB | 170 GB |
 
 Acima de 1000 o arquivo fica grande demais para gravar e para o navegador abrir, e uma animação com milhões de passos não dá para assistir. Por isso o programa não oferece a exportação nesses casos e explica o motivo ao usuário.
 

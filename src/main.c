@@ -11,6 +11,7 @@
 #include "circular_list.h"
 #include "benchmark.h"
 #include "step_view.h"
+#include "export.h"
 
 #define OPTION_SORT 1
 #define OPTION_SHOW 2
@@ -25,7 +26,8 @@ static void clear_input(void);
 static void wait_enter(void);
 static int read_data_kind(void);
 static int read_yes_no(const char *question);
-static int run_step_by_step(int index, const int *vector, int *copy, int size, Metrics *m);
+static int run_sort(int index, const int *vector, int *copy, int size, int data_kind,
+                    Metrics *m);
 static int menu_sort(const int *vector, int size, int data_kind);
 static int menu_list_sort(const int *vector, int size, int data_kind);
 static void menu_compare_all(const int *vector, int size, int data_kind);
@@ -208,32 +210,133 @@ static int read_yes_no(const char *question)
     }
 }
 
-/* Step-by-step mode (T26): sorts copy (a copy of vector) with the algorithm at index,
-   redrawing the screen after every step. The sort calls step_view_show, received by
-   parameter inside the StepObserver, and the view is its context.
-   Returns 1 on success, 0 on failure. */
-static int run_step_by_step(int index, const int *vector, int *copy, int size, Metrics *m)
+/* Data received by step_both: the screen of the step-by-step mode and the log file. */
+typedef struct {
+    StepView *view;
+    Exporter *exporter;
+} StepTargets;
+
+/* Step function used when the step-by-step mode and the export are both on.
+   A StepObserver holds only one function, so this one passes the same step to the
+   two others: first it is written to the log, then it is shown on the screen. */
+static void step_both(int kind, int i, int j, const int *array, int size, void *context)
 {
-    StepView *view = NULL;
-    StepObserver observer;
-    int ok;
+    StepTargets *targets = (StepTargets *)context;
 
-    if (size > STEP_VIEW_FULL_SIZE)
-        printf("Vetor com mais de %d itens: a tela mostra so as posicoes perto de cada passo.\n"
-               "Digite f + ENTER a qualquer momento para ir ate o fim.\n", STEP_VIEW_FULL_SIZE);
+    export_step(kind, i, j, array, size, targets->exporter);
+    step_view_show(kind, i, j, array, size, targets->view);
+}
 
-    if (step_view_create(sort_name(index), read_yes_no("Pausar tambem nas comparacoes?"),
-                         &view) == 0)
+/* Asks if the steps should be exported to a JSON file (T10).
+   Returns 1 only if the user said yes and the array is small enough. */
+static int ask_export(int size)
+{
+    if (read_yes_no("Exportar log das comparacoes e trocas?") == 0)
         return 0;
 
-    observer.function = step_view_show;
-    observer.context = view;
+    /* See EXPORT_MAX_SIZE in export.h: the file grows with the square of N */
+    if (size > EXPORT_MAX_SIZE)
+    {
+        printf("\nExportacao disponivel so para vetores de ate %d itens (este tem %d).\n",
+               EXPORT_MAX_SIZE, size);
+        printf("O numero de passos cresce com o quadrado de N: com N = 10000 o Bubble Sort\n");
+        printf("gera cerca de 75 milhoes de passos (arquivo de uns 3 GB), grande demais para\n");
+        printf("gravar e para a interface animar. Use Alterar tamanho para um vetor menor.\n");
+        printf("A ordenacao vai rodar sem exportar.\n");
+        wait_enter();
+        return 0;
+    }
+
+    return 1;
+}
+
+/* Sorts copy (a copy of vector) with the algorithm at index.
+   Before sorting it asks for the step-by-step mode (T26) and for the export (T10).
+   The sort calls the step function received by parameter inside the StepObserver:
+   step_view_show (screen), export_step (log file), step_both (both) or none.
+   Returns 1 on success, 0 if the algorithm fails. */
+static int run_sort(int index, const int *vector, int *copy, int size, int data_kind,
+                    Metrics *m)
+{
+    StepView *view = NULL;
+    Exporter *exporter = NULL;
+    StepTargets targets;
+    StepObserver observer;
+    int step_mode;
+    int export_on;
+    int ok;
+
+    step_mode = read_yes_no("Executar passo a passo?");
+    export_on = ask_export(size);
+
+    if (export_on == 1 &&
+        export_open(sort_name(index), vector_fill_name(data_kind), vector, size, &exporter) == 0)
+    {
+        printf("\nNao foi possivel criar o arquivo na pasta %s.\n", EXPORT_FOLDER);
+        printf("Rode o programa a partir da pasta raiz do projeto (onde fica a pasta %s).\n",
+               EXPORT_FOLDER);
+        printf("A ordenacao vai rodar sem exportar.\n");
+        wait_enter();
+        export_on = 0;
+    }
+
+    if (step_mode == 1)
+    {
+        if (size > STEP_VIEW_FULL_SIZE)
+            printf("Vetor com mais de %d itens: a tela mostra so as posicoes perto de cada passo.\n"
+                   "Digite f + ENTER a qualquer momento para ir ate o fim.\n",
+                   STEP_VIEW_FULL_SIZE);
+
+        if (step_view_create(sort_name(index), read_yes_no("Pausar tambem nas comparacoes?"),
+                             &view) == 0)
+        {
+            printf("Erro ao alocar memoria: o passo a passo nao sera mostrado.\n");
+            step_mode = 0;
+        }
+    }
+
+    /* Chooses the step function. With function == NULL nobody is notified. */
+    if (step_mode == 1 && export_on == 1)
+    {
+        targets.view = view;
+        targets.exporter = exporter;
+        observer.function = step_both;
+        observer.context = &targets;
+    }
+    else if (step_mode == 1)
+    {
+        observer.function = step_view_show;
+        observer.context = view;
+    }
+    else if (export_on == 1)
+    {
+        observer.function = export_step;
+        observer.context = exporter;
+    }
+    else
+    {
+        observer.function = NULL;
+        observer.context = NULL;
+    }
 
     ok = sort_run_steps(index, vector, copy, size, m, &observer);
 
-    step_view_destroy(&view);
-    system("cls");
-    printf("Fim do passo a passo (o tempo inclui as pausas).\n");
+    if (step_mode == 1)
+    {
+        step_view_destroy(&view);
+        system("cls");
+        printf("Fim do passo a passo (o tempo inclui as pausas).\n");
+    }
+
+    if (export_on == 1)
+    {
+        printf("\nLog exportado em %s\n", export_path(exporter));
+        if (export_close(&exporter, copy, m) == 1)
+            printf("(o tempo inclui a gravacao do arquivo)\n");
+        else
+            printf("Erro ao gravar o arquivo de log: ele pode estar incompleto.\n");
+    }
+
     return ok;
 }
 
@@ -275,10 +378,7 @@ static int menu_sort(const int *vector, int size, int data_kind)
         {
             int ok;
 
-            if (read_yes_no("Executar passo a passo?") == 1)
-                ok = run_step_by_step(choice - 1, vector, copy, size, &m);
-            else
-                ok = sort_run(choice - 1, vector, copy, size, &m);
+            ok = run_sort(choice - 1, vector, copy, size, data_kind, &m);
 
             if (ok == 1)
             {
