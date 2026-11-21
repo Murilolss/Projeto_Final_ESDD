@@ -1491,6 +1491,16 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
   - Nota `contexto/memory/2026-11-21_sessao-10_passo-a-passo-exportacao.md` atualizada (prompts #058–#079, nova pendência "Liliane revisa a T10", próximos passos refeitos). Commit da nota e do AI_LOG enviado para a `ESDD/liliane`, o que também o leva ao PR #2.
 - **Adaptações / correções:** Nenhuma.
 
+## #080 — Sábado, 21/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > /salvar-memoria
+- **Objetivo:** Salvar a nota de memória desta sessão (`/salvar-memoria`).
+- **Resposta da IA (resumo):** A nota `contexto/memory/2026-11-21_sessao-10_passo-a-passo-exportacao.md`, já criada e atualizada nas #078–#079, foi atualizada de novo. Ganhou o marcador `<!-- session: ... -->` desta sessão, e a faixa de prompts passou a #058–#080. O conteúdo continua valendo e não foi alterado. Commit local, sem push.
+- **Adaptações / correções:** Nenhuma.
+
 ---
 
 <!--

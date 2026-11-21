@@ -1,7 +1,8 @@
 # Sessão 10 — 2026-11-21 — Passo a passo (T26) e exportação JSON (T10)
+<!-- session: 2b8457df-d9bf-404a-87db-b565fa56448b -->
 
 - **Autor:** lilianeperim-ifsp
-- **Prompts no AI_LOG:** #058–#079
+- **Prompts no AI_LOG:** #058–#080
 
 ## O que foi feito
 - `ESDD/liliane` atualizada com a `dev`. Houve conflito no `AI_LOG.md`, resolvido renumerando por data: as #052–#053 da `dev` (18/11) viraram #058–#059 e as entradas de 21/11 começam na #060.
