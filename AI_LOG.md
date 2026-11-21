@@ -1098,6 +1098,24 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Criada `contexto/memory/2026-11-17_sessao-09_onboarding-liliane.md` (leituras de onboarding, criação da `ESDD/liliane`, perda da entrada #021 na troca de branch, pendências). Corrigidas as menções à #021 nas entradas #054–#056, porque ela não existe neste `AI_LOG.md`.
 - **Adaptações / correções:** Nenhuma.
 
+## #058 — Sábado, 21/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Prompt:**
+  > /atualizar-branch
+- **Objetivo:** Trazer para a `ESDD/liliane` o que já foi integrado na `dev`.
+- **Resposta da IA (resumo):** O `git pull --no-edit origin dev` foi abortado pelo Git antes de começar o merge, porque o `AI_LOG.md` tinha alterações locais não commitadas (a entrada #058 criada pelo hook) e a `dev` também altera esse arquivo. Estavam chegando 2 commits (`92758c0` com a configuração do Codex e `a72fdf0` com o registro dos prompts #052–#053), que mexem em 11 arquivos. Nenhum arquivo foi alterado além desta entrada e o push não foi feito.
+- **Adaptações / correções:** Nenhuma.
+
+## #059 — Sábado, 21/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Prompt:**
+  > pode commitar o AI_LOG e rodar de novo
+- **Objetivo:** _(a preencher pelo Claude ao final da resposta)_
+- **Resposta da IA (resumo):** _(a preencher pelo Claude ao final da resposta)_
+- **Adaptações / correções:** _(a preencher pelo Claude ao final da resposta)_
+
 ---
 
 <!--
