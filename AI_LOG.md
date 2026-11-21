@@ -1262,6 +1262,75 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Conflito resolvido sem apagar texto: #052–#057 (17/11) ficaram como estavam; as #052–#053 da `dev` (18/11) viraram #058–#059; as #058–#059 de 21/11 viraram #060–#061; esta entrada, criada pelo hook como #060, virou #062. As referências cruzadas foram atualizadas ("resposta à #052" e "ver #052" na nova #059 passaram a #058; "até a #053" no `PRIMEIROS_PASSOS.md` passou a "até a #059"; observação "hoje #060/#061" nas entradas #060 e #061). Commit do merge e push para `origin/ESDD/liliane`.
 - **Adaptações / correções:** Nenhuma. Observação: quando a `ESDD/liliane` for mesclada na `dev`, as entradas da `dev` passam a ter os números #058–#059. Integrantes que tenham entradas novas na `dev` a partir da #054 vão ter o mesmo tipo de conflito.
 
+## #063 — Sábado, 21/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > Vamos começar a fazer as minhas tarefas do projeto. Os cards com maior prioridade são o T10, T11 E O T26, todos do tópico "Pilha, fila e exportação". Você tem acesso ao quadro para saber quais são estes cards ou te envio aqui?
+- **Objetivo:** Saber se o Claude consegue ver no quadro os cards T10, T11 e T26 ("Pilha, fila e exportação") para começar as tarefas da Liliane.
+- **Resposta da IA (resumo):** Não foi possível abrir o quadro "Plano Projeto ESDD" pelas ferramentas de artefato (resposta "not found": o quadro é do Murilo e não está acessível nesta conta). Os cards foram lidos no espelho `contexto/TAREFAS.md` (atualizado em 18/11). Lá a T11 (pilha para Undo) aparece com o Lucas, e não com a Liliane. Foi pedido que ela confirme se a T11 passou para ela e se os cards têm detalhes além do título. Nenhum arquivo de código foi alterado.
+- **Adaptações / correções:** Nenhuma.
+
+## #064 — Sábado, 21/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > Opa! Confundi. A T11 é do Lucas mesmo. Vamos começar pelo T26.
+  >
+  > (Junto com o prompt foi enviada uma captura de tela do quadro, fase 3 "Pilha, fila e exportação", com a descrição dos cards T26, T10, T11 e T12.)
+- **Objetivo:** Implementar a T26, o modo passo a passo em que a tela atualiza a cada troca. Pelo card, os algoritmos avisam cada comparação e troca a uma função recebida por parâmetro (ponteiro para função), e a mesma ideia serve depois à exportação (T10) e ao Undo (T11).
+- **Resposta da IA (resumo):**
+  - `src/sort.h` / `src/sort.c`: novos `StepFunction` (ponteiro para função), `StepObserver { function, context }` e os tipos de passo `STEP_COMPARE`, `STEP_SWAP` e `STEP_WRITE`. Os 7 algoritmos ganharam o parâmetro `const StepObserver *observer` e chamam `notify()` logo depois de cada comparação, troca ou escrita. `STEP_WRITE` existe porque o Insertion Sort desloca valores e o Merge Sort copia valores das metades temporárias: não são trocas. Novo `sort_run_steps()`. O `sort_run()` manteve a assinatura e chama `sort_run_steps(..., NULL)`, então benchmarks, tabela comparativa e a fila do Lucas continuam iguais.
+  - `src/step_view.h` / `src/step_view.c` (TAD opaco novo): a cada passo limpa a tela, desenha cada elemento como uma barra de `#`, marca as posições i e j, mostra os contadores e espera ENTER; `f` + ENTER vai até o fim sem pausas. Vetor de no máximo 20 itens (`STEP_VIEW_MAX_SIZE`). Opção de pausar também nas comparações.
+  - `src/main.c`: o modo entra no `menu_sort`. Depois de escolher o algoritmo, com vetor de até 20 itens, o programa pergunta "Executar passo a passo?". Novas funções `read_yes_no()` e `run_step_by_step()`. O menu principal não mudou, para evitar conflito com a opção 9 (fila em lote) que o Lucas acrescentou na `ESDD/lucas`.
+  - Testes: compila sem warnings com `gcc -Wall -Wextra`. Num programa de teste fora do repositório, os eventos de cada algoritmo foram reaplicados numa cópia do vetor para tamanhos 1, 2, 7, 20 e 300, com dados aleatórios, ordenados e invertidos. A cópia bateu com o vetor real depois de cada passo, as contagens de comparações e trocas ficaram iguais às do `sort_run` e não houve vazamento. O programa também foi rodado com entrada simulada (Bubble Sort só com trocas, Merge Sort com comparações e N = 50 sem passo a passo).
+- **Adaptações / correções:** Nenhuma até agora. Pontos levados à Liliane: (1) no Insertion Sort o contador "Trocas/escritas" da tela fica maior que as "Trocas" das métricas, porque a escrita final da chave gera evento mas não é contada como troca; (2) a pilha do Lucas (`SwapIndices`) só desfaz trocas, e os passos `STEP_WRITE` do Insertion e do Merge precisariam guardar o valor antigo; (3) é preciso combinar isso com o Lucas na integração da T11.
+
+## #065 — Sábado, 21/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > Porque funciona apenas com vetores de até 20 itens? Não seria melhor que não houvesse essa restrição? Também acho que s/n não ficou muito intuitivo. Troque por "Sim ou Não".
+- **Objetivo:** Tirar o limite de 20 itens do modo passo a passo e trocar a pergunta "(s/n)" por "Sim ou Não".
+- **Resposta da IA (resumo):** Explicado o motivo do limite: o desenho usava uma linha por elemento e uma barra com tamanho igual ao valor, e um vetor grande não cabia no console. Mudanças:
+  - `src/step_view.h` / `src/step_view.c`: a barra ficou proporcional ao maior valor do vetor (`bar_length`, no máximo `STEP_VIEW_BAR_WIDTH` = 50 caracteres). Vetores com até `STEP_VIEW_FULL_SIZE` (20) itens aparecem inteiros. Nos maiores, a tela mostra só as linhas a até `STEP_VIEW_NEAR` (4) posições de i e de j, e as linhas escondidas viram "..." (`is_visible`). O `STEP_VIEW_MAX_SIZE` foi removido.
+  - `src/main.c`: o passo a passo é oferecido para qualquer tamanho. Com mais de 20 itens, aparece um aviso de que só as posições próximas são mostradas e de que `f` vai até o fim. O `read_yes_no` mostra "Digite Sim ou Nao", aceita Sim/S/sim e Nao/N/nao (só a primeira letra é conferida) e pergunta de novo se a resposta for inválida.
+  - Teste: compilado sem warnings (num executável separado, porque o `src/output/main.exe` estava aberto). Rodado com N = 1000 no Quick Sort, com uma resposta inválida antes do "Sim", e com N = 6, respondendo "Nao". Memória não liberada: 0 bytes.
+- **Adaptações / correções:** O texto ficou "Sim ou Nao" sem til, porque a equipe decidiu não usar acento nos `printf` (o console do Windows estraga acentos). O Quick Sort com pivô no início às vezes mostra uma "troca" de uma posição com ela mesma (ex.: "posicoes 999 e 999"). Isso já acontecia no código original e é contado como troca nas métricas. Não foi alterado.
+
+## #066 — Sábado, 21/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > Não consegui compilar atraves do comando no terminal
+- **Objetivo:** Descobrir por que o comando `gcc -Wall -Wextra src/*.c -o src/output/main.exe` não compilava no terminal.
+- **Resposta da IA (resumo):** O comando foi rodado no PowerShell e deu `ld.exe: cannot open output file src/output/main.exe: Permission denied`. O código compila. O problema é que o Windows não deixa sobrescrever um `.exe` em execução, e havia um `main.exe` aberto (iniciado às 14:29) num terminal PowerShell do VS Code. Orientado a encerrar o programa (opção 8 do menu ou Ctrl+C) e compilar de novo. Nenhum arquivo de código foi alterado.
+- **Adaptações / correções:** Nenhuma. O processo não foi encerrado pelo Claude, porque é um programa aberto pela usuária.
+
+## #067 — Sábado, 21/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > pode encerrar o programa e compilar
+- **Objetivo:** Encerrar o `main.exe` que estava aberto e compilar o projeto.
+- **Resposta da IA (resumo):** O processo `src/output/main.exe` foi encerrado com `Stop-Process` e o projeto foi recompilado com `gcc -Wall -Wextra src/*.c -o src/output/main.exe` no PowerShell. O comando saiu com código 0 e sem warnings, e o `main.exe` novo foi gravado às 14:41. Nenhum arquivo de código foi alterado.
+- **Adaptações / correções:** Nenhuma.
+
+## #068 — Sábado, 21/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > Testei e parece estar tudo certo. Pode commitar. Vou marcar o T26 como concluido.
+- **Objetivo:** Commitar a T26 (modo passo a passo), depois de a Liliane testar o programa.
+- **Resposta da IA (resumo):** Commit na `ESDD/liliane` com `src/sort.h`, `src/sort.c`, `src/step_view.h`, `src/step_view.c`, `src/main.c` e as entradas #063–#068 do `AI_LOG.md`. Sem push, porque ele não foi pedido. O `contexto/TAREFAS.md` não foi alterado: pela regra escrita nele, uma tarefa só vira "concluída" depois da revisão de outro integrante, e o quadro e o arquivo precisam bater.
+- **Adaptações / correções:** Nenhuma.
+
 ---
 
 <!--
