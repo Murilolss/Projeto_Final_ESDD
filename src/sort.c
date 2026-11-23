@@ -13,7 +13,8 @@
    Each call site tests observer != NULL before calling notify: without that test,
    the benchmarks (observer == NULL) would still pay a function call and read the
    array for the arguments on every comparison, which made Bubble and Selection Sort
-   2 to 3 times slower. The test here only covers an observer without a function. */
+   2 to 3 times slower. main.c also calls sort_run (observer == NULL) when there is no
+   step function; the test of observer->function here is only a safety check. */
 static void notify(const StepObserver *observer, int kind, int i, int j,
                    int left_value, int right_value, const int *array, int size)
 {

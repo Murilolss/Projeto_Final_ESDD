@@ -333,7 +333,12 @@ static int run_sort(int index, const int *vector, int *copy, int size, int data_
         observer.context = NULL;
     }
 
-    ok = sort_run_steps(index, vector, copy, size, m, &observer);
+    /* Without a step function, sort_run passes observer == NULL to the algorithms, so
+       they skip notify on every step and keep the benchmark speed */
+    if (observer.function != NULL)
+        ok = sort_run_steps(index, vector, copy, size, m, &observer);
+    else
+        ok = sort_run(index, vector, copy, size, m);
 
     if (step_mode == 1)
     {
