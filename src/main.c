@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "vector.h"
+#include "queue.h"
 #include "sort.h"
 #include "metrics.h"
 #include "memory.h"
@@ -19,6 +20,10 @@
 #define OPTION_LIST 6
 #define OPTION_BENCHMARK 7
 #define OPTION_EXIT 8
+#define OPTION_BATCH 9
+
+#define BATCH_CAPACITY 10
+#define BATCH_MAX_SIZE 50000 /* largest N of the vector x lists comparison */
 
 static void clear_input(void);
 static void wait_enter(void);
@@ -29,6 +34,7 @@ static void menu_compare_all(const int *vector, int size, int data_kind);
 static void menu_resize(int **vector, int *size, int data_kind);
 static void menu_kind(int *vector, int size, int *data_kind);
 static void menu_benchmark(void);
+static void menu_batch(int data_kind);
 
 int main()
 {
@@ -76,11 +82,13 @@ int main()
         printf("%d - Ordenar listas encadeadas\n", OPTION_LIST);
         printf("%d - Comparativo vetor x listas (N = %d, %d e %d)\n", OPTION_BENCHMARK,
                benchmark_size(0), benchmark_size(1), benchmark_size(2));
+        printf("%d - Fila de testes em lote\n", OPTION_BATCH);
         printf("%d - Encerrar programa\n", OPTION_EXIT);
         printf("-----------------------------\n");
         printf("Digite uma opcao: ");
         choice = 0;
-        scanf("%d", &choice);
+        if (scanf("%d", &choice) == EOF)
+            break;
         clear_input();
 
         switch (choice)
@@ -124,6 +132,11 @@ int main()
         case OPTION_BENCHMARK:
             system("cls");
             menu_benchmark();
+            break;
+
+        case OPTION_BATCH:
+            system("cls");
+            menu_batch(data_kind);
             break;
 
         case OPTION_EXIT:
@@ -523,4 +536,125 @@ static void menu_benchmark(void)
     /* Everything allocated by the comparison was freed, so this must be 0 */
     printf("\nMemoria nao liberada pelo comparativo: %lld bytes\n", mem_current() - before);
     wait_enter();
+}
+
+/* Reads at most nine characters (sign included) to stay within int
+   and rejects extra text on the line. */
+static int read_batch_int(int *out)
+{
+    int read = scanf("%9d", out);
+    int c;
+
+    do
+    {
+        c = getchar();
+    } while (c == ' ' || c == '\t' || c == '\r');
+
+    if (c == '\n' || c == EOF)
+        return read == 1;
+
+    clear_input();
+    return 0;
+}
+
+static void run_batch(Queue *queue, int data_kind)
+{
+    int total = queue_count(queue);
+    int number = 0;
+    BatchTest test;
+    Metrics metrics;
+
+    while (queue_dequeue(queue, &test) == 1)
+    {
+        int *source;
+        int *copy = NULL;
+
+        printf("\n--- Teste %d/%d: %s (N = %d) ---\n",
+               ++number, total, sort_name(test.sort_index), test.size);
+        fflush(stdout);
+
+        source = vector_create(test.size);
+        if (source != NULL)
+            copy = vector_create(test.size);
+
+        if (source == NULL || copy == NULL)
+        {
+            printf("Erro ao alocar memoria para o teste.\n");
+        }
+        else
+        {
+            vector_fill(source, test.size, data_kind);
+            if (sort_run(test.sort_index, source, copy, test.size, &metrics) == 1)
+                metrics_print(&metrics, test.size, vector_fill_name(data_kind));
+            else
+                printf("Nao foi possivel executar o algoritmo.\n");
+        }
+
+        vector_destroy(&copy, test.size);
+        vector_destroy(&source, test.size);
+    }
+}
+
+static void menu_batch(int data_kind)
+{
+    Queue *queue = NULL;
+    BatchTest test;
+    int choice;
+
+    if (queue_create(BATCH_CAPACITY, &queue) == 0)
+    {
+        printf("Erro ao alocar memoria para a fila.\n");
+        wait_enter();
+        return;
+    }
+
+    printf("---- Fila de testes em lote ----\n");
+    printf("Dados: %s. Capacidade: %d testes.\n", vector_fill_name(data_kind), BATCH_CAPACITY);
+    for (int i = 0; i < SORT_COUNT; i++)
+        printf("%d - %s\n", i + 1, sort_name(i));
+    printf("0 - Executar lote\n");
+    printf("-1 - Voltar e descartar o lote\n");
+
+    while (!feof(stdin) && !ferror(stdin))
+    {
+        printf("\nAlgoritmo ou acao: ");
+        if (read_batch_int(&choice) == 0 || choice < -1 || choice > SORT_COUNT)
+        {
+            if (!feof(stdin) && !ferror(stdin))
+                printf("Opcao invalida.\n");
+            continue;
+        }
+        if (choice == -1)
+            break;
+        if (choice == 0)
+        {
+            if (queue_count(queue) == 0)
+            {
+                printf("A fila esta vazia.\n");
+                continue;
+            }
+            run_batch(queue, data_kind);
+            wait_enter();
+            break;
+        }
+        if (queue_count(queue) == BATCH_CAPACITY)
+        {
+            printf("A fila esta cheia. Digite 0 para executar o lote.\n");
+            continue;
+        }
+
+        test.sort_index = choice - 1;
+        printf("Digite o tamanho do vetor para o teste: ");
+        if (read_batch_int(&test.size) == 0 || test.size < 1 || test.size > BATCH_MAX_SIZE)
+        {
+            if (!feof(stdin) && !ferror(stdin))
+                printf("Tamanho invalido. Digite um inteiro entre 1 e %d.\n", BATCH_MAX_SIZE);
+            continue;
+        }
+
+        queue_enqueue(queue, test);
+        printf("Teste enfileirado (%d/%d).\n", queue_count(queue), BATCH_CAPACITY);
+    }
+
+    queue_destroy(&queue);
 }
