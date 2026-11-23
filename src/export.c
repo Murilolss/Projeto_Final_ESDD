@@ -134,6 +134,11 @@ void export_step(int kind, int i, int j, int left_value, int right_value,
     if (exporter == NULL || exporter->file == NULL || array == NULL || size != exporter->size)
         return;
 
+    /* Only the three kinds of step in sort.h are written; any other is ignored here,
+       before the comma, so the JSON stays valid */
+    if (kind != STEP_COMPARE && kind != STEP_SWAP && kind != STEP_WRITE)
+        return;
+
     /* Every step but the first starts with a comma closing the previous line */
     if (exporter->steps > 0)
         fprintf(exporter->file, ",\n");
@@ -150,7 +155,8 @@ void export_step(int kind, int i, int j, int left_value, int right_value,
     else if (kind == STEP_SWAP)
         written = fprintf(exporter->file, "    {\"type\": \"swap\", \"i\": %d, \"j\": %d}", i, j);
     else
-        /* The step comes after the write, so array[i] is already the new value */
+        /* STEP_WRITE (checked above). The step comes after the write, so array[i] is
+           already the new value */
         written = fprintf(exporter->file,
                           "    {\"type\": \"write\", \"i\": %d, \"j\": %d, \"value\": %d}",
                           i, j, array[i]);

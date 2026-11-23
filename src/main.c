@@ -345,6 +345,10 @@ static int run_sort(int index, const int *vector, int *copy, int size, int data_
     if (export_on == 1)
     {
         printf("\nLog exportado em %s\n", export_path(exporter));
+        /* The file is closed even if the sort failed, so it is still valid JSON, but its
+           steps stop where the sort stopped and "final" is not sorted */
+        if (ok == 0)
+            printf("O algoritmo parou antes do fim: o log ficou incompleto.\n");
         if (export_close(&exporter, copy, m) == 1)
             printf("(o tempo inclui a gravacao do arquivo)\n");
         else

@@ -1,6 +1,6 @@
 # Formato do log de passos (T10 → T14)
 
-Proposta da Liliane (T10, exportação) para o Lucas (T14, interface que desenha e anima as barras). **Status: implementado na T10 (`src/export.h` / `src/export.c`), aguardando o OK do Lucas.** Se algum nome de campo precisar mudar, avise a Liliane: a mudança no C é pequena.
+Proposta da Liliane (T10, exportação) para o Lucas (T14, interface que desenha e anima as barras). **Status: implementado na T10 (`src/export.h` / `src/export.c`).** O Lucas confirmou os campos em 23/11 (PR #2). Depois disso, a revisão do Murilo acrescentou `value_i` e `value_j` ao `compare`, e falta o Lucas confirmar esses dois campos. Se algum nome de campo precisar mudar, avise a Liliane: a mudança no C é pequena.
 
 ## Resumo
 
@@ -64,6 +64,7 @@ Observações:
   - Por isso, para mostrar **o que** foi comparado (texto, legenda), use `value_i` e `value_j`, não a altura das barras.
 - O Quick Sort com pivô no início pode gerar `swap` com `i == j` (troca de uma posição com ela mesma). A interface pode só ignorar.
 - O número de `write` do Insertion Sort é um pouco maior que `metrics.swaps`, porque a colocação final da chave gera um passo mas não é contada como troca.
+- Se o algoritmo falhar no meio (só os Merge Sorts podem falhar, por falta de memória), o arquivo continua sendo JSON válido, mas os passos param onde o algoritmo parou e o `final` não fica ordenado. O programa avisa na tela que o log ficou incompleto.
 
 ## Como reaplicar (pseudocódigo em JavaScript)
 
@@ -108,8 +109,10 @@ Os valores de N = 100 e 1.000 foram medidos em arquivos gravados pelo programa (
 
 Acima de 1000 o arquivo fica grande demais para gravar e para o navegador abrir, e uma animação com milhões de passos não dá para assistir. Por isso o programa não oferece a exportação nesses casos e explica o motivo ao usuário.
 
-## Pontos para o Lucas confirmar
+## Combinado com o Lucas (T14)
 
-1. Os nomes dos campos (`initial`, `steps`, `type`, `i`, `j`, `value_i`, `value_j`, `value`, `final`, `metrics`) servem para a T14? (`value_i` e `value_j` entraram depois da revisão do Murilo no PR #2.)
-2. A interface vai abrir o arquivo como? Escolhendo-o num `<input type="file">` ou de outro jeito? Isso muda só a forma de ler o arquivo, não o formato.
-3. Falta alguma informação para a animação ou para a tela comparativa (T17)?
+Respostas do Lucas no PR #2, em 23/11:
+
+1. **Campos:** os campos (`initial`, `steps`, `type`, `i`, `j`, `value`, `final`, `metrics`) bastam para a T14. **Pendente:** confirmar `value_i` e `value_j`, que entraram depois (revisão do Murilo no PR #2).
+2. **Como abrir o arquivo:** a interface usa um seletor de arquivo local (ex.: `<input type="file">`).
+3. **Informação faltando:** nenhuma para a T14. A tela comparativa (T17) ainda não foi discutida.

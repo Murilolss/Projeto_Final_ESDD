@@ -1757,6 +1757,30 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Em `src/export.c`, `export_step` passou a gravar `"value_i"` e `"value_j"` em cada `compare`, com os valores que o `notify` já recebia (`left_value` e `right_value`), e os `(void)` foram removidos. A IA escolheu os nomes `value_i`/`value_j` (combinam com o `value` do `write`) em vez de `a`/`b`. No `contexto/formato_log.md` mudaram o exemplo, a linha do `compare` na tabela, as observações (quando os valores são iguais às barras e quando não são, no Insertion e no Merge), o pseudocódigo e a lista de campos para o Lucas. O `logs/exemplo_bubble_sort_n10.json` foi atualizado reaplicando os passos (os mesmos dados, com os valores nas 72 comparações). Testes fora do repositório: exportação real dos 7 algoritmos (N = 30, aleatório e invertido), com reaplicação chegando ao `final` e o número de `compare` igual a `metrics.comparisons`. No Bubble, Quick e Selection, os valores sempre batem com as barras. No Insertion, `value_i` é sempre a barra `i` e `value_j` é sempre a chave. As medidas de tamanho foram refeitas (N = 1000: 85 MB aleatório e 99 MB invertido; N = 10.000: 9 a 10 GB) e atualizadas em `src/export.h`, `src/main.c` e na tabela do `formato_log.md`. O projeto compila sem avisos. Commit local, sem push.
 - **Adaptações / correções:** O aumento do arquivo foi de cerca de 55%, não os 35% estimados na resposta #104 (cada `compare` ganhou 26 caracteres mais os dígitos de dois valores). O limite de N ≤ 1000 continua valendo.
 
+## #106 — Segunda-feira, 23/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > 1. Sim, vamos seguir para a revisão do T10: teste o que foi feito e diga se ainda faltam correções a serem feitas.
+  > 2. Me mostre a porposta que o Lucas fez e vamos responder ele para alinhar o Undo.
+  > 3. Faremos o push depois de finalizar tudo da sessão.
+  > 4. Pode alterar meu nome para Liliane Perim
+- **Objetivo:** Revisar e testar a T10 (exportação JSON), mostrar a proposta do Lucas para o Undo (T11) e preparar uma resposta, e trocar o nome do git para "Liliane Perim".
+- **Resposta da IA (resumo):** (1) `git config --local user.name "Liliane Perim"`, só neste repositório; o global continua `lilianeperim-ifsp`. (2) Revisão da T10: leitura de `src/export.c` e do `run_sort` em `src/main.c`, e testes do programa real com entradas automáticas: os 7 algoritmos com N = 50 (aleatório, ordenado e invertido), N = 1 e N = 2, Bubble com N = 1000 invertido (99 MB, 1,5 milhão de passos), N = 1001 (mensagem do limite), execução fora da raiz (mensagem da pasta `logs`), passo a passo junto com a exportação (Insertion, N = 8, com `f`) e as métricas do JSON comparadas com o relatório (Merge, N = 200). Todos os arquivos são JSON válido e a reaplicação chega ao `final`; em todos os casos, `Memoria nao liberada: 0 bytes`. Não há erro que bloqueie o merge. Os ajustes pequenos sugeridos: atualizar o status e os "Pontos para o Lucas confirmar" do `formato_log.md` (o Lucas já respondeu); avisar que o log fica incompleto quando o algoritmo falha; tratar só os três tipos de passo conhecidos no `export_step`; e atualizar a seção T10 da descrição do PR #2. (3) A IA mostrou a proposta do Lucas (cópia do vetor atualizada pelo observador, para guardar o valor anterior de cada escrita) e escreveu um rascunho de resposta em português, que ainda não foi enviado. Nenhum arquivo do projeto mudou além deste registro.
+- **Adaptações / correções:** O autor desta entrada continua `lilianeperim-ifsp` porque o hook a criou antes da troca do nome; a partir da #107 deve aparecer "Liliane Perim".
+
+## #107 — Segunda-feira, 23/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > 1. Sim, pode fazer os ajustes 1 a 3 da T10
+  > 2. Não precisa alterar nada no recado.  Envie no fim da sessão.
+- **Objetivo:** Fazer os ajustes 1 a 3 da revisão da T10 (#106) e deixar o recado ao Lucas pronto para enviar no fim da sessão.
+- **Resposta da IA (resumo):** (1) `contexto/formato_log.md`: o status diz que o Lucas confirmou os campos em 23/11 e que falta confirmar `value_i`/`value_j`. A seção "Pontos para o Lucas confirmar" virou "Combinado com o Lucas (T14)", com as respostas dele, e entrou uma observação sobre o log de um algoritmo que falha. (2) `src/main.c` (`run_sort`): quando o algoritmo falha com a exportação ligada, o programa avisa "O algoritmo parou antes do fim: o log ficou incompleto.". (3) `src/export.c` (`export_step`): um tipo de passo diferente de `STEP_COMPARE`, `STEP_SWAP` e `STEP_WRITE` é ignorado antes da vírgula, e o JSON continua válido. A primeira versão gravava `{}` no lugar do passo, mas a IA trocou antes do commit. Testes fora do repositório: falta de memória simulada no Merge Sort Recursivo (cópia do `memory.c` que falha depois de 8 alocações), que mostrou o aviso, gerou um JSON válido e terminou com 0 bytes não liberados; tipos de passo desconhecidos no início, no meio e no fim, com JSON válido só com os passos conhecidos; e os 7 algoritmos exportados de novo com N = 50, todos OK. O projeto compila sem avisos. O recado ao Lucas ficou salvo no scratchpad, para enviar no fim da sessão. Commit local, sem push.
+- **Adaptações / correções:** Nenhuma até agora.
+
 ---
 
 <!--
