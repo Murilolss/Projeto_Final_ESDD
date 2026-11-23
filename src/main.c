@@ -23,6 +23,7 @@
 #define OPTION_BATCH 9
 
 #define BATCH_CAPACITY 10
+#define BATCH_MAX_SIZE 50000 /* largest N of the vector x lists comparison */
 
 static void clear_input(void);
 static void wait_enter(void);
@@ -537,7 +538,8 @@ static void menu_benchmark(void)
     wait_enter();
 }
 
-/* Reads up to nine digits to stay within int and rejects extra text on the line. */
+/* Reads at most nine characters (sign included) to stay within int
+   and rejects extra text on the line. */
 static int read_batch_int(int *out)
 {
     int read = scanf("%9d", out);
@@ -595,7 +597,6 @@ static void run_batch(Queue *queue, int data_kind)
 
 static void menu_batch(int data_kind)
 {
-    const int max_size = benchmark_size(BENCHMARK_SIZE_COUNT - 1);
     Queue *queue = NULL;
     BatchTest test;
     int choice;
@@ -644,10 +645,10 @@ static void menu_batch(int data_kind)
 
         test.sort_index = choice - 1;
         printf("Digite o tamanho do vetor para o teste: ");
-        if (read_batch_int(&test.size) == 0 || test.size < 1 || test.size > max_size)
+        if (read_batch_int(&test.size) == 0 || test.size < 1 || test.size > BATCH_MAX_SIZE)
         {
             if (!feof(stdin) && !ferror(stdin))
-                printf("Tamanho invalido. Digite um inteiro entre 1 e %d.\n", max_size);
+                printf("Tamanho invalido. Digite um inteiro entre 1 e %d.\n", BATCH_MAX_SIZE);
             continue;
         }
 
