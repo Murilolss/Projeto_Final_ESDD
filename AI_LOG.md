@@ -1831,6 +1831,36 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Em `src/main.c` (`run_sort`), passou a chamar `sort_run` quando `observer.function == NULL` e `sort_run_steps` só quando há função de passo, como o Murilo sugeriu. Atualizou o comentário do `notify` em `src/sort.c`. Compilou com `gcc -std=c99 -Wall -Wextra -pedantic` sem avisos. Mediu pelo menu (opção 1, N = 20.000, aleatório, Nao/Nao), antes → depois: Bubble 3,86 s → 1,44 s; Insertion 1,01 s → 0,33 s; Selection 1,49 s → 0,47 s. Conferiu também a exportação (Bubble, N = 50): a reaplicação chega ao `final` ordenado e as comparações batem. Commit `a0ade9c`, push na `ESDD/liliane` e comentário no PR #2.
 - **Adaptações / correções:** Nenhuma.
 
+## #113 — Segunda-feira, 23/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > verifique se o Murilo já revisou de novo
+- **Objetivo:** Saber se o Murilo já revisou de novo o PR #2 depois da correção do `a0ade9c`.
+- **Resposta da IA (resumo):** Consultou o PR #2 com `gh`. Ainda não há revisão nova: as duas revisões do Murilo são de 23/11 (13:13 e 22:51), e o último comentário é o da Liliane (23:25). O PR continua aberto, com "changes requested". Nenhum arquivo mudou além do `AI_LOG.md` (esta entrada).
+- **Adaptações / correções:** Nenhuma.
+
+## #114 — Segunda-feira, 23/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > /salvar-memoria
+- **Objetivo:** Salvar a nota de memória desta sessão.
+- **Resposta da IA (resumo):** Criou `contexto/memory/2026-11-23_sessao-12_segunda-revisao-pr2.md` (prompts #110–#114): a correção do `run_sort` (`a0ade9c`) com as medições, por que a 1ª correção não bastou, como testar o menu pela entrada padrão, as pendências (nova revisão do Murilo, respostas do Lucas, README) e os próximos passos.
+- **Adaptações / correções:** Nenhuma.
+
+## #115 — Segunda-feira, 23/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > confira se o murilo aprovou o pr e se sim, faça o merge
+- **Objetivo:** Conferir se o Murilo aprovou o PR #2 e, se sim, fazer o merge na `dev`.
+- **Resposta da IA (resumo):** Conferiu com `gh` a 3ª revisão do Murilo (23/11, 23:43): APPROVED, com "Pode fazer o merge", e o PR estava sem conflitos. Fez commit do AI_LOG #113–#115 e da nota `contexto/memory/2026-11-23_sessao-12_segunda-revisao-pr2.md` (atualizada com a aprovação e o merge) e deu push. Depois mesclou o PR #2 na `dev` com `gh pr merge 2 --merge` (commit de merge, como nos PRs #1 e #3), sem apagar a `ESDD/liliane`.
+- **Adaptações / correções:** Nenhuma.
+
 ---
 
 <!--
