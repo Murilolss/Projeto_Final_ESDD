@@ -1256,6 +1256,56 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** O commit `373907c` colocou Encerrar no fim do menu, simplificou a leitura com `scanf`, adotou índices e capacidades `int` na fila e na pilha e limitou o lote ao maior tamanho do comparativo, 50.000. O GCC compilou sem avisos e os testes da fila, da pilha e do menu passaram. Na cópia de revisão do PR #2, a reaplicação dos logs dos sete algoritmos chegou ao vetor final correto. A tela do Insertion e do Merge exibiu valores diferentes dos operandos em algumas comparações.
 - **Adaptações / correções:** O número de cada opção do lote foi preservado. A simulação de merge integrou o `main.c` automaticamente e restou a colisão no `AI_LOG.md`. Para o Undo, a proposta é guardar o valor anterior nas escritas e obtê-lo de uma cópia atualizada pelos eventos. Para a T14, o JSON atual é suficiente para animar as barras de um arquivo selecionado localmente.
 
+## #061 — Quinta-feira, 19/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > /atualizar-branch
+- **Objetivo:** Trazer para a `ESDD/murilo` o que já foi integrado na `dev`.
+- **Resposta da IA (resumo):** Conferiu a branch (`ESDD/murilo`) e rodou `git pull --no-edit origin dev`: já estava atualizada (nenhum commit novo), então o push foi pulado. Commit atual: `a72fdf0`. Só o `AI_LOG.md` mudou (esta entrada).
+- **Adaptações / correções:** Nenhuma.
+
+## #062 — Quinta-feira, 19/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > atualiza todas as branch para a dev, me mostre oq o lucas fez
+- **Objetivo:** Levar para a `dev` o que estava nas branches dos integrantes e ver o que o Lucas fez.
+- **Resposta da IA (resumo):** Fez o `git fetch` e comparou as branches com a `dev`. A `ESDD/murilo` já estava igual à `dev`, a `ESDD/liliane` estava 2 commits atrás e sem nada próprio, e a `ESDD/lucas` tinha 2 commits novos (T12: fila circular em `src/queue.h`/`src/queue.c` e a opção 9 do `src/main.c`). Compilou a branch do Lucas sem avisos e testou um lote de 2 testes, que terminou com 0 bytes pendentes. A pedido do usuário, abriu o PR #1 (`ESDD/lucas` → `dev`) com os pontos da revisão: ordem do menu, estilo de `read_batch_int`/`size_t`, colisão de números no AI_LOG e nome do autor.
+- **Adaptações / correções:** O usuário escolheu PR em vez de merge direto (a exceção acabou com o primeiro commit do Lucas) e pediu para não mexer na `ESDD/liliane`. As entradas locais do Murilo deste dia foram renumeradas de #054/#055 para #057/#058, porque o Lucas já tinha commitado #054–#056. Em 23/11, com o merge do PR #1 (Lucas até #060), passaram a #061/#062.
+
+## #063 — Segunda-feira, 23/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > revise o PR 1, o lucas falou que fez a correção
+- **Objetivo:** Conferir se o commit `373907c` do Lucas atende aos pontos 1 a 3 da revisão do PR #1 (T12 + pilha da T11).
+- **Resposta da IA (resumo):** Leu o diff, extraiu `origin/ESDD/lucas` numa pasta temporária, compilou com `gcc -std=c99 -Wall -Wextra -pedantic` sem avisos e testou o lote com entrada redirecionada: 50.000 aceito e 50.001 rejeitado, entradas inválidas (`abc`, `12 x`, `1234567890`, `11`, `-2`) recusadas, fila cheia com 10 testes, execução em ordem de chegada, "-1 Voltar" descartando o lote e `Memoria nao liberada: 0 bytes`. Confirmou que o PR mescla sem conflito com a `dev`. Conclusão: os três pontos foram atendidos e o PR pode ser mesclado. Nenhum arquivo de código foi alterado; só esta entrada do `AI_LOG.md`.
+- **Adaptações / correções:** Observações sem bloqueio: o menu lista a 9 antes da 8 (aceito na revisão, mas renumerar ficaria mais limpo), o limite do lote depende de `benchmark_size` e o comentário de `read_batch_int` fala em "nove dígitos", embora a largura `%9d` conte também o sinal. As entradas locais #057–#059 do Murilo colidem com as #057–#060 do Lucas e precisam ser renumeradas depois do merge.
+
+## #064 — Segunda-feira, 23/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > faça as alterações, não precisa comentar e assim que corrigir pode fazer o merge
+- **Objetivo:** Aplicar os ajustes sem bloqueio apontados na revisão #063 e mesclar o PR #1 na `dev`.
+- **Resposta da IA (resumo):** Numa worktree temporária da `ESDD/lucas`, trocou `benchmark_size(BENCHMARK_SIZE_COUNT - 1)` por `#define BATCH_MAX_SIZE 50000` e corrigiu o comentário da `read_batch_int` (a largura `%9d` conta o sinal) em `src/main.c`. Compilou sem avisos, testou 50.000 aceito, 50.001 e `1234567890` recusados e `Memoria nao liberada: 0 bytes`, commitou `c578a72` e enviou para `origin/ESDD/lucas`. Mesclou o PR #1 na `dev` (`1d9ac21`), sem comentar no PR. Avançou a `ESDD/murilo` até a `dev` nova (fast-forward) e marcou a T12 como concluída em `contexto/TAREFAS.md` (o quadro já estava marcado).
+- **Adaptações / correções:** As entradas locais do Murilo #057–#060 colidiam com as #057–#060 do Lucas e foram renumeradas para #061–#064. A ordem do menu (9 antes da 8) e o "-1 - Voltar" ficaram como estavam. O resto do `TAREFAS.md` continua defasado em relação ao quadro (T26 e os responsáveis de T18–T24) e não foi mexido.
+
+## #065 — Segunda-feira, 23/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > faça o commit e o push
+- **Objetivo:** Commitar e enviar as alterações locais da `ESDD/murilo` (entradas do AI_LOG e a T12 no espelho do quadro).
+- **Resposta da IA (resumo):** Commitou `AI_LOG.md` (entradas #061–#065) e `contexto/TAREFAS.md` (T12 concluída) na `ESDD/murilo` e fez o push para `origin/ESDD/murilo`.
+- **Adaptações / correções:** Nenhuma. O merge na `dev` continua passando por PR.
+
 ---
 
 <!--
