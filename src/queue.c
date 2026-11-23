@@ -1,27 +1,27 @@
-#include <stdint.h>
+#include <limits.h>
 #include "memory.h"
 #include "queue.h"
 
 struct Queue
 {
     BatchTest *tests;
-    size_t start;
-    size_t count;
-    size_t capacity;
+    int start;
+    int count;
+    int capacity;
 };
 
 int queue_create(int capacity, Queue **out)
 {
     Queue *queue;
 
-    if (out == NULL || capacity <= 0 || (size_t)capacity > SIZE_MAX / sizeof(BatchTest))
+    if (out == NULL || capacity <= 0 || capacity > INT_MAX / (int)sizeof(BatchTest))
         return 0;
 
     queue = mem_alloc(sizeof(Queue));
     if (queue == NULL)
         return 0;
 
-    queue->tests = mem_alloc((size_t)capacity * sizeof(BatchTest));
+    queue->tests = mem_alloc(capacity * sizeof(BatchTest));
     if (queue->tests == NULL)
     {
         mem_free(queue, sizeof(Queue));
@@ -30,7 +30,7 @@ int queue_create(int capacity, Queue **out)
 
     queue->start = 0;
     queue->count = 0;
-    queue->capacity = (size_t)capacity;
+    queue->capacity = capacity;
     *out = queue;
     return 1;
 }
@@ -47,7 +47,7 @@ void queue_destroy(Queue **queue)
 
 int queue_enqueue(Queue *queue, BatchTest test)
 {
-    size_t end;
+    int end;
 
     if (queue == NULL || queue->count == queue->capacity)
         return 0;
@@ -74,5 +74,5 @@ int queue_count(const Queue *queue)
     if (queue == NULL)
         return 0;
 
-    return (int)queue->count;
+    return queue->count;
 }

@@ -15,8 +15,9 @@ int stack_create(int initial_capacity, Stack **out);
 /* Frees the stack and sets the caller's pointer to NULL. */
 void stack_destroy(Stack **stack);
 
-/* Records a swap before the caller applies it. Grows as needed.
-   Returns 0 on failure and keeps the history intact. */
+/* Records the indices of a swap and grows as needed.
+   Returns 0 on failure and keeps the history intact. A caller that records before
+   applying the swap can stop on failure without changing the array. */
 int stack_push(Stack *stack, SwapIndices swap);
 
 /* Removes the latest swap and writes it to *out.

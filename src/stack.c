@@ -1,27 +1,28 @@
-#include <stdint.h>
+#include <limits.h>
 #include "memory.h"
 #include "stack.h"
+
+#define STACK_MAX_CAPACITY (INT_MAX / (int)sizeof(SwapIndices))
 
 struct Stack
 {
     SwapIndices *swaps;
-    size_t top; /* Index of the next free slot. */
-    size_t capacity;
+    int top; /* Index of the next free slot. */
+    int capacity;
 };
 
 int stack_create(int initial_capacity, Stack **out)
 {
     Stack *stack;
 
-    if (out == NULL || initial_capacity <= 0 ||
-        (size_t)initial_capacity > SIZE_MAX / sizeof(SwapIndices))
+    if (out == NULL || initial_capacity <= 0 || initial_capacity > STACK_MAX_CAPACITY)
         return 0;
 
     stack = mem_alloc(sizeof(Stack));
     if (stack == NULL)
         return 0;
 
-    stack->swaps = mem_alloc((size_t)initial_capacity * sizeof(SwapIndices));
+    stack->swaps = mem_alloc(initial_capacity * sizeof(SwapIndices));
     if (stack->swaps == NULL)
     {
         mem_free(stack, sizeof(Stack));
@@ -29,7 +30,7 @@ int stack_create(int initial_capacity, Stack **out)
     }
 
     stack->top = 0;
-    stack->capacity = (size_t)initial_capacity;
+    stack->capacity = initial_capacity;
     *out = stack;
     return 1;
 }
@@ -46,17 +47,16 @@ void stack_destroy(Stack **stack)
 
 static int stack_grow(Stack *stack)
 {
-    const size_t max_capacity = SIZE_MAX / sizeof(SwapIndices);
-    size_t new_capacity;
+    int new_capacity;
     SwapIndices *swaps;
 
-    if (stack->capacity == max_capacity)
+    if (stack->capacity == STACK_MAX_CAPACITY)
         return 0;
 
-    if (stack->capacity <= max_capacity / 2)
+    if (stack->capacity <= STACK_MAX_CAPACITY / 2)
         new_capacity = 2 * stack->capacity;
     else
-        new_capacity = max_capacity;
+        new_capacity = STACK_MAX_CAPACITY;
 
     swaps = mem_realloc(stack->swaps, stack->capacity * sizeof(SwapIndices),
                         new_capacity * sizeof(SwapIndices));

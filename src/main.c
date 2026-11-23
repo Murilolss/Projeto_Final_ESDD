@@ -1,12 +1,9 @@
 #define __USE_MINGW_ANSI_STDIO 1 /* enables %lld on MinGW (must come before stdio.h) */
-#include <ctype.h>
-#include <errno.h>
-#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <time.h>
 #include "vector.h"
+#include "queue.h"
 #include "sort.h"
 #include "metrics.h"
 #include "memory.h"
@@ -14,7 +11,6 @@
 #include "doubly_list.h"
 #include "circular_list.h"
 #include "benchmark.h"
-#include "queue.h"
 
 #define OPTION_SORT 1
 #define OPTION_SHOW 2
@@ -85,8 +81,8 @@ int main()
         printf("%d - Ordenar listas encadeadas\n", OPTION_LIST);
         printf("%d - Comparativo vetor x listas (N = %d, %d e %d)\n", OPTION_BENCHMARK,
                benchmark_size(0), benchmark_size(1), benchmark_size(2));
-        printf("%d - Encerrar programa\n", OPTION_EXIT);
         printf("%d - Fila de testes em lote\n", OPTION_BATCH);
+        printf("%d - Encerrar programa\n", OPTION_EXIT);
         printf("-----------------------------\n");
         printf("Digite uma opcao: ");
         choice = 0;
@@ -541,32 +537,22 @@ static void menu_benchmark(void)
     wait_enter();
 }
 
-/* Reads one integer line without overflowing int or accepting a partial number. */
+/* Reads up to nine digits to stay within int and rejects extra text on the line. */
 static int read_batch_int(int *out)
 {
-    char line[64];
-    char *end;
-    long value;
+    int read = scanf("%9d", out);
+    int c;
 
-    if (fgets(line, sizeof(line), stdin) == NULL)
-        return 0;
-    if (strchr(line, '\n') == NULL && !feof(stdin))
+    do
     {
-        clear_input();
-        return 0;
-    }
+        c = getchar();
+    } while (c == ' ' || c == '\t' || c == '\r');
 
-    errno = 0;
-    value = strtol(line, &end, 10);
-    if (end == line || errno == ERANGE || value < INT_MIN || value > INT_MAX)
-        return 0;
-    while (isspace((unsigned char)*end))
-        end++;
-    if (*end != '\0')
-        return 0;
+    if (c == '\n' || c == EOF)
+        return read == 1;
 
-    *out = (int)value;
-    return 1;
+    clear_input();
+    return 0;
 }
 
 static void run_batch(Queue *queue, int data_kind)
@@ -609,8 +595,7 @@ static void run_batch(Queue *queue, int data_kind)
 
 static void menu_batch(int data_kind)
 {
-    /* The iterative Merge Sort doubles subarray widths using int. */
-    const int max_size = INT_MAX / 2;
+    const int max_size = benchmark_size(BENCHMARK_SIZE_COUNT - 1);
     Queue *queue = NULL;
     BatchTest test;
     int choice;
