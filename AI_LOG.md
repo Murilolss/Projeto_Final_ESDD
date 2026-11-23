@@ -1346,6 +1346,16 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Commitou o `AI_LOG.md` (entradas #066–#069: leitura e revisão do PR #2 e publicação da revisão) na `ESDD/murilo` e fez o push para `origin/ESDD/murilo`.
 - **Adaptações / correções:** Nenhuma.
 
+## #070 — Segunda-feira, 23/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > abra o PR da minha branch para a dev
+- **Objetivo:** Levar para a `dev` as entradas #061–#070 do AI_LOG e a T12 concluída no `TAREFAS.md`.
+- **Resposta da IA (resumo):** Commitou esta entrada, fez o push da `ESDD/murilo` e abriu o PR `ESDD/murilo` → `dev` com `gh pr create`. O PR só mexe em `AI_LOG.md` e `contexto/TAREFAS.md` (nenhum código).
+- **Adaptações / correções:** A descrição do PR avisa que o PR #2 da Liliane vai precisar renumerar as entradas dela depois das que este PR leva para a `dev`.
+
 ---
 
 <!--
