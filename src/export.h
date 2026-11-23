@@ -32,7 +32,8 @@ int export_open(const char *algorithm, const char *data_kind, const int *initial
 
 /* Step function (same signature as StepFunction in sort.h).
    context must be the Exporter created by export_open. Writes one line per step. */
-void export_step(int kind, int i, int j, const int *array, int size, void *context);
+void export_step(int kind, int i, int j, int left_value, int right_value,
+                 const int *array, int size, void *context);
 
 /* Path of the file being written (e.g. "logs/bubble_sort_n10_20261121_153000.json"),
    or NULL if exporter is NULL. */

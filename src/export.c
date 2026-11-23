@@ -124,11 +124,16 @@ int export_open(const char *algorithm, const char *data_kind, const int *initial
     return 1;
 }
 
-void export_step(int kind, int i, int j, const int *array, int size, void *context)
+void export_step(int kind, int i, int j, int left_value, int right_value,
+                 const int *array, int size, void *context)
 {
     /* context is the Exporter the caller put in the StepObserver */
     Exporter *exporter = (Exporter *)context;
     int written;
+
+    /* The JSON format records the source indices of a comparison. */
+    (void)left_value;
+    (void)right_value;
 
     if (exporter == NULL || exporter->file == NULL || array == NULL || size != exporter->size)
         return;

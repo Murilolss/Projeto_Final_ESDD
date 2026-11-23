@@ -232,12 +232,13 @@ typedef struct {
 /* Step function used when the step-by-step mode and the export are both on.
    A StepObserver holds only one function, so this one passes the same step to the
    two others: first it is written to the log, then it is shown on the screen. */
-static void step_both(int kind, int i, int j, const int *array, int size, void *context)
+static void step_both(int kind, int i, int j, int left_value, int right_value,
+                      const int *array, int size, void *context)
 {
     StepTargets *targets = (StepTargets *)context;
 
-    export_step(kind, i, j, array, size, targets->exporter);
-    step_view_show(kind, i, j, array, size, targets->view);
+    export_step(kind, i, j, left_value, right_value, array, size, targets->exporter);
+    step_view_show(kind, i, j, left_value, right_value, array, size, targets->view);
 }
 
 /* Asks if the steps should be exported to a JSON file (T10).
