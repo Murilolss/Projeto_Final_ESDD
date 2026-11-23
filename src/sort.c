@@ -10,7 +10,10 @@
 /* ---------- Step notification ---------- */
 
 /* Calls the step function of the observer, if there is one.
-   With observer == NULL (benchmarks, comparison table) nothing happens. */
+   Each call site tests observer != NULL before calling notify: without that test,
+   the benchmarks (observer == NULL) would still pay a function call and read the
+   array for the arguments on every comparison, which made Bubble and Selection Sort
+   2 to 3 times slower. The test here only covers an observer without a function. */
 static void notify(const StepObserver *observer, int kind, int i, int j,
                    int left_value, int right_value, const int *array, int size)
 {
@@ -29,14 +32,16 @@ int bubble_sort(int *array, int size, Metrics *m, const StepObserver *observer)
         for (i = 0; i < size - 1; i++)
         {
             m->comparisons++;
-            notify(observer, STEP_COMPARE, i, i + 1, array[i], array[i + 1], array, size);
+            if (observer != NULL)
+                notify(observer, STEP_COMPARE, i, i + 1, array[i], array[i + 1], array, size);
             if (array[i] > array[i + 1])
             {
                 aux = array[i];
                 array[i] = array[i + 1];
                 array[i + 1] = aux;
                 m->swaps++;
-                notify(observer, STEP_SWAP, i, i + 1, 0, 0, array, size);
+                if (observer != NULL)
+                    notify(observer, STEP_SWAP, i, i + 1, 0, 0, array, size);
                 keep_going = 1;
             }
         }
@@ -58,16 +63,18 @@ int insertion_sort(int *array, int size, Metrics *m, const StepObserver *observe
         while (j >= 0)
         {
             m->comparisons++;
-            notify(observer, STEP_COMPARE, j, i, array[j], key, array, size);
+            if (observer != NULL)
+                notify(observer, STEP_COMPARE, j, i, array[j], key, array, size);
             if (array[j] <= key)
                 break;
             array[j + 1] = array[j];
             m->swaps++;
-            notify(observer, STEP_WRITE, j + 1, j, 0, 0, array, size);
+            if (observer != NULL)
+                notify(observer, STEP_WRITE, j + 1, j, 0, 0, array, size);
             j = j - 1;
         }
         array[j + 1] = key; /* Inserts key in its correct position */
-        if (j + 1 != i)     /* only when the key really moved */
+        if (j + 1 != i && observer != NULL) /* only when the key really moved */
             notify(observer, STEP_WRITE, j + 1, -1, 0, 0, array, size);
     }
 
@@ -127,8 +134,9 @@ static int merge(int *array, int size, int left, int middle, int right, Metrics 
     while (i < n1 && j < n2)
     {
         m->comparisons++;
-        notify(observer, STEP_COMPARE, left + i, middle + 1 + j,
-               left_part[i], right_part[j], array, size);
+        if (observer != NULL)
+            notify(observer, STEP_COMPARE, left + i, middle + 1 + j,
+                   left_part[i], right_part[j], array, size);
         if (left_part[i] <= right_part[j])
         {
             array[k] = left_part[i];
@@ -140,7 +148,8 @@ static int merge(int *array, int size, int left, int middle, int right, Metrics 
             j++;
         }
         m->swaps++;
-        notify(observer, STEP_WRITE, k, -1, 0, 0, array, size);
+        if (observer != NULL)
+            notify(observer, STEP_WRITE, k, -1, 0, 0, array, size);
         k++;
     }
 
@@ -149,7 +158,8 @@ static int merge(int *array, int size, int left, int middle, int right, Metrics 
     {
         array[k] = left_part[i];
         m->swaps++;
-        notify(observer, STEP_WRITE, k, -1, 0, 0, array, size);
+        if (observer != NULL)
+            notify(observer, STEP_WRITE, k, -1, 0, 0, array, size);
         i++;
         k++;
     }
@@ -157,7 +167,8 @@ static int merge(int *array, int size, int left, int middle, int right, Metrics 
     {
         array[k] = right_part[j];
         m->swaps++;
-        notify(observer, STEP_WRITE, k, -1, 0, 0, array, size);
+        if (observer != NULL)
+            notify(observer, STEP_WRITE, k, -1, 0, 0, array, size);
         j++;
         k++;
     }
@@ -228,7 +239,8 @@ static int partition_first(int *array, int size, int start, int end, Metrics *m,
     for (int j = end; j >= start + 1; j--)
     {
         m->comparisons++;
-        notify(observer, STEP_COMPARE, j, start, array[j], pivot, array, size);
+        if (observer != NULL)
+            notify(observer, STEP_COMPARE, j, start, array[j], pivot, array, size);
         if (array[j] > pivot)
         {
             i--;
@@ -236,7 +248,8 @@ static int partition_first(int *array, int size, int start, int end, Metrics *m,
             array[i] = array[j];
             array[j] = temp;
             m->swaps++;
-            notify(observer, STEP_SWAP, i, j, 0, 0, array, size);
+            if (observer != NULL)
+                notify(observer, STEP_SWAP, i, j, 0, 0, array, size);
         }
     }
 
@@ -245,7 +258,8 @@ static int partition_first(int *array, int size, int start, int end, Metrics *m,
     array[i - 1] = array[start];
     array[start] = temp;
     m->swaps++;
-    notify(observer, STEP_SWAP, i - 1, start, 0, 0, array, size);
+    if (observer != NULL)
+        notify(observer, STEP_SWAP, i - 1, start, 0, 0, array, size);
 
     return (i - 1);
 }
@@ -297,7 +311,8 @@ static int partition_last(int *array, int size, int start, int end, Metrics *m,
     for (int j = start; j <= end - 1; j++)
     {
         m->comparisons++;
-        notify(observer, STEP_COMPARE, j, end, array[j], pivot, array, size);
+        if (observer != NULL)
+            notify(observer, STEP_COMPARE, j, end, array[j], pivot, array, size);
         if (array[j] < pivot)
         {
             i++;
@@ -305,7 +320,8 @@ static int partition_last(int *array, int size, int start, int end, Metrics *m,
             array[i] = array[j];
             array[j] = temp;
             m->swaps++;
-            notify(observer, STEP_SWAP, i, j, 0, 0, array, size);
+            if (observer != NULL)
+                notify(observer, STEP_SWAP, i, j, 0, 0, array, size);
         }
     }
 
@@ -314,7 +330,8 @@ static int partition_last(int *array, int size, int start, int end, Metrics *m,
     array[i + 1] = array[end];
     array[end] = temp;
     m->swaps++;
-    notify(observer, STEP_SWAP, i + 1, end, 0, 0, array, size);
+    if (observer != NULL)
+        notify(observer, STEP_SWAP, i + 1, end, 0, 0, array, size);
 
     return (i + 1);
 }
@@ -358,7 +375,8 @@ int selection_sort(int *array, int size, Metrics *m, const StepObserver *observe
         for (j = i + 1; j < size; j++)
         {
             m->comparisons++;
-            notify(observer, STEP_COMPARE, j, min_pos, array[j], array[min_pos], array, size);
+            if (observer != NULL)
+                notify(observer, STEP_COMPARE, j, min_pos, array[j], array[min_pos], array, size);
             if (array[j] < array[min_pos])
                 min_pos = j;
         }
@@ -368,7 +386,8 @@ int selection_sort(int *array, int size, Metrics *m, const StepObserver *observe
             array[i] = array[min_pos];
             array[min_pos] = aux;
             m->swaps++;
-            notify(observer, STEP_SWAP, i, min_pos, 0, 0, array, size);
+            if (observer != NULL)
+                notify(observer, STEP_SWAP, i, min_pos, 0, 0, array, size);
         }
     }
 

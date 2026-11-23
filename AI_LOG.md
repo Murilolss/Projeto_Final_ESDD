@@ -1717,6 +1717,26 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** O conflito era maior do que a #100 mostrava. Um merge anterior (`293697e`) tinha renumerado as entradas #052–#053 do Murilo para #058–#059 na `ESDD/liliane`, e a `origin/ESDD/liliane` tinha uma entrada #081 do Lucas (PR #2, commit `7b60866`). Um script Python (fora do repositório) montou o arquivo assim: as entradas #001–#070 da `dev` sem mudança, depois as da Liliane que a `dev` não tinha (as antigas #052–#057 e #060–#083), com a do Lucas antes da antiga #081. Essas entradas foram renumeradas como #071–#101, com o texto mantido. As duplicatas de #052–#053 foram descartadas, e foi removida a linha de cabeçalho repetida da entrada do Lucas. A IA conferiu que a numeração vai de #001 a #101 sem buracos. Depois, a IA fez o commit do merge, trouxe a `origin/ESDD/liliane` e fez o push.
 - **Adaptações / correções:** As referências a números de entrada dentro do texto das entradas antigas (ex.: "#058–#080", "#081") não foram alteradas, para não reescrever entradas antigas. Elas apontam para a numeração anterior.
 
+## #102 — Segunda-feira, 23/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > confira a revisao do murilo ao meu pr dos cards T26 e o T10 (que ainda quero revisar e continuar com ele hoje para finalizarmos)
+- **Objetivo:** Ver a revisão do Murilo no PR #2 (T26 + T10) e o que ainda falta para o merge.
+- **Resposta da IA (resumo):** A IA leu com `gh` a revisão (CHANGES_REQUESTED, 23/11) e os comentários do PR. Depois comparou cada ponto com o código atual (`src/sort.c`, `src/export.h`, `src/export.c`, `src/main.c`, `contexto/formato_log.md`). Situação: o ponto 4 (conflito no AI_LOG) foi resolvido nas #099–#101. Os pontos 1 (`notify` chamado sem testar o observador), 2 (estimativas de tamanho do log) e 3 (aviso sobre o `compare` do Insertion) continuam abertos. O ponto 5 (`user.name`) é só sugestão. A pergunta do Lucas sobre o Undo (T11) e a revisão da T10 pela própria Liliane também estão pendentes. Nenhum arquivo de código mudou.
+- **Adaptações / correções:** Nenhuma até agora.
+
+## #103 — Segunda-feira, 23/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > sim, pode começar pelo ponto 1
+- **Objetivo:** Corrigir o ponto 1 da revisão do Murilo no PR #2: o `notify` deixava os benchmarks 2 a 3 vezes mais lentos.
+- **Resposta da IA (resumo):** Em `src/sort.c`, as 17 chamadas de `notify` passaram a ficar dentro de `if (observer != NULL)`, como o Murilo sugeriu. Na colocação final da chave do Insertion, o teste entrou no `if (j + 1 != i)` que já existia. O comentário do `notify` explica o motivo. Medição sem observador, N = 20.000 (programa de teste fora do repositório, mesmas flags do projeto, sem `-O`): antes, Bubble 3,7 s, Selection 1,4 s, Insertion 0,97 s; depois, 1,43 s, 0,49 s e 0,35 s; `sort.c` da `dev`, 1,33 s, 0,44 s e 0,34 s. Com observador, os 7 algoritmos avisaram os mesmos passos, na mesma ordem, de antes da mudança (N = 300, checksum dos passos). O projeto compila com `gcc -Wall -Wextra` sem avisos. Commit local, sem push.
+- **Adaptações / correções:** Nenhuma até agora.
+
 ---
 
 <!--
