@@ -1501,6 +1501,16 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** A nota `contexto/memory/2026-11-21_sessao-10_passo-a-passo-exportacao.md`, já criada e atualizada nas #078–#079, foi atualizada de novo. Ganhou o marcador `<!-- session: ... -->` desta sessão, e a faixa de prompts passou a #058–#080. O conteúdo continua valendo e não foi alterado. Commit local, sem push.
 - **Adaptações / correções:** Nenhuma.
 
+## #081 — Segunda-feira, 23/11/2026
+
+- **Autor:** xXLucasCruzXx
+- **Ferramenta:** Codex
+- **Prompt:**
+  > Corrija também no PR #2 o erro que mostra os valores errados nas comparações do Insertion e do Merge Sort e faça o push.
+- **Objetivo:** Corrigir os valores mostrados nas comparações do modo passo a passo da T26.
+- **Resposta da IA (resumo):** O commit `4cf5186` passa os operandos reais pelo observador. O Insertion usa a chave salva e os dois Merge Sorts usam os valores dos vetores temporários. A tela identifica as posições de origem e a exportação mantém o mesmo JSON. O GCC compilou sem avisos e os testes verificaram os casos reproduzidos, os sete algoritmos e a exportação com zero bytes não liberados.
+- **Adaptações / correções:** As barras continuam representando o vetor no estado atual. O texto da comparação indica o valor efetivo e o índice de origem de cada operando.
+
 ---
 
 <!--
