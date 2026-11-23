@@ -18,9 +18,9 @@ Proposta da Liliane (T10, exportação) para o Lucas (T14, interface que desenha
   "size": 5,
   "initial": [3, 1, 5, 2, 4],
   "steps": [
-    {"type": "compare", "i": 0, "j": 1},
+    {"type": "compare", "i": 0, "j": 1, "value_i": 3, "value_j": 1},
     {"type": "swap", "i": 0, "j": 1},
-    {"type": "compare", "i": 1, "j": 2},
+    {"type": "compare", "i": 1, "j": 2, "value_i": 3, "value_j": 5},
     {"type": "write", "i": 2, "j": -1, "value": 4}
   ],
   "final": [1, 2, 3, 4, 5],
@@ -49,7 +49,7 @@ Proposta da Liliane (T10, exportação) para o Lucas (T14, interface que desenha
 
 | `type` | Campos | O que a interface faz |
 |---|---|---|
-| `"compare"` | `i`, `j` | pinta as barras `i` e `j` com a cor de comparação; o vetor **não** muda |
+| `"compare"` | `i`, `j`, `value_i`, `value_j` | pinta as barras `i` e `j` com a cor de comparação; o vetor **não** muda. `value_i` e `value_j` são os valores que o algoritmo realmente comparou (ver observações) |
 | `"swap"` | `i`, `j` | troca as alturas das barras `i` e `j` |
 | `"write"` | `i`, `j`, `value` | a barra `i` passa a ter a altura `value`. `j` é a posição de onde o valor veio, ou `-1` se veio de fora do vetor (a chave do Insertion Sort ou as metades temporárias do Merge Sort) |
 
@@ -58,7 +58,10 @@ Observações:
 - Posições começam em 0.
 - Um passo descreve o vetor **depois** que ele aconteceu (é o mesmo aviso do modo passo a passo, T26).
 - Só o Insertion Sort e os dois Merge Sorts geram `write`. Bubble, Quick e Selection geram só `compare` e `swap`.
-- No Merge Sort, um `compare` usa as posições que os dois valores tinham **antes** da intercalação (os valores estão nas metades temporárias). Durante a intercalação, o mesmo valor pode aparecer em duas barras: isso é o comportamento real do algoritmo.
+- Em Bubble, Quick e Selection, `value_i` e `value_j` são sempre as alturas atuais das barras `i` e `j`. No Insertion e nos dois Merge Sorts, nem sempre:
+  - **Insertion Sort:** no `compare`, o campo `j` é a posição original da chave, e `value_j` é a chave. Depois do primeiro deslocamento, a barra `j` já recebeu outro valor, e a chave fica guardada fora do vetor.
+  - **Merge Sort:** um `compare` usa as posições que os dois valores tinham **antes** da intercalação (os valores estão nas metades temporárias). Durante a intercalação, o mesmo valor pode aparecer em duas barras: isso é o comportamento real do algoritmo.
+  - Por isso, para mostrar **o que** foi comparado (texto, legenda), use `value_i` e `value_j`, não a altura das barras.
 - O Quick Sort com pivô no início pode gerar `swap` com `i == j` (troca de uma posição com ela mesma). A interface pode só ignorar.
 - O número de `write` do Insertion Sort é um pouco maior que `metrics.swaps`, porque a colocação final da chave gera um passo mas não é contada como troca.
 
@@ -77,6 +80,7 @@ for (const step of log.steps) {
     array[step.i] = step.value;
   }
   // "compare" não muda o vetor: só destaca as barras i e j
+  // (os valores comparados estão em step.value_i e step.value_j)
   desenhar(array, step);
 }
 // no fim, array deve ser igual a log.final
@@ -95,10 +99,10 @@ O número de passos cresce com o quadrado de N. O Bubble Sort gera o maior log: 
 
 | N | passos, aleatório | arquivo, aleatório | passos, invertido | arquivo, invertido |
 |---|---|---|---|---|
-| 100 | 11 mil | 490 KB | 15 mil | 640 KB |
-| 1.000 | 1,2 milhão | 55 MB | 1,5 milhão | 67 MB |
-| 10.000 | 120 milhões | 5,8 GB | 150 milhões | 7 GB |
-| 50.000 | 3,1 bilhões | ~150 GB | 3,7 bilhões | ~180 GB |
+| 100 | 11 mil | 750 KB | 15 mil | 930 KB |
+| 1.000 | 1,2 milhão | 85 MB | 1,5 milhão | 99 MB |
+| 10.000 | 120 milhões | 9 GB | 150 milhões | 10 GB |
+| 50.000 | 3,1 bilhões | ~240 GB | 3,7 bilhões | ~270 GB |
 
 Os valores de N = 100 e 1.000 foram medidos em arquivos gravados pelo programa (média de 3 vetores aleatórios). Para N = 10.000, como o programa não exporta, o número de passos foi contado e o tamanho foi calculado com o mesmo formato de linha. Os valores de N = 50.000 são estimativas a partir dos de 10.000.
 
@@ -106,6 +110,6 @@ Acima de 1000 o arquivo fica grande demais para gravar e para o navegador abrir,
 
 ## Pontos para o Lucas confirmar
 
-1. Os nomes dos campos (`initial`, `steps`, `type`, `i`, `j`, `value`, `final`, `metrics`) servem para a T14?
+1. Os nomes dos campos (`initial`, `steps`, `type`, `i`, `j`, `value_i`, `value_j`, `value`, `final`, `metrics`) servem para a T14? (`value_i` e `value_j` entraram depois da revisão do Murilo no PR #2.)
 2. A interface vai abrir o arquivo como? Escolhendo-o num `<input type="file">` ou de outro jeito? Isso muda só a forma de ler o arquivo, não o formato.
 3. Falta alguma informação para a animação ou para a tela comparativa (T17)?

@@ -254,7 +254,7 @@ static int ask_export(int size)
         printf("\nExportacao disponivel so para vetores de ate %d itens (este tem %d).\n",
                EXPORT_MAX_SIZE, size);
         printf("O numero de passos cresce com o quadrado de N: com N = 10000 o Bubble Sort\n");
-        printf("gera cerca de 120 milhoes de passos (arquivo de uns 6 GB), grande demais para\n");
+        printf("gera cerca de 120 milhoes de passos (arquivo de uns 9 GB), grande demais para\n");
         printf("gravar e para a interface animar. Use Alterar tamanho para um vetor menor.\n");
         printf("A ordenacao vai rodar sem exportar.\n");
         wait_enter();

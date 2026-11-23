@@ -1747,6 +1747,16 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Os números foram medidos com um programa de teste fora do repositório, que usa o `export.c` real com o Bubble Sort. Com N = 100 e 1000, foram gravados arquivos de verdade (3 vetores aleatórios e 1 invertido) e apagados depois. Com N = 10.000, o programa contou os passos e somou o tamanho de cada linha no mesmo formato (o contador bateu com o arquivo real de N = 1000, mais 1 byte por linha do `\r\n` do Windows). Resultados: N = 1000 aleatório, 1,18 a 1,24 milhão de passos e 53 a 56 MB; invertido, 1,5 milhão de passos e 67 MB; N = 10.000 aleatório, cerca de 123 milhões de passos e 5,8 GB; invertido, 150 milhões de passos e 7 GB. Os valores de N = 50.000 foram estimados a partir dos de N = 10.000. Foram atualizados o comentário de `EXPORT_MAX_SIZE` em `src/export.h`, a mensagem de `ask_export` em `src/main.c` ("120 milhoes de passos", "uns 6 GB") e a tabela e a explicação de `contexto/formato_log.md` (por que o Bubble Sort faz cerca de N² comparações também com dados aleatórios). O limite de 1000 não mudou. O projeto compila sem avisos. Commit local, sem push.
 - **Adaptações / correções:** Nenhuma até agora.
 
+## #105 — Segunda-feira, 23/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > sim, pode gravar os valores no compare
+- **Objetivo:** Corrigir o ponto 3 da revisão do Murilo no PR #2: o `compare` do Insertion (e do Merge) aponta para barras que podem já ter outro valor. A Liliane escolheu gravar no JSON os valores comparados.
+- **Resposta da IA (resumo):** Em `src/export.c`, `export_step` passou a gravar `"value_i"` e `"value_j"` em cada `compare`, com os valores que o `notify` já recebia (`left_value` e `right_value`), e os `(void)` foram removidos. A IA escolheu os nomes `value_i`/`value_j` (combinam com o `value` do `write`) em vez de `a`/`b`. No `contexto/formato_log.md` mudaram o exemplo, a linha do `compare` na tabela, as observações (quando os valores são iguais às barras e quando não são, no Insertion e no Merge), o pseudocódigo e a lista de campos para o Lucas. O `logs/exemplo_bubble_sort_n10.json` foi atualizado reaplicando os passos (os mesmos dados, com os valores nas 72 comparações). Testes fora do repositório: exportação real dos 7 algoritmos (N = 30, aleatório e invertido), com reaplicação chegando ao `final` e o número de `compare` igual a `metrics.comparisons`. No Bubble, Quick e Selection, os valores sempre batem com as barras. No Insertion, `value_i` é sempre a barra `i` e `value_j` é sempre a chave. As medidas de tamanho foram refeitas (N = 1000: 85 MB aleatório e 99 MB invertido; N = 10.000: 9 a 10 GB) e atualizadas em `src/export.h`, `src/main.c` e na tabela do `formato_log.md`. O projeto compila sem avisos. Commit local, sem push.
+- **Adaptações / correções:** O aumento do arquivo foi de cerca de 55%, não os 35% estimados na resposta #104 (cada `compare` ganhou 26 caracteres mais os dígitos de dois valores). O limite de N ≤ 1000 continua valendo.
+
 ---
 
 <!--

@@ -131,10 +131,6 @@ void export_step(int kind, int i, int j, int left_value, int right_value,
     Exporter *exporter = (Exporter *)context;
     int written;
 
-    /* The JSON format records the source indices of a comparison. */
-    (void)left_value;
-    (void)right_value;
-
     if (exporter == NULL || exporter->file == NULL || array == NULL || size != exporter->size)
         return;
 
@@ -143,7 +139,14 @@ void export_step(int kind, int i, int j, int left_value, int right_value,
         fprintf(exporter->file, ",\n");
 
     if (kind == STEP_COMPARE)
-        written = fprintf(exporter->file, "    {\"type\": \"compare\", \"i\": %d, \"j\": %d}", i, j);
+    {
+        /* The values compared are saved too: in the Insertion and Merge Sorts the
+           positions i and j may no longer hold them (see contexto/formato_log.md) */
+        written = fprintf(exporter->file,
+                          "    {\"type\": \"compare\", \"i\": %d, \"j\": %d, "
+                          "\"value_i\": %d, \"value_j\": %d}",
+                          i, j, left_value, right_value);
+    }
     else if (kind == STEP_SWAP)
         written = fprintf(exporter->file, "    {\"type\": \"swap\", \"i\": %d, \"j\": %d}", i, j);
     else
