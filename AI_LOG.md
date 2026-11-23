@@ -1737,6 +1737,16 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Em `src/sort.c`, as 17 chamadas de `notify` passaram a ficar dentro de `if (observer != NULL)`, como o Murilo sugeriu. Na colocação final da chave do Insertion, o teste entrou no `if (j + 1 != i)` que já existia. O comentário do `notify` explica o motivo. Medição sem observador, N = 20.000 (programa de teste fora do repositório, mesmas flags do projeto, sem `-O`): antes, Bubble 3,7 s, Selection 1,4 s, Insertion 0,97 s; depois, 1,43 s, 0,49 s e 0,35 s; `sort.c` da `dev`, 1,33 s, 0,44 s e 0,34 s. Com observador, os 7 algoritmos avisaram os mesmos passos, na mesma ordem, de antes da mudança (N = 300, checksum dos passos). O projeto compila com `gcc -Wall -Wextra` sem avisos. Commit local, sem push.
 - **Adaptações / correções:** Nenhuma até agora.
 
+## #104 — Segunda-feira, 23/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > sim, pode seguir para o ponto 2
+- **Objetivo:** Corrigir o ponto 2 da revisão do Murilo no PR #2: as estimativas de tamanho do log estavam abaixo do real.
+- **Resposta da IA (resumo):** Os números foram medidos com um programa de teste fora do repositório, que usa o `export.c` real com o Bubble Sort. Com N = 100 e 1000, foram gravados arquivos de verdade (3 vetores aleatórios e 1 invertido) e apagados depois. Com N = 10.000, o programa contou os passos e somou o tamanho de cada linha no mesmo formato (o contador bateu com o arquivo real de N = 1000, mais 1 byte por linha do `\r\n` do Windows). Resultados: N = 1000 aleatório, 1,18 a 1,24 milhão de passos e 53 a 56 MB; invertido, 1,5 milhão de passos e 67 MB; N = 10.000 aleatório, cerca de 123 milhões de passos e 5,8 GB; invertido, 150 milhões de passos e 7 GB. Os valores de N = 50.000 foram estimados a partir dos de N = 10.000. Foram atualizados o comentário de `EXPORT_MAX_SIZE` em `src/export.h`, a mensagem de `ask_export` em `src/main.c` ("120 milhoes de passos", "uns 6 GB") e a tabela e a explicação de `contexto/formato_log.md` (por que o Bubble Sort faz cerca de N² comparações também com dados aleatórios). O limite de 1000 não mudou. O projeto compila sem avisos. Commit local, sem push.
+- **Adaptações / correções:** Nenhuma até agora.
+
 ---
 
 <!--

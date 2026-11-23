@@ -91,14 +91,16 @@ for (const step of log.steps) {
 
 ## Limite de tamanho (N ≤ 1000)
 
-O número de passos cresce com o quadrado de N. No Bubble Sort, que faz por volta de N²/2 comparações (dados aleatórios) ou N² comparações (dados invertidos, o pior caso):
+O número de passos cresce com o quadrado de N. O Bubble Sort gera o maior log: mesmo com dados aleatórios, ele faz por volta de N² comparações (cada passada compara o vetor inteiro, e são quase N passadas) mais umas N²/4 trocas. Com dados invertidos (o pior caso), são N² comparações e N²/2 trocas.
 
-| N | passos, aleatório | arquivo, aleatório | arquivo, invertido |
-|---|---|---|---|
-| 100 | 7 mil | 300 KB | 670 KB |
-| 1.000 | 750 mil | 30 MB | 67 MB (medido) |
-| 10.000 | 75 milhões | 3 GB | 7 GB |
-| 50.000 | 1,9 bilhão | 75 GB | 170 GB |
+| N | passos, aleatório | arquivo, aleatório | passos, invertido | arquivo, invertido |
+|---|---|---|---|---|
+| 100 | 11 mil | 490 KB | 15 mil | 640 KB |
+| 1.000 | 1,2 milhão | 55 MB | 1,5 milhão | 67 MB |
+| 10.000 | 120 milhões | 5,8 GB | 150 milhões | 7 GB |
+| 50.000 | 3,1 bilhões | ~150 GB | 3,7 bilhões | ~180 GB |
+
+Os valores de N = 100 e 1.000 foram medidos em arquivos gravados pelo programa (média de 3 vetores aleatórios). Para N = 10.000, como o programa não exporta, o número de passos foi contado e o tamanho foi calculado com o mesmo formato de linha. Os valores de N = 50.000 são estimativas a partir dos de 10.000.
 
 Acima de 1000 o arquivo fica grande demais para gravar e para o navegador abrir, e uma animação com milhões de passos não dá para assistir. Por isso o programa não oferece a exportação nesses casos e explica o motivo ao usuário.
 

@@ -9,12 +9,14 @@
    from the initial array to animate the bars. */
 
 /* Biggest array that can be exported.
-   The number of steps grows with the square of N: the Bubble Sort makes about N*N/2
-   comparisons. With N = 1000 the file has about 750 thousand steps (about 30 MB) for
-   random data and 1.5 million steps (about 67 MB, measured) for reversed data; with
-   N = 10000 it would have 100 times more (3 to 7 GB) and with N = 50000 2500 times
-   more. Files that big take too long to write, do not open in the browser and could
-   never be watched as an animation, so bigger arrays are not exported. */
+   The number of steps grows with the square of N. The Bubble Sort makes about N*N
+   comparisons even on random data (each pass compares the whole array and it needs
+   almost N passes) plus about N*N/4 swaps. Measured with N = 1000: about 1.2 million
+   steps (55 MB) for random data and 1.5 million steps (67 MB) for reversed data.
+   With N = 10000 it would have 100 times more (about 120 million steps, 6 to 7 GB)
+   and with N = 50000 2500 times more. Files that big take too long to write, do not
+   open in the browser and could never be watched as an animation, so bigger arrays
+   are not exported. */
 #define EXPORT_MAX_SIZE 1000
 
 /* Folder where the files are created. It must exist (the repository keeps it with a
