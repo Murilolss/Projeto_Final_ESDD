@@ -13,7 +13,7 @@
    the export (T10) writes one line of the log and the undo (T11) pushes the swap. */
 
 /* Kinds of step */
-#define STEP_COMPARE 1 /* positions i and j were compared (the array did not change) */
+#define STEP_COMPARE 1 /* compares values that came from positions i and j */
 #define STEP_SWAP 2    /* the values of positions i and j were swapped */
 #define STEP_WRITE 3   /* position i received a new value; j is the position it came from,
                           or -1 if it came from outside the array (the key of the
@@ -21,9 +21,13 @@
 
 /* Pointer to a step function. It is called right AFTER the step, so array already shows
    the result. size is the number of elements of the whole array.
+   For STEP_COMPARE, left_value and right_value are the actual values compared.
+   The values at their original positions i and j may have changed. The two value
+   parameters are unused for STEP_SWAP and STEP_WRITE.
    context is any data the caller wants to receive back in every call (void * = pointer
    to any type); the step function converts it back to the right type. */
-typedef void (*StepFunction)(int kind, int i, int j, const int *array, int size, void *context);
+typedef void (*StepFunction)(int kind, int i, int j, int left_value, int right_value,
+                             const int *array, int size, void *context);
 
 /* A step function and the data it receives. A NULL StepObserver (or a NULL function)
    means "nobody is watching": the sort runs without notifying, as in the benchmarks. */

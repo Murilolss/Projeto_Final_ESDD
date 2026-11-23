@@ -46,11 +46,12 @@ void step_view_destroy(StepView **view)
 }
 
 /* Text of the step, e.g. "Troca: posicoes 3 e 4". */
-static void print_step(int kind, int i, int j, const int *array)
+static void print_step(int kind, int i, int j, int left_value, int right_value,
+                       const int *array)
 {
     if (kind == STEP_COMPARE)
-        printf("Comparacao: posicao %d (valor %d) com posicao %d (valor %d)\n",
-               i, array[i], j, array[j]);
+        printf("Comparacao: valor %d (origem %d) com valor %d (origem %d)\n",
+               left_value, i, right_value, j);
     else if (kind == STEP_SWAP)
         printf("Troca: posicoes %d e %d\n", i, j);
     else if (j >= 0)
@@ -127,7 +128,7 @@ static void print_bars(int kind, int i, int j, const int *array, int size)
             printf(" ");
 
         if (p == i || p == j)
-            printf(" <-- %s", (kind == STEP_COMPARE) ? "comparando" : "mudou");
+            printf(" <-- %s", (kind == STEP_COMPARE) ? "origem" : "mudou");
         printf("\n");
     }
 }
@@ -146,7 +147,8 @@ static int read_pause(void)
     return (first == 'f' || first == 'F');
 }
 
-void step_view_show(int kind, int i, int j, const int *array, int size, void *context)
+void step_view_show(int kind, int i, int j, int left_value, int right_value,
+                    const int *array, int size, void *context)
 {
     /* context is the StepView the caller put in the StepObserver */
     StepView *view = (StepView *)context;
@@ -167,7 +169,7 @@ void step_view_show(int kind, int i, int j, const int *array, int size, void *co
 
     system("cls");
     printf("%s - passo %lld\n", view->name, view->steps);
-    print_step(kind, i, j, array);
+    print_step(kind, i, j, left_value, right_value, array);
     printf("\n");
     print_bars(kind, i, j, array, size);
     printf("\nComparacoes: %lld   Trocas/escritas: %lld\n", view->comparisons, view->changes);

@@ -26,6 +26,7 @@ void step_view_destroy(StepView **view);
 /* Step function (same signature as StepFunction in sort.h).
    context must be the StepView created above. It draws the array marking positions i
    and j and waits for ENTER; typing f + ENTER runs the rest of the sort without stopping. */
-void step_view_show(int kind, int i, int j, const int *array, int size, void *context);
+void step_view_show(int kind, int i, int j, int left_value, int right_value,
+                    const int *array, int size, void *context);
 
 #endif
