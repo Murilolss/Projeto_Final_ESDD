@@ -1861,6 +1861,26 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Conferiu com `gh` a 3ª revisão do Murilo (23/11, 23:43): APPROVED, com "Pode fazer o merge", e o PR estava sem conflitos. Fez commit do AI_LOG #113–#115 e da nota `contexto/memory/2026-11-23_sessao-12_segunda-revisao-pr2.md` (atualizada com a aprovação e o merge) e deu push. Depois mesclou o PR #2 na `dev` com `gh pr merge 2 --merge` (commit de merge, como nos PRs #1 e #3), sem apagar a `ESDD/liliane`.
 - **Adaptações / correções:** Nenhuma.
 
+## #116 — Segunda-feira, 23/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > já fiz isso, rode /salvar-memoria
+- **Objetivo:** Atualizar a nota de memória da sessão depois do merge do PR #2.
+- **Resposta da IA (resumo):** Atualizou `contexto/memory/2026-11-23_sessao-12_segunda-revisao-pr2.md`: prompts #110–#116, T10 e T26 marcadas como concluídas no `TAREFAS.md` e no quadro pela Liliane, a pendência e o próximo passo correspondentes removidos.
+- **Adaptações / correções:** A Liliane já tinha atualizado o `TAREFAS.md` e o quadro sozinha, então a oferta de fazer isso na resposta #115 não foi usada.
+
+## #117 — Segunda-feira, 23/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > faça o commit e o push
+- **Objetivo:** Fazer commit e push da nota da sessão 12 e das entradas do AI_LOG.
+- **Resposta da IA (resumo):** Fez um commit na `ESDD/liliane` com o `AI_LOG.md` (#116–#117) e a nota `contexto/memory/2026-11-23_sessao-12_segunda-revisao-pr2.md`, e deu push para `origin/ESDD/liliane`.
+- **Adaptações / correções:** Nenhuma.
+
 ---
 
 <!--
