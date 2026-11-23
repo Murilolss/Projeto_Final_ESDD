@@ -1801,6 +1801,36 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** O comentário aprovado na #108 foi publicado no PR #2 com `gh pr comment`; ele resume os pontos 1 a 5 corrigidos e pede uma nova revisão. Pelo `/salvar-memoria`, foi criada a nota `contexto/memory/2026-11-23_sessao-11_revisao-pr2-t26-t10.md` (prompts #099–#109), com o que foi feito, as decisões (regra de numeração do AI_LOG, `value_i`/`value_j`, tamanhos medidos, pontos do Undo), as pendências e os próximos passos. A nota e este registro foram commitados e enviados por push.
 - **Adaptações / correções:** Nenhuma até agora.
 
+## #110 — Segunda-feira, 23/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > /atualizar-branch
+- **Objetivo:** Trazer para a `ESDD/liliane` o que já foi integrado na `dev`.
+- **Resposta da IA (resumo):** Conferiu a branch (`ESDD/liliane`) e rodou `git pull --no-edit origin dev`, que respondeu "Already up to date". Nenhum commit novo chegou e não houve push. O único arquivo alterado é o `AI_LOG.md` (esta entrada).
+- **Adaptações / correções:** Nenhuma.
+
+## #111 — Segunda-feira, 23/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > verifique se o Murilo revisou meu pr e se sim quais correções devem ser feitas para o Merge
+- **Objetivo:** Saber se o Murilo revisou o PR #2 e o que falta corrigir para o merge.
+- **Resposta da IA (resumo):** Leu com `gh` as revisões e os comentários do PR #2. A 2ª revisão do Murilo (23/11, 22:51) continua pedindo mudanças, com um ponto obrigatório: o `run_sort` (`src/main.c`, linha 336) sempre passa `&observer` para `sort_run_steps`, mesmo com o passo a passo e a exportação desligados, e isso deixa o menu de ordenação 2 a 3 vezes mais lento. A correção sugerida é chamar `sort_run` quando `observer.function == NULL` e atualizar o comentário do `notify` em `src/sort.c` (linhas 12-16). Depois do merge, atualizar a T26 e a T10 no `contexto/TAREFAS.md` e no quadro. Nenhum arquivo de código foi alterado; só o `AI_LOG.md` (esta entrada).
+- **Adaptações / correções:** Nenhuma.
+
+## #112 — Segunda-feira, 23/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > pode fazer a correção e responder o Murilo no PR
+- **Objetivo:** Corrigir o ponto da 2ª revisão do Murilo no PR #2 (menu de ordenação lento com o passo a passo e a exportação desligados) e responder a ele no PR.
+- **Resposta da IA (resumo):** Em `src/main.c` (`run_sort`), passou a chamar `sort_run` quando `observer.function == NULL` e `sort_run_steps` só quando há função de passo, como o Murilo sugeriu. Atualizou o comentário do `notify` em `src/sort.c`. Compilou com `gcc -std=c99 -Wall -Wextra -pedantic` sem avisos. Mediu pelo menu (opção 1, N = 20.000, aleatório, Nao/Nao), antes → depois: Bubble 3,86 s → 1,44 s; Insertion 1,01 s → 0,33 s; Selection 1,49 s → 0,47 s. Conferiu também a exportação (Bubble, N = 50): a reaplicação chega ao `final` ordenado e as comparações batem. Commit `a0ade9c`, push na `ESDD/liliane` e comentário no PR #2.
+- **Adaptações / correções:** Nenhuma.
+
 ---
 
 <!--
