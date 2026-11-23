@@ -1791,6 +1791,16 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** A `dev` e a `origin/ESDD/liliane` não tinham commits novos. Push de `2289ab5..6754c6c` (4 commits das correções). A descrição do PR #2 foi atualizada com `gh pr edit`: assinatura nova da `StepFunction`, teste do observador, `value_i`/`value_j`, 99 MB, nova regra de numeração do AI_LOG, o aviso "ainda vai ser revisada" trocado pela revisão de 23/11, e uma seção nova "Correções da revisão (23/11)" com os commits, as medições e os testes. O recado ao Lucas sobre o Undo (T11), aprovado na #107 sem mudanças, foi publicado como comentário no PR #2. O comentário para o Murilo foi escrito e mostrado à Liliane antes de publicar, como combinado na #107. Este registro foi commitado e enviado por push.
 - **Adaptações / correções:** Nenhuma até agora.
 
+## #109 — Segunda-feira, 23/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > sim, pode publicar e rodar o /salvar-memoria
+- **Objetivo:** Publicar o comentário ao Murilo no PR #2 e salvar a nota da sessão.
+- **Resposta da IA (resumo):** O comentário aprovado na #108 foi publicado no PR #2 com `gh pr comment`; ele resume os pontos 1 a 5 corrigidos e pede uma nova revisão. Pelo `/salvar-memoria`, foi criada a nota `contexto/memory/2026-11-23_sessao-11_revisao-pr2-t26-t10.md` (prompts #099–#109), com o que foi feito, as decisões (regra de numeração do AI_LOG, `value_i`/`value_j`, tamanhos medidos, pontos do Undo), as pendências e os próximos passos. A nota e este registro foram commitados e enviados por push.
+- **Adaptações / correções:** Nenhuma até agora.
+
 ---
 
 <!--
