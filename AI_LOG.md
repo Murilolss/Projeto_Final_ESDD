@@ -1501,6 +1501,26 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** A nota `contexto/memory/2026-11-21_sessao-10_passo-a-passo-exportacao.md`, já criada e atualizada nas #078–#079, foi atualizada de novo. Ganhou o marcador `<!-- session: ... -->` desta sessão, e a faixa de prompts passou a #058–#080. O conteúdo continua valendo e não foi alterado. Commit local, sem push.
 - **Adaptações / correções:** Nenhuma.
 
+## #081 — Segunda-feira, 23/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > /atualizar-branch
+- **Objetivo:** Trazer para a `ESDD/liliane` o que já foi integrado na `dev`.
+- **Resposta da IA (resumo):** O `git pull --no-edit origin dev` foi recusado porque o `AI_LOG.md` tinha alteração local não commitada (a própria entrada #081 criada pelo hook). O merge foi abortado pelo Git, sem mudar nada, e o push não foi feito. A IA parou e perguntou à usuária como seguir (commitar o `AI_LOG.md` antes ou usar `stash`). Nenhum arquivo além desta entrada mudou.
+- **Adaptações / correções:** Nenhuma até agora.
+
+## #082 — Segunda-feira, 23/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > sim, pode seguir pela opção 1
+- **Objetivo:** _(a preencher pelo Claude ao final da resposta)_
+- **Resposta da IA (resumo):** _(a preencher pelo Claude ao final da resposta)_
+- **Adaptações / correções:** _(a preencher pelo Claude ao final da resposta)_
+
 ---
 
 <!--
