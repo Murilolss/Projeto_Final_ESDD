@@ -7,14 +7,14 @@ Cópia em texto do quadro **"Plano Projeto ESDD"**: https://claude.ai/artifact/G
   - O Claude atualiza o quadro (`ArtifactData`, coleção `tasks`) e este arquivo juntos.
   - Quem usa o Codex edita este arquivo, commita na sua `ESDD/<nome>` e marca a tarefa no quadro pelo navegador. Sem conta no claude.ai, avise o Murilo para ele marcar.
 - Status: `concluída`, `em andamento` ou `pendente`. A tarefa só vira `concluída` depois da revisão de outro integrante.
-- Atualizado em: 18/11/2026 (lido do quadro).
+- Atualizado em: 23/11/2026 (T12 concluída com o merge do PR #1).
 
 ## Por integrante
 
 | Integrante | Ferramenta | Branch | Tarefas abertas |
 |---|---|---|---|
 | Murilo | Claude Code | `ESDD/murilo` | nenhuma (fases 1 e 2 concluídas) |
-| Lucas | Codex | `ESDD/lucas` | T11, T12, T13, T14 |
+| Lucas | Codex | `ESDD/lucas` | T11, T13, T14 |
 | Liliane | a definir | `ESDD/liliane` | T26, T10, T15, T16, T17 |
 | Sem responsável | — | — | T18–T24 |
 
@@ -35,7 +35,7 @@ Cópia em texto do quadro **"Plano Projeto ESDD"**: https://claude.ai/artifact/G
 | T26 | 3. Pilha, fila e exportação | Modo passo a passo (tela atualiza a cada troca) | Liliane | pendente | |
 | T10 | 3. Pilha, fila e exportação | Exportar cada comparação e troca em JSON ou CSV | Liliane | pendente | T26 |
 | T11 | 3. Pilha, fila e exportação | Pilha para Desfazer (Undo) no modo passo a passo | Lucas | pendente | T26 (só a integração; o TAD da pilha sai antes) |
-| T12 | 3. Pilha, fila e exportação | Fila de testes em lote (batch) | Lucas | pendente | |
+| T12 | 3. Pilha, fila e exportação | Fila de testes em lote (batch) | Lucas | concluída | |
 | T13 | 4. Interface visual | Decidir a interface: Web ou Java | Lucas | pendente | decisão da equipe |
 | T14 | 4. Interface visual | Ler o log exportado e desenhar as barras | Lucas | pendente | T10 (formato do log), T13 |
 | T15 | 4. Interface visual | Animar comparações e trocas com cores distintas | Liliane | pendente | T14 |
