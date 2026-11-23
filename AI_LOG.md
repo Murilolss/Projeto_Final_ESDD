@@ -1781,6 +1781,16 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** (1) `contexto/formato_log.md`: o status diz que o Lucas confirmou os campos em 23/11 e que falta confirmar `value_i`/`value_j`. A seção "Pontos para o Lucas confirmar" virou "Combinado com o Lucas (T14)", com as respostas dele, e entrou uma observação sobre o log de um algoritmo que falha. (2) `src/main.c` (`run_sort`): quando o algoritmo falha com a exportação ligada, o programa avisa "O algoritmo parou antes do fim: o log ficou incompleto.". (3) `src/export.c` (`export_step`): um tipo de passo diferente de `STEP_COMPARE`, `STEP_SWAP` e `STEP_WRITE` é ignorado antes da vírgula, e o JSON continua válido. A primeira versão gravava `{}` no lugar do passo, mas a IA trocou antes do commit. Testes fora do repositório: falta de memória simulada no Merge Sort Recursivo (cópia do `memory.c` que falha depois de 8 alocações), que mostrou o aviso, gerou um JSON válido e terminou com 0 bytes não liberados; tipos de passo desconhecidos no início, no meio e no fim, com JSON válido só com os passos conhecidos; e os 7 algoritmos exportados de novo com N = 50, todos OK. O projeto compila sem avisos. O recado ao Lucas ficou salvo no scratchpad, para enviar no fim da sessão. Commit local, sem push.
 - **Adaptações / correções:** Nenhuma até agora.
 
+## #108 — Segunda-feira, 23/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > não, pode finalizar a sessão e fazer o push
+- **Objetivo:** Encerrar a sessão: fazer o push da `ESDD/liliane`, atualizar o PR #2, enviar o recado ao Lucas e avisar o Murilo.
+- **Resposta da IA (resumo):** A `dev` e a `origin/ESDD/liliane` não tinham commits novos. Push de `2289ab5..6754c6c` (4 commits das correções). A descrição do PR #2 foi atualizada com `gh pr edit`: assinatura nova da `StepFunction`, teste do observador, `value_i`/`value_j`, 99 MB, nova regra de numeração do AI_LOG, o aviso "ainda vai ser revisada" trocado pela revisão de 23/11, e uma seção nova "Correções da revisão (23/11)" com os commits, as medições e os testes. O recado ao Lucas sobre o Undo (T11), aprovado na #107 sem mudanças, foi publicado como comentário no PR #2. O comentário para o Murilo foi escrito e mostrado à Liliane antes de publicar, como combinado na #107. Este registro foi commitado e enviado por push.
+- **Adaptações / correções:** Nenhuma até agora.
+
 ---
 
 <!--
