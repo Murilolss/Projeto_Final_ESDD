@@ -1306,6 +1306,46 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Commitou `AI_LOG.md` (entradas #061–#065) e `contexto/TAREFAS.md` (T12 concluída) na `ESDD/murilo` e fez o push para `origin/ESDD/murilo`.
 - **Adaptações / correções:** Nenhuma. O merge na `dev` continua passando por PR.
 
+## #066 — Segunda-feira, 23/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > Oq o PR 2 traz?
+- **Objetivo:** Entender o conteúdo e a situação do PR #2 (Liliane) antes de revisá-lo ou mesclá-lo.
+- **Resposta da IA (resumo):** Leu a descrição, os commits, os arquivos e os comentários do PR #2 com `gh` e simulou o merge com a `dev` (`git merge-tree`). Resumiu as duas partes: a T26 (`StepObserver` nos 7 algoritmos, TAD `step_view` e a pergunta no `menu_sort`) e a T10 (TAD `Exporter`, log JSON em `logs/`, `contexto/formato_log.md`, limite N ≤ 1000). Situação: nenhuma revisão formal, a Liliane pediu para não mesclar antes de ela revisar a T10, o Lucas corrigiu os operandos das comparações (`4cf5186`) e respondeu os pontos do formato. Depois do merge do PR #1, o PR está em conflito só no `AI_LOG.md`; o `src/main.c` mescla sozinho. Nenhum arquivo de código foi alterado.
+- **Adaptações / correções:** Nenhuma.
+
+## #067 — Segunda-feira, 23/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > revise o PR 2
+- **Objetivo:** Revisar o PR #2 da Liliane (T26 passo a passo + T10 exportação JSON).
+- **Resposta da IA (resumo):** Numa worktree temporária, mesclou `origin/ESDD/liliane` com a `dev` atual (com a fila da T12), leu o diff de `sort.c/h`, `step_view.c/h`, `export.c/h`, `main.c` e `contexto/formato_log.md`, compilou sem avisos e testou: exportação dos 7 algoritmos (N = 30) validada por um script Python que reaplica os passos (vetor final e comparações batem), Bubble N = 1000 aleatório e invertido, N = 1001 recusado, programa fora da raiz, passo a passo com N = 6 e N = 1000, `Memoria nao liberada: 0 bytes`. Problema principal: o `notify` deixou as ordenações sem observador 2 a 3 vezes mais lentas (Bubble N = 20000: 3,0 s → 7,2 s; Selection: 0,9 s → 2,5 s); com `if (observer != NULL)` antes de cada `notify` o tempo volta ao da `dev`. Também apontou as estimativas de tamanho erradas para dados aleatórios (N = 1000 mede 1,21 milhão de passos e 53 MB, não 750 mil e 30 MB), a falta de aviso no `formato_log.md` sobre o `compare` do Insertion e a renumeração de entradas da `dev` (#052–#053 → #058–#059) no AI_LOG. Nenhum arquivo do projeto mudou além desta entrada.
+- **Adaptações / correções:** Nada foi publicado no PR; a revisão ficou só na resposta.
+
+## #068 — Segunda-feira, 23/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > deixa esses comentarios no PR2 que é dela e peça para que ela corriga antes de fazer o merge
+- **Objetivo:** Publicar a revisão da #067 no PR #2 e pedir à Liliane as correções antes do merge.
+- **Resposta da IA (resumo):** Publicou com `gh pr review 2 --request-changes` uma revisão dirigida à Liliane: o que foi testado e funciona, quatro pontos obrigatórios (checar `observer != NULL` antes do `notify`, com os tempos medidos; corrigir as estimativas de tamanho do log em `export.h`, `formato_log.md` e `ask_export`; avisar no `formato_log.md` sobre o `compare` do Insertion; resolver o conflito do `AI_LOG.md` mantendo a numeração da `dev`) e uma sugestão (nome do autor no `git config`). O PR ficou com o status "changes requested". Nenhum arquivo do projeto mudou além desta entrada.
+- **Adaptações / correções:** A revisão foi publicada pela conta do Murilo, e a T10 continua aguardando a revisão da própria Liliane, como ela pediu na descrição.
+
+## #069 — Segunda-feira, 23/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > faça o commit e o push
+- **Objetivo:** Commitar e enviar as entradas #066–#069 do AI_LOG.
+- **Resposta da IA (resumo):** Commitou o `AI_LOG.md` (entradas #066–#069: leitura e revisão do PR #2 e publicação da revisão) na `ESDD/murilo` e fez o push para `origin/ESDD/murilo`.
+- **Adaptações / correções:** Nenhuma.
+
 ---
 
 <!--
