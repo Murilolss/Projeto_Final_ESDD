@@ -1356,7 +1356,565 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Commitou esta entrada, fez o push da `ESDD/murilo` e abriu o PR `ESDD/murilo` → `dev` com `gh pr create`. O PR só mexe em `AI_LOG.md` e `contexto/TAREFAS.md` (nenhum código).
 - **Adaptações / correções:** A descrição do PR avisa que o PR #2 da Liliane vai precisar renumerar as entradas dela depois das que este PR leva para a `dev`.
 
-## #071 — Segunda-feira, 23/11/2026
+## #071 — Terça-feira, 17/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Prompt:**
+  > leia .claude e as skils
+- **Objetivo:** Carregar no contexto da IA a configuração do projeto em `.claude/` (hook e skills).
+- **Resposta da IA (resumo):** Lidos `.claude/settings.json` (hook `UserPromptSubmit`), `.claude/hooks/log_prompt.py` e as skills `/salvar-memoria` e `/atualizar-branch`. Resumo do funcionamento de cada um apresentado ao usuário, com observações (o hook ainda não remove os blocos injetados pelas extensões). Nenhum arquivo alterado além deste registro.
+- **Adaptações / correções:** Nenhuma.
+
+## #072 — Terça-feira, 17/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Prompt:**
+  > /atualizar-branch
+- **Objetivo:** Atualizar a branch de trabalho da integrante com a `dev` e enviar ao GitHub.
+- **Resposta da IA (resumo):** A skill parou no passo 1: a branch atual é `dev`, não `ESDD/<integrante>`. Nenhum pull nem push foi feito; a usuária foi orientada a trocar para (ou criar) a sua branch `ESDD/<nome>`.
+- **Adaptações / correções:** Nenhuma.
+
+## #073 — Terça-feira, 17/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Prompt:**
+  > leia PRIMEIROS_PASSOS.md
+- **Objetivo:** Carregar o guia de trabalho da equipe (ambiente, branches, fluxo, registros) no contexto da IA.
+- **Resposta da IA (resumo):** Lido `PRIMEIROS_PASSOS.md` e, seguindo o checklist da seção 8 do guia, conferidos a branch (`dev`), o `git status`/`git log` e a nota de sessão mais recente (sessão 08, T09). Resumo apresentado à usuária, com a orientação de criar a branch `ESDD/<nome>` a partir de `origin/dev` (seção 4.2). Nenhum arquivo alterado além deste registro.
+- **Adaptações / correções:** Complementa a primeira leitura desta sessão (prompt "leia contexto e todas as suas subpastas"), feita na `main`, que parou na T04 (notas até a sessão 03). Na `dev` o projeto já vai até a T09 (notas das sessões 04–08). Aquele prompt foi registrado como #021 no AI_LOG da `main`, mas a entrada se perdeu na troca para a `dev` (na `dev`, a #021 é outra entrada, de 15/11).
+
+## #074 — Terça-feira, 17/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Prompt:**
+  > crie a branch ESDD/liliane
+- **Objetivo:** Criar a branch de trabalho da integrante, local e no GitHub, seguindo a seção 4.2 do `PRIMEIROS_PASSOS.md`.
+- **Resposta da IA (resumo):** `git fetch origin`, `git switch -c ESDD/liliane origin/dev` e `git push -u origin ESDD/liliane`. A branch nasceu no commit `60f612f` (mesmo da `dev`) e está ligada a `origin/ESDD/liliane`. As edições não commitadas do `AI_LOG.md` (#052–#055) vieram junto para a branch nova.
+- **Adaptações / correções:** Nenhuma.
+
+## #075 — Terça-feira, 17/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Prompt:**
+  > deixe para o fim da sessão
+- **Objetivo:** Adiar o commit dos registros do AI_LOG para o fim da sessão.
+- **Resposta da IA (resumo):** Nenhum commit feito. O `AI_LOG.md` (#052 em diante) segue modificado na `ESDD/liliane`, para ser commitado no fim da sessão junto com a nota do `/salvar-memoria`.
+- **Adaptações / correções:** A usuária escolheu adiar o commit (a IA tinha oferecido fazer na hora ou no fim da sessão).
+
+## #076 — Terça-feira, 17/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Prompt:**
+  > /salvar-memoria
+- **Objetivo:** Salvar a nota de memória desta sessão.
+- **Resposta da IA (resumo):** Criada `contexto/memory/2026-11-17_sessao-09_onboarding-liliane.md` (leituras de onboarding, criação da `ESDD/liliane`, perda da entrada #021 na troca de branch, pendências). Corrigidas as menções à #021 nas entradas #054–#056, porque ela não existe neste `AI_LOG.md`.
+- **Adaptações / correções:** Nenhuma.
+
+## #077 — Sábado, 21/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Prompt:**
+  > /atualizar-branch
+- **Objetivo:** Trazer para a `ESDD/liliane` o que já foi integrado na `dev`.
+- **Resposta da IA (resumo):** O `git pull --no-edit origin dev` foi abortado pelo Git antes de começar o merge, porque o `AI_LOG.md` tinha alterações locais não commitadas (a entrada #058 criada pelo hook, hoje #060) e a `dev` também altera esse arquivo. Estavam chegando 2 commits (`92758c0` com a configuração do Codex e `a72fdf0` com o registro dos prompts #052–#053), que mexem em 11 arquivos. Nenhum arquivo foi alterado além desta entrada e o push não foi feito.
+- **Adaptações / correções:** Nenhuma.
+
+## #078 — Sábado, 21/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Prompt:**
+  > pode commitar o AI_LOG e rodar de novo
+- **Objetivo:** Commitar o `AI_LOG.md` e repetir o `/atualizar-branch`.
+- **Resposta da IA (resumo):** Commit `36fde27` com as entradas #058–#059 (hoje #060–#061). Depois, o `git pull --no-edit origin dev` mesclou sem problemas 10 dos 11 arquivos (configuração do Codex, `CLAUDE.md`, `PRIMEIROS_PASSOS.md`, `contexto/TAREFAS.md` etc.), mas deu conflito no `AI_LOG.md`: as duas branches criaram entradas #052 e #053 diferentes (#052–#059 na `ESDD/liliane`, #052–#053 de 18/11 na `dev`). O conflito não foi resolvido, o merge ficou em andamento e o push não foi feito.
+- **Adaptações / correções:** Nenhuma.
+
+## #079 — Sábado, 21/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > pode resolver assim e fazer o push
+- **Objetivo:** Resolver o conflito do `AI_LOG.md` mantendo todas as entradas em ordem de data e enviar a `ESDD/liliane` atualizada.
+- **Resposta da IA (resumo):** Conflito resolvido sem apagar texto: #052–#057 (17/11) ficaram como estavam; as #052–#053 da `dev` (18/11) viraram #058–#059; as #058–#059 de 21/11 viraram #060–#061; esta entrada, criada pelo hook como #060, virou #062. As referências cruzadas foram atualizadas ("resposta à #052" e "ver #052" na nova #059 passaram a #058; "até a #053" no `PRIMEIROS_PASSOS.md` passou a "até a #059"; observação "hoje #060/#061" nas entradas #060 e #061). Commit do merge e push para `origin/ESDD/liliane`.
+- **Adaptações / correções:** Nenhuma. Observação: quando a `ESDD/liliane` for mesclada na `dev`, as entradas da `dev` passam a ter os números #058–#059. Integrantes que tenham entradas novas na `dev` a partir da #054 vão ter o mesmo tipo de conflito.
+
+## #080 — Sábado, 21/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > Vamos começar a fazer as minhas tarefas do projeto. Os cards com maior prioridade são o T10, T11 E O T26, todos do tópico "Pilha, fila e exportação". Você tem acesso ao quadro para saber quais são estes cards ou te envio aqui?
+- **Objetivo:** Saber se o Claude consegue ver no quadro os cards T10, T11 e T26 ("Pilha, fila e exportação") para começar as tarefas da Liliane.
+- **Resposta da IA (resumo):** Não foi possível abrir o quadro "Plano Projeto ESDD" pelas ferramentas de artefato (resposta "not found": o quadro é do Murilo e não está acessível nesta conta). Os cards foram lidos no espelho `contexto/TAREFAS.md` (atualizado em 18/11). Lá a T11 (pilha para Undo) aparece com o Lucas, e não com a Liliane. Foi pedido que ela confirme se a T11 passou para ela e se os cards têm detalhes além do título. Nenhum arquivo de código foi alterado.
+- **Adaptações / correções:** Nenhuma.
+
+## #081 — Sábado, 21/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > Opa! Confundi. A T11 é do Lucas mesmo. Vamos começar pelo T26.
+  >
+  > (Junto com o prompt foi enviada uma captura de tela do quadro, fase 3 "Pilha, fila e exportação", com a descrição dos cards T26, T10, T11 e T12.)
+- **Objetivo:** Implementar a T26, o modo passo a passo em que a tela atualiza a cada troca. Pelo card, os algoritmos avisam cada comparação e troca a uma função recebida por parâmetro (ponteiro para função), e a mesma ideia serve depois à exportação (T10) e ao Undo (T11).
+- **Resposta da IA (resumo):**
+  - `src/sort.h` / `src/sort.c`: novos `StepFunction` (ponteiro para função), `StepObserver { function, context }` e os tipos de passo `STEP_COMPARE`, `STEP_SWAP` e `STEP_WRITE`. Os 7 algoritmos ganharam o parâmetro `const StepObserver *observer` e chamam `notify()` logo depois de cada comparação, troca ou escrita. `STEP_WRITE` existe porque o Insertion Sort desloca valores e o Merge Sort copia valores das metades temporárias: não são trocas. Novo `sort_run_steps()`. O `sort_run()` manteve a assinatura e chama `sort_run_steps(..., NULL)`, então benchmarks, tabela comparativa e a fila do Lucas continuam iguais.
+  - `src/step_view.h` / `src/step_view.c` (TAD opaco novo): a cada passo limpa a tela, desenha cada elemento como uma barra de `#`, marca as posições i e j, mostra os contadores e espera ENTER; `f` + ENTER vai até o fim sem pausas. Vetor de no máximo 20 itens (`STEP_VIEW_MAX_SIZE`). Opção de pausar também nas comparações.
+  - `src/main.c`: o modo entra no `menu_sort`. Depois de escolher o algoritmo, com vetor de até 20 itens, o programa pergunta "Executar passo a passo?". Novas funções `read_yes_no()` e `run_step_by_step()`. O menu principal não mudou, para evitar conflito com a opção 9 (fila em lote) que o Lucas acrescentou na `ESDD/lucas`.
+  - Testes: compila sem warnings com `gcc -Wall -Wextra`. Num programa de teste fora do repositório, os eventos de cada algoritmo foram reaplicados numa cópia do vetor para tamanhos 1, 2, 7, 20 e 300, com dados aleatórios, ordenados e invertidos. A cópia bateu com o vetor real depois de cada passo, as contagens de comparações e trocas ficaram iguais às do `sort_run` e não houve vazamento. O programa também foi rodado com entrada simulada (Bubble Sort só com trocas, Merge Sort com comparações e N = 50 sem passo a passo).
+- **Adaptações / correções:** Nenhuma até agora. Pontos levados à Liliane: (1) no Insertion Sort o contador "Trocas/escritas" da tela fica maior que as "Trocas" das métricas, porque a escrita final da chave gera evento mas não é contada como troca; (2) a pilha do Lucas (`SwapIndices`) só desfaz trocas, e os passos `STEP_WRITE` do Insertion e do Merge precisariam guardar o valor antigo; (3) é preciso combinar isso com o Lucas na integração da T11.
+
+## #082 — Sábado, 21/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > Porque funciona apenas com vetores de até 20 itens? Não seria melhor que não houvesse essa restrição? Também acho que s/n não ficou muito intuitivo. Troque por "Sim ou Não".
+- **Objetivo:** Tirar o limite de 20 itens do modo passo a passo e trocar a pergunta "(s/n)" por "Sim ou Não".
+- **Resposta da IA (resumo):** Explicado o motivo do limite: o desenho usava uma linha por elemento e uma barra com tamanho igual ao valor, e um vetor grande não cabia no console. Mudanças:
+  - `src/step_view.h` / `src/step_view.c`: a barra ficou proporcional ao maior valor do vetor (`bar_length`, no máximo `STEP_VIEW_BAR_WIDTH` = 50 caracteres). Vetores com até `STEP_VIEW_FULL_SIZE` (20) itens aparecem inteiros. Nos maiores, a tela mostra só as linhas a até `STEP_VIEW_NEAR` (4) posições de i e de j, e as linhas escondidas viram "..." (`is_visible`). O `STEP_VIEW_MAX_SIZE` foi removido.
+  - `src/main.c`: o passo a passo é oferecido para qualquer tamanho. Com mais de 20 itens, aparece um aviso de que só as posições próximas são mostradas e de que `f` vai até o fim. O `read_yes_no` mostra "Digite Sim ou Nao", aceita Sim/S/sim e Nao/N/nao (só a primeira letra é conferida) e pergunta de novo se a resposta for inválida.
+  - Teste: compilado sem warnings (num executável separado, porque o `src/output/main.exe` estava aberto). Rodado com N = 1000 no Quick Sort, com uma resposta inválida antes do "Sim", e com N = 6, respondendo "Nao". Memória não liberada: 0 bytes.
+- **Adaptações / correções:** O texto ficou "Sim ou Nao" sem til, porque a equipe decidiu não usar acento nos `printf` (o console do Windows estraga acentos). O Quick Sort com pivô no início às vezes mostra uma "troca" de uma posição com ela mesma (ex.: "posicoes 999 e 999"). Isso já acontecia no código original e é contado como troca nas métricas. Não foi alterado.
+
+## #083 — Sábado, 21/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > Não consegui compilar atraves do comando no terminal
+- **Objetivo:** Descobrir por que o comando `gcc -Wall -Wextra src/*.c -o src/output/main.exe` não compilava no terminal.
+- **Resposta da IA (resumo):** O comando foi rodado no PowerShell e deu `ld.exe: cannot open output file src/output/main.exe: Permission denied`. O código compila. O problema é que o Windows não deixa sobrescrever um `.exe` em execução, e havia um `main.exe` aberto (iniciado às 14:29) num terminal PowerShell do VS Code. Orientado a encerrar o programa (opção 8 do menu ou Ctrl+C) e compilar de novo. Nenhum arquivo de código foi alterado.
+- **Adaptações / correções:** Nenhuma. O processo não foi encerrado pelo Claude, porque é um programa aberto pela usuária.
+
+## #084 — Sábado, 21/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > pode encerrar o programa e compilar
+- **Objetivo:** Encerrar o `main.exe` que estava aberto e compilar o projeto.
+- **Resposta da IA (resumo):** O processo `src/output/main.exe` foi encerrado com `Stop-Process` e o projeto foi recompilado com `gcc -Wall -Wextra src/*.c -o src/output/main.exe` no PowerShell. O comando saiu com código 0 e sem warnings, e o `main.exe` novo foi gravado às 14:41. Nenhum arquivo de código foi alterado.
+- **Adaptações / correções:** Nenhuma.
+
+## #085 — Sábado, 21/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > Testei e parece estar tudo certo. Pode commitar. Vou marcar o T26 como concluido.
+- **Objetivo:** Commitar a T26 (modo passo a passo), depois de a Liliane testar o programa.
+- **Resposta da IA (resumo):** Commit na `ESDD/liliane` com `src/sort.h`, `src/sort.c`, `src/step_view.h`, `src/step_view.c`, `src/main.c` e as entradas #063–#068 do `AI_LOG.md`. Sem push, porque ele não foi pedido. O `contexto/TAREFAS.md` não foi alterado: pela regra escrita nele, uma tarefa só vira "concluída" depois da revisão de outro integrante, e o quadro e o arquivo precisam bater.
+- **Adaptações / correções:** Nenhuma.
+
+## #086 — Sábado, 21/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > pode fazer o push. Quem ficou como reviewer para que eu saiba quando marcar como concluido? Ou isso sou eu quem especifico?
+- **Objetivo:** Fazer o push da T26 e saber quem revisa a tarefa antes de ela ser marcada como concluída.
+- **Resposta da IA (resumo):** Push da `ESDD/liliane` feito (`293697e..7e49ee3`). Explicado que não há revisor fixo: pelo `PRIMEIROS_PASSOS.md` (seção 5.6), quem terminou abre um PR `ESDD/<nome>` → `dev`, escolhe "outro integrante" para revisar, e a tarefa só é marcada como concluída no quadro e no `TAREFAS.md` depois da revisão e do merge. Sugerido o Lucas como revisor, porque a T11 dele depende do `StepObserver`. Foi oferecido abrir o PR com `gh pr create --base dev`. Também existe um PR aberto do Lucas (T12) esperando revisão.
+- **Adaptações / correções:** O commit `7e49ee3` juntou código e `AI_LOG.md`, e o `PRIMEIROS_PASSOS.md` (5.5) pede commits separados. Ele não foi reescrito, porque já estava no GitHub e reescrever exigiria `--force`. Daqui em diante, código e registros vão em commits separados.
+
+## #087 — Sábado, 21/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > Quero já partir para o T10. Faço o pedido de pr agora ou espero concluirmos tudo?
+- **Objetivo:** Decidir se o PR da T26 é aberto agora ou só quando as tarefas da fase 3 terminarem.
+- **Resposta da IA (resumo):** Recomendado abrir o PR da T26 agora. Motivos: PR pequeno é mais fácil de revisar e explicar na arguição; o Lucas precisa do `StepObserver` na `dev` para integrar a T11; e a revisão corre enquanto a T10 é feita. Cuidado: o PR acompanha a branch, então todo push na `ESDD/liliane` entra no PR aberto. Por isso a T10 fica commitada só localmente até o PR da T26 ser mesclado (ou entra no mesmo PR, se o revisor concordar). Oferecido abrir o PR e já começar a T10. Nenhum arquivo de código foi alterado.
+- **Adaptações / correções:** Nenhuma.
+
+## #088 — Sábado, 21/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > pode abrir o PR  com a descrição explicando o que foi feito e os pontos de atenção do T11, com o Lucas de revisor. Verifique se há algum pr aberto que eu já posso revisar.
+- **Objetivo:** Abrir o PR da T26 para a `dev`, com a descrição do que foi feito, os pontos de atenção para a T11 e o Lucas como revisor. Ver também se há algum PR aberto que a Liliane possa revisar.
+- **Resposta da IA (resumo):**
+  - Aberto o PR #2 (`ESDD/liliane` → `dev`, "T26: step-by-step mode with step notification"), com revisão pedida a `xXLucasCruzXx`. A descrição traz o resumo por arquivo, os testes e os pontos para a T11:
+    - ligar a pilha como outra `StepFunction`;
+    - `STEP_WRITE` (Insertion e Merge) não é desfeito pelo `SwapIndices`: opção A, pilha com o valor antigo; opção B, Undo só para Bubble, Quick e Selection;
+    - o aviso chega depois da escrita, então o valor antigo já foi perdido;
+    - a troca de uma posição com ela mesma no Quick Sort com pivô no início.
+  - O diff do PR também traz registros: `AI_LOG.md`, a nota de sessão 09 e uma linha do `PRIMEIROS_PASSOS.md`.
+  - PR aberto que a Liliane pode revisar: o #1 ("T12: circular queue for batch tests", `ESDD/lucas` → `dev`), aberto pelo Murilo, sem revisões e sem conflitos com a `dev`. Ele traz também o commit da pilha da T11 (`stack.h` / `stack.c`), e a descrição já lista pontos a ajustar (ordem do menu, `read_batch_int` complexa, numeração do AI_LOG, autor).
+- **Adaptações / correções:** Nenhuma. Esta entrada fica sem commit e sem push por enquanto, porque todo push na `ESDD/liliane` entra no PR #2.
+
+## #089 — Sábado, 21/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > Sim leia o pr para revisarmos
+- **Objetivo:** Ler o PR #1 do Lucas (T12, fila de testes em lote, mais a pilha da T11) para a Liliane revisar.
+- **Resposta da IA (resumo):**
+  - O que foi lido: `queue.h`/`queue.c`, `stack.h`/`stack.c` e as mudanças no `main.c` (`read_batch_int`, `run_batch`, `menu_batch`).
+  - Testes num worktree temporário, já removido: compila sem warnings com `-Wall -Wextra`. O lote com Bubble (N = 1000) e Merge Recursivo (N = 500) rodou na ordem certa. Algoritmo inválido, tamanho inválido e "-1 Voltar" foram tratados. Memória não liberada: 0 bytes.
+  - Merge de teste com a `ESDD/liliane`: conflito em `src/main.c` (includes e protótipos) e em `AI_LOG.md`.
+  - Pontos apresentados para a revisão:
+    - a fila está correta e segue o slide (`start` + `count` + `% capacity`);
+    - a pilha usa `top` = próxima posição livre, mas não está ligada a nada (fica para a integração com a T26);
+    - `size_t`/`SIZE_MAX`/`stdint.h` na fila e na pilha, e `read_batch_int` (`fgets`/`strtol`/`errno`), vão além do estilo das aulas;
+    - a opção 9 aparece depois de "Encerrar";
+    - o "-1 - Voltar" foge do padrão dos outros menus;
+    - o `max_size` de cerca de 1 bilhão permite testes que travam o programa por horas (Bubble com N grande);
+    - o comentário "before the caller applies it" na `stack.h`;
+    - os conflitos de AI_LOG e `main.c` com o PR #2.
+  - Nenhum comentário foi publicado no GitHub; ficou um rascunho para a Liliane aprovar.
+- **Adaptações / correções:** Nenhuma.
+
+## #090 — Sábado, 21/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > mostra o texto completo antes de enviar
+- **Objetivo:** Ver o texto completo da revisão do PR #1 antes de ele ser publicado no GitHub.
+- **Resposta da IA (resumo):** Rascunho da revisão escrito e mostrado à Liliane. Ele traz os testes feitos, o que está bom, três pontos para ajustar (ordem do menu, estilo das aulas na `read_batch_int` e no `size_t`, tamanho máximo do teste), duas sugestões que não bloqueiam ("-1 Voltar" e o comentário da `stack.h` versus o `StepObserver`) e os conflitos com o PR #2. Salvo num arquivo temporário (`review_pr1.md`). Nada foi publicado.
+- **Adaptações / correções:** Nenhuma.
+
+## #091 — Sábado, 21/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > pode enviar com request changes
+- **Objetivo:** Publicar no PR #1 a revisão aprovada (entrada #073), com o veredito "Request changes".
+- **Resposta da IA (resumo):** Revisão enviada com `gh pr review 1 --request-changes` pela conta `lilianeperim-ifsp`, com o mesmo texto mostrado na #073. O PR #1 ficou com o status `CHANGES_REQUESTED`. Nenhum arquivo do projeto foi alterado.
+- **Adaptações / correções:** Nenhuma. O texto foi enviado como estava.
+
+## #092 — Sábado, 21/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > pode começar a T10 com a proposta de formato
+- **Objetivo:** Começar a T10 propondo o formato do log de comparações e trocas, que a T14 do Lucas vai ler para animar as barras.
+- **Resposta da IA (resumo):** Proposta, ainda sem código:
+  - **Formato:** JSON, um arquivo por execução, com `algorithm`, `data_kind`, `size`, `initial` (vetor inicial), `steps` (um objeto por linha: `type` compare/swap/write, `i`, `j` e `value` só no write), `final` e `metrics`.
+  - **Estado do vetor:** o vetor inteiro não é gravado em cada passo, porque com N = 1000 no Bubble Sort seriam cerca de 750 mil passos de 1000 números cada (gigabytes). A interface parte do `initial` e reaplica os passos.
+  - **Arquivo e limite:** nome `logs/<algoritmo>_n<N>_<AAAAMMDD_HHMMSS>.json` e limite de exportação de N ≤ 1000.
+  - **Menu:** a pergunta "Exportar log?" no `menu_sort`, independente do passo a passo.
+  - **Quando gravar:** o arquivo é escrito durante a ordenação, então o tempo medido inclui a escrita.
+  - **Decisões pedidas à Liliane:** JSON ou CSV, o limite de N, a pasta `logs/` e se o formato vai para o Lucas antes do código.
+  - Nenhum arquivo de código foi alterado.
+- **Adaptações / correções:** Nenhuma.
+
+## #093 — Sábado, 21/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > 1. Pode utilizar JSON.
+  > 2.  Utilize este limite e se possivel deixe um comentario explicando o porque caso o usuario opte por exportar com um valor maior e não conseguir. 
+  > 3. Me explique qual seria a melhor decisão neste caso. é uma prarica comum fazer desta froma?
+  > 4. Sim
+- **Objetivo:** Fechar as decisões do formato da T10 e escrever a especificação para o Lucas. Decisões: JSON; limite N ≤ 1000 com aviso explicando o motivo; explicação sobre a pasta `logs/` no `.gitignore`.
+- **Resposta da IA (resumo):**
+  - Sobre a pasta `logs/`: é prática comum não versionar arquivos gerados pelo programa (como já acontece com `.exe` e `.o`), porque eles são recriados a cada execução, podem ter dezenas de MB e causariam conflitos no Git. Recomendado ignorar `logs/*`, manter a pasta no repositório com um `.gitkeep` (o Git não guarda pasta vazia e o C padrão não cria pastas) e versionar só um log pequeno de exemplo para a T14.
+  - Criado `contexto/formato_log.md`, escrito para o Lucas: exemplo, tabela de campos, tipos de passo, observações por algoritmo, pseudocódigo em JavaScript para reaplicar os passos, nome do arquivo, tabela do tamanho do arquivo por N (justifica o limite de 1000) e três pontos para ele confirmar.
+  - Combinado que o limite de 1000 terá constante e comentário no código, e uma mensagem ao usuário explicando o motivo quando N for maior.
+  - Ainda sem código; aguardando a confirmação da Liliane sobre a pasta `logs/`.
+- **Adaptações / correções:** Nenhuma.
+
+## #094 — Sábado, 21/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > pode seguir com a pasta logs e incluir no PR #2
+- **Objetivo:** Seguir com a pasta `logs/` (ignorada no Git, com `.gitkeep` e um exemplo), incluir a especificação do formato no PR #2 e implementar a T10.
+- **Resposta da IA (resumo):**
+  - **PR #2:** commit `1f544b3` com o `contexto/formato_log.md`, push e um comentário no PR avisando o Lucas e pedindo que ele confirme os pontos do fim do arquivo.
+  - **Código da T10** (commitado só localmente, porque o PR #2 está aberto):
+    - `src/export.h` / `src/export.c` (TAD opaco `Exporter`): `export_open` cria `logs/<algoritmo>_n<N>_<AAAAMMDD_HHMMSS>.json` (com `_2`, `_3`... se o nome já existir) e grava o cabeçalho e o vetor inicial; `export_step` é a `StepFunction` que grava um passo por linha; `export_close` grava o vetor final e as métricas, confere erros de escrita (`ferror`/`fclose`) e libera a memória.
+    - `EXPORT_MAX_SIZE` = 1000, com um comentário explicando o crescimento quadrático do arquivo.
+    - `src/main.c`: o `run_step_by_step` virou `run_sort`, que pergunta pelo passo a passo e pela exportação e escolhe a função de passo (`step_view_show`, `export_step` ou `step_both`, que repassa o passo às duas). O `ask_export` mostra uma mensagem explicando o limite quando N > 1000. Se a pasta `logs/` não existir, outra mensagem pede que o programa seja rodado a partir da raiz.
+    - `.gitignore` com `logs/*` e exceções para `logs/.gitkeep` e `logs/exemplo_bubble_sort_n10.json`.
+    - A especificação foi atualizada: status, regra do `_2`, link para o exemplo e tabela de tamanho com o pior caso medido.
+  - **Testes:** compila sem warnings. Logs dos 7 algoritmos (N = 30) e de um passo a passo junto com exportação (N = 8) foram validados num script Python: JSON válido, a reaplicação dos passos chega ao `final` ordenado e as comparações batem com as métricas. Também testados: N = 2000 (mensagem do limite), pasta ausente (mensagem de erro), três exportações no mesmo segundo (nomes com `_2` e `_3`) e N = 1000 (cerca de 10 s e 67 MB com dados invertidos). Memória não liberada: 0 bytes.
+- **Adaptações / correções:** A estimativa inicial de 30 MB para N = 1000 valia para dados aleatórios. Com dados invertidos, o arquivo medido teve 67 MB, e o comentário do `export.h` e a tabela da especificação foram corrigidos. O limite de 1000 foi mantido.
+
+## #095 — Sábado, 21/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > Salve a memória da sessão para continuarmos depois o card T10. Certifique de que o Lucas irá receber um aviso sobre a revisão dele no pr e os comentários para que ele realize suas próximas tarefas.
+- **Objetivo:** Salvar a memória da sessão para continuar a T10 depois e garantir que o Lucas seja avisado da revisão no PR e dos comentários com as próximas tarefas dele.
+- **Resposta da IA (resumo):**
+  - **Nota da sessão:** criada `contexto/memory/2026-11-21_sessao-10_passo-a-passo-exportacao.md` (prompts #058–#078), com o que foi feito na T26 e na T10, as decisões, as pendências e os próximos passos.
+  - **Avisos ao Lucas:** foram conferidos no GitHub.
+    - No PR #2, ele está como revisor pedido e o GitHub já o avisa disso e dos comentários.
+    - O PR #1 foi aberto pelo Murilo, então o Lucas poderia não receber o aviso da revisão. Por isso foi publicado lá um comentário marcando o `@xXLucasCruzXx`, com o resumo das tarefas: ajustes 1–3 do PR #1, a revisão do PR #2 com os pontos do Undo e a confirmação do formato do log.
+  - Commit local "Log AI prompts #078 and session note 10", sem push, porque o PR #2 está aberto.
+- **Adaptações / correções:** Ao fazer o commit, apareceu que `896583f` (T10) e `0b802f3` (AI_LOG) já estavam no GitHub, enviados fora do Claude, e portanto dentro do PR #2. A nota da sessão foi corrigida. Ficaram desatualizados a descrição do PR #2 (só fala da T26) e o comentário no PR #1 ("o PR da exportação sai depois que o #2 for mesclado"). A decisão foi levada à Liliane.
+
+## #096 — Sábado, 21/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > pode manter a T10 no PR #2 e atualizar a descrição, mas eu quero revisar o T10 depois. Depois disso, salve a memoria da sessão
+- **Objetivo:** Manter a T10 no PR #2, atualizar a descrição deixando claro que a Liliane ainda vai revisar a T10, e salvar a memória da sessão.
+- **Resposta da IA (resumo):**
+  - PR #2 renomeado para "T26 + T10: step-by-step mode and JSON step log". A descrição ganhou a seção "T10", com um aviso de não fazer o merge antes da revisão da Liliane, e traz commits, arquivos e testes.
+  - Corrigidos os comentários do PR #2 (para o Lucas, sobre o formato) e do PR #1 (resumo das tarefas dele), que diziam que a T10 viria num PR separado.
+  - Nota `contexto/memory/2026-11-21_sessao-10_passo-a-passo-exportacao.md` atualizada (prompts #058–#079, nova pendência "Liliane revisa a T10", próximos passos refeitos). Commit da nota e do AI_LOG enviado para a `ESDD/liliane`, o que também o leva ao PR #2.
+- **Adaptações / correções:** Nenhuma.
+
+## #097 — Sábado, 21/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > /salvar-memoria
+- **Objetivo:** Salvar a nota de memória desta sessão (`/salvar-memoria`).
+- **Resposta da IA (resumo):** A nota `contexto/memory/2026-11-21_sessao-10_passo-a-passo-exportacao.md`, já criada e atualizada nas #078–#079, foi atualizada de novo. Ganhou o marcador `<!-- session: ... -->` desta sessão, e a faixa de prompts passou a #058–#080. O conteúdo continua valendo e não foi alterado. Commit local, sem push.
+- **Adaptações / correções:** Nenhuma.
+
+## #098 — Segunda-feira, 23/11/2026
+
+- **Autor:** xXLucasCruzXx
+- **Ferramenta:** Codex
+- **Prompt:**
+  > Corrija também no PR #2 o erro que mostra os valores errados nas comparações do Insertion e do Merge Sort e faça o push.
+- **Objetivo:** Corrigir os valores mostrados nas comparações do modo passo a passo da T26.
+- **Resposta da IA (resumo):** O commit `4cf5186` passa os operandos reais pelo observador. O Insertion usa a chave salva e os dois Merge Sorts usam os valores dos vetores temporários. A tela identifica as posições de origem e a exportação mantém o mesmo JSON. O GCC compilou sem avisos e os testes verificaram os casos reproduzidos, os sete algoritmos e a exportação com zero bytes não liberados.
+- **Adaptações / correções:** As barras continuam representando o vetor no estado atual. O texto da comparação indica o valor efetivo e o índice de origem de cada operando.
+
+## #099 — Segunda-feira, 23/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > /atualizar-branch
+- **Objetivo:** Trazer para a `ESDD/liliane` o que já foi integrado na `dev`.
+- **Resposta da IA (resumo):** O `git pull --no-edit origin dev` foi recusado porque o `AI_LOG.md` tinha alteração local não commitada (a própria entrada #081 criada pelo hook). O merge foi abortado pelo Git, sem mudar nada, e o push não foi feito. A IA parou e perguntou à usuária como seguir (commitar o `AI_LOG.md` antes ou usar `stash`). Nenhum arquivo além desta entrada mudou.
+- **Adaptações / correções:** Nenhuma até agora.
+
+## #100 — Segunda-feira, 23/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > sim, pode seguir pela opção 1
+- **Objetivo:** Commitar o `AI_LOG.md` e repetir o pull da `dev` (opção 1 da resposta #081).
+- **Resposta da IA (resumo):** Commit `875004b` ("Log AI prompts #081-#082"), depois `git pull --no-edit origin dev`. O merge trouxe `src/stack.*`, `src/queue.*`, `src/main.c`, `contexto/TAREFAS.md` e a nota da sessão 09, mas deu conflito no `AI_LOG.md`: a `ESDD/liliane` e a `dev` usaram os mesmos números (#060–#070) para entradas diferentes. A IA parou sem resolver o conflito e sem fazer push, e mostrou o problema à usuária.
+- **Adaptações / correções:** Nenhuma até agora.
+
+## #101 — Segunda-feira, 23/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > sim, pode seguir pela opção 1
+- **Objetivo:** Resolver o conflito do `AI_LOG.md` no merge da `dev` (opção 1 da #100): as entradas da `dev` mantêm os números, e as da `ESDD/liliane` passam a vir depois delas.
+- **Resposta da IA (resumo):** O conflito era maior do que a #100 mostrava. Um merge anterior (`293697e`) tinha renumerado as entradas #052–#053 do Murilo para #058–#059 na `ESDD/liliane`, e a `origin/ESDD/liliane` tinha uma entrada #081 do Lucas (PR #2, commit `7b60866`). Um script Python (fora do repositório) montou o arquivo assim: as entradas #001–#070 da `dev` sem mudança, depois as da Liliane que a `dev` não tinha (as antigas #052–#057 e #060–#083), com a do Lucas antes da antiga #081. Essas entradas foram renumeradas como #071–#101, com o texto mantido. As duplicatas de #052–#053 foram descartadas, e foi removida a linha de cabeçalho repetida da entrada do Lucas. A IA conferiu que a numeração vai de #001 a #101 sem buracos. Depois, a IA fez o commit do merge, trouxe a `origin/ESDD/liliane` e fez o push.
+- **Adaptações / correções:** As referências a números de entrada dentro do texto das entradas antigas (ex.: "#058–#080", "#081") não foram alteradas, para não reescrever entradas antigas. Elas apontam para a numeração anterior.
+
+## #102 — Segunda-feira, 23/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > confira a revisao do murilo ao meu pr dos cards T26 e o T10 (que ainda quero revisar e continuar com ele hoje para finalizarmos)
+- **Objetivo:** Ver a revisão do Murilo no PR #2 (T26 + T10) e o que ainda falta para o merge.
+- **Resposta da IA (resumo):** A IA leu com `gh` a revisão (CHANGES_REQUESTED, 23/11) e os comentários do PR. Depois comparou cada ponto com o código atual (`src/sort.c`, `src/export.h`, `src/export.c`, `src/main.c`, `contexto/formato_log.md`). Situação: o ponto 4 (conflito no AI_LOG) foi resolvido nas #099–#101. Os pontos 1 (`notify` chamado sem testar o observador), 2 (estimativas de tamanho do log) e 3 (aviso sobre o `compare` do Insertion) continuam abertos. O ponto 5 (`user.name`) é só sugestão. A pergunta do Lucas sobre o Undo (T11) e a revisão da T10 pela própria Liliane também estão pendentes. Nenhum arquivo de código mudou.
+- **Adaptações / correções:** Nenhuma até agora.
+
+## #103 — Segunda-feira, 23/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > sim, pode começar pelo ponto 1
+- **Objetivo:** Corrigir o ponto 1 da revisão do Murilo no PR #2: o `notify` deixava os benchmarks 2 a 3 vezes mais lentos.
+- **Resposta da IA (resumo):** Em `src/sort.c`, as 17 chamadas de `notify` passaram a ficar dentro de `if (observer != NULL)`, como o Murilo sugeriu. Na colocação final da chave do Insertion, o teste entrou no `if (j + 1 != i)` que já existia. O comentário do `notify` explica o motivo. Medição sem observador, N = 20.000 (programa de teste fora do repositório, mesmas flags do projeto, sem `-O`): antes, Bubble 3,7 s, Selection 1,4 s, Insertion 0,97 s; depois, 1,43 s, 0,49 s e 0,35 s; `sort.c` da `dev`, 1,33 s, 0,44 s e 0,34 s. Com observador, os 7 algoritmos avisaram os mesmos passos, na mesma ordem, de antes da mudança (N = 300, checksum dos passos). O projeto compila com `gcc -Wall -Wextra` sem avisos. Commit local, sem push.
+- **Adaptações / correções:** Nenhuma até agora.
+
+## #104 — Segunda-feira, 23/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > sim, pode seguir para o ponto 2
+- **Objetivo:** Corrigir o ponto 2 da revisão do Murilo no PR #2: as estimativas de tamanho do log estavam abaixo do real.
+- **Resposta da IA (resumo):** Os números foram medidos com um programa de teste fora do repositório, que usa o `export.c` real com o Bubble Sort. Com N = 100 e 1000, foram gravados arquivos de verdade (3 vetores aleatórios e 1 invertido) e apagados depois. Com N = 10.000, o programa contou os passos e somou o tamanho de cada linha no mesmo formato (o contador bateu com o arquivo real de N = 1000, mais 1 byte por linha do `\r\n` do Windows). Resultados: N = 1000 aleatório, 1,18 a 1,24 milhão de passos e 53 a 56 MB; invertido, 1,5 milhão de passos e 67 MB; N = 10.000 aleatório, cerca de 123 milhões de passos e 5,8 GB; invertido, 150 milhões de passos e 7 GB. Os valores de N = 50.000 foram estimados a partir dos de N = 10.000. Foram atualizados o comentário de `EXPORT_MAX_SIZE` em `src/export.h`, a mensagem de `ask_export` em `src/main.c` ("120 milhoes de passos", "uns 6 GB") e a tabela e a explicação de `contexto/formato_log.md` (por que o Bubble Sort faz cerca de N² comparações também com dados aleatórios). O limite de 1000 não mudou. O projeto compila sem avisos. Commit local, sem push.
+- **Adaptações / correções:** Nenhuma até agora.
+
+## #105 — Segunda-feira, 23/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > sim, pode gravar os valores no compare
+- **Objetivo:** Corrigir o ponto 3 da revisão do Murilo no PR #2: o `compare` do Insertion (e do Merge) aponta para barras que podem já ter outro valor. A Liliane escolheu gravar no JSON os valores comparados.
+- **Resposta da IA (resumo):** Em `src/export.c`, `export_step` passou a gravar `"value_i"` e `"value_j"` em cada `compare`, com os valores que o `notify` já recebia (`left_value` e `right_value`), e os `(void)` foram removidos. A IA escolheu os nomes `value_i`/`value_j` (combinam com o `value` do `write`) em vez de `a`/`b`. No `contexto/formato_log.md` mudaram o exemplo, a linha do `compare` na tabela, as observações (quando os valores são iguais às barras e quando não são, no Insertion e no Merge), o pseudocódigo e a lista de campos para o Lucas. O `logs/exemplo_bubble_sort_n10.json` foi atualizado reaplicando os passos (os mesmos dados, com os valores nas 72 comparações). Testes fora do repositório: exportação real dos 7 algoritmos (N = 30, aleatório e invertido), com reaplicação chegando ao `final` e o número de `compare` igual a `metrics.comparisons`. No Bubble, Quick e Selection, os valores sempre batem com as barras. No Insertion, `value_i` é sempre a barra `i` e `value_j` é sempre a chave. As medidas de tamanho foram refeitas (N = 1000: 85 MB aleatório e 99 MB invertido; N = 10.000: 9 a 10 GB) e atualizadas em `src/export.h`, `src/main.c` e na tabela do `formato_log.md`. O projeto compila sem avisos. Commit local, sem push.
+- **Adaptações / correções:** O aumento do arquivo foi de cerca de 55%, não os 35% estimados na resposta #104 (cada `compare` ganhou 26 caracteres mais os dígitos de dois valores). O limite de N ≤ 1000 continua valendo.
+
+## #106 — Segunda-feira, 23/11/2026
+
+- **Autor:** lilianeperim-ifsp
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > 1. Sim, vamos seguir para a revisão do T10: teste o que foi feito e diga se ainda faltam correções a serem feitas.
+  > 2. Me mostre a porposta que o Lucas fez e vamos responder ele para alinhar o Undo.
+  > 3. Faremos o push depois de finalizar tudo da sessão.
+  > 4. Pode alterar meu nome para Liliane Perim
+- **Objetivo:** Revisar e testar a T10 (exportação JSON), mostrar a proposta do Lucas para o Undo (T11) e preparar uma resposta, e trocar o nome do git para "Liliane Perim".
+- **Resposta da IA (resumo):** (1) `git config --local user.name "Liliane Perim"`, só neste repositório; o global continua `lilianeperim-ifsp`. (2) Revisão da T10: leitura de `src/export.c` e do `run_sort` em `src/main.c`, e testes do programa real com entradas automáticas: os 7 algoritmos com N = 50 (aleatório, ordenado e invertido), N = 1 e N = 2, Bubble com N = 1000 invertido (99 MB, 1,5 milhão de passos), N = 1001 (mensagem do limite), execução fora da raiz (mensagem da pasta `logs`), passo a passo junto com a exportação (Insertion, N = 8, com `f`) e as métricas do JSON comparadas com o relatório (Merge, N = 200). Todos os arquivos são JSON válido e a reaplicação chega ao `final`; em todos os casos, `Memoria nao liberada: 0 bytes`. Não há erro que bloqueie o merge. Os ajustes pequenos sugeridos: atualizar o status e os "Pontos para o Lucas confirmar" do `formato_log.md` (o Lucas já respondeu); avisar que o log fica incompleto quando o algoritmo falha; tratar só os três tipos de passo conhecidos no `export_step`; e atualizar a seção T10 da descrição do PR #2. (3) A IA mostrou a proposta do Lucas (cópia do vetor atualizada pelo observador, para guardar o valor anterior de cada escrita) e escreveu um rascunho de resposta em português, que ainda não foi enviado. Nenhum arquivo do projeto mudou além deste registro.
+- **Adaptações / correções:** O autor desta entrada continua `lilianeperim-ifsp` porque o hook a criou antes da troca do nome; a partir da #107 deve aparecer "Liliane Perim".
+
+## #107 — Segunda-feira, 23/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > 1. Sim, pode fazer os ajustes 1 a 3 da T10
+  > 2. Não precisa alterar nada no recado.  Envie no fim da sessão.
+- **Objetivo:** Fazer os ajustes 1 a 3 da revisão da T10 (#106) e deixar o recado ao Lucas pronto para enviar no fim da sessão.
+- **Resposta da IA (resumo):** (1) `contexto/formato_log.md`: o status diz que o Lucas confirmou os campos em 23/11 e que falta confirmar `value_i`/`value_j`. A seção "Pontos para o Lucas confirmar" virou "Combinado com o Lucas (T14)", com as respostas dele, e entrou uma observação sobre o log de um algoritmo que falha. (2) `src/main.c` (`run_sort`): quando o algoritmo falha com a exportação ligada, o programa avisa "O algoritmo parou antes do fim: o log ficou incompleto.". (3) `src/export.c` (`export_step`): um tipo de passo diferente de `STEP_COMPARE`, `STEP_SWAP` e `STEP_WRITE` é ignorado antes da vírgula, e o JSON continua válido. A primeira versão gravava `{}` no lugar do passo, mas a IA trocou antes do commit. Testes fora do repositório: falta de memória simulada no Merge Sort Recursivo (cópia do `memory.c` que falha depois de 8 alocações), que mostrou o aviso, gerou um JSON válido e terminou com 0 bytes não liberados; tipos de passo desconhecidos no início, no meio e no fim, com JSON válido só com os passos conhecidos; e os 7 algoritmos exportados de novo com N = 50, todos OK. O projeto compila sem avisos. O recado ao Lucas ficou salvo no scratchpad, para enviar no fim da sessão. Commit local, sem push.
+- **Adaptações / correções:** Nenhuma até agora.
+
+## #108 — Segunda-feira, 23/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > não, pode finalizar a sessão e fazer o push
+- **Objetivo:** Encerrar a sessão: fazer o push da `ESDD/liliane`, atualizar o PR #2, enviar o recado ao Lucas e avisar o Murilo.
+- **Resposta da IA (resumo):** A `dev` e a `origin/ESDD/liliane` não tinham commits novos. Push de `2289ab5..6754c6c` (4 commits das correções). A descrição do PR #2 foi atualizada com `gh pr edit`: assinatura nova da `StepFunction`, teste do observador, `value_i`/`value_j`, 99 MB, nova regra de numeração do AI_LOG, o aviso "ainda vai ser revisada" trocado pela revisão de 23/11, e uma seção nova "Correções da revisão (23/11)" com os commits, as medições e os testes. O recado ao Lucas sobre o Undo (T11), aprovado na #107 sem mudanças, foi publicado como comentário no PR #2. O comentário para o Murilo foi escrito e mostrado à Liliane antes de publicar, como combinado na #107. Este registro foi commitado e enviado por push.
+- **Adaptações / correções:** Nenhuma até agora.
+
+## #109 — Segunda-feira, 23/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > sim, pode publicar e rodar o /salvar-memoria
+- **Objetivo:** Publicar o comentário ao Murilo no PR #2 e salvar a nota da sessão.
+- **Resposta da IA (resumo):** O comentário aprovado na #108 foi publicado no PR #2 com `gh pr comment`; ele resume os pontos 1 a 5 corrigidos e pede uma nova revisão. Pelo `/salvar-memoria`, foi criada a nota `contexto/memory/2026-11-23_sessao-11_revisao-pr2-t26-t10.md` (prompts #099–#109), com o que foi feito, as decisões (regra de numeração do AI_LOG, `value_i`/`value_j`, tamanhos medidos, pontos do Undo), as pendências e os próximos passos. A nota e este registro foram commitados e enviados por push.
+- **Adaptações / correções:** Nenhuma até agora.
+
+## #110 — Segunda-feira, 23/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > /atualizar-branch
+- **Objetivo:** Trazer para a `ESDD/liliane` o que já foi integrado na `dev`.
+- **Resposta da IA (resumo):** Conferiu a branch (`ESDD/liliane`) e rodou `git pull --no-edit origin dev`, que respondeu "Already up to date". Nenhum commit novo chegou e não houve push. O único arquivo alterado é o `AI_LOG.md` (esta entrada).
+- **Adaptações / correções:** Nenhuma.
+
+## #111 — Segunda-feira, 23/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > verifique se o Murilo revisou meu pr e se sim quais correções devem ser feitas para o Merge
+- **Objetivo:** Saber se o Murilo revisou o PR #2 e o que falta corrigir para o merge.
+- **Resposta da IA (resumo):** Leu com `gh` as revisões e os comentários do PR #2. A 2ª revisão do Murilo (23/11, 22:51) continua pedindo mudanças, com um ponto obrigatório: o `run_sort` (`src/main.c`, linha 336) sempre passa `&observer` para `sort_run_steps`, mesmo com o passo a passo e a exportação desligados, e isso deixa o menu de ordenação 2 a 3 vezes mais lento. A correção sugerida é chamar `sort_run` quando `observer.function == NULL` e atualizar o comentário do `notify` em `src/sort.c` (linhas 12-16). Depois do merge, atualizar a T26 e a T10 no `contexto/TAREFAS.md` e no quadro. Nenhum arquivo de código foi alterado; só o `AI_LOG.md` (esta entrada).
+- **Adaptações / correções:** Nenhuma.
+
+## #112 — Segunda-feira, 23/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > pode fazer a correção e responder o Murilo no PR
+- **Objetivo:** Corrigir o ponto da 2ª revisão do Murilo no PR #2 (menu de ordenação lento com o passo a passo e a exportação desligados) e responder a ele no PR.
+- **Resposta da IA (resumo):** Em `src/main.c` (`run_sort`), passou a chamar `sort_run` quando `observer.function == NULL` e `sort_run_steps` só quando há função de passo, como o Murilo sugeriu. Atualizou o comentário do `notify` em `src/sort.c`. Compilou com `gcc -std=c99 -Wall -Wextra -pedantic` sem avisos. Mediu pelo menu (opção 1, N = 20.000, aleatório, Nao/Nao), antes → depois: Bubble 3,86 s → 1,44 s; Insertion 1,01 s → 0,33 s; Selection 1,49 s → 0,47 s. Conferiu também a exportação (Bubble, N = 50): a reaplicação chega ao `final` ordenado e as comparações batem. Commit `a0ade9c`, push na `ESDD/liliane` e comentário no PR #2.
+- **Adaptações / correções:** Nenhuma.
+
+## #113 — Segunda-feira, 23/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > verifique se o Murilo já revisou de novo
+- **Objetivo:** Saber se o Murilo já revisou de novo o PR #2 depois da correção do `a0ade9c`.
+- **Resposta da IA (resumo):** Consultou o PR #2 com `gh`. Ainda não há revisão nova: as duas revisões do Murilo são de 23/11 (13:13 e 22:51), e o último comentário é o da Liliane (23:25). O PR continua aberto, com "changes requested". Nenhum arquivo mudou além do `AI_LOG.md` (esta entrada).
+- **Adaptações / correções:** Nenhuma.
+
+## #114 — Segunda-feira, 23/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > /salvar-memoria
+- **Objetivo:** Salvar a nota de memória desta sessão.
+- **Resposta da IA (resumo):** Criou `contexto/memory/2026-11-23_sessao-12_segunda-revisao-pr2.md` (prompts #110–#114): a correção do `run_sort` (`a0ade9c`) com as medições, por que a 1ª correção não bastou, como testar o menu pela entrada padrão, as pendências (nova revisão do Murilo, respostas do Lucas, README) e os próximos passos.
+- **Adaptações / correções:** Nenhuma.
+
+## #115 — Segunda-feira, 23/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > confira se o murilo aprovou o pr e se sim, faça o merge
+- **Objetivo:** Conferir se o Murilo aprovou o PR #2 e, se sim, fazer o merge na `dev`.
+- **Resposta da IA (resumo):** Conferiu com `gh` a 3ª revisão do Murilo (23/11, 23:43): APPROVED, com "Pode fazer o merge", e o PR estava sem conflitos. Fez commit do AI_LOG #113–#115 e da nota `contexto/memory/2026-11-23_sessao-12_segunda-revisao-pr2.md` (atualizada com a aprovação e o merge) e deu push. Depois mesclou o PR #2 na `dev` com `gh pr merge 2 --merge` (commit de merge, como nos PRs #1 e #3), sem apagar a `ESDD/liliane`.
+- **Adaptações / correções:** Nenhuma.
+
+## #116 — Terça-feira, 24/11/2026
+
+- **Autor:** xXLucasCruzXx
+- **Ferramenta:** Codex
+- **Prompt:**
+  > Então termine a T11. Integre o Desfazer ao modo passo a passo, incluindo as escritas do Insertion e do Merge Sort.
+- **Objetivo:** Integrar o Desfazer da T11 ao modo passo a passo para trocas e escritas.
+- **Resposta da IA (resumo):** Preparou a integração durante a falha do ambiente local. Com o acesso recuperado na #117, atualizou a branch com a `dev` e concluiu a implementação em `ebc3a85`. Os testes pelo menu confirmaram desfazer e reaplicar no Bubble, no Insertion e nos dois Merge Sorts. A exportação produziu os mesmos passos da execução correspondente sem Desfazer, e os testes encerraram com zero bytes não liberados.
+- **Adaptações / correções:** O observador registra o valor anterior das escritas a partir de uma cópia do vetor. `u` desfaz uma alteração e ENTER reaplica alterações até voltar ao passo atual. A navegação acontece na cópia usada pela tela.
+
+## #117 — Terça-feira, 24/11/2026
+
+- **Autor:** xXLucasCruzXx
+- **Ferramenta:** Codex
+- **Prompt:**
+  > rode get-location novamente, instalei o powershell 7 pelo terminal winget install --id Microsoft.PowerShell --source winget --installer-type wix\
+  > E alterei na config.toml do codex sandbox = "unelevated"
+- **Objetivo:** Confirmar que o Codex consegue executar comandos novamente na cópia do projeto.
+- **Resposta da IA (resumo):** `Get-Location` funcionou no shell padrão e no PowerShell 7.6.9. A execução local permitiu retomar, compilar e testar a integração da T11.
+- **Adaptações / correções:** O usuário instalou o PowerShell 7 e ajustou o ambiente isolado do Codex antes do novo teste.
+
+## #118 — Terça-feira, 24/11/2026
+
+- **Autor:** xXLucasCruzXx
+- **Ferramenta:** Codex
+- **Prompt:**
+  > Pode fazer o push da integração da T11 para a branch ESDD/lucas no GitHub.
+- **Objetivo:** Publicar os commits da integração da T11 na branch do Lucas.
+- **Resposta da IA (resumo):** Publicou `ebc3a85` e `a8d8483` em `origin/ESDD/lucas`. Conferiu que a branch remota passou a apontar para o mesmo commit que a local.
+- **Adaptações / correções:** O GitHub CLI precisou de uma nova autenticação, autorizada pelo Lucas.
+
+## #119 — Terça-feira, 24/11/2026
+
+- **Autor:** xXLucasCruzXx
+- **Ferramenta:** Codex
+- **Prompt:**
+  > Pode abrir um pull request da ESDD/lucas para a dev com a integração da T11 e pedir a revisão da Liliane?
+- **Objetivo:** Abrir o PR da integração da T11 e solicitar a revisão da Liliane.
+- **Resposta da IA (resumo):** Abriu o PR #4 de `ESDD/lucas` para `dev` com a integração do Desfazer e os testes realizados. Solicitou a revisão de `lilianeperim-ifsp` e confirmou o pedido no GitHub.
+- **Adaptações / correções:** O PR contém os dois commits da integração publicados na #118.
+
+## #121 — Terça-feira, 24/11/2026
+
+- **Autor:** xXLucasCruzXx
+- **Ferramenta:** Codex
+- **Prompt:**
+  > [https://github.com/Murilolss/Projeto_Final_ESDD/pull/4](https://github.com/Murilolss/Projeto_Final_ESDD/pull/4)
+  >
+  > Veja essa PR e faça as alterações solicitadas
+- **Objetivo:** Atender aos cinco apontamentos da revisão da T11 no PR #4.
+- **Resposta da IA (resumo):** Aplicou as correções em `9bf2dff`. A medição registra os picos do algoritmo entre notificações, com os bytes do observador na base. No menu e no JSON, o Bubble Sort registrou 0 bytes extras e o Merge Sort iterativo 200 bytes com N = 50, mesmo após o crescimento do histórico. Os testes de pilha, limites, exportação e navegação passaram.
+- **Adaptações / correções:** `top` voltou a indicar a próxima posição livre e `cursor` indica o ponto de reprodução. Os contratos descrevem o descarte do reaplicar. Os consumidores rejeitam passos fora dos limites. O último reaplicar retoma a ordenação sem pedir outro Enter.
+
+## #123 — Segunda-feira, 23/11/2026
 
 - **Autor:** Murilo Leandro
 - **Ferramenta:** Claude Code
@@ -1364,9 +1922,9 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
   > avise a Liliane no PR 2 que agora começa na #071
 - **Objetivo:** Corrigir o ponto 4 da revisão do PR #2: com o PR #3, a numeração da Liliane passa a começar na #071.
 - **Resposta da IA (resumo):** Publicou um comentário no PR #2 (`gh pr comment`) dizendo que, com o merge do PR #3, a `dev` vai até a #070 e as entradas dela começam na #071; se a `dev` avançar, ela começa no número seguinte ao da última entrada da `dev`.
-- **Adaptações / correções:** Esta própria entrada (#071) não foi commitada, porque o push para a `ESDD/murilo` a colocaria no PR #3 e a numeração da Liliane passaria a começar na #072.
+- **Adaptações / correções:** Esta própria entrada (#123) não foi commitada, porque o push para a `ESDD/murilo` a colocaria no PR #3 e a numeração da Liliane passaria a começar na #072.
 
-## #072 — Segunda-feira, 23/11/2026
+## #124 — Segunda-feira, 23/11/2026
 
 - **Autor:** Murilo Leandro
 - **Ferramenta:** Claude Code
@@ -1376,37 +1934,37 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Numa worktree temporária, mesclou `origin/ESDD/liliane` com a `dev` atual (sem conflitos), compilou com `gcc -Wall -Wextra` sem avisos e testou. Pontos atendidos: as 17 chamadas de `notify` têm `if (observer != NULL)` e a tabela comparativa (opção 3) ficou com os tempos da `dev`; as estimativas de tamanho batem com a medição (Bubble N = 1000 invertido: 98,9 MB); os 64 logs gerados (7 algoritmos × aleatório/ordenado/invertido × N = 1, 2, 50, mais o exemplo) são JSON válido, a reaplicação chega ao `final`, as comparações batem com as métricas e `value_i`/`value_j` conferem; N = 1001, execução fora da raiz e passo a passo + exportação funcionam, com `Memoria nao liberada: 0 bytes`; o AI_LOG vai de #001 a #109 sem buracos nem duplicatas, com as entradas da `dev` intactas. Problema que sobrou: no menu de ordenação (opção 1), sem passo a passo e sem exportação, o `run_sort` passa `&observer` com `function = NULL`, então o teste `observer != NULL` não evita o `notify`, e o Bubble (N = 20000) fica em 8,4–8,9 s contra 3,1–3,3 s na `dev` (Selection 2,6 s contra 0,9 s; Insertion 2,3–2,5 s contra 0,7 s). Testou a correção (chamar `sort_run` quando `observer.function == NULL`), que devolve os tempos da `dev`. Nada foi publicado no PR e nenhum arquivo do projeto mudou além desta entrada; a worktree foi apagada.
 - **Adaptações / correções:** Os testes da Liliane mediram a velocidade pelo caminho sem observador (`sort_run`), por isso a lentidão do menu passou despercebida. Depois do merge do PR #2 a `dev` irá até a #109, e as entradas locais #071 e #072 do Murilo terão de ser renumeradas para #110 em diante.
 
-## #073 — Segunda-feira, 23/11/2026
+## #125 — Segunda-feira, 23/11/2026
 
 - **Autor:** Murilo Leandro
 - **Ferramenta:** Claude Code
 - **Prompt:**
   > deixa esse comentário no PR 2 para ela corrigir
-- **Objetivo:** Publicar no PR #2 o resultado da revisão da #072 e pedir à Liliane a correção da lentidão no menu de ordenação.
+- **Objetivo:** Publicar no PR #2 o resultado da revisão da #124 e pedir à Liliane a correção da lentidão no menu de ordenação.
 - **Resposta da IA (resumo):** Publicou com `gh pr review 2 --request-changes` uma revisão dirigida à Liliane, com o que foi conferido e está certo (velocidade sem observador, tamanho do log, `value_i`/`value_j` em 64 logs, casos-limite, numeração do AI_LOG) e o ponto que falta: o `run_sort` do `main.c` passa `&observer` com `function = NULL`, e o menu fica 2,5 a 3,5 vezes mais lento que a `dev` (tabela com os tempos medidos). A revisão traz a correção sugerida (chamar `sort_run` quando `observer.function == NULL`), já testada, e lembra de atualizar a T26 e a T10 no `TAREFAS.md` e no quadro depois do merge. O PR continua com o status "changes requested". Nenhum arquivo do projeto mudou além desta entrada.
 - **Adaptações / correções:** A revisão foi publicada pela conta do Murilo. Também sugere ajustar o comentário do `notify` no `sort.c` depois da correção.
 
-## #074 — Segunda-feira, 23/11/2026
+## #126 — Segunda-feira, 23/11/2026
 
 - **Autor:** Murilo Leandro
 - **Ferramenta:** Claude Code
 - **Prompt:**
   > Ela já corrigiu, verifica novamente
-- **Objetivo:** Conferir a correção da Liliane (`a0ade9c`) para a lentidão do menu de ordenação apontada na #073.
+- **Objetivo:** Conferir a correção da Liliane (`a0ade9c`) para a lentidão do menu de ordenação apontada na #125.
 - **Resposta da IA (resumo):** Leu o diff (`run_sort` chama `sort_run` quando `observer.function == NULL`, e o comentário do `notify` foi atualizado). Numa worktree temporária, mesclou `origin/ESDD/liliane` com a `dev` (sem conflitos), compilou sem avisos e mediu pelo menu (opção 1), N = 20.000, aleatório: Bubble 3,25–3,28 s (`dev` 3,0–3,06 s), Selection 0,88–0,93 s (`dev` 0,87–0,96 s), Insertion 0,64 s (`dev` 0,63 s). Revalidou 65 logs (7 algoritmos × 3 tipos × N = 1, 2, 50, passo a passo + exportação e o exemplo): JSON válido, reaplicação chega ao `final`, comparações e valores conferem. Passo a passo sem exportação e tabela comparativa funcionam, sempre com `Memoria nao liberada: 0 bytes`. AI_LOG mesclado vai de #001 a #112, sem buracos nem duplicatas, sem linhas da `dev` removidas. Conclusão: o PR está pronto para o merge. Nada foi publicado no PR; a worktree foi apagada.
 - **Adaptações / correções:** O PR ainda está com "changes requested" pela revisão do Murilo; falta aprovar para liberar o merge. As entradas locais #071–#074 do Murilo vão precisar ser renumeradas para #113 em diante depois do merge.
 
-## #075 — Segunda-feira, 23/11/2026
+## #127 — Segunda-feira, 23/11/2026
 
 - **Autor:** Murilo Leandro
 - **Ferramenta:** Claude Code
 - **Prompt:**
   > aprova o PR 2
-- **Objetivo:** Aprovar o PR #2 da Liliane depois da verificação da #074.
+- **Objetivo:** Aprovar o PR #2 da Liliane depois da verificação da #126.
 - **Resposta da IA (resumo):** Conferiu que a `ESDD/liliane` não mudou desde a verificação (último commit `9adf0b2`) e publicou com `gh pr review 2 --approve` uma aprovação dirigida à Liliane, com os tempos medidos depois da correção e os testes refeitos. O PR passou de "changes requested" para "approved" e está sem conflitos com a `dev`. Nenhum arquivo do projeto mudou além desta entrada.
 - **Adaptações / correções:** A aprovação foi publicada pela conta do Murilo. O merge fica com a Liliane.
 
-## #076 — Terça-feira, 24/11/2026
+## #128 — Terça-feira, 24/11/2026
 
 - **Autor:** Murilo Leandro
 - **Ferramenta:** Claude Code
@@ -1416,27 +1974,27 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Revisão com a skill `/code-review` (`src/main.c`, `src/stack.c`, `src/stack.h`, `src/step_view.c`, `src/step_view.h`). Não achou erro na lógica de desfazer e reaplicar. Achados: (1, importante) o crescimento da pilha de Desfazer (`stack_grow` → `mem_realloc`) entra no pico de memória medido por `sort_run_steps`, e algoritmos sem memória extra passam a mostrar bytes na tabela, no relatório e no JSON; (2) `top` deixou de ser "próxima posição livre" (agora é um cursor de redo, e a posição livre é `count`), contra a regra do CLAUDE.md; (3) os comentários de `stack_pop`, `stack_undo_swap` e `stack_push` no `.h` não citam a recusa para escritas nem o descarte do redo; (4) `record_change` escreve em `playback[i]`/`playback[j]` sem checar os limites; (5) depois de desfazer, voltar ao passo atual pede um ENTER a mais. Nenhum arquivo de código foi alterado e nada foi comentado no GitHub.
 - **Adaptações / correções:** Nenhuma por enquanto: os achados ficam para o Murilo decidir se viram comentário no PR ou pedido de mudança ao Lucas.
 
-## #077 — Terça-feira, 24/11/2026
+## #129 — Terça-feira, 24/11/2026
 
 - **Autor:** Murilo Leandro
 - **Ferramenta:** Claude Code
 - **Prompt:**
   > poste os achados como comentários no PR
-- **Objetivo:** Publicar no PR #4 os achados da revisão do #076, como comentários nas linhas.
+- **Objetivo:** Publicar no PR #4 os achados da revisão do #128, como comentários nas linhas.
 - **Resposta da IA (resumo):** Conferiu os 5 achados no commit `a8d8483` do PR e postou uma revisão do tipo "Comment" (sem aprovar nem pedir mudanças) com 5 comentários em português: `src/main.c:348` (memória do histórico no pico, importante), `src/stack.c:18` (`top` fora da convenção), `src/stack.h:30` (contratos desatualizados), `src/step_view.c:175` (sem checagem de limites) e `src/step_view.c:229` (ENTER a mais). Link: https://github.com/Murilolss/Projeto_Final_ESDD/pull/4#pullrequestreview-6039800137. Só o `AI_LOG.md` mudou no repositório.
 - **Adaptações / correções:** O comentário da memória foi ajustado: o PR já avisa na tela que o pico inclui o histórico, então o comentário reconhece isso e aponta que o valor ainda vai sem aviso para a tabela, o relatório e o JSON. O achado do `stack.h` foi preso à linha 30 (`stack_undo_swap`), porque a linha 25 (`stack_pop`) está fora do diff e não aceita comentário.
 
-## #078 — Terça-feira, 24/11/2026
+## #130 — Terça-feira, 24/11/2026
 
 - **Autor:** Murilo Leandro
 - **Ferramenta:** Claude Code
 - **Prompt:**
   > commita o AI_LOG e dá push
 - **Objetivo:** Commitar as entradas pendentes do `AI_LOG.md` e enviar para o GitHub.
-- **Resposta da IA (resumo):** Preencheu esta entrada, commitou o `AI_LOG.md` na `ESDD/murilo` com as entradas #071–#078 (as #071–#075, de 23/11, também estavam sem commit) e deu push para `origin/ESDD/murilo`. Só o `AI_LOG.md` mudou.
+- **Resposta da IA (resumo):** Preencheu esta entrada, commitou o `AI_LOG.md` na `ESDD/murilo` com as entradas #123–#130 (as #123–#127, de 23/11, também estavam sem commit) e deu push para `origin/ESDD/murilo`. Só o `AI_LOG.md` mudou.
 - **Adaptações / correções:** Nenhuma.
 
-## #079 — Terça-feira, 24/11/2026
+## #131 — Terça-feira, 24/11/2026
 
 - **Autor:** Murilo Leandro
 - **Ferramenta:** Claude Code
@@ -1446,25 +2004,35 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Leu o diff e conferiu a validação do `app.js` com o `export.c` da `dev` (`EXPORT_MAX_SIZE` = 1000, valores 1..N, `data_kind` Aleatorio/Ordenado/Invertido). Numa worktree temporária (a `ESDD/lucas` já contém a `dev`), compilou sem avisos e exportou pelo menu três logs reais (Bubble N = 1, Merge iterativo N = 30, Quick pivô início N = 1000 invertido, 49 MB), com `Memoria nao liberada: 0 bytes`. Testou a página no Chrome headless (a extensão do Chrome não estava conectada) servindo por HTTP: exemplo (10 barras na ordem e alturas certas), os três logs reais (o de 49 MB abre em 1,4 s), JSON inválido, BOM, `size` 1001, valor 0, `size` diferente de `initial`, sem `steps`, `null`, `[]`, e duas seleções seguidas (fica a última); a última visualização válida é mantida após erro. Defeito encontrado: no modo denso (N > 24 com colunas estreitas), as barras dos índices com rótulo (0, 10, 20, ...) ficam com 7,5 a 22,6 px em vez de 4 px e invadem as vizinhas, porque o `li` é um grid sem coluna definida e o rótulo alarga a coluna interna; `.bars li { grid-template-columns: minmax(0, 1fr); }` (mais `justify-self: center` no `.bar-index`) deixou todas com 4 px. Pontos menores: o AI_LOG #120 e a nota de sessão citam o commit `50e8b78`, que não existe no GitHub; com N = 1 o eixo mostra "0,5"; o limite 1000 está fixo no JS sem citar o `EXPORT_MAX_SIZE`; o `app.js` não tem comentários (arguição). AI_LOG mesclado fica sequencial (#119–#122). Nada foi publicado no PR; só esta entrada mudou no projeto.
 - **Adaptações / correções:** Os logs e páginas de teste ficaram no scratchpad e a worktree foi removida. Observações fora do escopo do PR: os logs gerados em `logs/` não estão no `.gitignore` (um de 49 MB pode ser commitado por engano) e o `README.md` está vazio.
 
-## #080 — Terça-feira, 24/11/2026
+## #132 — Terça-feira, 24/11/2026
 
 - **Autor:** Murilo Leandro
 - **Ferramenta:** Claude Code
 - **Prompt:**
   > pode corrigir e já publicar por aqui
-- **Objetivo:** Corrigir no próprio PR #5 os problemas achados na verificação da #079 e publicar a correção e o resultado no GitHub.
+- **Objetivo:** Corrigir no próprio PR #5 os problemas achados na verificação da #131 e publicar a correção e o resultado no GitHub.
 - **Resposta da IA (resumo):** Numa worktree temporária a partir da `origin/ESDD/lucas` (`34337bf`), mudou `web/styles.css` (`.bars li` com `grid-template-columns: minmax(0, 1fr)` e `.bar-index` com `justify-self: center`) e `web/app.js` (constante `MAX_LOG_SIZE` com comentário apontando para o `EXPORT_MAX_SIZE`, e comentários curtos em inglês em `parseLog`, `drawVector`, `loadLog`, `latestRequest` e no link do exemplo). Testou de novo no Chrome headless: barras com largura única (4 px com N = 1000, 8 px com N = 100), N = 1001 recusado, N = 1 e o exemplo corretos. Commitou `613a30e` e deu push para a `ESDD/lucas`, o que atualizou o PR #5. Publicou um comentário no PR (https://github.com/Murilolss/Projeto_Final_ESDD/pull/5#issuecomment-7146164404) com o que foi testado e corrigido, os pontos que ficam com o Lucas e o aviso para ele fazer `git pull` antes de continuar. A worktree foi removida. Na `ESDD/murilo`, só o `AI_LOG.md` mudou.
-- **Adaptações / correções:** O "0,5" no eixo com N = 1, citado na #079, foi retirado da lista: a linha do meio fica na metade do valor máximo, então o rótulo está certo. O AI_LOG #120 do Lucas (commit `50e8b78`, que não está no GitHub) não foi alterado, porque o CLAUDE.md proíbe reescrever entradas antigas; o ponto ficou no comentário. O commit foi feito na branch de outro integrante a pedido do Murilo. O `.gitignore` dos logs ficou de fora por não fazer parte do PR.
+- **Adaptações / correções:** O "0,5" no eixo com N = 1, citado na #131, foi retirado da lista: a linha do meio fica na metade do valor máximo, então o rótulo está certo. O AI_LOG #120 do Lucas (commit `50e8b78`, que não está no GitHub) não foi alterado, porque o CLAUDE.md proíbe reescrever entradas antigas; o ponto ficou no comentário. O commit foi feito na branch de outro integrante a pedido do Murilo. O `.gitignore` dos logs ficou de fora por não fazer parte do PR.
 
-## #081 — Terça-feira, 24/11/2026
+## #133 — Terça-feira, 24/11/2026
 
 - **Autor:** Murilo Leandro
 - **Ferramenta:** Claude Code
 - **Prompt:**
   > commita o AI_LOG e dá push
 - **Objetivo:** Commitar as entradas pendentes do `AI_LOG.md` e enviar para o GitHub.
-- **Resposta da IA (resumo):** Preencheu esta entrada, commitou o `AI_LOG.md` na `ESDD/murilo` com as entradas #079–#081 (verificação e correção do PR #5) e deu push para `origin/ESDD/murilo`. Só o `AI_LOG.md` mudou.
+- **Resposta da IA (resumo):** Preencheu esta entrada, commitou o `AI_LOG.md` na `ESDD/murilo` com as entradas #131–#133 (verificação e correção do PR #5) e deu push para `origin/ESDD/murilo`. Só o `AI_LOG.md` mudou.
 - **Adaptações / correções:** Nenhuma.
+
+## #134 — Terça-feira, 24/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > abra o PR da minha branch para a dev e pode renumerar?
+- **Objetivo:** _(a preencher pelo Claude ao final da resposta)_
+- **Resposta da IA (resumo):** _(a preencher pelo Claude ao final da resposta)_
+- **Adaptações / correções:** _(a preencher pelo Claude ao final da resposta)_
 
 ---
 
