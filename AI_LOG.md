@@ -1902,6 +1902,16 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Abriu o PR #4 de `ESDD/lucas` para `dev` com a integração do Desfazer e os testes realizados. Solicitou a revisão de `lilianeperim-ifsp` e confirmou o pedido no GitHub.
 - **Adaptações / correções:** O PR contém os dois commits da integração publicados na #118.
 
+## #120 — Terça-feira, 24/11/2026
+
+- **Autor:** xXLucasCruzXx
+- **Ferramenta:** Codex
+- **Prompt:**
+  > Então vamos de Web com HTML, CSS e JavaScript puro. Pode registrar a decisão da T13 e fazer a T14 usando o JSON de exemplo para testar as barras?
+- **Objetivo:** Registrar a decisão da T13 e implementar a leitura do JSON e o gráfico inicial da T14.
+- **Resposta da IA (resumo):** Registrou a escolha Web em `contexto/TAREFAS.md` e implementou a página em `web/` no commit `50e8b78`. Confirmou no navegador as dez barras do exemplo na ordem do vetor, com alturas proporcionais. Um teste local do código verificou também o manipulador de seleção de arquivo, JSON inválido e vetores de 1 e 1.000 elementos.
+- **Adaptações / correções:** A interface usa o seletor de arquivos do navegador. Para manter a revisão da T11 independente, a implementação foi feita na branch local `ESDD/lucas-t14`, a partir da `dev`.
+
 ## #121 — Terça-feira, 24/11/2026
 
 - **Autor:** xXLucasCruzXx
@@ -1913,6 +1923,16 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Objetivo:** Atender aos cinco apontamentos da revisão da T11 no PR #4.
 - **Resposta da IA (resumo):** Aplicou as correções em `9bf2dff`. A medição registra os picos do algoritmo entre notificações, com os bytes do observador na base. No menu e no JSON, o Bubble Sort registrou 0 bytes extras e o Merge Sort iterativo 200 bytes com N = 50, mesmo após o crescimento do histórico. Os testes de pilha, limites, exportação e navegação passaram.
 - **Adaptações / correções:** `top` voltou a indicar a próxima posição livre e `cursor` indica o ponto de reprodução. Os contratos descrevem o descarte do reaplicar. Os consumidores rejeitam passos fora dos limites. O último reaplicar retoma a ordenação sem pedir outro Enter.
+
+## #122 — Terça-feira, 24/11/2026
+
+- **Autor:** xXLucasCruzXx
+- **Ferramenta:** Codex
+- **Prompt:**
+  > eu prefiro só trabalhar na ESDD/lucas
+- **Objetivo:** Continuar a T13 e a T14 na branch pessoal `ESDD/lucas`.
+- **Resposta da IA (resumo):** Atualizou a branch local com a `dev` após o merge do PR #4. Trouxe para a `ESDD/lucas` o visualizador e os registros das tarefas, preservando as entradas do AI_LOG de ambas as branches.
+- **Adaptações / correções:** O código do visualizador passou a usar o commit `faffa97` na branch pessoal.
 
 ## #123 — Segunda-feira, 23/11/2026
 
