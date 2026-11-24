@@ -1882,6 +1882,38 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** `Get-Location` funcionou no shell padrão e no PowerShell 7.6.9. A execução local permitiu retomar, compilar e testar a integração da T11.
 - **Adaptações / correções:** O usuário instalou o PowerShell 7 e ajustou o ambiente isolado do Codex antes do novo teste.
 
+## #118 — Terça-feira, 24/11/2026
+
+- **Autor:** xXLucasCruzXx
+- **Ferramenta:** Codex
+- **Prompt:**
+  > Pode fazer o push da integração da T11 para a branch ESDD/lucas no GitHub.
+- **Objetivo:** Publicar os commits da integração da T11 na branch do Lucas.
+- **Resposta da IA (resumo):** Publicou `ebc3a85` e `a8d8483` em `origin/ESDD/lucas`. Conferiu que a branch remota passou a apontar para o mesmo commit que a local.
+- **Adaptações / correções:** O GitHub CLI precisou de uma nova autenticação, autorizada pelo Lucas.
+
+## #119 — Terça-feira, 24/11/2026
+
+- **Autor:** xXLucasCruzXx
+- **Ferramenta:** Codex
+- **Prompt:**
+  > Pode abrir um pull request da ESDD/lucas para a dev com a integração da T11 e pedir a revisão da Liliane?
+- **Objetivo:** Abrir o PR da integração da T11 e solicitar a revisão da Liliane.
+- **Resposta da IA (resumo):** Abriu o PR #4 de `ESDD/lucas` para `dev` com a integração do Desfazer e os testes realizados. Solicitou a revisão de `lilianeperim-ifsp` e confirmou o pedido no GitHub.
+- **Adaptações / correções:** O PR contém os dois commits da integração publicados na #118.
+
+## #121 — Terça-feira, 24/11/2026
+
+- **Autor:** xXLucasCruzXx
+- **Ferramenta:** Codex
+- **Prompt:**
+  > [https://github.com/Murilolss/Projeto_Final_ESDD/pull/4](https://github.com/Murilolss/Projeto_Final_ESDD/pull/4)
+  >
+  > Veja essa PR e faça as alterações solicitadas
+- **Objetivo:** Atender aos cinco apontamentos da revisão da T11 no PR #4.
+- **Resposta da IA (resumo):** Aplicou as correções em `9bf2dff`. A medição registra os picos do algoritmo entre notificações, com os bytes do observador na base. No menu e no JSON, o Bubble Sort registrou 0 bytes extras e o Merge Sort iterativo 200 bytes com N = 50, mesmo após o crescimento do histórico. Os testes de pilha, limites, exportação e navegação passaram.
+- **Adaptações / correções:** `top` voltou a indicar a próxima posição livre e `cursor` indica o ponto de reprodução. Os contratos descrevem o descarte do reaplicar. Os consumidores rejeitam passos fora dos limites. O último reaplicar retoma a ordenação sem pedir outro Enter.
+
 ---
 
 <!--
