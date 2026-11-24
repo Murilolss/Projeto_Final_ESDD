@@ -1861,6 +1861,27 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Conferiu com `gh` a 3ª revisão do Murilo (23/11, 23:43): APPROVED, com "Pode fazer o merge", e o PR estava sem conflitos. Fez commit do AI_LOG #113–#115 e da nota `contexto/memory/2026-11-23_sessao-12_segunda-revisao-pr2.md` (atualizada com a aprovação e o merge) e deu push. Depois mesclou o PR #2 na `dev` com `gh pr merge 2 --merge` (commit de merge, como nos PRs #1 e #3), sem apagar a `ESDD/liliane`.
 - **Adaptações / correções:** Nenhuma.
 
+## #116 — Terça-feira, 24/11/2026
+
+- **Autor:** xXLucasCruzXx
+- **Ferramenta:** Codex
+- **Prompt:**
+  > Então termine a T11. Integre o Desfazer ao modo passo a passo, incluindo as escritas do Insertion e do Merge Sort.
+- **Objetivo:** Integrar o Desfazer da T11 ao modo passo a passo para trocas e escritas.
+- **Resposta da IA (resumo):** Preparou a integração durante a falha do ambiente local. Com o acesso recuperado na #117, atualizou a branch com a `dev` e concluiu a implementação em `ebc3a85`. Os testes pelo menu confirmaram desfazer e reaplicar no Bubble, no Insertion e nos dois Merge Sorts. A exportação produziu os mesmos passos da execução correspondente sem Desfazer, e os testes encerraram com zero bytes não liberados.
+- **Adaptações / correções:** O observador registra o valor anterior das escritas a partir de uma cópia do vetor. `u` desfaz uma alteração e ENTER reaplica alterações até voltar ao passo atual. A navegação acontece na cópia usada pela tela.
+
+## #117 — Terça-feira, 24/11/2026
+
+- **Autor:** xXLucasCruzXx
+- **Ferramenta:** Codex
+- **Prompt:**
+  > rode get-location novamente, instalei o powershell 7 pelo terminal winget install --id Microsoft.PowerShell --source winget --installer-type wix\
+  > E alterei na config.toml do codex sandbox = "unelevated"
+- **Objetivo:** Confirmar que o Codex consegue executar comandos novamente na cópia do projeto.
+- **Resposta da IA (resumo):** `Get-Location` funcionou no shell padrão e no PowerShell 7.6.9. A execução local permitiu retomar, compilar e testar a integração da T11.
+- **Adaptações / correções:** O usuário instalou o PowerShell 7 e ajustou o ambiente isolado do Codex antes do novo teste.
+
 ---
 
 <!--
