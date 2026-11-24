@@ -1917,9 +1917,67 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Ferramenta:** Claude Code
 - **Prompt:**
   > pode fazer a opção 1
-- **Objetivo:** _(a preencher pelo Claude ao final da resposta)_
-- **Resposta da IA (resumo):** _(a preencher pelo Claude ao final da resposta)_
-- **Adaptações / correções:** _(a preencher pelo Claude ao final da resposta)_
+- **Objetivo:** Commitar o `AI_LOG.md` pendente e repetir o pull da `dev`.
+- **Resposta da IA (resumo):** Commitou o `AI_LOG.md` (`fd654c7`) e rodou `git pull --no-edit origin dev`. O código da T11 (PR #4) entrou sem conflito; o `AI_LOG.md` conflitou porque as duas branches criaram #116–#119 e #121 para prompts diferentes. Concluiu o merge e deu push para `origin/ESDD/liliane`.
+- **Adaptações / correções:** A IA mostrou o conflito e perguntou como resolver antes de mexer. A Liliane escolheu manter tudo e renumerar: as entradas do Lucas foram para o fim como #122–#126, com o texto intacto e uma linha "Numeração original" indicando o número na `ESDD/lucas`.
+
+## #122 — Terça-feira, 24/11/2026
+
+- **Numeração original:** #116 na branch `ESDD/lucas` (renumerada no merge com a `ESDD/liliane`; os números citados no texto seguem a numeração original).
+- **Autor:** xXLucasCruzXx
+- **Ferramenta:** Codex
+- **Prompt:**
+  > Então termine a T11. Integre o Desfazer ao modo passo a passo, incluindo as escritas do Insertion e do Merge Sort.
+- **Objetivo:** Integrar o Desfazer da T11 ao modo passo a passo para trocas e escritas.
+- **Resposta da IA (resumo):** Preparou a integração durante a falha do ambiente local. Com o acesso recuperado na #117, atualizou a branch com a `dev` e concluiu a implementação em `ebc3a85`. Os testes pelo menu confirmaram desfazer e reaplicar no Bubble, no Insertion e nos dois Merge Sorts. A exportação produziu os mesmos passos da execução correspondente sem Desfazer, e os testes encerraram com zero bytes não liberados.
+- **Adaptações / correções:** O observador registra o valor anterior das escritas a partir de uma cópia do vetor. `u` desfaz uma alteração e ENTER reaplica alterações até voltar ao passo atual. A navegação acontece na cópia usada pela tela.
+
+## #123 — Terça-feira, 24/11/2026
+
+- **Numeração original:** #117 na branch `ESDD/lucas` (renumerada no merge com a `ESDD/liliane`; os números citados no texto seguem a numeração original).
+- **Autor:** xXLucasCruzXx
+- **Ferramenta:** Codex
+- **Prompt:**
+  > rode get-location novamente, instalei o powershell 7 pelo terminal winget install --id Microsoft.PowerShell --source winget --installer-type wix\
+  > E alterei na config.toml do codex sandbox = "unelevated"
+- **Objetivo:** Confirmar que o Codex consegue executar comandos novamente na cópia do projeto.
+- **Resposta da IA (resumo):** `Get-Location` funcionou no shell padrão e no PowerShell 7.6.9. A execução local permitiu retomar, compilar e testar a integração da T11.
+- **Adaptações / correções:** O usuário instalou o PowerShell 7 e ajustou o ambiente isolado do Codex antes do novo teste.
+
+## #124 — Terça-feira, 24/11/2026
+
+- **Numeração original:** #118 na branch `ESDD/lucas` (renumerada no merge com a `ESDD/liliane`; os números citados no texto seguem a numeração original).
+- **Autor:** xXLucasCruzXx
+- **Ferramenta:** Codex
+- **Prompt:**
+  > Pode fazer o push da integração da T11 para a branch ESDD/lucas no GitHub.
+- **Objetivo:** Publicar os commits da integração da T11 na branch do Lucas.
+- **Resposta da IA (resumo):** Publicou `ebc3a85` e `a8d8483` em `origin/ESDD/lucas`. Conferiu que a branch remota passou a apontar para o mesmo commit que a local.
+- **Adaptações / correções:** O GitHub CLI precisou de uma nova autenticação, autorizada pelo Lucas.
+
+## #125 — Terça-feira, 24/11/2026
+
+- **Numeração original:** #119 na branch `ESDD/lucas` (renumerada no merge com a `ESDD/liliane`; os números citados no texto seguem a numeração original).
+- **Autor:** xXLucasCruzXx
+- **Ferramenta:** Codex
+- **Prompt:**
+  > Pode abrir um pull request da ESDD/lucas para a dev com a integração da T11 e pedir a revisão da Liliane?
+- **Objetivo:** Abrir o PR da integração da T11 e solicitar a revisão da Liliane.
+- **Resposta da IA (resumo):** Abriu o PR #4 de `ESDD/lucas` para `dev` com a integração do Desfazer e os testes realizados. Solicitou a revisão de `lilianeperim-ifsp` e confirmou o pedido no GitHub.
+- **Adaptações / correções:** O PR contém os dois commits da integração publicados na #118.
+
+## #126 — Terça-feira, 24/11/2026
+
+- **Numeração original:** #121 na branch `ESDD/lucas` (renumerada no merge com a `ESDD/liliane`; os números citados no texto seguem a numeração original).
+- **Autor:** xXLucasCruzXx
+- **Ferramenta:** Codex
+- **Prompt:**
+  > [https://github.com/Murilolss/Projeto_Final_ESDD/pull/4](https://github.com/Murilolss/Projeto_Final_ESDD/pull/4)
+  >
+  > Veja essa PR e faça as alterações solicitadas
+- **Objetivo:** Atender aos cinco apontamentos da revisão da T11 no PR #4.
+- **Resposta da IA (resumo):** Aplicou as correções em `9bf2dff`. A medição registra os picos do algoritmo entre notificações, com os bytes do observador na base. No menu e no JSON, o Bubble Sort registrou 0 bytes extras e o Merge Sort iterativo 200 bytes com N = 50, mesmo após o crescimento do histórico. Os testes de pilha, limites, exportação e navegação passaram.
+- **Adaptações / correções:** `top` voltou a indicar a próxima posição livre e `cursor` indica o ponto de reprodução. Os contratos descrevem o descarte do reaplicar. Os consumidores rejeitam passos fora dos limites. O último reaplicar retoma a ordenação sem pedir outro Enter.
 
 ---
 
