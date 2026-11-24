@@ -2094,6 +2094,16 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Leu o diff (`web/app.js`, `web/index.html`, `web/styles.css`, `contexto/TAREFAS.md`, `AI_LOG.md` #147–#149) e o `app.js` inteiro da branch. Conferiu a sintaxe com `node --check` e rodou um teste num DOM simulado com o `logs/exemplo_bubble_sort_n10.json` (reproduzir, pausar, avançar até o fim, voltar do fim, reproduzir até o fim pelos timers) e com um log sem passos: tudo funcionou. Não achou bug que impeça o merge. Apontou detalhes: na velocidade "Muito lenta" um log grande continua pulando centenas de passos por quadro; `pauseReplay()` redundante no `loadLog`; `speedInput.value - 1` com conversão implícita; o controle de velocidade sem `aria-valuetext`; o botão fica "Reproduzir" no fim de um log sem passos; o texto da T15 no `TAREFAS.md` ("no máximo cerca de 30 s") agora só vale na velocidade mais rápida. Nenhum arquivo do projeto mudou, além desta entrada.
 - **Adaptações / correções:** A revisão não foi publicada no GitHub; fica para o Murilo decidir se aprova e se comenta os detalhes no PR. Também foi visto que as entradas #136–#138 da `ESDD/murilo` repetem os números #136–#146 que já estão na `dev` (PR #7) e vão precisar de renumeração ao trazer a `dev`.
 
+## #139 — Terça-feira, 24/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > mande ela alterar no pr o modo passo a passo para no maximo 100 numeros assim reduz o tempo, só tem essa alteração para fazer
+- **Objetivo:** Pedir à Liliane, no PR #8, que limite o modo passo a passo a no máximo 100 números para reduzir o tempo da reprodução.
+- **Resposta da IA (resumo):** Publicou no PR #8, pela conta do Murilo, uma revisão "Changes requested" com uma única alteração: limitar o modo passo a passo (a reprodução do visualizador Web) a no máximo 100 números. A justificativa: com N = 1000 o log passa de 1,4 milhão de passos, e na velocidade "Muito lenta" a reprodução leva cerca de 30 min, pulando centenas de passos por quadro. Nenhum arquivo do projeto mudou, além desta entrada.
+- **Adaptações / correções:** Os outros detalhes da revisão #138 (redundância no `loadLog`, `Number(...)`, `aria-valuetext`, log sem passos, texto da T15 no `TAREFAS.md`) ficaram de fora do pedido, como o Murilo quis. A forma de tratar logs com mais de 100 números (recusar ou só desenhar sem os controles) ficou a critério da Liliane.
+
 ---
 
 <!--
