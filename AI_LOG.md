@@ -2064,6 +2064,36 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Explicou que a correção (`613a30e`) estava no PR #5 do Lucas, não no PR #6 do Murilo (que só tem o AI_LOG), e que descartar o PR #5 tiraria da `dev` o visualizador Web inteiro (T13/T14). Também explicou que o GitHub não deixa o autor aprovar o próprio PR. O Murilo escolheu mergear os dois. Fez o merge do PR #5 (`3c308ee`, conferindo que a branch ainda estava em `613a30e`), atualizou a `ESDD/murilo` com a `dev` (`85c305e`), mantendo o AI_LOG da `dev` com as #120 e #122 do Lucas e as #123–#134 do Murilo em seguida (sequência de #001 a #135 sem buracos), e fez o merge do PR #6 sem aprovação.
 - **Adaptações / correções:** O pedido de descartar o PR #5 não foi seguido, porque partia do entendimento de que a correção estava no PR do Murilo. O PR #6 entrou sem revisão de outro integrante, por decisão do Murilo (a `dev` não tem proteção de branch). Falta marcar a T13 e a T14 como concluídas no quadro e no `contexto/TAREFAS.md`.
 
+## #136 — Terça-feira, 24/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > confira o pr7
+- **Objetivo:** Revisar o PR #7 da Liliane (T15: animação das comparações, trocas e escritas com cores no visualizador `web/`) antes do merge na `dev`.
+- **Resposta da IA (resumo):** A IA leu o diff (`web/app.js`, `web/index.html`, `web/styles.css`, `contexto/TAREFAS.md`, `AI_LOG.md`, nota da sessão 12), compilou o programa em C numa pasta temporária, exportou logs dos 7 algoritmos com N = 30 e reaplicou cada um, mais o exemplo de N = 10, com o `app.js` do PR num DOM simulado no Node. Em todos, o vetor terminou igual ao `final`, todas as barras ficaram verdes e as cores apareceram como esperado (escrita só no Insertion e nos Merge Sorts). Logs inválidos (passo fora do vetor, `j = -2` na escrita, tipo desconhecido, sem `final`) foram recusados, e um log cortado ao meio mostrou o aviso. A regra de CSS do rótulo de barra curta ganha das cores pela ordem no arquivo, e o `final` nunca sai vazio no C (o `main.c` sempre passa a cópia). Nenhum defeito que impeça o merge; observações menores: um log pequeno (96 passos) leva cerca de 29 s por causa do atraso máximo de 300 ms, o que a T16 (velocidade) resolve, e um arquivo inválido aberto durante a animação mostra o erro mas deixa a animação anterior rodando. Nenhum arquivo do projeto mudou além desta entrada.
+- **Adaptações / correções:** O número desta entrada (#136) colide com as entradas da Liliane renumeradas no PR #7 (#136–#146). Se o PR #7 entrar na `dev` antes, esta entrada vira #147 no próximo merge da `dev` na `ESDD/murilo`.
+
+## #137 — Terça-feira, 24/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > marca a T15 no quadro e pode aprovar o PR
+- **Objetivo:** Aprovar o PR #7 (T15) e atualizar a T15 no quadro "Plano Projeto ESDD".
+- **Resposta da IA (resumo):** O PR #7 foi aprovado no GitHub com um comentário que resume os testes da entrada #136 e os dois pontos menores para a T16. O PR continua aberto, esperando o merge. No quadro só existe "concluída" ou não (não há "em andamento"), e a IA tentou marcar a T15 (`ui-anim`) como concluída, mas a permissão do Claude Code bloqueou a gravação. Como o primeiro texto da aprovação dizia que a T15 já estava marcada, a IA editou o comentário para tirar essa frase. Nenhum arquivo do projeto mudou além desta entrada.
+- **Adaptações / correções:** A T15 continua desmarcada no quadro até o Murilo decidir: marcar como concluída agora (pela aprovação) ou só depois do merge. O `TAREFAS.md` do PR mostra a T15 "em andamento" e precisa virar "concluída" depois do merge.
+
+## #138 — Terça-feira, 24/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > Revise o PR8
+- **Objetivo:** Revisar o PR #8 da Liliane (T16: controles de reprodução do visualizador Web) antes do merge na `dev`.
+- **Resposta da IA (resumo):** Leu o diff (`web/app.js`, `web/index.html`, `web/styles.css`, `contexto/TAREFAS.md`, `AI_LOG.md` #147–#149) e o `app.js` inteiro da branch. Conferiu a sintaxe com `node --check` e rodou um teste num DOM simulado com o `logs/exemplo_bubble_sort_n10.json` (reproduzir, pausar, avançar até o fim, voltar do fim, reproduzir até o fim pelos timers) e com um log sem passos: tudo funcionou. Não achou bug que impeça o merge. Apontou detalhes: na velocidade "Muito lenta" um log grande continua pulando centenas de passos por quadro; `pauseReplay()` redundante no `loadLog`; `speedInput.value - 1` com conversão implícita; o controle de velocidade sem `aria-valuetext`; o botão fica "Reproduzir" no fim de um log sem passos; o texto da T15 no `TAREFAS.md` ("no máximo cerca de 30 s") agora só vale na velocidade mais rápida. Nenhum arquivo do projeto mudou, além desta entrada.
+- **Adaptações / correções:** A revisão não foi publicada no GitHub; fica para o Murilo decidir se aprova e se comenta os detalhes no PR. Também foi visto que as entradas #136–#138 da `ESDD/murilo` repetem os números #136–#146 que já estão na `dev` (PR #7) e vão precisar de renumeração ao trazer a `dev`.
+
 ---
 
 <!--
