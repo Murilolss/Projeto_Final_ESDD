@@ -1901,6 +1901,26 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Atualizou `contexto/memory/2026-11-23_sessao-12_segunda-revisao-pr2.md`: prompts #110–#119, o commit `fd177eb` feito depois do merge, o `/atualizar-branch` (merge local `3333511`, enviado com push), a pendência de levar à `dev` no próximo PR o que veio depois do merge, e o próximo passo (commit do AI_LOG #118–#119 e da nota).
 - **Adaptações / correções:** Nenhuma.
 
+## #120 — Terça-feira, 24/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > /atualizar-branch
+- **Objetivo:** Trazer para a `ESDD/liliane` o que já foi integrado na `dev` (PR #4 do Lucas, T11 desfazer no passo a passo).
+- **Resposta da IA (resumo):** Rodou `git pull --no-edit origin dev`; o Git recusou o merge porque o `AI_LOG.md` tinha alterações não commitadas (a própria entrada #120 criada pelo hook) e a `dev` também altera esse arquivo. Nenhum arquivo mudou além desta entrada; o push não foi feito. Foram listados os 5 commits pendentes da `dev` (src/stack, step_view, sort, export, main, nota da sessão 13).
+- **Adaptações / correções:** Seguindo a skill, a IA parou sem fazer commit nem stash por conta própria e pediu à usuária que escolhesse como prosseguir.
+
+## #121 — Terça-feira, 24/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > pode fazer a opção 1
+- **Objetivo:** _(a preencher pelo Claude ao final da resposta)_
+- **Resposta da IA (resumo):** _(a preencher pelo Claude ao final da resposta)_
+- **Adaptações / correções:** _(a preencher pelo Claude ao final da resposta)_
+
 ---
 
 <!--
