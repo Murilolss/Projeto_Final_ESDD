@@ -1881,6 +1881,26 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Fez um commit na `ESDD/liliane` com o `AI_LOG.md` (#116–#117) e a nota `contexto/memory/2026-11-23_sessao-12_segunda-revisao-pr2.md`, e deu push para `origin/ESDD/liliane`.
 - **Adaptações / correções:** Nenhuma.
 
+## #118 — Segunda-feira, 23/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > /atualizar-branch
+- **Objetivo:** Trazer para a `ESDD/liliane` o que já foi integrado na `dev`.
+- **Resposta da IA (resumo):** Rodou `git pull --no-edit origin dev`. Chegou só o commit de merge do PR #2 (`304665f`), sem mudança de arquivo, e o Git criou o merge local `3333511`. Deu push para `origin/ESDD/liliane`. A única alteração pendente é o `AI_LOG.md` (esta entrada).
+- **Adaptações / correções:** Nenhuma.
+
+## #119 — Segunda-feira, 23/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > /salvar-memoria
+- **Objetivo:** Atualizar a nota de memória da sessão.
+- **Resposta da IA (resumo):** Atualizou `contexto/memory/2026-11-23_sessao-12_segunda-revisao-pr2.md`: prompts #110–#119, o commit `fd177eb` feito depois do merge, o `/atualizar-branch` (merge local `3333511`, enviado com push), a pendência de levar à `dev` no próximo PR o que veio depois do merge, e o próximo passo (commit do AI_LOG #118–#119 e da nota).
+- **Adaptações / correções:** Nenhuma.
+
 ---
 
 <!--
