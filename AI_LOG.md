@@ -2030,9 +2030,9 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Ferramenta:** Claude Code
 - **Prompt:**
   > abra o PR da minha branch para a dev e pode renumerar?
-- **Objetivo:** _(a preencher pelo Claude ao final da resposta)_
-- **Resposta da IA (resumo):** _(a preencher pelo Claude ao final da resposta)_
-- **Adaptações / correções:** _(a preencher pelo Claude ao final da resposta)_
+- **Objetivo:** Renumerar as entradas do Murilo que só existiam na `ESDD/murilo` e abrir o PR dela para a `dev`.
+- **Resposta da IA (resumo):** Fez o merge da `origin/dev` na `ESDD/murilo`. No `AI_LOG.md`, manteve o arquivo da `dev` inteiro e acrescentou no fim as entradas #071–#082 do Murilo renumeradas para #123–#134 (a `dev` vai até a #121, e o PR #5 do Lucas traz a #120 e a #122). Atualizou as referências entre essas entradas (por exemplo, "verificação da #074" passou a "#126"), sem mexer nos prompts literais. Conferiu que, em relação à `dev`, o diff só adiciona 120 linhas ao `AI_LOG.md`. Commitou o merge (`8c23403`), deu push e abriu o PR #6 (`ESDD/murilo` → `dev`, https://github.com/Murilolss/Projeto_Final_ESDD/pull/6), com a tabela da renumeração e um aviso ao Lucas. Depois preencheu esta entrada e enviou num commit separado.
+- **Adaptações / correções:** Frases antigas que previam outra numeração ("renumeradas para #110 em diante", "#113 em diante") ficaram como estavam, porque registram o que se sabia naquele momento. O PR #5 e o PR #6 acrescentam entradas no mesmo ponto do `AI_LOG.md`; quem fizer o segundo merge resolve um conflito simples mantendo as duas partes. A próxima entrada de qualquer integrante, depois dos dois merges, é a #135.
 
 ---
 
