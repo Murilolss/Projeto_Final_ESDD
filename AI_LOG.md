@@ -2137,9 +2137,9 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Ferramenta:** Claude Code
 - **Prompt:**
   > vamos fazer o próximo cartão, T15
-- **Objetivo:** _(a preencher pelo Claude ao final da resposta)_
-- **Resposta da IA (resumo):** _(a preencher pelo Claude ao final da resposta)_
-- **Adaptações / correções:** _(a preencher pelo Claude ao final da resposta)_
+- **Objetivo:** Começar a T15 (animar comparações e trocas com cores distintas).
+- **Resposta da IA (resumo):** Leu o `TAREFAS.md`, as notas de sessão e o `contexto/formato_log.md`. Pela cópia local, a T13 e a T14 ainda estavam pendentes e não havia código de interface, então a IA ia perguntar como seguir. Nenhum arquivo mudou.
+- **Adaptações / correções:** A Liliane interrompeu a pergunta e avisou que a T13 e a T14 já estavam prontas. A cópia local estava desatualizada: os PRs já estavam na `dev` (ver #143).
 
 ## #143 — Terça-feira, 24/11/2026
 
