@@ -302,7 +302,7 @@ static int run_sort(int index, const int *vector, int *copy, int size, int data_
                    STEP_VIEW_FULL_SIZE);
 
         if (step_view_create(sort_name(index), read_yes_no("Pausar tambem nas comparacoes?"),
-                             &view) == 0)
+                             vector, size, &view) == 0)
         {
             printf("Erro ao alocar memoria: o passo a passo nao sera mostrado.\n");
             step_mode = 0;
@@ -344,7 +344,7 @@ static int run_sort(int index, const int *vector, int *copy, int size, int data_
     {
         step_view_destroy(&view);
         system("cls");
-        printf("Fim do passo a passo (o tempo inclui as pausas).\n");
+        printf("Fim do passo a passo. O tempo inclui as pausas.\n");
     }
 
     if (export_on == 1)

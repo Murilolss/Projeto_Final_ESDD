@@ -1861,6 +1861,59 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Conferiu com `gh` a 3ª revisão do Murilo (23/11, 23:43): APPROVED, com "Pode fazer o merge", e o PR estava sem conflitos. Fez commit do AI_LOG #113–#115 e da nota `contexto/memory/2026-11-23_sessao-12_segunda-revisao-pr2.md` (atualizada com a aprovação e o merge) e deu push. Depois mesclou o PR #2 na `dev` com `gh pr merge 2 --merge` (commit de merge, como nos PRs #1 e #3), sem apagar a `ESDD/liliane`.
 - **Adaptações / correções:** Nenhuma.
 
+## #116 — Terça-feira, 24/11/2026
+
+- **Autor:** xXLucasCruzXx
+- **Ferramenta:** Codex
+- **Prompt:**
+  > Então termine a T11. Integre o Desfazer ao modo passo a passo, incluindo as escritas do Insertion e do Merge Sort.
+- **Objetivo:** Integrar o Desfazer da T11 ao modo passo a passo para trocas e escritas.
+- **Resposta da IA (resumo):** Preparou a integração durante a falha do ambiente local. Com o acesso recuperado na #117, atualizou a branch com a `dev` e concluiu a implementação em `ebc3a85`. Os testes pelo menu confirmaram desfazer e reaplicar no Bubble, no Insertion e nos dois Merge Sorts. A exportação produziu os mesmos passos da execução correspondente sem Desfazer, e os testes encerraram com zero bytes não liberados.
+- **Adaptações / correções:** O observador registra o valor anterior das escritas a partir de uma cópia do vetor. `u` desfaz uma alteração e ENTER reaplica alterações até voltar ao passo atual. A navegação acontece na cópia usada pela tela.
+
+## #117 — Terça-feira, 24/11/2026
+
+- **Autor:** xXLucasCruzXx
+- **Ferramenta:** Codex
+- **Prompt:**
+  > rode get-location novamente, instalei o powershell 7 pelo terminal winget install --id Microsoft.PowerShell --source winget --installer-type wix\
+  > E alterei na config.toml do codex sandbox = "unelevated"
+- **Objetivo:** Confirmar que o Codex consegue executar comandos novamente na cópia do projeto.
+- **Resposta da IA (resumo):** `Get-Location` funcionou no shell padrão e no PowerShell 7.6.9. A execução local permitiu retomar, compilar e testar a integração da T11.
+- **Adaptações / correções:** O usuário instalou o PowerShell 7 e ajustou o ambiente isolado do Codex antes do novo teste.
+
+## #118 — Terça-feira, 24/11/2026
+
+- **Autor:** xXLucasCruzXx
+- **Ferramenta:** Codex
+- **Prompt:**
+  > Pode fazer o push da integração da T11 para a branch ESDD/lucas no GitHub.
+- **Objetivo:** Publicar os commits da integração da T11 na branch do Lucas.
+- **Resposta da IA (resumo):** Publicou `ebc3a85` e `a8d8483` em `origin/ESDD/lucas`. Conferiu que a branch remota passou a apontar para o mesmo commit que a local.
+- **Adaptações / correções:** O GitHub CLI precisou de uma nova autenticação, autorizada pelo Lucas.
+
+## #119 — Terça-feira, 24/11/2026
+
+- **Autor:** xXLucasCruzXx
+- **Ferramenta:** Codex
+- **Prompt:**
+  > Pode abrir um pull request da ESDD/lucas para a dev com a integração da T11 e pedir a revisão da Liliane?
+- **Objetivo:** Abrir o PR da integração da T11 e solicitar a revisão da Liliane.
+- **Resposta da IA (resumo):** Abriu o PR #4 de `ESDD/lucas` para `dev` com a integração do Desfazer e os testes realizados. Solicitou a revisão de `lilianeperim-ifsp` e confirmou o pedido no GitHub.
+- **Adaptações / correções:** O PR contém os dois commits da integração publicados na #118.
+
+## #121 — Terça-feira, 24/11/2026
+
+- **Autor:** xXLucasCruzXx
+- **Ferramenta:** Codex
+- **Prompt:**
+  > [https://github.com/Murilolss/Projeto_Final_ESDD/pull/4](https://github.com/Murilolss/Projeto_Final_ESDD/pull/4)
+  >
+  > Veja essa PR e faça as alterações solicitadas
+- **Objetivo:** Atender aos cinco apontamentos da revisão da T11 no PR #4.
+- **Resposta da IA (resumo):** Aplicou as correções em `9bf2dff`. A medição registra os picos do algoritmo entre notificações, com os bytes do observador na base. No menu e no JSON, o Bubble Sort registrou 0 bytes extras e o Merge Sort iterativo 200 bytes com N = 50, mesmo após o crescimento do histórico. Os testes de pilha, limites, exportação e navegação passaram.
+- **Adaptações / correções:** `top` voltou a indicar a próxima posição livre e `cursor` indica o ponto de reprodução. Os contratos descrevem o descarte do reaplicar. Os consumidores rejeitam passos fora dos limites. O último reaplicar retoma a ordenação sem pedir outro Enter.
+
 ---
 
 <!--
