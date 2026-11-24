@@ -7,7 +7,7 @@ Cópia em texto do quadro **"Plano Projeto ESDD"**: https://claude.ai/artifact/G
   - O Claude atualiza o quadro (`ArtifactData`, coleção `tasks`) e este arquivo juntos.
   - Quem usa o Codex edita este arquivo, commita na sua `ESDD/<nome>` e marca a tarefa no quadro pelo navegador. Sem conta no claude.ai, avise o Murilo para ele marcar.
 - Status: `concluída`, `em andamento` ou `pendente`. A tarefa só vira `concluída` depois da revisão de outro integrante.
-- Atualizado em: 24/11/2026 (T26 e T10 concluídas com o PR #2, T11 com o PR #4, T13 e T14 com o PR #5; T15 em andamento).
+- Atualizado em: 24/11/2026 (T26 e T10 concluídas com o PR #2, T11 com o PR #4, T13 e T14 com o PR #5, T15 com o PR #7).
 
 ## Por integrante
 
@@ -15,7 +15,7 @@ Cópia em texto do quadro **"Plano Projeto ESDD"**: https://claude.ai/artifact/G
 |---|---|---|---|
 | Murilo | Claude Code | `ESDD/murilo` | nenhuma (fases 1 e 2 concluídas) |
 | Lucas | Codex | `ESDD/lucas` | nenhuma (T11, T12, T13 e T14 concluídas) |
-| Liliane | Claude Code | `ESDD/liliane` | T15, T16, T17 |
+| Liliane | Claude Code | `ESDD/liliane` | T16, T17 |
 | Sem responsável | — | — | T18–T24 |
 
 ## Lista completa
@@ -38,7 +38,7 @@ Cópia em texto do quadro **"Plano Projeto ESDD"**: https://claude.ai/artifact/G
 | T12 | 3. Pilha, fila e exportação | Fila de testes em lote (batch) | Lucas | concluída | |
 | T13 | 4. Interface visual | Decidir a interface: Web ou Java | Lucas | concluída | decisão da equipe |
 | T14 | 4. Interface visual | Ler o log exportado e desenhar as barras | Lucas | concluída | T10 (formato do log), T13 |
-| T15 | 4. Interface visual | Animar comparações e trocas com cores distintas | Liliane | em andamento | T14 |
+| T15 | 4. Interface visual | Animar comparações e trocas com cores distintas | Liliane | concluída | T14 |
 | T16 | 4. Interface visual | Controles de reprodução | Liliane | pendente | T14 |
 | T17 | 4. Interface visual | Tela comparativa das métricas | Liliane | pendente | T13 |
 | T18 | 5. Extra: hash | Tabela hash com encadeamento exterior (extra) | — | pendente | |
