@@ -422,6 +422,36 @@ const char *sort_name(int index)
     return algorithms[index].name;
 }
 
+typedef struct
+{
+    const StepObserver *observer;
+    long long baseline;
+    long long peak;
+} SortMemory;
+
+static void record_sort_peak(SortMemory *memory)
+{
+    long long extra = mem_peak() - memory->baseline;
+
+    if (extra > memory->peak)
+        memory->peak = extra;
+}
+
+static void observe_step(int kind, int i, int j, int left_value, int right_value,
+                         const int *array, int size, void *context)
+{
+    SortMemory *memory = context;
+    long long before = mem_current();
+
+    /* Save the peak of the algorithm so far. Then start a new interval and put
+       any change in the observer's allocated bytes into the baseline. */
+    record_sort_peak(memory);
+    memory->observer->function(kind, i, j, left_value, right_value, array, size,
+                               memory->observer->context);
+    memory->baseline += mem_current() - before;
+    mem_reset_peak();
+}
+
 int sort_run(int index, const int *source, int *dest, int size, Metrics *out)
 {
     /* Nobody watches the steps: the sort runs at full speed */
@@ -432,7 +462,9 @@ int sort_run_steps(int index, const int *source, int *dest, int size, Metrics *o
                    const StepObserver *observer)
 {
     clock_t start, end;
-    long long baseline;
+    SortMemory memory = {observer, 0, 0};
+    StepObserver measured_observer = {observe_step, &memory};
+    const StepObserver *active_observer = NULL;
     int ok;
 
     if (index < 0 || index >= SORT_COUNT)
@@ -446,17 +478,18 @@ int sort_run_steps(int index, const int *source, int *dest, int size, Metrics *o
     memcpy(dest, source, size * sizeof(int));
     metrics_init(out, algorithms[index].name);
 
-    /* Extra memory = highest amount allocated during the sort minus what was already
-       allocated before it (the vectors themselves). The recursion stack is not counted:
-       it is not heap memory. */
+    /* Measure the algorithm's extra heap over the buffers already allocated. */
+    if (observer != NULL && observer->function != NULL)
+        active_observer = &measured_observer;
     mem_reset_peak();
-    baseline = mem_current();
+    memory.baseline = mem_current();
 
     start = clock();
-    ok = algorithms[index].function(dest, size, out, observer);
+    ok = algorithms[index].function(dest, size, out, active_observer);
     end = clock();
 
+    record_sort_peak(&memory);
     out->time_ms = (double)(end - start) * 1000.0 / CLOCKS_PER_SEC;
-    out->memory_bytes = mem_peak() - baseline;
+    out->memory_bytes = memory.peak;
     return ok;
 }

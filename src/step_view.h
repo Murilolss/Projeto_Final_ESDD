@@ -29,7 +29,8 @@ void step_view_destroy(StepView **view);
 /* Step function (same signature as StepFunction in sort.h).
    context must be the StepView created above. It draws the array marking positions i
    and j. Typing u + ENTER undoes one change on the playback array. ENTER replays a
-   change or resumes the sort at the latest step. Typing f + ENTER finishes the sort. */
+   change and resumes the sort as soon as playback catches up. At the latest step,
+   ENTER advances the sort. Typing f + ENTER finishes the sort. */
 void step_view_show(int kind, int i, int j, int left_value, int right_value,
                     const int *array, int size, void *context);
 

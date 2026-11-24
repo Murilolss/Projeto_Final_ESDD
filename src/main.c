@@ -345,7 +345,6 @@ static int run_sort(int index, const int *vector, int *copy, int size, int data_
         step_view_destroy(&view);
         system("cls");
         printf("Fim do passo a passo. O tempo inclui as pausas.\n");
-        printf("O pico de memoria extra inclui o crescimento do historico, quando usado.\n");
     }
 
     if (export_on == 1)

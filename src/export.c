@@ -138,6 +138,8 @@ void export_step(int kind, int i, int j, int left_value, int right_value,
        before the comma, so the JSON stays valid */
     if (kind != STEP_COMPARE && kind != STEP_SWAP && kind != STEP_WRITE)
         return;
+    if (i < 0 || i >= size || j >= size || j < (kind == STEP_WRITE ? -1 : 0))
+        return;
 
     /* Every step but the first starts with a comma closing the previous line */
     if (exporter->steps > 0)

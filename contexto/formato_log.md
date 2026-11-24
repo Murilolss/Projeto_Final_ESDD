@@ -43,7 +43,7 @@ Proposta da Liliane (T10, exportação) para o Lucas (T14, interface que desenha
 | `metrics.comparisons` | inteiro | total de comparações (igual ao relatório do programa) |
 | `metrics.swaps` | inteiro | total de trocas (igual ao relatório do programa) |
 | `metrics.time_ms` | número | tempo em ms. **Inclui a escrita do arquivo**, então não serve para comparar algoritmos |
-| `metrics.memory_bytes` | inteiro | memória extra de heap medida durante a execução. No passo a passo, inclui o crescimento do histórico de Desfazer |
+| `metrics.memory_bytes` | inteiro | pico de memória extra de heap do algoritmo, em bytes |
 
 ### Passos (`steps`)
 

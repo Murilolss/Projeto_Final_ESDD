@@ -62,7 +62,8 @@ const char *sort_name(int index);
 int sort_run(int index, const int *source, int *dest, int size, Metrics *out);
 
 /* Same as sort_run, but every step is notified to observer (which can be NULL).
-   In the step-by-step mode the time also counts the pauses waiting for the user. */
+   The time includes the observer's work, such as pauses waiting for the user.
+   The extra heap measurement covers only the sorting algorithm. */
 int sort_run_steps(int index, const int *source, int *dest, int size, Metrics *out,
                    const StepObserver *observer);
 

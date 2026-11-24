@@ -171,7 +171,8 @@ static int read_pause(void)
     return first;
 }
 
-/* The observer runs after a change. Playback still has the previous values. */
+/* The observer validates the indices before recording each change. Playback
+   still has the previous values because the sort updated only its own array. */
 static int record_change(StepView *view, int kind, int i, int j, const int *array)
 {
     if (kind == STEP_SWAP)
@@ -226,7 +227,8 @@ static void pause_at_step(StepView *view)
         else if (command == '\n')
         {
             if (!view->undo_available ||
-                !stack_redo_change(view->history, view->playback, view->size, &positions))
+                !stack_redo_change(view->history, view->playback, view->size, &positions) ||
+                !stack_has_redo(view->history))
                 return;
             show_history(view, positions, 1);
         }
@@ -243,6 +245,14 @@ void step_view_show(int kind, int i, int j, int left_value, int right_value,
 
     if (view == NULL || array == NULL || size != view->size || view->skip)
         return;
+    if (kind != STEP_COMPARE && kind != STEP_SWAP && kind != STEP_WRITE)
+        return;
+    if (i < 0 || i >= size || j >= size || j < (kind == STEP_WRITE ? -1 : 0))
+    {
+        if (kind != STEP_COMPARE)
+            view->undo_available = 0;
+        return;
+    }
 
     view->steps++;
     if (kind == STEP_COMPARE)
@@ -265,6 +275,6 @@ void step_view_show(int kind, int i, int j, int left_value, int right_value,
     print_bars(kind, i, j, array, size);
     printf("\nComparacoes: %lld   Trocas/escritas: %lld\n", view->comparisons, view->changes);
     if (!view->undo_available)
-        printf("Desfazer indisponivel: faltou memoria para o historico.\n");
+        printf("Desfazer indisponivel para esta execucao.\n");
     pause_at_step(view);
 }
