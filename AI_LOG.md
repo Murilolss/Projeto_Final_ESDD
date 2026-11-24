@@ -1436,6 +1436,36 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Preencheu esta entrada, commitou o `AI_LOG.md` na `ESDD/murilo` com as entradas #071–#078 (as #071–#075, de 23/11, também estavam sem commit) e deu push para `origin/ESDD/murilo`. Só o `AI_LOG.md` mudou.
 - **Adaptações / correções:** Nenhuma.
 
+## #079 — Terça-feira, 24/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > verifique o pr5
+- **Objetivo:** Verificar o PR #5 do Lucas (T13/T14: visualizador Web em `web/` que lê o JSON exportado pelo C e desenha o vetor inicial), de `ESDD/lucas` para `dev`.
+- **Resposta da IA (resumo):** Leu o diff e conferiu a validação do `app.js` com o `export.c` da `dev` (`EXPORT_MAX_SIZE` = 1000, valores 1..N, `data_kind` Aleatorio/Ordenado/Invertido). Numa worktree temporária (a `ESDD/lucas` já contém a `dev`), compilou sem avisos e exportou pelo menu três logs reais (Bubble N = 1, Merge iterativo N = 30, Quick pivô início N = 1000 invertido, 49 MB), com `Memoria nao liberada: 0 bytes`. Testou a página no Chrome headless (a extensão do Chrome não estava conectada) servindo por HTTP: exemplo (10 barras na ordem e alturas certas), os três logs reais (o de 49 MB abre em 1,4 s), JSON inválido, BOM, `size` 1001, valor 0, `size` diferente de `initial`, sem `steps`, `null`, `[]`, e duas seleções seguidas (fica a última); a última visualização válida é mantida após erro. Defeito encontrado: no modo denso (N > 24 com colunas estreitas), as barras dos índices com rótulo (0, 10, 20, ...) ficam com 7,5 a 22,6 px em vez de 4 px e invadem as vizinhas, porque o `li` é um grid sem coluna definida e o rótulo alarga a coluna interna; `.bars li { grid-template-columns: minmax(0, 1fr); }` (mais `justify-self: center` no `.bar-index`) deixou todas com 4 px. Pontos menores: o AI_LOG #120 e a nota de sessão citam o commit `50e8b78`, que não existe no GitHub; com N = 1 o eixo mostra "0,5"; o limite 1000 está fixo no JS sem citar o `EXPORT_MAX_SIZE`; o `app.js` não tem comentários (arguição). AI_LOG mesclado fica sequencial (#119–#122). Nada foi publicado no PR; só esta entrada mudou no projeto.
+- **Adaptações / correções:** Os logs e páginas de teste ficaram no scratchpad e a worktree foi removida. Observações fora do escopo do PR: os logs gerados em `logs/` não estão no `.gitignore` (um de 49 MB pode ser commitado por engano) e o `README.md` está vazio.
+
+## #080 — Terça-feira, 24/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > pode corrigir e já publicar por aqui
+- **Objetivo:** Corrigir no próprio PR #5 os problemas achados na verificação da #079 e publicar a correção e o resultado no GitHub.
+- **Resposta da IA (resumo):** Numa worktree temporária a partir da `origin/ESDD/lucas` (`34337bf`), mudou `web/styles.css` (`.bars li` com `grid-template-columns: minmax(0, 1fr)` e `.bar-index` com `justify-self: center`) e `web/app.js` (constante `MAX_LOG_SIZE` com comentário apontando para o `EXPORT_MAX_SIZE`, e comentários curtos em inglês em `parseLog`, `drawVector`, `loadLog`, `latestRequest` e no link do exemplo). Testou de novo no Chrome headless: barras com largura única (4 px com N = 1000, 8 px com N = 100), N = 1001 recusado, N = 1 e o exemplo corretos. Commitou `613a30e` e deu push para a `ESDD/lucas`, o que atualizou o PR #5. Publicou um comentário no PR (https://github.com/Murilolss/Projeto_Final_ESDD/pull/5#issuecomment-7146164404) com o que foi testado e corrigido, os pontos que ficam com o Lucas e o aviso para ele fazer `git pull` antes de continuar. A worktree foi removida. Na `ESDD/murilo`, só o `AI_LOG.md` mudou.
+- **Adaptações / correções:** O "0,5" no eixo com N = 1, citado na #079, foi retirado da lista: a linha do meio fica na metade do valor máximo, então o rótulo está certo. O AI_LOG #120 do Lucas (commit `50e8b78`, que não está no GitHub) não foi alterado, porque o CLAUDE.md proíbe reescrever entradas antigas; o ponto ficou no comentário. O commit foi feito na branch de outro integrante a pedido do Murilo. O `.gitignore` dos logs ficou de fora por não fazer parte do PR.
+
+## #081 — Terça-feira, 24/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > commita o AI_LOG e dá push
+- **Objetivo:** Commitar as entradas pendentes do `AI_LOG.md` e enviar para o GitHub.
+- **Resposta da IA (resumo):** Preencheu esta entrada, commitou o `AI_LOG.md` na `ESDD/murilo` com as entradas #079–#081 (verificação e correção do PR #5) e deu push para `origin/ESDD/murilo`. Só o `AI_LOG.md` mudou.
+- **Adaptações / correções:** Nenhuma.
+
 ---
 
 <!--
