@@ -2152,6 +2152,26 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Confirmou pelo `gh pr list` que os PRs #4 (T11) e #5 (T13/T14, interface Web em `web/`) já estavam na `dev`. Fez o pull da `dev`, que trouxe `web/index.html`, `web/app.js`, `web/styles.css`, a nota da sessão 14 e o `TAREFAS.md`. Resolveu o conflito do `AI_LOG.md` e atualizou o `contexto/TAREFAS.md`: T26, T10, T11, T13 e T14 concluídas e T15 em andamento. Concluiu o merge e deu push para a `ESDD/liliane`.
 - **Adaptações / correções:** Na resolução do conflito do `AI_LOG.md`, a numeração da `dev` (#116–#135, Lucas e Murilo) ficou como estava, e só as entradas da Liliane que não estavam na `dev` foram renumeradas (#136–#143, com a linha "Numeração original"). Isso desfaz a renumeração das entradas do Lucas feita na #121. O quadro "Plano Projeto ESDD" não abre pela conta da Liliane (o artefato é do Murilo), então só o espelho `TAREFAS.md` foi atualizado.
 
+## #144 — Terça-feira, 24/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > pode começar a T15 assim
+- **Objetivo:** Implementar a T15: animar no visualizador Web os passos do log (comparações, trocas e escritas) com cores distintas.
+- **Resposta da IA (resumo):** `web/app.js`: botão **Reproduzir**, que parte do `initial` e reaplica os passos (`applyStep`, `showStep`, `playLog`, `playFrame`, `finishPlayback`, `stopPlayback`). Comparação em amarelo (texto com `value_i`/`value_j`), troca em vermelho, escrita em azul e, se o vetor reaplicado bater com o `final`, todas as barras em verde; se não bater, a página avisa que o log pode estar incompleto. Logs grandes aplicam vários passos por quadro (no máximo 1.800 quadros e cerca de 30 s). O `parseLog` passou a rejeitar passos com tipo ou posição inválidos e logs sem `final`. `drawVector` guarda as barras em `barElements` e usa `setBarValue`. `web/index.html`: botão, linha do passo atual e legenda. `web/styles.css`: cores dos passos, legenda e barra de reprodução. `contexto/TAREFAS.md`: detalhes da T15 e da T16. Testes: logs dos 7 algoritmos (N = 30, dados aleatórios e invertidos) e do exemplo reaplicados num DOM simulado no Node, todos com o vetor final correto; Bubble Sort com N = 1000 (1,5 milhão de passos) em 1.799 quadros; logs inválidos e truncados tratados; capturas no Edge headless no meio e no fim da animação.
+- **Adaptações / correções:** Na primeira tentativa de gerar os logs, as respostas foram enviadas como 0/1, mas o menu pede Sim/Nao; o programa entrou em loop e foi interrompido. A segunda tentativa usou Sim/Nao. A IA trocou um `!important` do CSS por uma regra posterior de mesma especificidade.
+
+## #145 — Terça-feira, 24/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > faça o commit e o push
+- **Objetivo:** Fazer commit e push da T15.
+- **Resposta da IA (resumo):** Fez um commit na `ESDD/liliane` com `web/app.js`, `web/index.html`, `web/styles.css`, `contexto/TAREFAS.md` e o `AI_LOG.md` (#144–#145), e deu push para `origin/ESDD/liliane`.
+- **Adaptações / correções:** Nenhuma.
+
 ---
 
 <!--

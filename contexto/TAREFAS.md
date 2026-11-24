@@ -57,3 +57,8 @@ Ordem sugerida: **T12 → T11 → T13 → T14**. A T12 não depende de ninguém,
 - **T11 — Pilha para Desfazer (Undo).** Arquivos `stack.h` / `stack.c`. Convenção `top` = próxima posição livre (mesmo slide da T12). Empilhar cada troca (índices i e j); desfazer = desempilhar e trocar de volta. A ligação com o menu depende do modo passo a passo (T26).
 - **T13 — Interface Web.** Em 24/11/2026, Lucas escolheu HTML, CSS e JavaScript puro. O navegador lê o JSON exportado pelo programa em C por meio de um seletor de arquivos locais.
 - **T14 — Ler o log exportado e desenhar as barras.** Abra [`web/index.html`](../web/index.html) no navegador e selecione o [JSON de exemplo](../logs/exemplo_bubble_sort_n10.json) em **Abrir JSON**. O gráfico desenha uma barra por elemento de `initial`, na ordem do vetor e com altura proporcional ao valor.
+
+## Detalhes das tarefas da Liliane
+
+- **T15 — Animar comparações e trocas com cores distintas.** Em [`web/`](../web/), o botão **Reproduzir** parte do `initial` e reaplica os passos do log em ordem. `compare` pinta as duas barras de amarelo e mostra `value_i` e `value_j`, `swap` pinta de vermelho e troca as alturas, e `write` pinta de azul e muda a altura da barra `i`. No fim, o vetor reaplicado é conferido com o `final`: se bater, todas as barras ficam verdes; se não bater, a página avisa que o log pode estar incompleto. A animação dura no máximo cerca de 30 s; num log com mais de 1.800 passos, cada quadro aplica vários passos e pinta só o último. Passos com tipo ou posição inválidos são rejeitados ao abrir o arquivo.
+- **T16 — Controles de reprodução.** Pausar, avançar e voltar um passo e mudar a velocidade, usando a reprodução da T15.
