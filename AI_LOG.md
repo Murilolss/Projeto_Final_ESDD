@@ -2192,6 +2192,26 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Conferiu que o PR #7 tinha a aprovação do Murilo e fez o merge na `dev` (`ed98261`, merge commit, como nos PRs anteriores). Trouxe a `dev` para a `ESDD/liliane` e marcou a T15 como concluída no `contexto/TAREFAS.md`. Commitou e deu push na `ESDD/liliane`.
 - **Adaptações / correções:** O Lucas ainda não tinha revisado; a regra do projeto pede a revisão de um outro integrante, e a do Murilo bastou. O quadro do claude.ai continua sem atualização, porque não abre pela conta da Liliane.
 
+## #148 — Terça-feira, 24/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > pode começar a T16 assim
+- **Objetivo:** Implementar a T16: controles de reprodução do visualizador Web.
+- **Resposta da IA (resumo):** `web/app.js`: a reprodução da T15 passou a guardar a posição no log (`replay` com `array`, `position` e `timer`). Funções novas ou reescritas: `forward`, `stepBack`, `stepForward`, `playFrame`, `togglePlay`, `pauseReplay`, `resetReplay`, `showPosition`, `showSorted`, `updateButtons` e `showSpeed`; `applyStep` passou a só mudar o vetor e devolver os índices alterados. Saíram `playLog`, `finishPlayback`, `stopPlayback` e `MAX_DURATION_MS`. `web/index.html`: botões Reproduzir/Pausar/Continuar, ◀ Passo, Passo ▶ e Reiniciar e o controle de velocidade (5 posições, de 1 s a 16 ms por quadro). `web/styles.css`: layout dos controles. `contexto/TAREFAS.md`: T16 em andamento, com os detalhes. Testes num DOM simulado no Node: os 17 logs continuaram chegando ao `final`; 300 passos aleatórios à frente e atrás no Bubble, Insertion e Merge Sort bateram com uma reaplicação independente; pausar, continuar, reiniciar, reproduzir de novo, o verde sumindo ao voltar do fim e o estado dos botões foram conferidos; a velocidade muda o intervalo no quadro seguinte; voltar um passo no fim de um Bubble Sort com N = 1000 (1,5 milhão de passos) levou 120 ms. Captura no Edge headless com a reprodução pausada.
+- **Adaptações / correções:** O passo atrás reaplica desde o `initial`, como a Liliane aprovou, em vez de guardar os valores antigos numa pilha. A primeira tentativa de juntar o código com heredoc no bash falhou por causa das aspas, e uma edição com `sed` estragou o script auxiliar; o script foi reescrito antes de rodar e nenhum arquivo do projeto foi afetado.
+
+## #149 — Terça-feira, 24/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > faça o commit, o push e abra o PR
+- **Objetivo:** Fazer commit e push da T16 e abrir o PR para a `dev`.
+- **Resposta da IA (resumo):** Fez um commit na `ESDD/liliane` com `web/app.js`, `web/index.html`, `web/styles.css`, `contexto/TAREFAS.md` e o `AI_LOG.md` (#147–#149), deu push e abriu o PR da `ESDD/liliane` para a `dev`, com pedido de revisão para `Murilolss` e `xXLucasCruzXx`, como no PR #7.
+- **Adaptações / correções:** Nenhuma.
+
 ---
 
 <!--

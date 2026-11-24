@@ -37,7 +37,20 @@
             <p class="status" id="status" role="status">Nenhum arquivo aberto.</p>
 
             <div class="playback" id="playback" hidden>
-                <button class="button primary" id="play" type="button">Reproduzir</button>
+                <div class="controls">
+                    <button class="button primary play" id="play" type="button">Reproduzir</button>
+                    <button class="button secondary" id="step-back" type="button"
+                            title="Voltar um passo">&#9664; Passo</button>
+                    <button class="button secondary" id="step-forward" type="button"
+                            title="Avançar um passo">Passo &#9654;</button>
+                    <button class="button secondary" id="reset" type="button"
+                            title="Voltar ao vetor inicial">Reiniciar</button>
+                    <label class="speed" for="speed">
+                        Velocidade
+                        <input id="speed" type="range" min="1" max="5" step="1" value="3">
+                        <output id="speed-name" for="speed"></output>
+                    </label>
+                </div>
                 <p class="step-info" id="step-info"></p>
             </div>
 
