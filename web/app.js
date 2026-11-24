@@ -9,8 +9,11 @@ const bars = document.querySelector("#bars");
 const source = document.querySelector("#source");
 const length = document.querySelector("#length");
 const formatNumber = new Intl.NumberFormat("pt-BR");
-let latestRequest = 0;
+const MAX_LOG_SIZE = 1000; /* same limit as EXPORT_MAX_SIZE in src/export.h */
+let latestRequest = 0; /* number of the last file read; older reads are ignored */
 
+/* Converts the file text into the log object written by src/export.c.
+   Throws an Error with the message shown to the user if the file is not a valid log. */
 function parseLog(text) {
     let log;
     try {
@@ -20,7 +23,7 @@ function parseLog(text) {
     }
 
     if (!log || typeof log.algorithm !== "string" || typeof log.data_kind !== "string" ||
-        !Number.isInteger(log.size) || log.size < 1 || log.size > 1000 ||
+        !Number.isInteger(log.size) || log.size < 1 || log.size > MAX_LOG_SIZE ||
         !Array.isArray(log.initial) || log.initial.length !== log.size ||
         !log.initial.every(value => Number.isSafeInteger(value) && value > 0) ||
         !Array.isArray(log.steps)) {
@@ -29,6 +32,9 @@ function parseLog(text) {
     return log;
 }
 
+/* Draws one bar per value of log.initial, in array order, with height proportional
+   to the largest value. With more than 24 values (dense mode) the bars get thinner,
+   the value labels are hidden and only every 10th index is shown. */
 function drawVector(log) {
     const values = log.initial;
     const max = Math.max(...values);
@@ -88,6 +94,9 @@ function drawVector(log) {
     chart.hidden = false;
 }
 
+/* Reads a log with readText (file or fetch) and draws it. If another file was chosen
+   while this one was being read, the result of this one is discarded. On error the
+   last valid chart stays on screen and the message appears in the status line. */
 async function loadLog(readText, name) {
     const request = ++latestRequest;
     status.classList.remove("error");
@@ -113,6 +122,8 @@ fileInput.addEventListener("change", () => {
     fileInput.value = "";
 });
 
+/* Opened from disk (file://) the browser blocks fetch, so the example link only downloads
+   the file. Served over HTTP the same link loads the example directly. */
 if (location.protocol === "http:" || location.protocol === "https:") {
     exampleLink.textContent = "Carregar exemplo";
     exampleLink.addEventListener("click", event => {

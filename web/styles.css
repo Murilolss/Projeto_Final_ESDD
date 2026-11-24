@@ -153,6 +153,8 @@ h2 { font-size: clamp(1.25rem, 3vw, 1.55rem); letter-spacing: -0.025em; }
 
 .bars li {
     display: grid;
+    /* One fixed column: without it the index label widens the bar in dense mode */
+    grid-template-columns: minmax(0, 1fr);
     grid-template-rows: var(--plot-height) 1.8rem;
     text-align: center;
 }
@@ -188,6 +190,7 @@ h2 { font-size: clamp(1.25rem, 3vw, 1.55rem); letter-spacing: -0.025em; }
 }
 
 .bar-index {
+    justify-self: center;
     padding-top: 0.35rem;
     color: var(--muted);
     font-size: 0.875rem;
