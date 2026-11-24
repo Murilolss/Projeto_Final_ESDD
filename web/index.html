@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Visualizador de ordenação | Projeto Final ESDD</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <header class="masthead">
+        <div class="page-width">Projeto Final ESDD</div>
+    </header>
+    <main class="page-width">
+        <div class="page-heading">
+            <div>
+                <h1>Visualizador de ordenação</h1>
+                <p>Abra um log exportado pelo programa em C.</p>
+            </div>
+            <div class="file-actions">
+                <a class="button secondary" id="example" href="../logs/exemplo_bubble_sort_n10.json"
+                   download>Baixar JSON de exemplo</a>
+                <button class="button primary" id="open-log" type="button">Abrir JSON</button>
+                <input id="log-file" type="file" accept=".json,application/json" hidden>
+            </div>
+        </div>
+
+        <section class="card" aria-labelledby="chart-title">
+            <div class="card-heading">
+                <div>
+                    <h2 id="chart-title">Vetor inicial</h2>
+                    <p id="source" class="source" hidden></p>
+                </div>
+                <p id="length" class="length" hidden></p>
+            </div>
+
+            <p class="status" id="status" role="status">Nenhum arquivo aberto.</p>
+
+            <div class="chart" id="chart" hidden>
+                <div aria-hidden="true" class="axis">
+                    <span id="scale-max"></span>
+                    <span id="scale-mid"></span>
+                    <span>0</span>
+                </div>
+                <div class="plot-scroll" tabindex="0" aria-label="Gráfico do vetor inicial">
+                    <ol class="bars" id="bars" aria-label="Valores na ordem do vetor"></ol>
+                </div>
+                <p class="axis-name" aria-hidden="true">Índice no vetor</p>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
