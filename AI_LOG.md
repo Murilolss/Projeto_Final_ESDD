@@ -1934,6 +1934,136 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Atualizou a branch local com a `dev` após o merge do PR #4. Trouxe para a `ESDD/lucas` o visualizador e os registros das tarefas, preservando as entradas do AI_LOG de ambas as branches.
 - **Adaptações / correções:** O código do visualizador passou a usar o commit `faffa97` na branch pessoal.
 
+## #123 — Segunda-feira, 23/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > avise a Liliane no PR 2 que agora começa na #071
+- **Objetivo:** Corrigir o ponto 4 da revisão do PR #2: com o PR #3, a numeração da Liliane passa a começar na #071.
+- **Resposta da IA (resumo):** Publicou um comentário no PR #2 (`gh pr comment`) dizendo que, com o merge do PR #3, a `dev` vai até a #070 e as entradas dela começam na #071; se a `dev` avançar, ela começa no número seguinte ao da última entrada da `dev`.
+- **Adaptações / correções:** Esta própria entrada (#123) não foi commitada, porque o push para a `ESDD/murilo` a colocaria no PR #3 e a numeração da Liliane passaria a começar na #072.
+
+## #124 — Segunda-feira, 23/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > Faça uma nova revisão do PR2, veja se está de acordo
+- **Objetivo:** Conferir se as correções da Liliane no PR #2 (commits `96eabb9` a `bcddafa`) atendem à revisão da #068 antes do merge.
+- **Resposta da IA (resumo):** Numa worktree temporária, mesclou `origin/ESDD/liliane` com a `dev` atual (sem conflitos), compilou com `gcc -Wall -Wextra` sem avisos e testou. Pontos atendidos: as 17 chamadas de `notify` têm `if (observer != NULL)` e a tabela comparativa (opção 3) ficou com os tempos da `dev`; as estimativas de tamanho batem com a medição (Bubble N = 1000 invertido: 98,9 MB); os 64 logs gerados (7 algoritmos × aleatório/ordenado/invertido × N = 1, 2, 50, mais o exemplo) são JSON válido, a reaplicação chega ao `final`, as comparações batem com as métricas e `value_i`/`value_j` conferem; N = 1001, execução fora da raiz e passo a passo + exportação funcionam, com `Memoria nao liberada: 0 bytes`; o AI_LOG vai de #001 a #109 sem buracos nem duplicatas, com as entradas da `dev` intactas. Problema que sobrou: no menu de ordenação (opção 1), sem passo a passo e sem exportação, o `run_sort` passa `&observer` com `function = NULL`, então o teste `observer != NULL` não evita o `notify`, e o Bubble (N = 20000) fica em 8,4–8,9 s contra 3,1–3,3 s na `dev` (Selection 2,6 s contra 0,9 s; Insertion 2,3–2,5 s contra 0,7 s). Testou a correção (chamar `sort_run` quando `observer.function == NULL`), que devolve os tempos da `dev`. Nada foi publicado no PR e nenhum arquivo do projeto mudou além desta entrada; a worktree foi apagada.
+- **Adaptações / correções:** Os testes da Liliane mediram a velocidade pelo caminho sem observador (`sort_run`), por isso a lentidão do menu passou despercebida. Depois do merge do PR #2 a `dev` irá até a #109, e as entradas locais #071 e #072 do Murilo terão de ser renumeradas para #110 em diante.
+
+## #125 — Segunda-feira, 23/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > deixa esse comentário no PR 2 para ela corrigir
+- **Objetivo:** Publicar no PR #2 o resultado da revisão da #124 e pedir à Liliane a correção da lentidão no menu de ordenação.
+- **Resposta da IA (resumo):** Publicou com `gh pr review 2 --request-changes` uma revisão dirigida à Liliane, com o que foi conferido e está certo (velocidade sem observador, tamanho do log, `value_i`/`value_j` em 64 logs, casos-limite, numeração do AI_LOG) e o ponto que falta: o `run_sort` do `main.c` passa `&observer` com `function = NULL`, e o menu fica 2,5 a 3,5 vezes mais lento que a `dev` (tabela com os tempos medidos). A revisão traz a correção sugerida (chamar `sort_run` quando `observer.function == NULL`), já testada, e lembra de atualizar a T26 e a T10 no `TAREFAS.md` e no quadro depois do merge. O PR continua com o status "changes requested". Nenhum arquivo do projeto mudou além desta entrada.
+- **Adaptações / correções:** A revisão foi publicada pela conta do Murilo. Também sugere ajustar o comentário do `notify` no `sort.c` depois da correção.
+
+## #126 — Segunda-feira, 23/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > Ela já corrigiu, verifica novamente
+- **Objetivo:** Conferir a correção da Liliane (`a0ade9c`) para a lentidão do menu de ordenação apontada na #125.
+- **Resposta da IA (resumo):** Leu o diff (`run_sort` chama `sort_run` quando `observer.function == NULL`, e o comentário do `notify` foi atualizado). Numa worktree temporária, mesclou `origin/ESDD/liliane` com a `dev` (sem conflitos), compilou sem avisos e mediu pelo menu (opção 1), N = 20.000, aleatório: Bubble 3,25–3,28 s (`dev` 3,0–3,06 s), Selection 0,88–0,93 s (`dev` 0,87–0,96 s), Insertion 0,64 s (`dev` 0,63 s). Revalidou 65 logs (7 algoritmos × 3 tipos × N = 1, 2, 50, passo a passo + exportação e o exemplo): JSON válido, reaplicação chega ao `final`, comparações e valores conferem. Passo a passo sem exportação e tabela comparativa funcionam, sempre com `Memoria nao liberada: 0 bytes`. AI_LOG mesclado vai de #001 a #112, sem buracos nem duplicatas, sem linhas da `dev` removidas. Conclusão: o PR está pronto para o merge. Nada foi publicado no PR; a worktree foi apagada.
+- **Adaptações / correções:** O PR ainda está com "changes requested" pela revisão do Murilo; falta aprovar para liberar o merge. As entradas locais #071–#074 do Murilo vão precisar ser renumeradas para #113 em diante depois do merge.
+
+## #127 — Segunda-feira, 23/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > aprova o PR 2
+- **Objetivo:** Aprovar o PR #2 da Liliane depois da verificação da #126.
+- **Resposta da IA (resumo):** Conferiu que a `ESDD/liliane` não mudou desde a verificação (último commit `9adf0b2`) e publicou com `gh pr review 2 --approve` uma aprovação dirigida à Liliane, com os tempos medidos depois da correção e os testes refeitos. O PR passou de "changes requested" para "approved" e está sem conflitos com a `dev`. Nenhum arquivo do projeto mudou além desta entrada.
+- **Adaptações / correções:** A aprovação foi publicada pela conta do Murilo. O merge fica com a Liliane.
+
+## #128 — Terça-feira, 24/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > revise o PR4 de lucas
+- **Objetivo:** Revisar o PR #4 do Lucas (T11: integrar o Desfazer da pilha ao modo passo a passo), de `ESDD/lucas` para `dev`, antes do merge.
+- **Resposta da IA (resumo):** Revisão com a skill `/code-review` (`src/main.c`, `src/stack.c`, `src/stack.h`, `src/step_view.c`, `src/step_view.h`). Não achou erro na lógica de desfazer e reaplicar. Achados: (1, importante) o crescimento da pilha de Desfazer (`stack_grow` → `mem_realloc`) entra no pico de memória medido por `sort_run_steps`, e algoritmos sem memória extra passam a mostrar bytes na tabela, no relatório e no JSON; (2) `top` deixou de ser "próxima posição livre" (agora é um cursor de redo, e a posição livre é `count`), contra a regra do CLAUDE.md; (3) os comentários de `stack_pop`, `stack_undo_swap` e `stack_push` no `.h` não citam a recusa para escritas nem o descarte do redo; (4) `record_change` escreve em `playback[i]`/`playback[j]` sem checar os limites; (5) depois de desfazer, voltar ao passo atual pede um ENTER a mais. Nenhum arquivo de código foi alterado e nada foi comentado no GitHub.
+- **Adaptações / correções:** Nenhuma por enquanto: os achados ficam para o Murilo decidir se viram comentário no PR ou pedido de mudança ao Lucas.
+
+## #129 — Terça-feira, 24/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > poste os achados como comentários no PR
+- **Objetivo:** Publicar no PR #4 os achados da revisão do #128, como comentários nas linhas.
+- **Resposta da IA (resumo):** Conferiu os 5 achados no commit `a8d8483` do PR e postou uma revisão do tipo "Comment" (sem aprovar nem pedir mudanças) com 5 comentários em português: `src/main.c:348` (memória do histórico no pico, importante), `src/stack.c:18` (`top` fora da convenção), `src/stack.h:30` (contratos desatualizados), `src/step_view.c:175` (sem checagem de limites) e `src/step_view.c:229` (ENTER a mais). Link: https://github.com/Murilolss/Projeto_Final_ESDD/pull/4#pullrequestreview-6039800137. Só o `AI_LOG.md` mudou no repositório.
+- **Adaptações / correções:** O comentário da memória foi ajustado: o PR já avisa na tela que o pico inclui o histórico, então o comentário reconhece isso e aponta que o valor ainda vai sem aviso para a tabela, o relatório e o JSON. O achado do `stack.h` foi preso à linha 30 (`stack_undo_swap`), porque a linha 25 (`stack_pop`) está fora do diff e não aceita comentário.
+
+## #130 — Terça-feira, 24/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > commita o AI_LOG e dá push
+- **Objetivo:** Commitar as entradas pendentes do `AI_LOG.md` e enviar para o GitHub.
+- **Resposta da IA (resumo):** Preencheu esta entrada, commitou o `AI_LOG.md` na `ESDD/murilo` com as entradas #123–#130 (as #123–#127, de 23/11, também estavam sem commit) e deu push para `origin/ESDD/murilo`. Só o `AI_LOG.md` mudou.
+- **Adaptações / correções:** Nenhuma.
+
+## #131 — Terça-feira, 24/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > verifique o pr5
+- **Objetivo:** Verificar o PR #5 do Lucas (T13/T14: visualizador Web em `web/` que lê o JSON exportado pelo C e desenha o vetor inicial), de `ESDD/lucas` para `dev`.
+- **Resposta da IA (resumo):** Leu o diff e conferiu a validação do `app.js` com o `export.c` da `dev` (`EXPORT_MAX_SIZE` = 1000, valores 1..N, `data_kind` Aleatorio/Ordenado/Invertido). Numa worktree temporária (a `ESDD/lucas` já contém a `dev`), compilou sem avisos e exportou pelo menu três logs reais (Bubble N = 1, Merge iterativo N = 30, Quick pivô início N = 1000 invertido, 49 MB), com `Memoria nao liberada: 0 bytes`. Testou a página no Chrome headless (a extensão do Chrome não estava conectada) servindo por HTTP: exemplo (10 barras na ordem e alturas certas), os três logs reais (o de 49 MB abre em 1,4 s), JSON inválido, BOM, `size` 1001, valor 0, `size` diferente de `initial`, sem `steps`, `null`, `[]`, e duas seleções seguidas (fica a última); a última visualização válida é mantida após erro. Defeito encontrado: no modo denso (N > 24 com colunas estreitas), as barras dos índices com rótulo (0, 10, 20, ...) ficam com 7,5 a 22,6 px em vez de 4 px e invadem as vizinhas, porque o `li` é um grid sem coluna definida e o rótulo alarga a coluna interna; `.bars li { grid-template-columns: minmax(0, 1fr); }` (mais `justify-self: center` no `.bar-index`) deixou todas com 4 px. Pontos menores: o AI_LOG #120 e a nota de sessão citam o commit `50e8b78`, que não existe no GitHub; com N = 1 o eixo mostra "0,5"; o limite 1000 está fixo no JS sem citar o `EXPORT_MAX_SIZE`; o `app.js` não tem comentários (arguição). AI_LOG mesclado fica sequencial (#119–#122). Nada foi publicado no PR; só esta entrada mudou no projeto.
+- **Adaptações / correções:** Os logs e páginas de teste ficaram no scratchpad e a worktree foi removida. Observações fora do escopo do PR: os logs gerados em `logs/` não estão no `.gitignore` (um de 49 MB pode ser commitado por engano) e o `README.md` está vazio.
+
+## #132 — Terça-feira, 24/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > pode corrigir e já publicar por aqui
+- **Objetivo:** Corrigir no próprio PR #5 os problemas achados na verificação da #131 e publicar a correção e o resultado no GitHub.
+- **Resposta da IA (resumo):** Numa worktree temporária a partir da `origin/ESDD/lucas` (`34337bf`), mudou `web/styles.css` (`.bars li` com `grid-template-columns: minmax(0, 1fr)` e `.bar-index` com `justify-self: center`) e `web/app.js` (constante `MAX_LOG_SIZE` com comentário apontando para o `EXPORT_MAX_SIZE`, e comentários curtos em inglês em `parseLog`, `drawVector`, `loadLog`, `latestRequest` e no link do exemplo). Testou de novo no Chrome headless: barras com largura única (4 px com N = 1000, 8 px com N = 100), N = 1001 recusado, N = 1 e o exemplo corretos. Commitou `613a30e` e deu push para a `ESDD/lucas`, o que atualizou o PR #5. Publicou um comentário no PR (https://github.com/Murilolss/Projeto_Final_ESDD/pull/5#issuecomment-7146164404) com o que foi testado e corrigido, os pontos que ficam com o Lucas e o aviso para ele fazer `git pull` antes de continuar. A worktree foi removida. Na `ESDD/murilo`, só o `AI_LOG.md` mudou.
+- **Adaptações / correções:** O "0,5" no eixo com N = 1, citado na #131, foi retirado da lista: a linha do meio fica na metade do valor máximo, então o rótulo está certo. O AI_LOG #120 do Lucas (commit `50e8b78`, que não está no GitHub) não foi alterado, porque o CLAUDE.md proíbe reescrever entradas antigas; o ponto ficou no comentário. O commit foi feito na branch de outro integrante a pedido do Murilo. O `.gitignore` dos logs ficou de fora por não fazer parte do PR.
+
+## #133 — Terça-feira, 24/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > commita o AI_LOG e dá push
+- **Objetivo:** Commitar as entradas pendentes do `AI_LOG.md` e enviar para o GitHub.
+- **Resposta da IA (resumo):** Preencheu esta entrada, commitou o `AI_LOG.md` na `ESDD/murilo` com as entradas #131–#133 (verificação e correção do PR #5) e deu push para `origin/ESDD/murilo`. Só o `AI_LOG.md` mudou.
+- **Adaptações / correções:** Nenhuma.
+
+## #134 — Terça-feira, 24/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > abra o PR da minha branch para a dev e pode renumerar?
+- **Objetivo:** Renumerar as entradas do Murilo que só existiam na `ESDD/murilo` e abrir o PR dela para a `dev`.
+- **Resposta da IA (resumo):** Fez o merge da `origin/dev` na `ESDD/murilo`. No `AI_LOG.md`, manteve o arquivo da `dev` inteiro e acrescentou no fim as entradas #071–#082 do Murilo renumeradas para #123–#134 (a `dev` vai até a #121, e o PR #5 do Lucas traz a #120 e a #122). Atualizou as referências entre essas entradas (por exemplo, "verificação da #074" passou a "#126"), sem mexer nos prompts literais. Conferiu que, em relação à `dev`, o diff só adiciona 120 linhas ao `AI_LOG.md`. Commitou o merge (`8c23403`), deu push e abriu o PR #6 (`ESDD/murilo` → `dev`, https://github.com/Murilolss/Projeto_Final_ESDD/pull/6), com a tabela da renumeração e um aviso ao Lucas. Depois preencheu esta entrada e enviou num commit separado.
+- **Adaptações / correções:** Frases antigas que previam outra numeração ("renumeradas para #110 em diante", "#113 em diante") ficaram como estavam, porque registram o que se sabia naquele momento. O PR #5 e o PR #6 acrescentam entradas no mesmo ponto do `AI_LOG.md`; quem fizer o segundo merge resolve um conflito simples mantendo as duas partes. A próxima entrada de qualquer integrante, depois dos dois merges, é a #135.
+
+## #135 — Terça-feira, 24/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > Fez as alteraçoes do pr do lucas? se sim pode aprovar o meu e mergear e o pr dele pode descartar
+- **Objetivo:** Levar para a `dev` a correção do visualizador Web e as entradas do AI_LOG do Murilo.
+- **Resposta da IA (resumo):** Explicou que a correção (`613a30e`) estava no PR #5 do Lucas, não no PR #6 do Murilo (que só tem o AI_LOG), e que descartar o PR #5 tiraria da `dev` o visualizador Web inteiro (T13/T14). Também explicou que o GitHub não deixa o autor aprovar o próprio PR. O Murilo escolheu mergear os dois. Fez o merge do PR #5 (`3c308ee`, conferindo que a branch ainda estava em `613a30e`), atualizou a `ESDD/murilo` com a `dev` (`85c305e`), mantendo o AI_LOG da `dev` com as #120 e #122 do Lucas e as #123–#134 do Murilo em seguida (sequência de #001 a #135 sem buracos), e fez o merge do PR #6 sem aprovação.
+- **Adaptações / correções:** O pedido de descartar o PR #5 não foi seguido, porque partia do entendimento de que a correção estava no PR do Murilo. O PR #6 entrou sem revisão de outro integrante, por decisão do Murilo (a `dev` não tem proteção de branch). Falta marcar a T13 e a T14 como concluídas no quadro e no `contexto/TAREFAS.md`.
+
 ---
 
 <!--
