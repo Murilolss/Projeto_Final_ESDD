@@ -2172,6 +2172,16 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Fez um commit na `ESDD/liliane` com `web/app.js`, `web/index.html`, `web/styles.css`, `contexto/TAREFAS.md` e o `AI_LOG.md` (#144–#145), e deu push para `origin/ESDD/liliane`.
 - **Adaptações / correções:** Nenhuma.
 
+## #146 — Terça-feira, 24/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > pode abrir o PR para o Murilo e o Lucas revisarem
+- **Objetivo:** Abrir o PR da T15 da `ESDD/liliane` para a `dev`, com revisão do Murilo e do Lucas.
+- **Resposta da IA (resumo):** Commitou esta entrada, deu push e abriu o PR da `ESDD/liliane` para a `dev` com a T15 (animação com cores no `web/`), a atualização do `TAREFAS.md` e a renumeração das entradas da Liliane no AI_LOG (#136–#146). Pediu a revisão de `Murilolss` e `xXLucasCruzXx`.
+- **Adaptações / correções:** Nenhuma.
+
 ---
 
 <!--
