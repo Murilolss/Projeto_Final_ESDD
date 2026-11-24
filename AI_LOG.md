@@ -2054,6 +2054,16 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Fez o merge da `origin/dev` na `ESDD/murilo`. No `AI_LOG.md`, manteve o arquivo da `dev` inteiro e acrescentou no fim as entradas #071–#082 do Murilo renumeradas para #123–#134 (a `dev` vai até a #121, e o PR #5 do Lucas traz a #120 e a #122). Atualizou as referências entre essas entradas (por exemplo, "verificação da #074" passou a "#126"), sem mexer nos prompts literais. Conferiu que, em relação à `dev`, o diff só adiciona 120 linhas ao `AI_LOG.md`. Commitou o merge (`8c23403`), deu push e abriu o PR #6 (`ESDD/murilo` → `dev`, https://github.com/Murilolss/Projeto_Final_ESDD/pull/6), com a tabela da renumeração e um aviso ao Lucas. Depois preencheu esta entrada e enviou num commit separado.
 - **Adaptações / correções:** Frases antigas que previam outra numeração ("renumeradas para #110 em diante", "#113 em diante") ficaram como estavam, porque registram o que se sabia naquele momento. O PR #5 e o PR #6 acrescentam entradas no mesmo ponto do `AI_LOG.md`; quem fizer o segundo merge resolve um conflito simples mantendo as duas partes. A próxima entrada de qualquer integrante, depois dos dois merges, é a #135.
 
+## #135 — Terça-feira, 24/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > Fez as alteraçoes do pr do lucas? se sim pode aprovar o meu e mergear e o pr dele pode descartar
+- **Objetivo:** Levar para a `dev` a correção do visualizador Web e as entradas do AI_LOG do Murilo.
+- **Resposta da IA (resumo):** Explicou que a correção (`613a30e`) estava no PR #5 do Lucas, não no PR #6 do Murilo (que só tem o AI_LOG), e que descartar o PR #5 tiraria da `dev` o visualizador Web inteiro (T13/T14). Também explicou que o GitHub não deixa o autor aprovar o próprio PR. O Murilo escolheu mergear os dois. Fez o merge do PR #5 (`3c308ee`, conferindo que a branch ainda estava em `613a30e`), atualizou a `ESDD/murilo` com a `dev` (`85c305e`), mantendo o AI_LOG da `dev` com as #120 e #122 do Lucas e as #123–#134 do Murilo em seguida (sequência de #001 a #135 sem buracos), e fez o merge do PR #6 sem aprovação.
+- **Adaptações / correções:** O pedido de descartar o PR #5 não foi seguido, porque partia do entendimento de que a correção estava no PR do Murilo. O PR #6 entrou sem revisão de outro integrante, por decisão do Murilo (a `dev` não tem proteção de branch). Falta marcar a T13 e a T14 como concluídas no quadro e no `contexto/TAREFAS.md`.
+
 ---
 
 <!--
