@@ -205,6 +205,58 @@ h2 { font-size: clamp(1.25rem, 3vw, 1.55rem); letter-spacing: -0.025em; }
     font-size: 0.875rem;
 }
 
+/* T15: colors of the step being shown. --step-color paints the bar and the legend swatch;
+   --step-text keeps the value label readable on top of it. */
+.comparing { --step-color: #e3a21a; --step-text: #2b1d00; }
+.swapping  { --step-color: #c0392b; --step-text: #fff; }
+.writing   { --step-color: #2563c9; --step-text: #fff; }
+.sorted    { --step-color: #4caf50; --step-text: #0d2b12; }
+
+.bar.comparing, .bar.swapping, .bar.writing, .bar.sorted { background: var(--step-color); }
+.bar.comparing .bar-value, .bar.swapping .bar-value,
+.bar.writing .bar-value, .bar.sorted .bar-value { color: var(--step-text); }
+/* A short bar shows its value above the bar, on the white background
+   (same specificity as the rules above, so this later rule wins) */
+.bar.short .bar-value { color: #18443e; }
+
+.playback {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem 1rem;
+    flex-wrap: wrap;
+    margin-top: 1.25rem;
+}
+
+.playback .button:disabled { opacity: 0.55; cursor: default; }
+
+.step-info {
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    overflow-wrap: anywhere;
+}
+
+.legend {
+    grid-column: 2;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4rem 1.25rem;
+    margin: 0.4rem 0 0;
+    padding: 0;
+    list-style: none;
+    color: var(--muted);
+    font-size: 0.875rem;
+}
+
+.legend li { display: flex; align-items: center; gap: 0.4rem; }
+
+.swatch {
+    width: 0.9rem;
+    height: 0.9rem;
+    border-radius: 0.2rem;
+    background: var(--step-color);
+}
+
 .sr-only {
     position: absolute;
     width: 1px;

@@ -2,7 +2,7 @@
 <!-- session: a19c89e0-3c03-48f3-ac72-39d62425cac6 -->
 
 - **Autor:** Liliane Perim
-- **Prompts no AI_LOG:** #110–#115
+- **Prompts no AI_LOG:** #110–#119
 
 ## O que foi feito
 - `/atualizar-branch`: a `ESDD/liliane` já estava em dia com a `dev`, então não houve push.
@@ -16,6 +16,9 @@
 - Push até `9adf0b2` (inclui o AI_LOG #110–#112). Publicado comentário no PR #2 pedindo nova revisão.
 - 3ª revisão do Murilo (23/11, 23:43): **APPROVED**. Pelo menu, os tempos dele voltaram aos da `dev` (Bubble 3,25 s contra 3,0 s; Selection 0,9 s; Insertion 0,64 s), e os 65 logs validados estão corretos.
 - PR #2 mesclado na `dev` com commit de merge (`gh pr merge 2 --merge`), o mesmo método dos PRs #1 e #3. A `ESDD/liliane` não foi apagada.
+- A própria Liliane marcou a T10 e a T26 como concluídas no `contexto/TAREFAS.md` e no quadro.
+- Commit `fd177eb` (AI_LOG #116–#117 e esta nota) feito depois do merge, por isso ainda não está na `dev`.
+- `/atualizar-branch` depois do merge: chegou só o commit de merge do PR #2 (`304665f`), sem mudança de arquivo. O merge local `3333511` foi enviado para `origin/ESDD/liliane`.
 
 ## Decisões / observações
 - **Por que a 1ª correção não bastou:** o `if (observer != NULL)` nos algoritmos só funciona se o chamador passar `NULL`. O `run_sort` passava `&observer` com `function == NULL`. Os testes de velocidade da 1ª rodada usaram o `sort_run` (fila de testes), que já passava `NULL`, por isso o problema não apareceu.
@@ -24,12 +27,11 @@
 - Os tempos absolutos desta máquina são menores que os do Murilo. O que se compara é a razão antes/depois (cerca de 3 vezes, como na medição dele).
 
 ## Pendências
-- A T10 e a T26 continuam como pendentes no `contexto/TAREFAS.md` e no quadro. É preciso marcá-las como concluídas.
 - O Lucas precisa confirmar `value_i`/`value_j` e os pontos do Undo (T11) do recado da sessão 11.
 - O `README.md` está vazio, e o enunciado exige um em inglês. Ainda não é tarefa do quadro.
+- As entradas do AI_LOG feitas depois do merge (#116 em diante) e o fim desta nota só vão para a `dev` no próximo PR da Liliane.
 
 ## Próximos passos sugeridos
-1. Marcar T10 e T26 como concluídas no `contexto/TAREFAS.md` e no quadro, que precisam ficar iguais.
-2. Rodar `/atualizar-branch` antes de começar a próxima tarefa.
-3. Começar a T15/T16 (animação e controles) quando a T14 do Lucas tiver a leitura do log.
-4. Propor ao grupo uma tarefa para o `README.md`.
+1. Fazer commit e push do AI_LOG #118–#119 e desta nota.
+2. Começar a T15/T16 (animação e controles) quando a T14 do Lucas tiver a leitura do log.
+3. Propor ao grupo uma tarefa para o `README.md`.

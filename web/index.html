@@ -36,6 +36,11 @@
 
             <p class="status" id="status" role="status">Nenhum arquivo aberto.</p>
 
+            <div class="playback" id="playback" hidden>
+                <button class="button primary" id="play" type="button">Reproduzir</button>
+                <p class="step-info" id="step-info"></p>
+            </div>
+
             <div class="chart" id="chart" hidden>
                 <div aria-hidden="true" class="axis">
                     <span id="scale-max"></span>
@@ -46,6 +51,12 @@
                     <ol class="bars" id="bars" aria-label="Valores na ordem do vetor"></ol>
                 </div>
                 <p class="axis-name" aria-hidden="true">Índice no vetor</p>
+                <ul class="legend" aria-label="Legenda das cores">
+                    <li><span class="swatch comparing"></span>Comparação</li>
+                    <li><span class="swatch swapping"></span>Troca</li>
+                    <li><span class="swatch writing"></span>Escrita</li>
+                    <li><span class="swatch sorted"></span>Vetor final conferido</li>
+                </ul>
             </div>
         </section>
     </main>

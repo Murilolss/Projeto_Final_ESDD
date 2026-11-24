@@ -2064,6 +2064,124 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Explicou que a correção (`613a30e`) estava no PR #5 do Lucas, não no PR #6 do Murilo (que só tem o AI_LOG), e que descartar o PR #5 tiraria da `dev` o visualizador Web inteiro (T13/T14). Também explicou que o GitHub não deixa o autor aprovar o próprio PR. O Murilo escolheu mergear os dois. Fez o merge do PR #5 (`3c308ee`, conferindo que a branch ainda estava em `613a30e`), atualizou a `ESDD/murilo` com a `dev` (`85c305e`), mantendo o AI_LOG da `dev` com as #120 e #122 do Lucas e as #123–#134 do Murilo em seguida (sequência de #001 a #135 sem buracos), e fez o merge do PR #6 sem aprovação.
 - **Adaptações / correções:** O pedido de descartar o PR #5 não foi seguido, porque partia do entendimento de que a correção estava no PR do Murilo. O PR #6 entrou sem revisão de outro integrante, por decisão do Murilo (a `dev` não tem proteção de branch). Falta marcar a T13 e a T14 como concluídas no quadro e no `contexto/TAREFAS.md`.
 
+## #136 — Segunda-feira, 23/11/2026
+
+- **Numeração original:** #116 na branch `ESDD/liliane` (renumerada no merge com a `dev`, que já tinha #116–#135; os números citados no texto seguem a numeração original).
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > já fiz isso, rode /salvar-memoria
+- **Objetivo:** Atualizar a nota de memória da sessão depois do merge do PR #2.
+- **Resposta da IA (resumo):** Atualizou `contexto/memory/2026-11-23_sessao-12_segunda-revisao-pr2.md`: prompts #110–#116, T10 e T26 marcadas como concluídas no `TAREFAS.md` e no quadro pela Liliane, a pendência e o próximo passo correspondentes removidos.
+- **Adaptações / correções:** A Liliane já tinha atualizado o `TAREFAS.md` e o quadro sozinha, então a oferta de fazer isso na resposta #115 não foi usada.
+
+## #137 — Segunda-feira, 23/11/2026
+
+- **Numeração original:** #117 na branch `ESDD/liliane` (renumerada no merge com a `dev`, que já tinha #116–#135; os números citados no texto seguem a numeração original).
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > faça o commit e o push
+- **Objetivo:** Fazer commit e push da nota da sessão 12 e das entradas do AI_LOG.
+- **Resposta da IA (resumo):** Fez um commit na `ESDD/liliane` com o `AI_LOG.md` (#116–#117) e a nota `contexto/memory/2026-11-23_sessao-12_segunda-revisao-pr2.md`, e deu push para `origin/ESDD/liliane`.
+- **Adaptações / correções:** Nenhuma.
+
+## #138 — Segunda-feira, 23/11/2026
+
+- **Numeração original:** #118 na branch `ESDD/liliane` (renumerada no merge com a `dev`, que já tinha #116–#135; os números citados no texto seguem a numeração original).
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > /atualizar-branch
+- **Objetivo:** Trazer para a `ESDD/liliane` o que já foi integrado na `dev`.
+- **Resposta da IA (resumo):** Rodou `git pull --no-edit origin dev`. Chegou só o commit de merge do PR #2 (`304665f`), sem mudança de arquivo, e o Git criou o merge local `3333511`. Deu push para `origin/ESDD/liliane`. A única alteração pendente é o `AI_LOG.md` (esta entrada).
+- **Adaptações / correções:** Nenhuma.
+
+## #139 — Segunda-feira, 23/11/2026
+
+- **Numeração original:** #119 na branch `ESDD/liliane` (renumerada no merge com a `dev`, que já tinha #116–#135; os números citados no texto seguem a numeração original).
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > /salvar-memoria
+- **Objetivo:** Atualizar a nota de memória da sessão.
+- **Resposta da IA (resumo):** Atualizou `contexto/memory/2026-11-23_sessao-12_segunda-revisao-pr2.md`: prompts #110–#119, o commit `fd177eb` feito depois do merge, o `/atualizar-branch` (merge local `3333511`, enviado com push), a pendência de levar à `dev` no próximo PR o que veio depois do merge, e o próximo passo (commit do AI_LOG #118–#119 e da nota).
+- **Adaptações / correções:** Nenhuma.
+
+## #140 — Terça-feira, 24/11/2026
+
+- **Numeração original:** #120 na branch `ESDD/liliane` (renumerada no merge com a `dev`, que já tinha #116–#135; os números citados no texto seguem a numeração original).
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > /atualizar-branch
+- **Objetivo:** Trazer para a `ESDD/liliane` o que já foi integrado na `dev` (PR #4 do Lucas, T11 desfazer no passo a passo).
+- **Resposta da IA (resumo):** Rodou `git pull --no-edit origin dev`; o Git recusou o merge porque o `AI_LOG.md` tinha alterações não commitadas (a própria entrada #120 criada pelo hook) e a `dev` também altera esse arquivo. Nenhum arquivo mudou além desta entrada; o push não foi feito. Foram listados os 5 commits pendentes da `dev` (src/stack, step_view, sort, export, main, nota da sessão 13).
+- **Adaptações / correções:** Seguindo a skill, a IA parou sem fazer commit nem stash por conta própria e pediu à usuária que escolhesse como prosseguir.
+
+## #141 — Terça-feira, 24/11/2026
+
+- **Numeração original:** #121 na branch `ESDD/liliane` (renumerada no merge com a `dev`, que já tinha #116–#135; os números citados no texto seguem a numeração original).
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > pode fazer a opção 1
+- **Objetivo:** Commitar o `AI_LOG.md` pendente e repetir o pull da `dev`.
+- **Resposta da IA (resumo):** Commitou o `AI_LOG.md` (`fd654c7`) e rodou `git pull --no-edit origin dev`. O código da T11 (PR #4) entrou sem conflito; o `AI_LOG.md` conflitou porque as duas branches criaram #116–#119 e #121 para prompts diferentes. Concluiu o merge e deu push para `origin/ESDD/liliane`.
+- **Adaptações / correções:** A IA mostrou o conflito e perguntou como resolver antes de mexer. A Liliane escolheu manter tudo e renumerar: as entradas do Lucas foram para o fim como #122–#126, com o texto intacto e uma linha "Numeração original" indicando o número na `ESDD/lucas`. **Corrigido no merge seguinte (#143):** a `dev` já tinha #116–#135, então as entradas do Lucas voltaram à numeração da `dev` e as da Liliane foram renumeradas para #136–#143.
+
+## #142 — Terça-feira, 24/11/2026
+
+- **Numeração original:** #127 na branch `ESDD/liliane` (renumerada no merge com a `dev`, que já tinha #116–#135; os números citados no texto seguem a numeração original).
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > vamos fazer o próximo cartão, T15
+- **Objetivo:** Começar a T15 (animar comparações e trocas com cores distintas).
+- **Resposta da IA (resumo):** Leu o `TAREFAS.md`, as notas de sessão e o `contexto/formato_log.md`. Pela cópia local, a T13 e a T14 ainda estavam pendentes e não havia código de interface, então a IA ia perguntar como seguir. Nenhum arquivo mudou.
+- **Adaptações / correções:** A Liliane interrompeu a pergunta e avisou que a T13 e a T14 já estavam prontas. A cópia local estava desatualizada: os PRs já estavam na `dev` (ver #143).
+
+## #143 — Terça-feira, 24/11/2026
+
+- **Numeração original:** #128 na branch `ESDD/liliane` (renumerada no merge com a `dev`, que já tinha #116–#135; os números citados no texto seguem a numeração original).
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > as duas tarefas que antecedem as próximas minhas, que são do Lucas, já estão feitas. Confira e atualize para prosseguirmos
+- **Objetivo:** Conferir se a T13 e a T14 (Lucas), que antecedem a T15, já estão prontas e atualizar a `ESDD/liliane` e o quadro de tarefas para começar a T15.
+- **Resposta da IA (resumo):** Confirmou pelo `gh pr list` que os PRs #4 (T11) e #5 (T13/T14, interface Web em `web/`) já estavam na `dev`. Fez o pull da `dev`, que trouxe `web/index.html`, `web/app.js`, `web/styles.css`, a nota da sessão 14 e o `TAREFAS.md`. Resolveu o conflito do `AI_LOG.md` e atualizou o `contexto/TAREFAS.md`: T26, T10, T11, T13 e T14 concluídas e T15 em andamento. Concluiu o merge e deu push para a `ESDD/liliane`.
+- **Adaptações / correções:** Na resolução do conflito do `AI_LOG.md`, a numeração da `dev` (#116–#135, Lucas e Murilo) ficou como estava, e só as entradas da Liliane que não estavam na `dev` foram renumeradas (#136–#143, com a linha "Numeração original"). Isso desfaz a renumeração das entradas do Lucas feita na #121. O quadro "Plano Projeto ESDD" não abre pela conta da Liliane (o artefato é do Murilo), então só o espelho `TAREFAS.md` foi atualizado.
+
+## #144 — Terça-feira, 24/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > pode começar a T15 assim
+- **Objetivo:** Implementar a T15: animar no visualizador Web os passos do log (comparações, trocas e escritas) com cores distintas.
+- **Resposta da IA (resumo):** `web/app.js`: botão **Reproduzir**, que parte do `initial` e reaplica os passos (`applyStep`, `showStep`, `playLog`, `playFrame`, `finishPlayback`, `stopPlayback`). Comparação em amarelo (texto com `value_i`/`value_j`), troca em vermelho, escrita em azul e, se o vetor reaplicado bater com o `final`, todas as barras em verde; se não bater, a página avisa que o log pode estar incompleto. Logs grandes aplicam vários passos por quadro (no máximo 1.800 quadros e cerca de 30 s). O `parseLog` passou a rejeitar passos com tipo ou posição inválidos e logs sem `final`. `drawVector` guarda as barras em `barElements` e usa `setBarValue`. `web/index.html`: botão, linha do passo atual e legenda. `web/styles.css`: cores dos passos, legenda e barra de reprodução. `contexto/TAREFAS.md`: detalhes da T15 e da T16. Testes: logs dos 7 algoritmos (N = 30, dados aleatórios e invertidos) e do exemplo reaplicados num DOM simulado no Node, todos com o vetor final correto; Bubble Sort com N = 1000 (1,5 milhão de passos) em 1.799 quadros; logs inválidos e truncados tratados; capturas no Edge headless no meio e no fim da animação.
+- **Adaptações / correções:** Na primeira tentativa de gerar os logs, as respostas foram enviadas como 0/1, mas o menu pede Sim/Nao; o programa entrou em loop e foi interrompido. A segunda tentativa usou Sim/Nao. A IA trocou um `!important` do CSS por uma regra posterior de mesma especificidade.
+
+## #145 — Terça-feira, 24/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > faça o commit e o push
+- **Objetivo:** Fazer commit e push da T15.
+- **Resposta da IA (resumo):** Fez um commit na `ESDD/liliane` com `web/app.js`, `web/index.html`, `web/styles.css`, `contexto/TAREFAS.md` e o `AI_LOG.md` (#144–#145), e deu push para `origin/ESDD/liliane`.
+- **Adaptações / correções:** Nenhuma.
+
+## #146 — Terça-feira, 24/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > pode abrir o PR para o Murilo e o Lucas revisarem
+- **Objetivo:** Abrir o PR da T15 da `ESDD/liliane` para a `dev`, com revisão do Murilo e do Lucas.
+- **Resposta da IA (resumo):** Commitou esta entrada, deu push e abriu o PR da `ESDD/liliane` para a `dev` com a T15 (animação com cores no `web/`), a atualização do `TAREFAS.md` e a renumeração das entradas da Liliane no AI_LOG (#136–#146). Pediu a revisão de `Murilolss` e `xXLucasCruzXx`.
+- **Adaptações / correções:** Nenhuma.
+
 ---
 
 <!--
