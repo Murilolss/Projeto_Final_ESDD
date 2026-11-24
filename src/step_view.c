@@ -1,9 +1,14 @@
 #define __USE_MINGW_ANSI_STDIO 1 /* enables %lld on MinGW (must come before stdio.h) */
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "step_view.h"
 #include "sort.h"
 #include "memory.h"
+#include "stack.h"
+#include "vector.h"
+
+#define HISTORY_INITIAL_CAPACITY 16
 
 struct StepView {
     const char *name;      /* algorithm name shown on the screen */
@@ -12,13 +17,18 @@ struct StepView {
     long long steps;       /* steps shown so far (comparisons + swaps + writes) */
     long long comparisons;
     long long changes;     /* swaps + writes */
+    int size;
+    int *playback;
+    Stack *history;
+    int undo_available;
 };
 
-int step_view_create(const char *name, int pause_on_compare, StepView **out)
+int step_view_create(const char *name, int pause_on_compare, const int *initial, int size,
+                     StepView **out)
 {
     StepView *view;
 
-    if (name == NULL || out == NULL)
+    if (name == NULL || initial == NULL || size <= 0 || out == NULL)
         return 0;
 
     view = (StepView *)mem_alloc(sizeof(StepView));
@@ -31,6 +41,18 @@ int step_view_create(const char *name, int pause_on_compare, StepView **out)
     view->steps = 0;
     view->comparisons = 0;
     view->changes = 0;
+    view->size = size;
+    view->history = NULL;
+    view->playback = vector_create(size);
+    view->undo_available = 0;
+
+    if (view->playback != NULL && stack_create(HISTORY_INITIAL_CAPACITY, &view->history))
+    {
+        memcpy(view->playback, initial, size * sizeof(int));
+        view->undo_available = 1;
+    }
+    else
+        vector_destroy(&view->playback, size);
 
     *out = view;
     return 1;
@@ -41,6 +63,8 @@ void step_view_destroy(StepView **view)
     if (view == NULL || *view == NULL)
         return;
 
+    stack_destroy(&(*view)->history);
+    vector_destroy(&(*view)->playback, (*view)->size);
     mem_free(*view, sizeof(StepView));
     *view = NULL;
 }
@@ -133,7 +157,7 @@ static void print_bars(int kind, int i, int j, const int *array, int size)
     }
 }
 
-/* Waits for ENTER. Returns 1 if the user typed f (run to the end without pauses). */
+/* Reads the first character and discards the rest of the line. */
 static int read_pause(void)
 {
     int c;
@@ -144,7 +168,71 @@ static int read_pause(void)
     while (c != '\n' && c != EOF)
         c = getchar();
 
-    return (first == 'f' || first == 'F');
+    return first;
+}
+
+/* The observer runs after a change. Playback still has the previous values. */
+static int record_change(StepView *view, int kind, int i, int j, const int *array)
+{
+    if (kind == STEP_SWAP)
+    {
+        SwapIndices swap = {i, j};
+        if (!stack_push(view->history, swap))
+            return 0;
+        view->playback[j] = array[j];
+    }
+    else if (!stack_push_write(view->history, i, view->playback[i], array[i]))
+        return 0;
+
+    view->playback[i] = array[i];
+    return 1;
+}
+
+static void show_history(const StepView *view, SwapIndices positions, int forward)
+{
+    system("cls");
+    printf("%s - %s\n", view->name, forward ? "Alteracao reaplicada" : "Alteracao desfeita");
+    print_bars(STEP_WRITE, positions.first, positions.second, view->playback, view->size);
+    putchar('\n');
+}
+
+static void pause_at_step(StepView *view)
+{
+    SwapIndices positions;
+    int command;
+
+    for (;;)
+    {
+        if (view->undo_available)
+            printf("ENTER = avancar | u + ENTER = desfazer | f + ENTER = ir ate o fim: ");
+        else
+            printf("ENTER = proximo passo | f + ENTER = ir ate o fim: ");
+
+        command = read_pause();
+        if (command == 'f' || command == 'F' || command == EOF)
+        {
+            view->skip = 1;
+            return;
+        }
+        if (command == 'u' || command == 'U')
+        {
+            if (!view->undo_available)
+                printf("Desfazer indisponivel.\n");
+            else if (stack_undo_change(view->history, view->playback, view->size, &positions))
+                show_history(view, positions, 0);
+            else
+                printf("Nenhuma alteracao para desfazer.\n");
+        }
+        else if (command == '\n')
+        {
+            if (!view->undo_available ||
+                !stack_redo_change(view->history, view->playback, view->size, &positions))
+                return;
+            show_history(view, positions, 1);
+        }
+        else
+            printf("Comando invalido.\n");
+    }
 }
 
 void step_view_show(int kind, int i, int j, int left_value, int right_value,
@@ -153,19 +241,22 @@ void step_view_show(int kind, int i, int j, int left_value, int right_value,
     /* context is the StepView the caller put in the StepObserver */
     StepView *view = (StepView *)context;
 
-    if (view == NULL || array == NULL)
+    if (view == NULL || array == NULL || size != view->size || view->skip)
         return;
 
     view->steps++;
     if (kind == STEP_COMPARE)
+    {
         view->comparisons++;
+        if (!view->pause_on_compare)
+            return;
+    }
     else
+    {
         view->changes++;
-
-    if (view->skip)
-        return;
-    if (kind == STEP_COMPARE && !view->pause_on_compare)
-        return;
+        if (view->undo_available && !record_change(view, kind, i, j, array))
+            view->undo_available = 0;
+    }
 
     system("cls");
     printf("%s - passo %lld\n", view->name, view->steps);
@@ -173,8 +264,7 @@ void step_view_show(int kind, int i, int j, int left_value, int right_value,
     printf("\n");
     print_bars(kind, i, j, array, size);
     printf("\nComparacoes: %lld   Trocas/escritas: %lld\n", view->comparisons, view->changes);
-    printf("ENTER = proximo passo | f + ENTER = ir ate o fim: ");
-
-    if (read_pause() == 1)
-        view->skip = 1;
+    if (!view->undo_available)
+        printf("Desfazer indisponivel: faltou memoria para o historico.\n");
+    pause_at_step(view);
 }

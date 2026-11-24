@@ -29,4 +29,14 @@ int stack_pop(Stack *stack, SwapIndices *out);
    On failure, the array and the history are unchanged. */
 int stack_undo_swap(Stack *stack, int *array, int size);
 
+/* Records a write at one position, including the value before and after it.
+   Returns 0 if the write cannot be recorded. */
+int stack_push_write(Stack *stack, int index, int old_value, int new_value);
+
+/* Moves one change backward or forward on the playback array. On success, writes
+   the affected positions to out. For a write, out->second is -1.
+   Returns 0 at the end of the history in that direction or on invalid arguments. */
+int stack_undo_change(Stack *stack, int *array, int size, SwapIndices *out);
+int stack_redo_change(Stack *stack, int *array, int size, SwapIndices *out);
+
 #endif
