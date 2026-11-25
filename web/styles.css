@@ -220,14 +220,41 @@ h2 { font-size: clamp(1.25rem, 3vw, 1.55rem); letter-spacing: -0.025em; }
 .bar.short .bar-value { color: #18443e; }
 
 .playback {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem 1rem;
-    flex-wrap: wrap;
+    display: grid;
+    gap: 0.75rem;
     margin-top: 1.25rem;
 }
 
+/* T16: play/pause, one step back and forward, reset and speed */
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem 0.65rem;
+    flex-wrap: wrap;
+}
+
+/* Fixed width: the text changes between Reproduzir, Pausar and Continuar */
+.play { min-width: 11rem; }
+
 .playback .button:disabled { opacity: 0.55; cursor: default; }
+.secondary:disabled:hover { background: white; }
+
+.speed {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: auto;
+    color: var(--muted);
+    font-weight: 650;
+}
+
+.speed input { accent-color: var(--accent); }
+
+.speed output {
+    min-width: 6.5rem;
+    color: #172e31;
+    font-weight: 400;
+}
 
 .step-info {
     color: var(--muted);

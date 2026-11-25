@@ -2182,6 +2182,56 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Commitou esta entrada, deu push e abriu o PR da `ESDD/liliane` para a `dev` com a T15 (animação com cores no `web/`), a atualização do `TAREFAS.md` e a renumeração das entradas da Liliane no AI_LOG (#136–#146). Pediu a revisão de `Murilolss` e `xXLucasCruzXx`.
 - **Adaptações / correções:** Nenhuma.
 
+## #147 — Terça-feira, 24/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > pode dar o merge do pr 7 para continuarmos o próximo card
+- **Objetivo:** Fazer o merge do PR #7 (T15) na `dev` para seguir para a próxima tarefa.
+- **Resposta da IA (resumo):** Conferiu que o PR #7 tinha a aprovação do Murilo e fez o merge na `dev` (`ed98261`, merge commit, como nos PRs anteriores). Trouxe a `dev` para a `ESDD/liliane` e marcou a T15 como concluída no `contexto/TAREFAS.md`. Commitou e deu push na `ESDD/liliane`.
+- **Adaptações / correções:** O Lucas ainda não tinha revisado; a regra do projeto pede a revisão de um outro integrante, e a do Murilo bastou. O quadro do claude.ai continua sem atualização, porque não abre pela conta da Liliane.
+
+## #148 — Terça-feira, 24/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > pode começar a T16 assim
+- **Objetivo:** Implementar a T16: controles de reprodução do visualizador Web.
+- **Resposta da IA (resumo):** `web/app.js`: a reprodução da T15 passou a guardar a posição no log (`replay` com `array`, `position` e `timer`). Funções novas ou reescritas: `forward`, `stepBack`, `stepForward`, `playFrame`, `togglePlay`, `pauseReplay`, `resetReplay`, `showPosition`, `showSorted`, `updateButtons` e `showSpeed`; `applyStep` passou a só mudar o vetor e devolver os índices alterados. Saíram `playLog`, `finishPlayback`, `stopPlayback` e `MAX_DURATION_MS`. `web/index.html`: botões Reproduzir/Pausar/Continuar, ◀ Passo, Passo ▶ e Reiniciar e o controle de velocidade (5 posições, de 1 s a 16 ms por quadro). `web/styles.css`: layout dos controles. `contexto/TAREFAS.md`: T16 em andamento, com os detalhes. Testes num DOM simulado no Node: os 17 logs continuaram chegando ao `final`; 300 passos aleatórios à frente e atrás no Bubble, Insertion e Merge Sort bateram com uma reaplicação independente; pausar, continuar, reiniciar, reproduzir de novo, o verde sumindo ao voltar do fim e o estado dos botões foram conferidos; a velocidade muda o intervalo no quadro seguinte; voltar um passo no fim de um Bubble Sort com N = 1000 (1,5 milhão de passos) levou 120 ms. Captura no Edge headless com a reprodução pausada.
+- **Adaptações / correções:** O passo atrás reaplica desde o `initial`, como a Liliane aprovou, em vez de guardar os valores antigos numa pilha. A primeira tentativa de juntar o código com heredoc no bash falhou por causa das aspas, e uma edição com `sed` estragou o script auxiliar; o script foi reescrito antes de rodar e nenhum arquivo do projeto foi afetado.
+
+## #149 — Terça-feira, 24/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > faça o commit, o push e abra o PR
+- **Objetivo:** Fazer commit e push da T16 e abrir o PR para a `dev`.
+- **Resposta da IA (resumo):** Fez um commit na `ESDD/liliane` com `web/app.js`, `web/index.html`, `web/styles.css`, `contexto/TAREFAS.md` e o `AI_LOG.md` (#147–#149), deu push e abriu o PR da `ESDD/liliane` para a `dev`, com pedido de revisão para `Murilolss` e `xXLucasCruzXx`, como no PR #7.
+- **Adaptações / correções:** Nenhuma.
+
+## #150 — Terça-feira, 24/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > confira a revisão do pr e os ajustes à se fazer
+- **Objetivo:** Conferir a revisão do PR #8 (T16) e fazer os ajustes pedidos.
+- **Resposta da IA (resumo):** O Murilo pediu alterações: limitar o passo a passo a no máximo 100 números, porque com N = 1000 a reprodução demora demais e cada quadro pula centenas de passos. A IA perguntou onde aplicar o limite e o que fazer com os passos por quadro. `web/app.js`: `MAX_LOG_SIZE` passou de 1000 para 100, e um log maior é recusado com uma mensagem própria; a animação aplica um passo por quadro, e só a velocidade "Muito rápida" (`FASTEST_SPEED`) junta passos quando o log passa de 1.800. `contexto/formato_log.md`: nota sobre o limite do visualizador. `contexto/TAREFAS.md`: detalhe da T16 atualizado. Testes no Node: o log de N = 1000 foi recusado; logs de N = 100 (Bubble, Insertion e Merge Sort, dados invertidos) chegaram ao final com 1 passo por quadro na velocidade Normal e em cerca de 1.650 quadros na Muito rápida; trocar de Muito rápida para Normal no meio volta a 1 passo por quadro; os 51 testes anteriores continuaram passando.
+- **Adaptações / correções:** O pedido podia valer para o C, para a Web ou para o passo a passo do console. A Liliane escolheu aplicar o limite só na Web, mantendo a exportação do C até N = 1000, e juntar passos só na velocidade "Muito rápida".
+
+## #151 — Terça-feira, 24/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > faça o commit, o push e avise o Murilo no PR
+- **Objetivo:** Fazer commit e push do ajuste da revisão do PR #8 e avisar o Murilo no PR.
+- **Resposta da IA (resumo):** Fez um commit na `ESDD/liliane` com `web/app.js`, `contexto/formato_log.md`, `contexto/TAREFAS.md` e o `AI_LOG.md` (#150–#151) e deu push, o que atualizou o PR #8. Comentou no PR, marcando o Murilo, com o que mudou e como conferir, e pediu de novo a revisão dele.
+- **Adaptações / correções:** Nenhuma.
+
 ---
 
 <!--
