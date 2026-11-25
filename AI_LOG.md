@@ -2474,6 +2474,36 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** O Claude fez dois commits na `ESDD/murilo`. O primeiro (`e1e4fc5`) é o da [.vscode/settings.json](.vscode/settings.json). No segundo (`5ea6826`), acrescentou `contexto/pdfs/` e `contexto/slides/` ao [.gitignore](.gitignore) e rodou `git rm -r --cached` nas duas pastas: os 14 PDFs e os 15 `.md` saíram do repositório, mas continuam no disco. Depois fez o commit deste registro e o push da branch.
 - **Adaptações / correções:** As pastas já estavam no git, então só acrescentá-las ao `.gitignore` não adiantaria. O Claude perguntou antes e avisou que o pull apaga esses arquivos das máquinas dos outros integrantes e quebra os links para `contexto/slides/` no CLAUDE.md e no AGENTS.md. O usuário escolheu tirar as pastas do repositório. O Claude não mexeu no CLAUDE.md, no AGENTS.md nem na pasta `docs/`, que ainda não está no git.
 
+## #175 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > atualize o CLAUDE.md e o AGENTS.md
+- **Objetivo:** Atualizar o CLAUDE.md e o AGENTS.md depois que `contexto/pdfs/` e `contexto/slides/` saíram do git (#174).
+- **Resposta da IA (resumo):** Mudanças no [CLAUDE.md](CLAUDE.md): o link para `contexto/slides/Enunciado.md` virou texto em código e ganhou um aviso de que as duas pastas estão fora do git (cada integrante guarda a sua cópia; sem elas, usar o resumo dos requisitos e pedir os arquivos a outro integrante). A tabela de pastas marca as duas como "fora do git". A nota sobre o código de pilha/fila/lista dupla passou a indicar `src/stack.c`, `src/queue.c`, `src/doubly_list.c` e `src/circular_list.c` como referência quando os slides não estiverem no computador. No [AGENTS.md](AGENTS.md), entrou um item no resumo da seção 1 com a mesma regra para o Codex (nunca colocar as pastas de volta no git).
+- **Adaptações / correções:** O Claude não mexeu no PRIMEIROS_PASSOS.md (linhas 31 e 255) nem no contexto/TAREFAS.md (T12), que também apontam para `contexto/slides/`, porque o pedido era só para os dois arquivos. Também não fez commit.
+
+## #176 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > sim, ajuste os dois e faça commit e push
+- **Objetivo:** Ajustar também o PRIMEIROS_PASSOS.md e o contexto/TAREFAS.md, que apontavam para `contexto/slides/`, e fazer commit e push de tudo (#175 e #176).
+- **Resposta da IA (resumo):** No [PRIMEIROS_PASSOS.md](PRIMEIROS_PASSOS.md), seção 1 item 3: o link para o `Enunciado.md` virou texto em código, e o item explica que as pastas estão fora do git e que quem não tiver deve pedir a outro integrante e copiar para `contexto/`. A frase sobre o material de referência, no fim do guia, também deixou de ser link e avisa que a pasta fica fora do git. No [contexto/TAREFAS.md](contexto/TAREFAS.md), a T12 passou a citar o slide como texto e a apontar também para [src/queue.c](src/queue.c). Um `git grep` confirmou que não restou nenhum link para `slides/` ou `pdfs/`. Commit da documentação (CLAUDE.md, AGENTS.md, PRIMEIROS_PASSOS.md, TAREFAS.md), commit do AI_LOG e push da `ESDD/murilo`.
+- **Adaptações / correções:** As citações a `contexto/slides/` no AI_LOG.md e nas notas de `contexto/memory/` ficaram como estavam, porque são registros históricos e não devem ser reescritos.
+
+## #177 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > Faça a t20
+- **Objetivo:** _(a preencher pelo Claude ao final da resposta)_
+- **Resposta da IA (resumo):** _(a preencher pelo Claude ao final da resposta)_
+- **Adaptações / correções:** _(a preencher pelo Claude ao final da resposta)_
+
 ---
 
 <!--
