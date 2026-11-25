@@ -2282,6 +2282,26 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** O Murilo aprovou o PR #9 sobre o commit atual (`03433de`), sem pedir alterações: compilou sem avisos, gerou o comparativo com N = 10.000, conferiu o aviso fora da raiz do projeto e a página com o exemplo, o arquivo gerado e o log de passos recusado. A IA fez o merge na `dev` (`af06346`, merge commit), trouxe a `dev` para a `ESDD/liliane` e marcou a T17 como concluída no `contexto/TAREFAS.md` (a Liliane ficou sem tarefas abertas). Commitou e deu push na `ESDD/liliane`.
 - **Adaptações / correções:** Nenhuma. O quadro do claude.ai continua sem a T15, a T16 e a T17 marcadas, porque não abre pela conta da Liliane.
 
+## #157 — Terça-feira, 24/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > /salvar-memoria
+- **Objetivo:** Salvar a nota de memória desta sessão.
+- **Resposta da IA (resumo):** Criou `contexto/memory/2026-11-24_sessao-15_interface-t15-t16-t17.md` (prompts #140–#157): atualizações da branch, T15, T16 e T17 (PRs #7, #8 e #9), as decisões (numeração do AI_LOG, passo atrás por reaplicação, limite de 100 só na Web, barras de uma cor, aviso do `clock()`), as pendências e os próximos passos.
+- **Adaptações / correções:** Nenhuma.
+
+## #158 — Terça-feira, 24/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > faça o commit e o push
+- **Objetivo:** Fazer commit e push da nota da sessão 15 e das entradas do AI_LOG.
+- **Resposta da IA (resumo):** Fez um commit na `ESDD/liliane` com `contexto/memory/2026-11-24_sessao-15_interface-t15-t16-t17.md` e o `AI_LOG.md` (#157–#158) e deu push para `origin/ESDD/liliane`.
+- **Adaptações / correções:** Nenhuma.
+
 ---
 
 <!--
