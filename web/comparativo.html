@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Comparativo de métricas | Projeto Final ESDD</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="comparativo.js" defer></script>
+</head>
+<body>
+    <header class="masthead">
+        <div class="page-width masthead-row">
+            <span>Projeto Final ESDD</span>
+            <nav class="site-nav" aria-label="Páginas">
+                <a href="index.html">Animação</a>
+                <a href="comparativo.html" aria-current="page">Comparativo</a>
+            </nav>
+        </div>
+    </header>
+    <main class="page-width">
+        <div class="page-heading">
+            <div>
+                <h1>Comparativo de métricas</h1>
+                <p>Abra um comparativo exportado pela opção <strong>Comparar todos os algoritmos</strong> do programa em C.</p>
+            </div>
+            <div class="file-actions">
+                <a class="button secondary" id="example" href="../logs/exemplo_comparativo_n10000.json"
+                   download>Baixar JSON de exemplo</a>
+                <button class="button primary" id="open-report" type="button">Abrir JSON</button>
+                <input id="report-file" type="file" accept=".json,application/json" hidden>
+            </div>
+        </div>
+
+        <section class="card" aria-labelledby="report-title">
+            <div class="card-heading">
+                <div>
+                    <h2 id="report-title">Métricas por algoritmo</h2>
+                    <p id="source" class="source" hidden></p>
+                </div>
+                <p id="count" class="length" hidden></p>
+            </div>
+
+            <p class="status" id="status" role="status">Nenhum arquivo aberto.</p>
+
+            <div id="report" hidden>
+                <fieldset class="metric-picker">
+                    <legend>Métrica do gráfico</legend>
+                    <label><input type="radio" name="metric" value="time_ms" checked><span>Tempo</span></label>
+                    <label><input type="radio" name="metric" value="comparisons"><span>Comparações</span></label>
+                    <label><input type="radio" name="metric" value="swaps"><span>Trocas</span></label>
+                    <label><input type="radio" name="metric" value="memory_bytes"><span>Memória extra</span></label>
+                </fieldset>
+                <p class="metric-note" id="metric-note"></p>
+
+                <div class="hbar-chart" id="hbars"></div>
+
+                <h3 class="table-title">Tabela completa</h3>
+                <p class="metric-note">Em negrito, o menor valor de cada coluna.</p>
+                <div class="table-scroll" tabindex="0" aria-label="Tabela das métricas">
+                    <table class="metrics-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Algoritmo</th>
+                                <th scope="col">Estrutura</th>
+                                <th scope="col" class="number">Tempo (ms)</th>
+                                <th scope="col" class="number">Comparações</th>
+                                <th scope="col" class="number">Trocas</th>
+                                <th scope="col" class="number">Memória extra (B)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+    <div class="tooltip" id="tooltip" role="tooltip" hidden></div>
+</body>
+</html>

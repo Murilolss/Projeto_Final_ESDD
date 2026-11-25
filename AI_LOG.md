@@ -2232,6 +2232,46 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Fez um commit na `ESDD/liliane` com `web/app.js`, `contexto/formato_log.md`, `contexto/TAREFAS.md` e o `AI_LOG.md` (#150–#151) e deu push, o que atualizou o PR #8. Comentou no PR, marcando o Murilo, com o que mudou e como conferir, e pediu de novo a revisão dele.
 - **Adaptações / correções:** Nenhuma.
 
+## #152 — Terça-feira, 24/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > confira se o Murilo aprovou e faça o merge do PR 8
+- **Objetivo:** Conferir se o Murilo aprovou o PR #8 (T16) e fazer o merge.
+- **Resposta da IA (resumo):** Consultou o PR #8 pelo `gh`. A única revisão continuava sendo a do Murilo pedindo alterações (feita sobre o commit `967c6c5`), sem nova revisão depois do ajuste `b03da6d` e do comentário da Liliane. O PR está sem conflitos, mas a decisão de revisão segue "alterações pedidas". Por isso a IA não fez o merge. Nenhum arquivo mudou além desta entrada.
+- **Adaptações / correções:** O merge foi adiado: o projeto exige a revisão de outro integrante antes de integrar na `dev`, e o pedido de alterações do Murilo ainda estava em aberto.
+
+## #153 — Terça-feira, 24/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > confira de novo se o Murilo aprovou o PR 8
+- **Objetivo:** Conferir de novo se o Murilo aprovou o PR #8 (T16) e, com a aprovação, fazer o merge pedido na #152.
+- **Resposta da IA (resumo):** O Murilo aprovou o PR #8 sobre o commit `b03da6d` (25/11, 00:55 UTC). Ele conferiu que um log com N = 101 é recusado e que um Bubble Sort com N = 100 e dados invertidos chega ao `final` em "Normal" e em "Muito rápida". A IA fez o merge na `dev` (`81ea488`, merge commit), trouxe a `dev` para a `ESDD/liliane` e marcou a T16 como concluída no `contexto/TAREFAS.md`. Commitou o `AI_LOG.md` (#152–#153) e o `TAREFAS.md` e deu push na `ESDD/liliane`.
+- **Adaptações / correções:** O prompt pedia só para conferir a aprovação; a IA fez o merge porque a Liliane já tinha pedido isso na #152, condicionado à aprovação. O quadro do claude.ai continua sem a atualização da T15 e da T16, porque não abre pela conta da Liliane.
+
+## #154 — Terça-feira, 24/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > vamos fazer o próximo cartão, T17
+- **Objetivo:** Implementar a T17: tela comparativa das métricas.
+- **Resposta da IA (resumo):** A T17 não tinha detalhes; a IA propôs exportar o comparativo do C e mostrá-lo numa página Web, e a Liliane aprovou. **C:** `export_report` em `src/export.c`/`export.h` grava `logs/comparativo_n<N>_<data>_<hora>.json` com tempo, comparações, trocas e memória extra de cada algoritmo e a estrutura usada; `EXPORT_PATH_SIZE` foi para o `export.h`; em `src/main.c`, `menu_compare_all` guarda a estrutura de cada resultado e, depois da tabela, pergunta "Exportar o comparativo para a interface Web?". **Web:** página nova `web/comparativo.html` + `web/comparativo.js`: botões de métrica (tempo, comparações, trocas, memória extra), barras horizontais agrupadas por estrutura na mesma escala, tooltip com as quatro métricas no hover e no foco, e uma tabela com o menor valor de cada coluna em negrito; links "Animação" e "Comparativo" no topo das duas páginas; `web/app.js` avisa quando um comparativo é aberto na página de animação, e vice-versa; estilos em `web/styles.css`. **Docs:** `contexto/formato_comparativo.md` (novo), `contexto/TAREFAS.md` (T17 em andamento e detalhes), `.gitignore` e o exemplo versionado `logs/exemplo_comparativo_n10000.json`. **Testes:** compilou com `-Wall -Wextra` sem avisos; comparativos de N = 30 (invertido), 1.000 e 10.000 (aleatório) geraram JSON válido; rodando fora da raiz do projeto, o programa avisou que não conseguiu gravar; `parseReport` aceitou os três arquivos e recusou log de passos, JSON inválido, lista vazia, tempo negativo, estrutura ausente e `report` errado; os 51 testes da animação continuaram passando; capturas no Edge headless com as métricas Tempo e Comparações e com todos os tempos em 0.
+- **Adaptações / correções:** A ideia inicial era pintar cada estrutura de uma cor, mas o validador de paletas da skill de visualização reprovou todas as combinações de 4 cores testadas (pares indistinguíveis para daltônicos ou mesmo com visão normal). As barras ficaram com uma só cor e agrupadas por estrutura, com o nome no título do grupo. O tooltip passou a abrir a partir do início da barra para não cobrir os nomes. Achado anterior à T17: o tempo medido com `clock()` avança de cerca de 10 em 10 ms no Windows, então com N = 1000 quase todos os tempos saem 0; por isso o exemplo usa N = 10.000 e a página explica isso.
+
+## #155 — Terça-feira, 24/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > faça o commit, o push e abra o PR
+- **Objetivo:** Fazer commit e push da T17 e abrir o PR para a `dev`.
+- **Resposta da IA (resumo):** Fez um commit na `ESDD/liliane` com `src/export.c`, `src/export.h`, `src/main.c`, `web/comparativo.html`, `web/comparativo.js`, `web/app.js`, `web/index.html`, `web/styles.css`, `contexto/formato_comparativo.md`, `contexto/TAREFAS.md`, `.gitignore`, `logs/exemplo_comparativo_n10000.json` e o `AI_LOG.md` (#154–#155). Deu push e abriu o PR da `ESDD/liliane` para a `dev`, com pedido de revisão para `Murilolss` e `xXLucasCruzXx`.
+- **Adaptações / correções:** Nenhuma.
+
 ---
 
 <!--

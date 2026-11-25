@@ -23,6 +23,9 @@
    .gitkeep file) and the program must be run from the root folder of the project. */
 #define EXPORT_FOLDER "logs"
 
+/* Size of the buffer that receives the path of an exported file (see export_report). */
+#define EXPORT_PATH_SIZE 128
+
 typedef struct Exporter Exporter;
 
 /* Creates the file logs/<algorithm>_n<size>_<YYYYMMDD>_<HHMMSS>.json and writes the
@@ -45,5 +48,16 @@ const char *export_path(const Exporter *exporter);
    exporter and sets the caller's pointer to NULL.
    Returns 1 if the whole file was written; 0 if any write failed. */
 int export_close(Exporter **exporter, const int *final, const Metrics *m);
+
+/* Exports the metrics table of "Comparar todos os algoritmos" (T17) to
+   logs/comparativo_n<size>_<YYYYMMDD>_<HHMMSS>.json, read by web/comparativo.html.
+   The format is described in contexto/formato_comparativo.md.
+   list has count results; structures[k] is the structure used by list[k]
+   ("Vetor", "Lista Simples", "Lista Dupla" or "Lista Circular").
+   There is no size limit: the file has only one line per algorithm.
+   Returns 1 and copies the file path to path (room for EXPORT_PATH_SIZE chars) on success;
+   returns 0 if the arguments are invalid or the file cannot be written. */
+int export_report(const Metrics *list, const char *structures[], int count, int size,
+                  const char *data_kind, char *path);
 
 #endif

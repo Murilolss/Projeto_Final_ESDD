@@ -5,7 +5,8 @@
 # Python cache
 __pycache__/
 
-# Step logs exported by the program (T10): only the folder and one small example
+# Files exported by the program (T10 step logs, T17 comparisons): only the folder and the examples
 logs/*
 !logs/.gitkeep
 !logs/exemplo_bubble_sort_n10.json
+!logs/exemplo_comparativo_n10000.json

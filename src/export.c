@@ -7,8 +7,6 @@
 #include "sort.h"
 #include "memory.h"
 
-#define EXPORT_PATH_SIZE 128
-
 struct Exporter {
     FILE *file;
     char path[EXPORT_PATH_SIZE];
@@ -216,5 +214,50 @@ int export_close(Exporter **exporter, const int *final, const Metrics *m)
 
     mem_free(e, sizeof(Exporter));
     *exporter = NULL;
+    return ok;
+}
+
+int export_report(const Metrics *list, const char *structures[], int count, int size,
+                  const char *data_kind, char *path)
+{
+    FILE *file;
+    int ok;
+
+    if (list == NULL || structures == NULL || data_kind == NULL || path == NULL)
+        return 0;
+    if (count <= 0 || size <= 0)
+        return 0;
+
+    build_path("Comparativo", size, path);
+    file = fopen(path, "w");
+    if (file == NULL)
+        return 0;
+
+    /* As in export_open, the names come from the program itself and have no quotes */
+    fprintf(file, "{\n");
+    fprintf(file, "  \"report\": \"comparativo\",\n");
+    fprintf(file, "  \"data_kind\": \"%s\",\n", data_kind);
+    fprintf(file, "  \"size\": %d,\n", size);
+    fprintf(file, "  \"results\": [\n");
+    for (int k = 0; k < count; k++)
+    {
+        fprintf(file,
+                "    {\"algorithm\": \"%s\", \"structure\": \"%s\", \"comparisons\": %lld, "
+                "\"swaps\": %lld, \"time_ms\": %.3f, \"memory_bytes\": %lld}",
+                list[k].name, structures[k], list[k].comparisons, list[k].swaps,
+                list[k].time_ms, list[k].memory_bytes);
+        /* Every result but the last is followed by a comma */
+        if (k < count - 1)
+            fprintf(file, ",");
+        fprintf(file, "\n");
+    }
+    fprintf(file, "  ]\n");
+    fprintf(file, "}\n");
+
+    /* Same check as export_close: any failed write, or a failed fclose, means failure */
+    ok = !ferror(file);
+    if (fclose(file) == EOF)
+        ok = 0;
+    file = NULL;
     return ok;
 }
