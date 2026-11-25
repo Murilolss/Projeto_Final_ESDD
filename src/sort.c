@@ -5,24 +5,49 @@
 #include "memory.h"
 
 /* Every sort function returns 1 on success and 0 on failure.
-   Only the Merge Sorts can fail (they allocate memory); the others always return 1. */
+   All of them fail if array or m is NULL; the Merge Sorts also fail when there is
+   not enough memory for the temporary halves. */
+
+/* ---------- Step notification ---------- */
+
+/* Calls the step function of the observer, if there is one.
+   Each call site tests observer != NULL before calling notify: without that test,
+   the benchmarks (observer == NULL) would still pay a function call and read the
+   array for the arguments on every comparison, which made Bubble and Selection Sort
+   2 to 3 times slower. main.c also calls sort_run (observer == NULL) when there is no
+   step function; the test of observer->function here is only a safety check. */
+static void notify(const StepObserver *observer, int kind, int i, int j,
+                   int left_value, int right_value, const int *array, int size)
+{
+    if (observer != NULL && observer->function != NULL)
+        observer->function(kind, i, j, left_value, right_value, array, size,
+                           observer->context);
+}
 
 /* ---------- Bubble Sort ---------- */
-int bubble_sort(int *array, int size, Metrics *m)
+int bubble_sort(int *array, int size, Metrics *m, const StepObserver *observer)
 {
     int i, keep_going, aux;
+
+    if (array == NULL || m == NULL)
+        return 0;
+
     do
     {
         keep_going = 0;
         for (i = 0; i < size - 1; i++)
         {
             m->comparisons++;
+            if (observer != NULL)
+                notify(observer, STEP_COMPARE, i, i + 1, array[i], array[i + 1], array, size);
             if (array[i] > array[i + 1])
             {
                 aux = array[i];
                 array[i] = array[i + 1];
                 array[i + 1] = aux;
                 m->swaps++;
+                if (observer != NULL)
+                    notify(observer, STEP_SWAP, i, i + 1, 0, 0, array, size);
                 keep_going = 1;
             }
         }
@@ -32,24 +57,34 @@ int bubble_sort(int *array, int size, Metrics *m)
 }
 
 /* ---------- Insertion Sort ---------- */
-int insertion_sort(int *array, int size, Metrics *m)
+int insertion_sort(int *array, int size, Metrics *m, const StepObserver *observer)
 {
+    if (array == NULL || m == NULL)
+        return 0;
+
     for (int i = 1; i < size; i++)
     {
         int key = array[i];
         int j = i - 1;
 
-        /* Shifts the elements greater than key one position to the right */
+        /* Shifts the elements greater than key one position to the right.
+           Pass the saved key and its original position (i) even after array[i] changes. */
         while (j >= 0)
         {
             m->comparisons++;
+            if (observer != NULL)
+                notify(observer, STEP_COMPARE, j, i, array[j], key, array, size);
             if (array[j] <= key)
                 break;
             array[j + 1] = array[j];
             m->swaps++;
+            if (observer != NULL)
+                notify(observer, STEP_WRITE, j + 1, j, 0, 0, array, size);
             j = j - 1;
         }
         array[j + 1] = key; /* Inserts key in its correct position */
+        if (j + 1 != i && observer != NULL) /* only when the key really moved */
+            notify(observer, STEP_WRITE, j + 1, -1, 0, 0, array, size);
     }
 
     return 1;
@@ -64,8 +99,10 @@ static int min_int(int a, int b)
 /* Merges array[left..middle] and array[middle+1..right], both already sorted.
    The two halves are copied to temporary arrays allocated on the heap (mem_alloc).
    This is the extra memory of the Merge Sort: n1 + n2 ints, at most size ints at once.
+   size is the size of the whole array (only used to notify the steps).
    Returns 1 on success, 0 if there is not enough memory. */
-static int merge(int *array, int left, int middle, int right, Metrics *m)
+static int merge(int *array, int size, int left, int middle, int right, Metrics *m,
+                 const StepObserver *observer)
 {
     int i, j, k;
     int n1 = middle - left + 1;
@@ -100,10 +137,15 @@ static int merge(int *array, int left, int middle, int right, Metrics *m)
     j = 0;
     k = left;
 
-    /* Copies the smaller of the two fronts back to the original array */
+    /* Copies the smaller of the two fronts back to the original array.
+       Pass the values from the temporary halves and the positions they had before
+       the merge (left + i and middle + 1 + j). */
     while (i < n1 && j < n2)
     {
         m->comparisons++;
+        if (observer != NULL)
+            notify(observer, STEP_COMPARE, left + i, middle + 1 + j,
+                   left_part[i], right_part[j], array, size);
         if (left_part[i] <= right_part[j])
         {
             array[k] = left_part[i];
@@ -115,6 +157,8 @@ static int merge(int *array, int left, int middle, int right, Metrics *m)
             j++;
         }
         m->swaps++;
+        if (observer != NULL)
+            notify(observer, STEP_WRITE, k, -1, 0, 0, array, size);
         k++;
     }
 
@@ -123,6 +167,8 @@ static int merge(int *array, int left, int middle, int right, Metrics *m)
     {
         array[k] = left_part[i];
         m->swaps++;
+        if (observer != NULL)
+            notify(observer, STEP_WRITE, k, -1, 0, 0, array, size);
         i++;
         k++;
     }
@@ -130,6 +176,8 @@ static int merge(int *array, int left, int middle, int right, Metrics *m)
     {
         array[k] = right_part[j];
         m->swaps++;
+        if (observer != NULL)
+            notify(observer, STEP_WRITE, k, -1, 0, 0, array, size);
         j++;
         k++;
     }
@@ -143,8 +191,11 @@ static int merge(int *array, int left, int middle, int right, Metrics *m)
 }
 
 /* ---------- Merge Sort (iterative) ---------- */
-int merge_sort_iterative(int *array, int size, Metrics *m)
+int merge_sort_iterative(int *array, int size, Metrics *m, const StepObserver *observer)
 {
+    if (array == NULL || m == NULL)
+        return 0;
+
     /* current_size is the size of the subarrays being merged (1, 2, 4, 8...) */
     for (int current_size = 1; current_size <= size - 1; current_size = 2 * current_size)
     {
@@ -154,7 +205,7 @@ int merge_sort_iterative(int *array, int size, Metrics *m)
             int middle = min_int(left + current_size - 1, size - 1);
             int right = min_int(left + 2 * current_size - 1, size - 1);
 
-            if (merge(array, left, middle, right, m) == 0)
+            if (merge(array, size, left, middle, right, m, observer) == 0)
                 return 0;
         }
     }
@@ -163,39 +214,48 @@ int merge_sort_iterative(int *array, int size, Metrics *m)
 }
 
 /* ---------- Merge Sort (recursive) ---------- */
-static int merge_sort_rec(int *array, int left, int right, Metrics *m)
+static int merge_sort_rec(int *array, int size, int left, int right, Metrics *m,
+                          const StepObserver *observer)
 {
     if (left < right)
     {
         int middle = left + (right - left) / 2;
 
-        if (merge_sort_rec(array, left, middle, m) == 0)
+        if (merge_sort_rec(array, size, left, middle, m, observer) == 0)
             return 0;
-        if (merge_sort_rec(array, middle + 1, right, m) == 0)
+        if (merge_sort_rec(array, size, middle + 1, right, m, observer) == 0)
             return 0;
 
-        return merge(array, left, middle, right, m);
+        return merge(array, size, left, middle, right, m, observer);
     }
 
     return 1;
 }
 
-int merge_sort_recursive(int *array, int size, Metrics *m)
+int merge_sort_recursive(int *array, int size, Metrics *m, const StepObserver *observer)
 {
-    return merge_sort_rec(array, 0, size - 1, m);
+    if (array == NULL || m == NULL)
+        return 0;
+
+    return merge_sort_rec(array, size, 0, size - 1, m, observer);
 }
 
 /* ---------- Quick Sort (first element as pivot) ---------- */
-static int partition_first(int *array, int start, int end, Metrics *m)
+static int partition_first(int *array, int size, int start, int end, Metrics *m,
+                           const StepObserver *observer)
 {
     int pivot = array[start];
     int i = end + 1; /* Boundary of the elements greater than the pivot */
     int temp;
 
-    /* Walks backwards down to the element right after the pivot */
+    /* Walks backwards down to the element right after the pivot.
+       The pivot stays at position start until the end, so the comparison is
+       notified with that position. */
     for (int j = end; j >= start + 1; j--)
     {
         m->comparisons++;
+        if (observer != NULL)
+            notify(observer, STEP_COMPARE, j, start, array[j], pivot, array, size);
         if (array[j] > pivot)
         {
             i--;
@@ -203,6 +263,8 @@ static int partition_first(int *array, int start, int end, Metrics *m)
             array[i] = array[j];
             array[j] = temp;
             m->swaps++;
+            if (observer != NULL)
+                notify(observer, STEP_SWAP, i, j, 0, 0, array, size);
         }
     }
 
@@ -211,36 +273,64 @@ static int partition_first(int *array, int start, int end, Metrics *m)
     array[i - 1] = array[start];
     array[start] = temp;
     m->swaps++;
+    if (observer != NULL)
+        notify(observer, STEP_SWAP, i - 1, start, 0, 0, array, size);
 
     return (i - 1);
 }
 
-static void quick_sort_first_rec(int *array, int start, int end, Metrics *m)
+/* Only the smaller part goes to the recursion; the bigger part is sorted by the loop,
+   which moves start or end and partitions again. Each recursive call gets at most half
+   of the elements, so the recursion depth is at most log2(n).
+   Without this, a sorted or reversed array puts the pivot at one end every time:
+   the recursion goes n levels deep and overflows the stack (crash with n = 50000).
+   The partitions are the same as in the plain version, so the comparisons and swaps
+   are the same too. */
+static void quick_sort_first_rec(int *array, int size, int start, int end, Metrics *m,
+                                 const StepObserver *observer)
 {
-    if (start < end)
+    while (start < end)
     {
-        int pivot = partition_first(array, start, end, m);
-        quick_sort_first_rec(array, start, pivot - 1, m);
-        quick_sort_first_rec(array, pivot + 1, end, m);
+        int pivot = partition_first(array, size, start, end, m, observer);
+
+        if (pivot - start < end - pivot)
+        {
+            /* left part is smaller */
+            quick_sort_first_rec(array, size, start, pivot - 1, m, observer);
+            start = pivot + 1;
+        }
+        else
+        {
+            /* right part is smaller */
+            quick_sort_first_rec(array, size, pivot + 1, end, m, observer);
+            end = pivot - 1;
+        }
     }
 }
 
-int quick_sort_first_pivot(int *array, int size, Metrics *m)
+int quick_sort_first_pivot(int *array, int size, Metrics *m, const StepObserver *observer)
 {
-    quick_sort_first_rec(array, 0, size - 1, m);
+    if (array == NULL || m == NULL)
+        return 0;
+
+    quick_sort_first_rec(array, size, 0, size - 1, m, observer);
     return 1;
 }
 
 /* ---------- Quick Sort (last element as pivot) ---------- */
-static int partition_last(int *array, int start, int end, Metrics *m)
+static int partition_last(int *array, int size, int start, int end, Metrics *m,
+                          const StepObserver *observer)
 {
     int pivot = array[end];
     int i = start - 1;
     int temp;
 
+    /* The pivot stays at position end until the end of the loop */
     for (int j = start; j <= end - 1; j++)
     {
         m->comparisons++;
+        if (observer != NULL)
+            notify(observer, STEP_COMPARE, j, end, array[j], pivot, array, size);
         if (array[j] < pivot)
         {
             i++;
@@ -248,6 +338,8 @@ static int partition_last(int *array, int start, int end, Metrics *m)
             array[i] = array[j];
             array[j] = temp;
             m->swaps++;
+            if (observer != NULL)
+                notify(observer, STEP_SWAP, i, j, 0, 0, array, size);
         }
     }
 
@@ -256,36 +348,60 @@ static int partition_last(int *array, int start, int end, Metrics *m)
     array[i + 1] = array[end];
     array[end] = temp;
     m->swaps++;
+    if (observer != NULL)
+        notify(observer, STEP_SWAP, i + 1, end, 0, 0, array, size);
 
     return (i + 1);
 }
 
-static void quick_sort_last_rec(int *array, int start, int end, Metrics *m)
+/* Same idea as quick_sort_first_rec: recursion only on the smaller part. */
+static void quick_sort_last_rec(int *array, int size, int start, int end, Metrics *m,
+                                const StepObserver *observer)
 {
-    if (start < end)
+    while (start < end)
     {
-        int pivot = partition_last(array, start, end, m);
-        quick_sort_last_rec(array, start, pivot - 1, m);
-        quick_sort_last_rec(array, pivot + 1, end, m);
+        int pivot = partition_last(array, size, start, end, m, observer);
+
+        if (pivot - start < end - pivot)
+        {
+            /* left part is smaller */
+            quick_sort_last_rec(array, size, start, pivot - 1, m, observer);
+            start = pivot + 1;
+        }
+        else
+        {
+            /* right part is smaller */
+            quick_sort_last_rec(array, size, pivot + 1, end, m, observer);
+            end = pivot - 1;
+        }
     }
 }
 
-int quick_sort_last_pivot(int *array, int size, Metrics *m)
+int quick_sort_last_pivot(int *array, int size, Metrics *m, const StepObserver *observer)
 {
-    quick_sort_last_rec(array, 0, size - 1, m);
+    if (array == NULL || m == NULL)
+        return 0;
+
+    quick_sort_last_rec(array, size, 0, size - 1, m, observer);
     return 1;
 }
 
 /* ---------- Selection Sort ---------- */
-int selection_sort(int *array, int size, Metrics *m)
+int selection_sort(int *array, int size, Metrics *m, const StepObserver *observer)
 {
     int i, j, min_pos, aux;
+
+    if (array == NULL || m == NULL)
+        return 0;
+
     for (i = 0; i < size - 1; i++)
     {
         min_pos = i;
         for (j = i + 1; j < size; j++)
         {
             m->comparisons++;
+            if (observer != NULL)
+                notify(observer, STEP_COMPARE, j, min_pos, array[j], array[min_pos], array, size);
             if (array[j] < array[min_pos])
                 min_pos = j;
         }
@@ -295,6 +411,8 @@ int selection_sort(int *array, int size, Metrics *m)
             array[i] = array[min_pos];
             array[min_pos] = aux;
             m->swaps++;
+            if (observer != NULL)
+                notify(observer, STEP_SWAP, i, min_pos, 0, 0, array, size);
         }
     }
 
@@ -328,10 +446,49 @@ const char *sort_name(int index)
     return algorithms[index].name;
 }
 
+typedef struct
+{
+    const StepObserver *observer;
+    long long baseline;
+    long long peak;
+} SortMemory;
+
+static void record_sort_peak(SortMemory *memory)
+{
+    long long extra = mem_peak() - memory->baseline;
+
+    if (extra > memory->peak)
+        memory->peak = extra;
+}
+
+static void observe_step(int kind, int i, int j, int left_value, int right_value,
+                         const int *array, int size, void *context)
+{
+    SortMemory *memory = context;
+    long long before = mem_current();
+
+    /* Save the peak of the algorithm so far. Then start a new interval and put
+       any change in the observer's allocated bytes into the baseline. */
+    record_sort_peak(memory);
+    memory->observer->function(kind, i, j, left_value, right_value, array, size,
+                               memory->observer->context);
+    memory->baseline += mem_current() - before;
+    mem_reset_peak();
+}
+
 int sort_run(int index, const int *source, int *dest, int size, Metrics *out)
 {
+    /* Nobody watches the steps: the sort runs at full speed */
+    return sort_run_steps(index, source, dest, size, out, NULL);
+}
+
+int sort_run_steps(int index, const int *source, int *dest, int size, Metrics *out,
+                   const StepObserver *observer)
+{
     clock_t start, end;
-    long long baseline;
+    SortMemory memory = {observer, 0, 0};
+    StepObserver measured_observer = {observe_step, &memory};
+    const StepObserver *active_observer = NULL;
     int ok;
 
     if (index < 0 || index >= SORT_COUNT)
@@ -345,17 +502,18 @@ int sort_run(int index, const int *source, int *dest, int size, Metrics *out)
     memcpy(dest, source, size * sizeof(int));
     metrics_init(out, algorithms[index].name);
 
-    /* Extra memory = highest amount allocated during the sort minus what was already
-       allocated before it (the vectors themselves). The recursion stack is not counted:
-       it is not heap memory. */
+    /* Measure the algorithm's extra heap over the buffers already allocated. */
+    if (observer != NULL && observer->function != NULL)
+        active_observer = &measured_observer;
     mem_reset_peak();
-    baseline = mem_current();
+    memory.baseline = mem_current();
 
     start = clock();
-    ok = algorithms[index].function(dest, size, out);
+    ok = algorithms[index].function(dest, size, out, active_observer);
     end = clock();
 
+    record_sort_peak(&memory);
     out->time_ms = (double)(end - start) * 1000.0 / CLOCKS_PER_SEC;
-    out->memory_bytes = mem_peak() - baseline;
+    out->memory_bytes = memory.peak;
     return ok;
 }

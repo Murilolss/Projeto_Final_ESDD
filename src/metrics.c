@@ -16,14 +16,17 @@ void metrics_init(Metrics *m, const char *name)
     m->memory_bytes = 0;
 }
 
-void metrics_print(const Metrics *m, int size)
+void metrics_print(const Metrics *m, int size, const char *data_kind)
 {
     if (m == NULL)
         return;
+    if (data_kind == NULL)
+        data_kind = "-";
 
     printf("\n===== Relatorio de Desempenho =====\n");
     printf("Algoritmo:    %s\n", m->name);
     printf("Itens:        %d\n", size);
+    printf("Dados:        %s\n", data_kind);
     printf("Tempo:        %.3f ms\n", m->time_ms);
     printf("Comparacoes:  %lld\n", m->comparisons);
     printf("Trocas:       %lld\n", m->swaps);
@@ -31,21 +34,25 @@ void metrics_print(const Metrics *m, int size)
     printf("===================================\n");
 }
 
-void metrics_print_table(const Metrics *list, int count, int size)
+void metrics_print_table(const Metrics *list, int count, int size, const char *data_kind)
 {
     if (list == NULL)
         return;
+    if (data_kind == NULL)
+        data_kind = "-";
 
-    printf("\n============================ Metricas dos Metodos de Ordenacao ============================\n");
-    printf("Itens no vetor: %d\n\n", size);
-    printf("%-22s %12s %15s %15s %14s\n", "Algoritmo", "Tempo (ms)", "Comparacoes", "Trocas", "Memoria (B)");
-    printf("-------------------------------------------------------------------------------------------\n");
+    printf("\n============================= Metricas dos Metodos de Ordenacao =============================\n");
+    printf("Itens no vetor: %d\n", size);
+    printf("Dados: %s\n\n", data_kind);
+    printf("%-24s %12s %15s %15s %14s\n", "Algoritmo", "Tempo (ms)", "Comparacoes", "Trocas", "Memoria (B)");
+    printf("---------------------------------------------------------------------------------------------\n");
     for (int i = 0; i < count; i++)
     {
-        printf("%-22s %12.3f %15lld %15lld %14lld\n",
+        printf("%-24s %12.3f %15lld %15lld %14lld\n",
                list[i].name, list[i].time_ms, list[i].comparisons, list[i].swaps,
                list[i].memory_bytes);
     }
-    printf("===========================================================================================\n");
-    printf("Memoria (B) = pico de memoria extra alocada pelo algoritmo, alem do vetor.\n");
+    printf("=============================================================================================\n");
+    printf("Memoria (B) = pico de memoria extra alocada pelo algoritmo, alem do vetor ou da lista.\n");
+    printf("Nas listas, Trocas = nos religados em outra posicao (nenhum valor e copiado).\n");
 }
