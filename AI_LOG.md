@@ -2272,6 +2272,41 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Fez um commit na `ESDD/liliane` com `src/export.c`, `src/export.h`, `src/main.c`, `web/comparativo.html`, `web/comparativo.js`, `web/app.js`, `web/index.html`, `web/styles.css`, `contexto/formato_comparativo.md`, `contexto/TAREFAS.md`, `.gitignore`, `logs/exemplo_comparativo_n10000.json` e o `AI_LOG.md` (#154–#155). Deu push e abriu o PR da `ESDD/liliane` para a `dev`, com pedido de revisão para `Murilolss` e `xXLucasCruzXx`.
 - **Adaptações / correções:** Nenhuma.
 
+
+## #159 — Terça-feira, 24/11/2026
+
+- **Autor:** xXLucasCruzXx
+- **Ferramenta:** Codex
+- **Prompt:**
+  > Pode fazer o push dos commits da T13 e da T14 para a branch ESDD/lucas no GitHub.
+- **Objetivo:** Publicar a implementação da T14 e a decisão da T13 na branch pessoal.
+- **Resposta da IA (resumo):** Publicou `faffa97` e `34337bf` na `ESDD/lucas` e confirmou que o commit remoto corresponde ao local.
+- **Adaptações / correções:** A publicação usou a branch pessoal escolhida pelo Lucas.
+
+## #160 — Terça-feira, 24/11/2026
+
+- **Autor:** xXLucasCruzXx
+- **Ferramenta:** Codex
+- **Prompt:**
+  > Pode abrir um pull request da ESDD/lucas para a dev com a T13 e a T14 e pedir a revisão do Murilo?
+- **Objetivo:** Abrir o PR da decisão da T13 e da implementação da T14 e solicitar a revisão do Murilo.
+- **Resposta da IA (resumo):** Abriu o PR #5 de `ESDD/lucas` para `dev`, com instruções para conferir as barras usando o JSON de exemplo, e verificou o pedido de revisão para `Murilolss`.
+- **Adaptações / correções:** A descrição registra que a conferência do seletor nativo fica para o teste manual.
+
+## #161 — Quarta-feira, 25/11/2026
+
+- **Autor:** xXLucasCruzXx
+- **Ferramenta:** Codex
+- **Prompt:**
+  > analise todos os PR [https://github.com/Murilolss/Projeto_Final_ESDD/pulls?q=is%3Apr+state%3Aclosed](https://github.com/Murilolss/Projeto_Final_ESDD/pulls?q=is%3Apr+state%3Aclosed)
+  >
+  > e aplique ao codigo local todas as mudanças que foram feitas, para deixar o código mais atualizado possivel.
+  >
+  > Em especial observe os pontos que o murilo mencionou em [https://github.com/Murilolss/Projeto_Final_ESDD/pull/5](https://github.com/Murilolss/Projeto_Final_ESDD/pull/5)
+- **Objetivo:** Sincronizar a cópia local com os PRs fechados e conferir os apontamentos do Murilo sobre o PR #5.
+- **Resposta da IA (resumo):** Atualizou a `ESDD/lucas` local até a `dev` em `af06346` e verificou a presença dos merges dos PRs #1 a #9. Confirmou a correção das barras em `613a30e`, a conclusão da T13 e da T14 no espelho e o bloqueio de logs gerados no `.gitignore`. Compilou sem avisos e verificou a reaplicação do log de passos, o comparativo com 13 algoritmos e o limite de 100 elementos da animação Web. Os dois testes pelo menu encerraram com zero bytes não liberados.
+- **Adaptações / correções:** As duas entradas locais foram renumeradas para #159 e #160. O commit citado na entrada #120, `50e8b78`, pertence à antiga branch local. O commit publicado e integrado no PR #5 foi `faffa97`. A nota de sessão registra essa distinção, e o espelho descreve a interface Web adotada no projeto. A verificação de status abrangeu o espelho versionado.
+
 ---
 
 <!--

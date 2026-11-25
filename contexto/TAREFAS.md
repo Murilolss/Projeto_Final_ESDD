@@ -55,7 +55,7 @@ Ordem sugerida: **T12 → T11 → T13 → T14**. A T12 não depende de ninguém,
 
 - **T12 — Fila de testes em lote (batch).** Arquivos `queue.h` / `queue.c`. Fila circular com `start`, `count` e `% capacity` (padrão das aulas, ver [Pilhas_e_Filas_Estaticas.md](slides/Pilhas_e_Filas_Estaticas.md)). Cada item é um algoritmo (índice da tabela `sort_name`/`sort_run` de [src/sort.h](../src/sort.h)) + tamanho de entrada. Opção nova no menu: enfileirar vários testes e rodar todos em sequência, imprimindo as métricas.
 - **T11 — Pilha para Desfazer (Undo).** Arquivos `stack.h` / `stack.c`. Convenção `top` = próxima posição livre (mesmo slide da T12). Empilhar cada troca (índices i e j); desfazer = desempilhar e trocar de volta. A ligação com o menu depende do modo passo a passo (T26).
-- **T13 — Interface Web.** Em 24/11/2026, Lucas escolheu HTML, CSS e JavaScript puro. O navegador lê o JSON exportado pelo programa em C por meio de um seletor de arquivos locais.
+- **T13 — Interface Web.** O projeto adotou HTML, CSS e JavaScript puro, com a decisão incorporada à `dev` pelo PR #5 em 24/11/2026. O navegador lê o JSON exportado pelo programa em C por meio de um seletor de arquivos locais.
 - **T14 — Ler o log exportado e desenhar as barras.** Abra [`web/index.html`](../web/index.html) no navegador e selecione o [JSON de exemplo](../logs/exemplo_bubble_sort_n10.json) em **Abrir JSON**. O gráfico desenha uma barra por elemento de `initial`, na ordem do vetor e com altura proporcional ao valor.
 
 ## Detalhes das tarefas da Liliane
