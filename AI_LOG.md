@@ -2618,6 +2618,16 @@ Contagem até a #182: 180 prompts (182 entradas menos os 2 avisos).
 - **Resposta da IA (resumo):** Commit na `ESDD/murilo` com `docs/DOCUMENTACAO_ENGS.md`, `docs/DOCUMENTACAO_ENGS.pdf` e as entradas #184–#185 do `AI_LOG.md`, seguido de `git push origin ESDD/murilo`.
 - **Adaptações / correções:** Nenhuma. O commit foi feito na branch do integrante, sem tocar na `dev` ou na `main`; a entrada na `dev` segue o fluxo de PR com revisão.
 
+## #186 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > manda para a dev
+- **Objetivo:** Levar a documentação de ENGS para a `dev`.
+- **Resposta da IA (resumo):** Conferido que a `ESDD/murilo` já continha toda a `dev` (só 1 commit à frente) e que o AI_LOG da `dev` termina na #183, sem colisão de números. Aberto o PR #10 (`ESDD/murilo` → `dev`, "Add software engineering documentation (ENGS)") com resumo e lista de revisão (requisitos x código, nomes da capa, histórico de PRs).
+- **Adaptações / correções:** Pelo fluxo da equipe (revisão de outro integrante antes da `dev`), foi aberto um PR em vez de fazer o merge direto, como nos PRs #3 e #6. O `gh pr create` falhou duas vezes com erro do GraphQL do GitHub; o PR foi criado pela API REST (`gh api .../pulls`). O merge fica para depois da revisão.
+
 ---
 
 <!--
