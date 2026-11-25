@@ -2212,6 +2212,26 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Fez um commit na `ESDD/liliane` com `web/app.js`, `web/index.html`, `web/styles.css`, `contexto/TAREFAS.md` e o `AI_LOG.md` (#147–#149), deu push e abriu o PR da `ESDD/liliane` para a `dev`, com pedido de revisão para `Murilolss` e `xXLucasCruzXx`, como no PR #7.
 - **Adaptações / correções:** Nenhuma.
 
+## #150 — Terça-feira, 24/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > confira a revisão do pr e os ajustes à se fazer
+- **Objetivo:** Conferir a revisão do PR #8 (T16) e fazer os ajustes pedidos.
+- **Resposta da IA (resumo):** O Murilo pediu alterações: limitar o passo a passo a no máximo 100 números, porque com N = 1000 a reprodução demora demais e cada quadro pula centenas de passos. A IA perguntou onde aplicar o limite e o que fazer com os passos por quadro. `web/app.js`: `MAX_LOG_SIZE` passou de 1000 para 100, e um log maior é recusado com uma mensagem própria; a animação aplica um passo por quadro, e só a velocidade "Muito rápida" (`FASTEST_SPEED`) junta passos quando o log passa de 1.800. `contexto/formato_log.md`: nota sobre o limite do visualizador. `contexto/TAREFAS.md`: detalhe da T16 atualizado. Testes no Node: o log de N = 1000 foi recusado; logs de N = 100 (Bubble, Insertion e Merge Sort, dados invertidos) chegaram ao final com 1 passo por quadro na velocidade Normal e em cerca de 1.650 quadros na Muito rápida; trocar de Muito rápida para Normal no meio volta a 1 passo por quadro; os 51 testes anteriores continuaram passando.
+- **Adaptações / correções:** O pedido podia valer para o C, para a Web ou para o passo a passo do console. A Liliane escolheu aplicar o limite só na Web, mantendo a exportação do C até N = 1000, e juntar passos só na velocidade "Muito rápida".
+
+## #151 — Terça-feira, 24/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > faça o commit, o push e avise o Murilo no PR
+- **Objetivo:** Fazer commit e push do ajuste da revisão do PR #8 e avisar o Murilo no PR.
+- **Resposta da IA (resumo):** Fez um commit na `ESDD/liliane` com `web/app.js`, `contexto/formato_log.md`, `contexto/TAREFAS.md` e o `AI_LOG.md` (#150–#151) e deu push, o que atualizou o PR #8. Comentou no PR, marcando o Murilo, com o que mudou e como conferir, e pediu de novo a revisão dele.
+- **Adaptações / correções:** Nenhuma.
+
 ---
 
 <!--

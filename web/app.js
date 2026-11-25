@@ -18,11 +18,15 @@ const speedInput = document.querySelector("#speed");
 const speedName = document.querySelector("#speed-name");
 const stepInfo = document.querySelector("#step-info");
 const formatNumber = new Intl.NumberFormat("pt-BR");
-const MAX_LOG_SIZE = 1000; /* same limit as EXPORT_MAX_SIZE in src/export.h */
-const MAX_FRAMES = 1800;   /* T15: a long log applies several steps per frame */
+/* Largest array the viewer replays (PR #8 review). The C program exports up to
+   EXPORT_MAX_SIZE = 1000 (src/export.h), but with N = 1000 a Bubble Sort log has about
+   1.5 million steps, too many to watch. With N <= 100 it has about 15 thousand. */
+const MAX_LOG_SIZE = 100;
+const MAX_FRAMES = 1800;   /* at the fastest speed a long log applies several steps per frame */
 /* T16: pause between frames (ms) and name of each position of the speed slider (1 to 5).
-   At the fastest one a log takes about MAX_FRAMES * 16 ms = 30 s at most. */
+   At the fastest one (the last) a log takes about MAX_FRAMES * 16 ms = 30 s at most. */
 const SPEED_DELAYS = [1000, 400, 150, 50, 16];
+const FASTEST_SPEED = SPEED_DELAYS.length;
 const SPEED_NAMES = ["Muito lenta", "Lenta", "Normal", "Rápida", "Muito rápida"];
 let latestRequest = 0; /* number of the last file read; older reads are ignored */
 let currentLog = null; /* log on screen */
@@ -45,12 +49,16 @@ function parseLog(text) {
     }
 
     if (!log || typeof log.algorithm !== "string" || typeof log.data_kind !== "string" ||
-        !Number.isInteger(log.size) || log.size < 1 || log.size > MAX_LOG_SIZE ||
+        !Number.isInteger(log.size) || log.size < 1 ||
         !Array.isArray(log.initial) || log.initial.length !== log.size ||
         !log.initial.every(value => Number.isSafeInteger(value) && value > 0) ||
         !Array.isArray(log.steps) ||
         !Array.isArray(log.final) || log.final.length !== log.size) {
         throw new Error("O JSON não corresponde a um log de ordenação do projeto.");
+    }
+    if (log.size > MAX_LOG_SIZE) {
+        throw new Error(`O visualizador reproduz vetores de até ${MAX_LOG_SIZE} números, e este ` +
+                        `tem ${formatNumber.format(log.size)}. Exporte o log de um vetor menor.`);
     }
     const badStep = log.steps.findIndex(step => !isValidStep(step, log.size));
     if (badStep !== -1) {
@@ -277,12 +285,17 @@ function stepForward() {
     updateButtons();
 }
 
-/* One frame of the animation. Each frame applies stepsPerFrame steps (1 in logs with up
-   to MAX_FRAMES steps) and paints only the last one. The speed is read at every frame,
-   so moving the slider changes an animation that is already running. */
+/* One frame of the animation. Each frame applies one step, so every step is seen. Only
+   at the fastest speed a log longer than MAX_FRAMES applies several steps per frame and
+   paints only the last one, to end in about 30 s. The speed is read at every frame, so
+   moving the slider changes an animation that is already running. */
 function playFrame() {
     const total = currentLog.steps.length;
-    forward(Math.max(1, Math.ceil(total / MAX_FRAMES)));
+    let count = 1;
+    if (Number(speedInput.value) === FASTEST_SPEED) {
+        count = Math.max(1, Math.ceil(total / MAX_FRAMES));
+    }
+    forward(count);
     if (replay.position >= total) {
         replay.timer = 0;
     } else {
