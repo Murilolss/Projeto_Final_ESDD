@@ -2500,9 +2500,29 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Ferramenta:** Claude Code
 - **Prompt:**
   > Faça a t20
-- **Objetivo:** _(a preencher pelo Claude ao final da resposta)_
-- **Resposta da IA (resumo):** _(a preencher pelo Claude ao final da resposta)_
-- **Adaptações / correções:** _(a preencher pelo Claude ao final da resposta)_
+- **Objetivo:** T20, que é revisar todo o código C contra o padrão da disciplina (TAD opaco, include guards, checagem de `malloc`, `free` + `NULL`, retorno 1/0, validação de `NULL`/limites, convenções de pilha e fila, inglês no código).
+- **Resposta da IA (resumo):** Os 27 arquivos de `src/` foram lidos. A maior parte já seguia o padrão, e o projeto compila sem avisos (`-Wall -Wextra`, também `-pedantic -std=c99`). Correções: `sort.c`/`sort.h` (validação de `NULL` nos 7 algoritmos públicos); `stack.c`/`stack.h` (`cursor` → `top` = próxima posição livre e `top` → `recorded`, com comentários, sem mudar o comportamento); `main.c` (retorno do `scanf` nos submenus, que entravam em laço infinito com a entrada encerrada; retorno de `queue_enqueue`; `++number` fora do `printf`; `main(void)`); `export.c` (`NULL` de `localtime`); comentários de contrato em `queue.h` e `metrics.h`; `step_view.c` (`while (1)` e a condição do ENTER dividida). Testes: programa no scratchpad com as 7 ordenações em 3 tipos de dados e tamanhos de 1 a 300, `NULL`, e push/undo/redo/pop da pilha (0 falhas); o `main.exe` rodou com entrada simulada (EOF nos submenus, lote, exportação, passo a passo com desfazer), sempre com 0 bytes não liberados; a saída do passo a passo ficou idêntica à da versão anterior. `contexto/TAREFAS.md`: T20 em andamento com Murilo, mais a seção de detalhes, e o espelho foi sincronizado com o quadro (T17 concluída pelo PR #9; responsáveis de T18–T24). No quadro, a T20 já estava com o Murilo e não concluída, então nada mudou.
+- **Adaptações / correções:** O Claude não removeu as funções sem uso (`stack_pop`, `stack_undo_swap`, `sequential_search`) nem renumerou as opções 8/9 do menu: essas decisões ficam para a equipe. A T20 só vira concluída depois da revisão de outro integrante.
+
+## #178 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > pode mandar direto para a dev
+- **Objetivo:** Levar a `ESDD/murilo` para a `dev` sem abrir PR.
+- **Resposta da IA (resumo):** A `dev` não tinha nenhum commit que faltasse na `ESDD/murilo` (estava 0 commits atrás e 17 à frente) e não havia PR aberto. Então o Claude avançou a `dev` com `git push origin ESDD/murilo:dev` (fast-forward `af06346..a26b872`) e atualizou a `dev` local com `git fetch origin dev:dev`, sem trocar de branch. A `dev` passou a ter a configuração do VS Code (#173), a saída de `contexto/pdfs/` e `contexto/slides/` do git (#174) e a documentação ajustada (#175–#176). A numeração do AI_LOG não colidiu: a `dev` ia até a #155.
+- **Adaptações / correções:** Nesse momento, outra sessão fazia a T20 (#177) e tinha mudanças sem commit em `src/` (export.c, main.c, metrics.h, queue.h, sort.c/.h, stack.c/.h, step_view.c). O Claude não trocou de branch nem fez commit dessas mudanças, então só foi para a `dev` o que já estava commitado. Este registro (#178) ficou sem commit, junto com a #177, para não misturar com o trabalho da T20. O usuário pediu o merge direto, o que é uma exceção à regra de PR com revisão (memória "merge-direto-na-dev").
+
+## #179 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > Faça o push e comita direto na dev
+- **Objetivo:** Publicar a revisão da T20 (#177) e levá-la para a `dev` sem PR.
+- **Resposta da IA (resumo):** A `origin/dev` (`a26b872`) era ancestral da `ESDD/murilo`, então não houve merge. O Claude commitou o AI_LOG (#177–#179) na `ESDD/murilo`, avançou a `dev` local por fast-forward até o mesmo commit e fez o push das duas branches.
+- **Adaptações / correções:** O usuário pediu explicitamente para pular o PR. Com isso, a revisão de outro integrante (regra do CLAUDE.md) não aconteceu antes da `dev`, e por esse motivo a T20 continua "em andamento" no quadro e no `TAREFAS.md` até alguém revisar o commit `71169bc`.
 
 ---
 
