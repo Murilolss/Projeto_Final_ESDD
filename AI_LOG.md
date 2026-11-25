@@ -2588,6 +2588,16 @@ Contagem até a #182: 180 prompts (182 entradas menos os 2 avisos).
   - **Deck** (https://claude.ai/artifact/5tkV4xJ97wBx5fHhJApAuy): no slide "As IAs que usamos", "140+ prompts" passou a "180+ prompts". Só esse slide mudou.
 - **Adaptações / correções:** "180+" bate com a contagem: 182 entradas menos os 2 avisos dão 180 prompts. Fica pendente para o Matheus registrar os prompts dele à mão.
 
+## #183 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > faça o push e manda direto na dev
+- **Objetivo:** Publicar a T21 (#182) e levá-la para a `dev` sem PR.
+- **Resposta da IA (resumo):** A `origin/dev` (`bada119`) era ancestral da `ESDD/murilo`, então não houve merge. O Claude commitou este registro (#183) na `ESDD/murilo`, fez o push e avançou a `dev` remota por fast-forward até o mesmo commit.
+- **Adaptações / correções:** O usuário pediu explicitamente para pular o PR. Por isso a T21, como a T20 e a T22, continua "em andamento" até outro integrante revisar o commit `9c5e5c1`.
+
 ---
 
 <!--
