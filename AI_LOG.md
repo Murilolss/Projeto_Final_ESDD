@@ -2302,6 +2302,26 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Fez um commit na `ESDD/liliane` com `contexto/memory/2026-11-24_sessao-15_interface-t15-t16-t17.md` e o `AI_LOG.md` (#157–#158) e deu push para `origin/ESDD/liliane`.
 - **Adaptações / correções:** Nenhuma.
 
+## #159 — Quarta-feira, 25/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > /atualizar-branch
+- **Objetivo:** Trazer para a `ESDD/liliane` o que já foi integrado na `dev`.
+- **Resposta da IA (resumo):** O `git pull origin dev` foi abortado pelo Git porque o `AI_LOG.md` tinha uma alteração local não commitada (esta entrada). A `dev` tem 27 commits novos (até o PR #10, AI_LOG até #187). Nada foi mesclado nem enviado, e nenhum arquivo do projeto mudou.
+- **Adaptações / correções:** A IA parou e pediu à usuária que decidisse como seguir. A numeração desta entrada (#159) colide com a da `dev`, que já passa do #187.
+
+## #160 — Quarta-feira, 25/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > pode fazer a opção 1 e renumerar a entrada
+- **Objetivo:** _(a preencher pelo Claude ao final da resposta)_
+- **Resposta da IA (resumo):** _(a preencher pelo Claude ao final da resposta)_
+- **Adaptações / correções:** _(a preencher pelo Claude ao final da resposta)_
+
 ---
 
 <!--
