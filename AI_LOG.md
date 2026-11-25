@@ -2598,6 +2598,46 @@ Contagem até a #182: 180 prompts (182 entradas menos os 2 avisos).
 - **Resposta da IA (resumo):** A `origin/dev` (`bada119`) era ancestral da `ESDD/murilo`, então não houve merge. O Claude commitou este registro (#183) na `ESDD/murilo`, fez o push e avançou a `dev` remota por fast-forward até o mesmo commit.
 - **Adaptações / correções:** O usuário pediu explicitamente para pular o PR. Por isso a T21, como a T20 e a T22, continua "em andamento" até outro integrante revisar o commit `9c5e5c1`.
 
+## #184 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > Prontuario não precisa colocar, atualize e gere o pdf
+- **Objetivo:** Tirar os prontuários da capa da documentação de ENGS e gerar o PDF.
+- **Resposta da IA (resumo):** Em `docs/DOCUMENTACAO_ENGS.md`: a tabela de prontuários virou uma lista com os 4 integrantes, o link do repositório (do `git remote`) substituiu o "(preencher)", o cabeçalho YAML foi removido e as linhas da capa foram separadas em parágrafos. Gerado `docs/DOCUMENTACAO_ENGS.pdf` (18 páginas A4): conversão do Markdown para HTML com a biblioteca `markdown` do Python e impressão em PDF pelo Chrome sem janela, com um CSS de impressão (capa centralizada, tabelas com cabeçalho, blocos de código monoespaçados). As páginas foram renderizadas em imagem e conferidas.
+- **Adaptações / correções:** Sem pandoc nem LaTeX na máquina, as bibliotecas `markdown` e `pymupdf` foram instaladas só na pasta temporária da sessão, e o script de conversão ficou fora do repositório.
+
+## #185 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > faz o commit e o push
+- **Objetivo:** Commitar e enviar ao GitHub a documentação de ENGS (`.md` e PDF).
+- **Resposta da IA (resumo):** Commit na `ESDD/murilo` com `docs/DOCUMENTACAO_ENGS.md`, `docs/DOCUMENTACAO_ENGS.pdf` e as entradas #184–#185 do `AI_LOG.md`, seguido de `git push origin ESDD/murilo`.
+- **Adaptações / correções:** Nenhuma. O commit foi feito na branch do integrante, sem tocar na `dev` ou na `main`; a entrada na `dev` segue o fluxo de PR com revisão.
+
+## #186 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > manda para a dev
+- **Objetivo:** Levar a documentação de ENGS para a `dev`.
+- **Resposta da IA (resumo):** Conferido que a `ESDD/murilo` já continha toda a `dev` (só 1 commit à frente) e que o AI_LOG da `dev` termina na #183, sem colisão de números. Aberto o PR #10 (`ESDD/murilo` → `dev`, "Add software engineering documentation (ENGS)") com resumo e lista de revisão (requisitos x código, nomes da capa, histórico de PRs).
+- **Adaptações / correções:** Pelo fluxo da equipe (revisão de outro integrante antes da `dev`), foi aberto um PR em vez de fazer o merge direto, como nos PRs #3 e #6. O `gh pr create` falhou duas vezes com erro do GraphQL do GitHub; o PR foi criado pela API REST (`gh api .../pulls`). O merge fica para depois da revisão.
+
+## #187 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > faz o merge na dev
+- **Objetivo:** Fazer o merge do PR #10 (documentação de ENGS) na `dev`.
+- **Resposta da IA (resumo):** Esta entrada foi commitada e enviada à `ESDD/murilo` antes do merge, para entrar no PR. Depois, merge do PR #10 na `dev` pelo GitHub (merge commit, como nos PRs anteriores).
+- **Adaptações / correções:** O merge foi feito sem a revisão de outro integrante, a pedido explícito do usuário (o fluxo normal pede revisão antes da `dev`).
+
 ---
 
 <!--
