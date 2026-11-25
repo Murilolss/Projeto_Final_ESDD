@@ -2148,6 +2148,16 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Leu o commit novo da Liliane (`b03da6d`) e o comentário dela no PR. Mudanças: `MAX_LOG_SIZE` de 1000 para 100 em `web/app.js`, com uma mensagem própria para logs maiores, e animação com 1 passo por quadro em todas as velocidades, menos na "Muito rápida". Também atualizou `contexto/formato_log.md`, `contexto/TAREFAS.md` e o AI_LOG (#150–#151). Conferiu a sintaxe com `node --check` e testou num DOM simulado: um log com N = 101 é recusado com a mensagem nova; um Bubble Sort com N = 100 e dados invertidos (14.850 passos) chega ao `final` em "Normal" com 14.850 quadros (cerca de 37 min) e em "Muito rápida" com 1.650 quadros (cerca de 26 s). O PR está `MERGEABLE`/`CLEAN` e contém a `dev` atual. Conclusão: a alteração pedida foi feita e pode ser aprovada. O único ponto é o tempo em "Normal" com logs grandes, por causa do fim do agrupamento de passos. Nada foi publicado no GitHub.
 - **Adaptações / correções:** A revisão #139 só pedia o limite de 100 números. A mudança de 1 passo por quadro veio do motivo citado na revisão ("cada quadro ainda pula centenas de passos"). Ficou para o Murilo decidir se aprova assim ou se pede para manter o agrupamento também em "Rápida".
 
+## #144 — Terça-feira, 24/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > pode aprovar o PR
+- **Objetivo:** Aprovar o PR #8 (T16) no GitHub.
+- **Resposta da IA (resumo):** Conferiu que o PR continuava no commit revisado (`b03da6d`) e publicou, pela conta do Murilo, uma revisão "Approve", com o resumo dos testes da revisão #143 (log com N = 101 recusado; Bubble Sort com N = 100 invertido chegando ao `final` em "Normal" e em "Muito rápida"). O PR ficou com a decisão `APPROVED`. Nenhum arquivo do projeto mudou, além desta entrada.
+- **Adaptações / correções:** O merge não foi feito, porque não foi pedido; fica com a Liliane, como no PR #7. Ao fazer o merge, a T16 deve virar "concluída" no `contexto/TAREFAS.md` e no quadro.
+
 ---
 
 <!--
