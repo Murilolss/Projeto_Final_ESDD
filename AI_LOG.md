@@ -2168,6 +2168,16 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Leu o diff inteiro: `export_report` em `src/export.c`/`.h`, o vetor `structures[]` e a pergunta de exportação em `menu_compare_all` (`src/main.c`), `web/comparativo.html`/`.js`, o CSS, o aviso cruzado em `web/app.js`, `contexto/formato_comparativo.md`, o exemplo em `logs/`, o `.gitignore` e o `TAREFAS.md`. Numa cópia temporária da branch (git worktree no scratchpad, removida depois): compilou com `gcc -Wall -Wextra` sem avisos; rodou o menu com N = 10.000 aleatório, opção 3 e `Sim`, e o arquivo `logs/comparativo_n10000_...json` saiu com 13 resultados, JSON válido e "Memoria nao liberada: 0 bytes"; fora da raiz, o programa avisou que não conseguiu gravar. Testou o leitor da página no Node: aceitou o exemplo, o arquivo gerado e um arquivo com BOM, e recusou o log de passos com a indicação da página Animação. O PR está `MERGEABLE`/`CLEAN` e contém a `dev` com o PR #8. Conclusão: pode aprovar. Detalhes não obrigatórios: o BOM está como caractere invisível no regex (o `app.js` usa `﻿`); o texto "o `clock()` avança de cerca de 10 em 10 ms" não bateu com esta máquina (saíram 1, 3 e 7 ms); o tooltip mistura `innerHTML` e `textContent` (seguro, porque os textos são fixos). Nada foi publicado no GitHub.
 - **Adaptações / correções:** A página não foi aberta num navegador de verdade; o PR já trazia capturas no Edge headless. O arquivo do comparativo gerado no teste ficou só na cópia temporária, já apagada.
 
+## #146 — Terça-feira, 24/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > pode aprovar o PR
+- **Objetivo:** Aprovar o PR #9 (T17) no GitHub.
+- **Resposta da IA (resumo):** Conferiu que o PR continuava no commit revisado (`03433de`) e publicou, pela conta do Murilo, uma revisão "Approve" com o resumo dos testes da revisão #145 (compilação sem avisos, JSON válido com N = 10.000, aviso fora da raiz e leitura na página). O PR ficou com a decisão `APPROVED`. Nenhum arquivo do projeto mudou, além desta entrada.
+- **Adaptações / correções:** Os três detalhes da revisão #145 (BOM invisível no regex, texto dos 10 ms do `clock()` e o `innerHTML` do tooltip) não foram comentados no PR, porque o pedido foi só aprovar. O merge fica com a Liliane, que depois marca a T17 como concluída no `TAREFAS.md` e no quadro.
+
 ---
 
 <!--
