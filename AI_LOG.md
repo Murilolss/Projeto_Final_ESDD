@@ -2104,6 +2104,16 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Publicou no PR #8, pela conta do Murilo, uma revisão "Changes requested" com uma única alteração: limitar o modo passo a passo (a reprodução do visualizador Web) a no máximo 100 números. A justificativa: com N = 1000 o log passa de 1,4 milhão de passos, e na velocidade "Muito lenta" a reprodução leva cerca de 30 min, pulando centenas de passos por quadro. Nenhum arquivo do projeto mudou, além desta entrada.
 - **Adaptações / correções:** Os outros detalhes da revisão #138 (redundância no `loadLog`, `Number(...)`, `aria-valuetext`, log sem passos, texto da T15 no `TAREFAS.md`) ficaram de fora do pedido, como o Murilo quis. A forma de tratar logs com mais de 100 números (recusar ou só desenhar sem os controles) ficou a critério da Liliane.
 
+## #140 — Terça-feira, 24/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > Claude crie uma apresentação simples de introdução ao projeto, quais IAs foram utilizadas, como o projeto foi estruturado, a apresentação será feita por 3 etapas, introdução, código no vscode e mostrando como funciona o html de metricas crie essa apresentação em artefato mesmo
+- **Objetivo:** Criar, como artefato do claude.ai, uma apresentação simples do projeto em três etapas: introdução (inclusive as IAs usadas e a estrutura do projeto), código no VS Code e demonstração do HTML de métricas.
+- **Resposta da IA (resumo):** Criou o deck "Apresentação — Projeto Final ESDD" (https://claude.ai/artifact/5tkV4xJ97wBx5fHhJApAuy), com 13 slides e notas do apresentador. Abertura: capa e roteiro das três etapas. Etapa 1: o que o projeto faz, as IAs (Claude Code com o Murilo e a Liliane, Codex com o Lucas, mais de 140 prompts no AI_LOG.md, hook e CLAUDE.md), o fluxo de branches e PRs com a divisão da equipe e a tabela dos módulos de `src/` e `web/`. Etapa 2: o padrão TAD com um trecho do `src/stack.h` e o roteiro de arquivos para abrir no VS Code, com o comando do `gcc`. Etapa 3: o caminho do menu em C ao `logs/*.json` e ao `web/index.html`, a legenda de cores, o trecho do JSON de exemplo e o roteiro da demonstração no navegador. Encerramento com o link do repositório. O visual usa as cores do `web/styles.css`, como o Murilo escolheu. Nenhum arquivo do projeto mudou, além desta entrada.
+- **Adaptações / correções:** A tela comparativa de métricas (T17) ainda está pendente, e os controles de reprodução (T16, PR #8) estão esperando a alteração para no máximo 100 números. O slide do roteiro web cita os dois, e a nota do apresentador pede para conferir se já estão na `dev` antes da apresentação. O número de prompts aparece como "140+" para não ficar desatualizado.
+
 ---
 
 <!--
