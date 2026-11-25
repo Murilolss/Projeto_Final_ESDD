@@ -2,6 +2,8 @@
 #include "memory.h"
 #include "stack.h"
 
+/* One element of the stack: a swap of positions.first and positions.second, or
+   (is_write = 1) a write at positions.first that changed old_value to new_value. */
 typedef struct
 {
     SwapIndices positions;
@@ -15,8 +17,8 @@ typedef struct
 struct Stack
 {
     ArrayChange *changes;
-    int top; /* Index of the next free slot after all recorded changes. */
-    int cursor; /* Index of the next change to replay. */
+    int top;      /* next free position: the latest applied change is at top - 1 */
+    int recorded; /* changes kept: from top to recorded - 1 are the undone ones (redo) */
     int capacity;
 };
 
@@ -38,8 +40,8 @@ int stack_create(int initial_capacity, Stack **out)
         return 0;
     }
 
+    stack->recorded = 0;
     stack->top = 0;
-    stack->cursor = 0;
     stack->capacity = initial_capacity;
     *out = stack;
     return 1;
@@ -55,6 +57,8 @@ void stack_destroy(Stack **stack)
     *stack = NULL;
 }
 
+/* Doubles the capacity with mem_realloc (at most STACK_MAX_CAPACITY).
+   Returns 1 on success, 0 if the stack cannot grow. */
 static int stack_grow(Stack *stack)
 {
     int new_capacity;
@@ -78,16 +82,18 @@ static int stack_grow(Stack *stack)
     return 1;
 }
 
+/* Puts change at position top and moves top up. The undone changes above top are
+   discarded (recorded = top): after a new change they can no longer be replayed. */
 static int push_change(Stack *stack, ArrayChange change)
 {
     if (stack == NULL)
         return 0;
-    if (stack->cursor == stack->capacity && stack_grow(stack) == 0)
+    if (stack->top == stack->capacity && stack_grow(stack) == 0)
         return 0;
 
-    stack->changes[stack->cursor] = change;
-    stack->cursor++;
-    stack->top = stack->cursor;
+    stack->changes[stack->top] = change;
+    stack->top++;
+    stack->recorded = stack->top;
     return 1;
 }
 
@@ -110,16 +116,19 @@ int stack_push_write(Stack *stack, int index, int old_value, int new_value)
 
 int stack_pop(Stack *stack, SwapIndices *out)
 {
-    if (stack == NULL || out == NULL || stack->cursor == 0 ||
-        stack->changes[stack->cursor - 1].is_write)
+    if (stack == NULL || out == NULL || stack->top == 0 ||
+        stack->changes[stack->top - 1].is_write)
         return 0;
 
-    stack->cursor--;
-    stack->top = stack->cursor;
-    *out = stack->changes[stack->cursor].positions;
+    stack->top--;
+    stack->recorded = stack->top;
+    *out = stack->changes[stack->top].positions;
     return 1;
 }
 
+/* Applies change to array: forward = 1 replays it, forward = 0 undoes it.
+   A swap is the same in both directions; a write puts back old_value or new_value.
+   Returns 0 if a position is outside the array (the array is not changed). */
 static int apply_change(const ArrayChange *change, int *array, int size, int forward)
 {
     int first = change->positions.first;
@@ -145,30 +154,30 @@ static int apply_change(const ArrayChange *change, int *array, int size, int for
 
 int stack_undo_change(Stack *stack, int *array, int size, SwapIndices *out)
 {
-    if (stack == NULL || stack->cursor == 0 || out == NULL)
+    if (stack == NULL || stack->top == 0 || out == NULL)
         return 0;
-    if (!apply_change(&stack->changes[stack->cursor - 1], array, size, 0))
+    if (!apply_change(&stack->changes[stack->top - 1], array, size, 0))
         return 0;
 
-    stack->cursor--;
-    *out = stack->changes[stack->cursor].positions;
+    stack->top--;
+    *out = stack->changes[stack->top].positions;
     return 1;
 }
 
 int stack_has_redo(const Stack *stack)
 {
-    return stack != NULL && stack->cursor < stack->top;
+    return stack != NULL && stack->top < stack->recorded;
 }
 
 int stack_redo_change(Stack *stack, int *array, int size, SwapIndices *out)
 {
     if (!stack_has_redo(stack) || out == NULL)
         return 0;
-    if (!apply_change(&stack->changes[stack->cursor], array, size, 1))
+    if (!apply_change(&stack->changes[stack->top], array, size, 1))
         return 0;
 
-    *out = stack->changes[stack->cursor].positions;
-    stack->cursor++;
+    *out = stack->changes[stack->top].positions;
+    stack->top++;
     return 1;
 }
 
@@ -176,11 +185,11 @@ int stack_undo_swap(Stack *stack, int *array, int size)
 {
     SwapIndices positions;
 
-    if (stack == NULL || stack->cursor == 0 || stack->changes[stack->cursor - 1].is_write)
+    if (stack == NULL || stack->top == 0 || stack->changes[stack->top - 1].is_write)
         return 0;
     if (!stack_undo_change(stack, array, size, &positions))
         return 0;
 
-    stack->top = stack->cursor;
+    stack->recorded = stack->top;
     return 1;
 }

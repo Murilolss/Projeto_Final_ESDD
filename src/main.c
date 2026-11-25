@@ -41,7 +41,7 @@ static void menu_kind(int *vector, int size, int *data_kind);
 static void menu_benchmark(void);
 static void menu_batch(int data_kind);
 
-int main()
+int main(void)
 {
     int size = 0;
     int data_kind;
@@ -394,7 +394,8 @@ static int menu_sort(const int *vector, int size, int data_kind)
         printf("--------------------------------------------\n");
         printf("Digite uma opcao: ");
         choice = 0;
-        scanf("%d", &choice);
+        if (scanf("%d", &choice) == EOF)
+            choice = exit_option; /* end of the input: nothing else can be typed */
         clear_input();
 
         if (choice >= 1 && choice <= SORT_COUNT)
@@ -480,7 +481,8 @@ static int menu_list_sort(const int *vector, int size, int data_kind)
         printf("-----------------------------------\n");
         printf("Digite uma opcao: ");
         choice = 0;
-        scanf("%d", &choice);
+        if (scanf("%d", &choice) == EOF)
+            choice = exit_option; /* end of the input: nothing else can be typed */
         clear_input();
 
         if (choice >= 1 && choice <= SLIST_SORT_COUNT)
@@ -775,8 +777,9 @@ static void run_batch(Queue *queue, int data_kind)
         int *source;
         int *copy = NULL;
 
+        number++;
         printf("\n--- Teste %d/%d: %s (N = %d) ---\n",
-               ++number, total, sort_name(test.sort_index), test.size);
+               number, total, sort_name(test.sort_index), test.size);
         fflush(stdout);
 
         source = vector_create(test.size);
@@ -858,8 +861,10 @@ static void menu_batch(int data_kind)
             continue;
         }
 
-        queue_enqueue(queue, test);
-        printf("Teste enfileirado (%d/%d).\n", queue_count(queue), BATCH_CAPACITY);
+        if (queue_enqueue(queue, test) == 1)
+            printf("Teste enfileirado (%d/%d).\n", queue_count(queue), BATCH_CAPACITY);
+        else
+            printf("Nao foi possivel enfileirar o teste.\n");
     }
 
     queue_destroy(&queue);

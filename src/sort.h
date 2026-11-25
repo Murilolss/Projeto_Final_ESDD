@@ -44,7 +44,8 @@ typedef int (*SortFunction)(int *array, int size, Metrics *m, const StepObserver
 
 /* Each algorithm sorts the array in place, counting comparisons and swaps in m, and
    notifies every step to observer (which can be NULL).
-   Returns 1 on success, 0 on failure (only the Merge Sorts can fail: out of memory). */
+   Returns 1 on success, 0 on failure: array or m is NULL, or (only in the Merge Sorts)
+   there is not enough memory. */
 int bubble_sort(int *array, int size, Metrics *m, const StepObserver *observer);
 int insertion_sort(int *array, int size, Metrics *m, const StepObserver *observer);
 int merge_sort_iterative(int *array, int size, Metrics *m, const StepObserver *observer);

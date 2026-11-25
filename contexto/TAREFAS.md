@@ -7,16 +7,16 @@ Cópia em texto do quadro **"Plano Projeto ESDD"**: https://claude.ai/artifact/G
   - O Claude atualiza o quadro (`ArtifactData`, coleção `tasks`) e este arquivo juntos.
   - Quem usa o Codex edita este arquivo, commita na sua `ESDD/<nome>` e marca a tarefa no quadro pelo navegador. Sem conta no claude.ai, avise o Murilo para ele marcar.
 - Status: `concluída`, `em andamento` ou `pendente`. A tarefa só vira `concluída` depois da revisão de outro integrante.
-- Atualizado em: 24/11/2026 (T26 e T10 concluídas com o PR #2, T11 com o PR #4, T13 e T14 com o PR #5, T15 com o PR #7, T16 com o PR #8; T17 em andamento).
+- Atualizado em: 25/11/2026 (T26 e T10 concluídas com o PR #2, T11 com o PR #4, T13 e T14 com o PR #5, T15 com o PR #7, T16 com o PR #8, T17 com o PR #9; T20 em andamento; responsáveis de T18–T24 copiados do quadro).
 
 ## Por integrante
 
 | Integrante | Ferramenta | Branch | Tarefas abertas |
 |---|---|---|---|
-| Murilo | Claude Code | `ESDD/murilo` | nenhuma (fases 1 e 2 concluídas) |
-| Lucas | Codex | `ESDD/lucas` | nenhuma (T11, T12, T13 e T14 concluídas) |
-| Liliane | Claude Code | `ESDD/liliane` | T17 |
-| Sem responsável | — | — | T18–T24 |
+| Murilo | Claude Code | `ESDD/murilo` | T20, T21, T23, T24 |
+| Lucas | Codex | `ESDD/lucas` | T22, T23 |
+| Liliane | Claude Code | `ESDD/liliane` | T23 |
+| Matheus | Claude Web | — | T18, T19 |
 
 ## Lista completa
 
@@ -40,14 +40,14 @@ Cópia em texto do quadro **"Plano Projeto ESDD"**: https://claude.ai/artifact/G
 | T14 | 4. Interface visual | Ler o log exportado e desenhar as barras | Lucas | concluída | T10 (formato do log), T13 |
 | T15 | 4. Interface visual | Animar comparações e trocas com cores distintas | Liliane | concluída | T14 |
 | T16 | 4. Interface visual | Controles de reprodução | Liliane | concluída | T14 |
-| T17 | 4. Interface visual | Tela comparativa das métricas | Liliane | em andamento | T13 |
-| T18 | 5. Extra: hash | Tabela hash com encadeamento exterior (extra) | — | pendente | |
-| T19 | 5. Extra: hash | Buscar relatórios anteriores pelo menu (extra) | — | pendente | T18 |
-| T20 | 6. Revisão | Revisar o padrão da disciplina em todo o código | — | pendente | |
-| T21 | 6. Revisão | Revisar o AI_LOG.md | — | pendente | |
-| T22 | 7. Testes e arguição | Testar casos-limite | — | pendente | |
-| T23 | 7. Testes e arguição | Ensaiar a arguição individual | — | pendente | |
-| T24 | 7. Testes e arguição | Fazer a entrega (02/12) | — | pendente | |
+| T17 | 4. Interface visual | Tela comparativa das métricas | Liliane | concluída | T13 |
+| T18 | 5. Extra: hash | Tabela hash com encadeamento exterior (extra) | Matheus | pendente | |
+| T19 | 5. Extra: hash | Buscar relatórios anteriores pelo menu (extra) | Matheus | pendente | T18 |
+| T20 | 6. Revisão | Revisar o padrão da disciplina em todo o código | Murilo | em andamento | |
+| T21 | 6. Revisão | Revisar o AI_LOG.md | Murilo | pendente | |
+| T22 | 7. Testes e arguição | Testar casos-limite | Lucas | pendente | |
+| T23 | 7. Testes e arguição | Ensaiar a arguição individual | Murilo, Liliane e Lucas | pendente | |
+| T24 | 7. Testes e arguição | Fazer a entrega (02/12) | Murilo | pendente | |
 
 ## Detalhes das tarefas do Lucas
 
@@ -63,3 +63,13 @@ Ordem sugerida: **T12 → T11 → T13 → T14**. A T12 não depende de ninguém,
 - **T15 — Animar comparações e trocas com cores distintas.** Em [`web/`](../web/), o botão **Reproduzir** parte do `initial` e reaplica os passos do log em ordem. `compare` pinta as duas barras de amarelo e mostra `value_i` e `value_j`, `swap` pinta de vermelho e troca as alturas, e `write` pinta de azul e muda a altura da barra `i`. No fim, o vetor reaplicado é conferido com o `final`: se bater, todas as barras ficam verdes; se não bater, a página avisa que o log pode estar incompleto. A animação dura no máximo cerca de 30 s; num log com mais de 1.800 passos, cada quadro aplica vários passos e pinta só o último. Passos com tipo ou posição inválidos são rejeitados ao abrir o arquivo.
 - **T16 — Controles de reprodução.** Abaixo do status, em [`web/`](../web/): **Reproduzir/Pausar/Continuar** (um só botão), **◀ Passo** e **Passo ▶** (um passo exato, pausando a animação), **Reiniciar** (volta ao vetor inicial) e um controle de **Velocidade** com cinco posições, de 1 s a 16 ms por quadro, que muda a animação mesmo com ela rodando. A reprodução guarda a posição no log (`replay.position`). Voltar um passo reconstrói o vetor a partir do `initial`, reaplicando os passos até a posição anterior: os passos não têm "desfazer", e assim o código fica simples. Depois da revisão do PR #8, o visualizador aceita logs de até 100 números (o C continua exportando até 1000), e a animação mostra um passo por quadro em todas as velocidades, menos na "Muito rápida": nela, um log com mais de 1.800 passos junta vários passos por quadro para terminar em cerca de 30 s.
 - **T17 — Tela comparativa das métricas.** No C, a opção **Comparar todos os algoritmos** pergunta se exporta o comparativo (`export_report` em `src/export.c`) para `logs/comparativo_n<N>_<data>_<hora>.json`, com tempo, comparações, trocas e memória extra dos 7 algoritmos do vetor e dos 2 de cada lista. Na Web, a página [`web/comparativo.html`](../web/comparativo.html) (link **Comparativo** no topo) abre esse arquivo, mostra um gráfico de barras para a métrica escolhida, agrupado por estrutura, e uma tabela com todas as métricas. Formato em [formato_comparativo.md](formato_comparativo.md); exemplo em [`logs/exemplo_comparativo_n10000.json`](../logs/exemplo_comparativo_n10000.json).
+
+## Detalhes das tarefas do Murilo
+
+- **T20 — Revisar o padrão da disciplina em todo o código.** Em 25/11/2026 os 27 arquivos de `src/` foram conferidos contra as regras do [CLAUDE.md](../CLAUDE.md). Já estava certo: TAD em `.h`/`.c` com `typedef struct X X;` opaco, include guards, nenhum `#include "*.c"`, todo `mem_alloc` checado, `free` seguido de `= NULL`, retorno `int` 1/0 com ponteiro de saída, fila circular com `start` + `count` + `% capacity`, lista dupla com `head` e `tail`, identificadores e comentários em inglês e textos do menu sem acento. O projeto compila sem avisos com `-Wall -Wextra` e também com `-pedantic -std=c99`. Correções feitas:
+  - `sort.c`: os 7 algoritmos públicos agora retornam 0 se `array` ou `m` for `NULL` (as listas já faziam isso).
+  - `stack.c`: o campo que era o topo de fato se chamava `cursor`, e `top` guardava o fim do histórico de refazer. Agora `top` é a próxima posição livre (convenção da aula) e `recorded` marca até onde há alterações para refazer. O comportamento não mudou; `stack.h` e as funções internas ganharam comentários.
+  - `main.c`: os submenus de ordenação checam o retorno do `scanf` (com a entrada encerrada, o laço ficava infinito), o retorno de `queue_enqueue` é verificado, o `++number` saiu de dentro do `printf` e `main()` virou `main(void)`.
+  - `export.c`: checa o `NULL` de `localtime` antes do `strftime`.
+  - `queue.h` e `metrics.h`: comentários de contrato que faltavam. `step_view.c`: `for (;;)` virou `while (1)` e a condição do ENTER foi dividida em duas, com comentários.
+  - Fica para a equipe decidir: `stack_pop`, `stack_undo_swap` e `sequential_search` (`search.c`) não são chamadas em lugar nenhum; no menu principal, a opção 9 (Fila) aparece antes da 8 (Encerrar).
