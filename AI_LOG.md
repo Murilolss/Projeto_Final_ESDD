@@ -2638,6 +2638,16 @@ Contagem até a #182: 180 prompts (182 entradas menos os 2 avisos).
 - **Resposta da IA (resumo):** Esta entrada foi commitada e enviada à `ESDD/murilo` antes do merge, para entrar no PR. Depois, merge do PR #10 na `dev` pelo GitHub (merge commit, como nos PRs anteriores).
 - **Adaptações / correções:** O merge foi feito sem a revisão de outro integrante, a pedido explícito do usuário (o fluxo normal pede revisão antes da `dev`).
 
+## #188 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > faz o merge da dev na main
+- **Objetivo:** Levar a `dev` para a `main` (primeira versão estável na `main`).
+- **Resposta da IA (resumo):** Conferido que a `main` não tinha nada fora da `dev` e que o `src/` da `dev` compila sem avisos (`gcc -Wall -Wextra`, numa cópia na pasta temporária). Merge `--no-ff` da `dev` na `main` (commit `3bf08db`, PRs #1–#10, 94 commits) e push. Os arquivos da `main` ficaram iguais aos da `dev`.
+- **Adaptações / correções:** Merge feito localmente e enviado, porque a API do GitHub estava falhando nas operações de escrita. Esta entrada foi commitada depois, na `ESDD/murilo`: chega à `dev` e à `main` no próximo merge.
+
 ---
 
 <!--
