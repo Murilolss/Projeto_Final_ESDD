@@ -2178,6 +2178,26 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Conferiu que o PR continuava no commit revisado (`03433de`) e publicou, pela conta do Murilo, uma revisão "Approve" com o resumo dos testes da revisão #145 (compilação sem avisos, JSON válido com N = 10.000, aviso fora da raiz e leitura na página). O PR ficou com a decisão `APPROVED`. Nenhum arquivo do projeto mudou, além desta entrada.
 - **Adaptações / correções:** Os três detalhes da revisão #145 (BOM invisível no regex, texto dos 10 ms do `clock()` e o `innerHTML` do tooltip) não foram comentados no PR, porque o pedido foi só aprovar. O merge fica com a Liliane, que depois marca a T17 como concluída no `TAREFAS.md` e no quadro.
 
+## #147 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > /atualizar-branch
+- **Objetivo:** Rodar a skill `/atualizar-branch`: trazer a `dev` para a `ESDD/murilo` e dar push.
+- **Resposta da IA (resumo):** Conferiu a branch (`ESDD/murilo`, 9 commits à frente da origin) e rodou `git pull --no-edit origin dev`. O Git recusou o merge: "Your local changes to the following files would be overwritten by merge: AI_LOG.md". A alteração local era esta entrada, criada pelo hook. Nada foi mesclado e não houve push. Um `git merge-tree` (que não muda nada) mostrou que, mesmo depois de commitar esta entrada, o merge vai dar conflito no `AI_LOG.md`: as entradas #136–#147 da `ESDD/murilo` repetem números que a `dev` já usa (até #155, com os PRs #7, #8 e #9). Parou e perguntou ao Murilo como seguir, como a skill manda.
+- **Adaptações / correções:** O conflito não foi resolvido nem o merge abortado, porque a skill proíbe isso sem o pedido do usuário. Esta entrada ficou sem commit, porque a skill não faz commit manual.
+
+## #148 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > pode seguir assim
+- **Objetivo:** _(a preencher pelo Claude ao final da resposta)_
+- **Resposta da IA (resumo):** _(a preencher pelo Claude ao final da resposta)_
+- **Adaptações / correções:** _(a preencher pelo Claude ao final da resposta)_
+
 ---
 
 <!--
