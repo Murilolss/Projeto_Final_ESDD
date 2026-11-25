@@ -9,7 +9,13 @@
 </head>
 <body>
     <header class="masthead">
-        <div class="page-width">Projeto Final ESDD</div>
+        <div class="page-width masthead-row">
+            <span>Projeto Final ESDD</span>
+            <nav class="site-nav" aria-label="Páginas">
+                <a href="index.html" aria-current="page">Animação</a>
+                <a href="comparativo.html">Comparativo</a>
+            </nav>
+        </div>
     </header>
     <main class="page-width">
         <div class="page-heading">
@@ -36,6 +42,24 @@
 
             <p class="status" id="status" role="status">Nenhum arquivo aberto.</p>
 
+            <div class="playback" id="playback" hidden>
+                <div class="controls">
+                    <button class="button primary play" id="play" type="button">Reproduzir</button>
+                    <button class="button secondary" id="step-back" type="button"
+                            title="Voltar um passo">&#9664; Passo</button>
+                    <button class="button secondary" id="step-forward" type="button"
+                            title="Avançar um passo">Passo &#9654;</button>
+                    <button class="button secondary" id="reset" type="button"
+                            title="Voltar ao vetor inicial">Reiniciar</button>
+                    <label class="speed" for="speed">
+                        Velocidade
+                        <input id="speed" type="range" min="1" max="5" step="1" value="3">
+                        <output id="speed-name" for="speed"></output>
+                    </label>
+                </div>
+                <p class="step-info" id="step-info"></p>
+            </div>
+
             <div class="chart" id="chart" hidden>
                 <div aria-hidden="true" class="axis">
                     <span id="scale-max"></span>
@@ -46,6 +70,12 @@
                     <ol class="bars" id="bars" aria-label="Valores na ordem do vetor"></ol>
                 </div>
                 <p class="axis-name" aria-hidden="true">Índice no vetor</p>
+                <ul class="legend" aria-label="Legenda das cores">
+                    <li><span class="swatch comparing"></span>Comparação</li>
+                    <li><span class="swatch swapping"></span>Troca</li>
+                    <li><span class="swatch writing"></span>Escrita</li>
+                    <li><span class="swatch sorted"></span>Vetor final conferido</li>
+                </ul>
             </div>
         </section>
     </main>

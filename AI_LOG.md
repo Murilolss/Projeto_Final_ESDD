@@ -2064,7 +2064,215 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Explicou que a correção (`613a30e`) estava no PR #5 do Lucas, não no PR #6 do Murilo (que só tem o AI_LOG), e que descartar o PR #5 tiraria da `dev` o visualizador Web inteiro (T13/T14). Também explicou que o GitHub não deixa o autor aprovar o próprio PR. O Murilo escolheu mergear os dois. Fez o merge do PR #5 (`3c308ee`, conferindo que a branch ainda estava em `613a30e`), atualizou a `ESDD/murilo` com a `dev` (`85c305e`), mantendo o AI_LOG da `dev` com as #120 e #122 do Lucas e as #123–#134 do Murilo em seguida (sequência de #001 a #135 sem buracos), e fez o merge do PR #6 sem aprovação.
 - **Adaptações / correções:** O pedido de descartar o PR #5 não foi seguido, porque partia do entendimento de que a correção estava no PR do Murilo. O PR #6 entrou sem revisão de outro integrante, por decisão do Murilo (a `dev` não tem proteção de branch). Falta marcar a T13 e a T14 como concluídas no quadro e no `contexto/TAREFAS.md`.
 
-## #136 — Terça-feira, 24/11/2026
+## #136 — Segunda-feira, 23/11/2026
+
+- **Numeração original:** #116 na branch `ESDD/liliane` (renumerada no merge com a `dev`, que já tinha #116–#135; os números citados no texto seguem a numeração original).
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > já fiz isso, rode /salvar-memoria
+- **Objetivo:** Atualizar a nota de memória da sessão depois do merge do PR #2.
+- **Resposta da IA (resumo):** Atualizou `contexto/memory/2026-11-23_sessao-12_segunda-revisao-pr2.md`: prompts #110–#116, T10 e T26 marcadas como concluídas no `TAREFAS.md` e no quadro pela Liliane, a pendência e o próximo passo correspondentes removidos.
+- **Adaptações / correções:** A Liliane já tinha atualizado o `TAREFAS.md` e o quadro sozinha, então a oferta de fazer isso na resposta #115 não foi usada.
+
+## #137 — Segunda-feira, 23/11/2026
+
+- **Numeração original:** #117 na branch `ESDD/liliane` (renumerada no merge com a `dev`, que já tinha #116–#135; os números citados no texto seguem a numeração original).
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > faça o commit e o push
+- **Objetivo:** Fazer commit e push da nota da sessão 12 e das entradas do AI_LOG.
+- **Resposta da IA (resumo):** Fez um commit na `ESDD/liliane` com o `AI_LOG.md` (#116–#117) e a nota `contexto/memory/2026-11-23_sessao-12_segunda-revisao-pr2.md`, e deu push para `origin/ESDD/liliane`.
+- **Adaptações / correções:** Nenhuma.
+
+## #138 — Segunda-feira, 23/11/2026
+
+- **Numeração original:** #118 na branch `ESDD/liliane` (renumerada no merge com a `dev`, que já tinha #116–#135; os números citados no texto seguem a numeração original).
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > /atualizar-branch
+- **Objetivo:** Trazer para a `ESDD/liliane` o que já foi integrado na `dev`.
+- **Resposta da IA (resumo):** Rodou `git pull --no-edit origin dev`. Chegou só o commit de merge do PR #2 (`304665f`), sem mudança de arquivo, e o Git criou o merge local `3333511`. Deu push para `origin/ESDD/liliane`. A única alteração pendente é o `AI_LOG.md` (esta entrada).
+- **Adaptações / correções:** Nenhuma.
+
+## #139 — Segunda-feira, 23/11/2026
+
+- **Numeração original:** #119 na branch `ESDD/liliane` (renumerada no merge com a `dev`, que já tinha #116–#135; os números citados no texto seguem a numeração original).
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > /salvar-memoria
+- **Objetivo:** Atualizar a nota de memória da sessão.
+- **Resposta da IA (resumo):** Atualizou `contexto/memory/2026-11-23_sessao-12_segunda-revisao-pr2.md`: prompts #110–#119, o commit `fd177eb` feito depois do merge, o `/atualizar-branch` (merge local `3333511`, enviado com push), a pendência de levar à `dev` no próximo PR o que veio depois do merge, e o próximo passo (commit do AI_LOG #118–#119 e da nota).
+- **Adaptações / correções:** Nenhuma.
+
+## #140 — Terça-feira, 24/11/2026
+
+- **Numeração original:** #120 na branch `ESDD/liliane` (renumerada no merge com a `dev`, que já tinha #116–#135; os números citados no texto seguem a numeração original).
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > /atualizar-branch
+- **Objetivo:** Trazer para a `ESDD/liliane` o que já foi integrado na `dev` (PR #4 do Lucas, T11 desfazer no passo a passo).
+- **Resposta da IA (resumo):** Rodou `git pull --no-edit origin dev`; o Git recusou o merge porque o `AI_LOG.md` tinha alterações não commitadas (a própria entrada #120 criada pelo hook) e a `dev` também altera esse arquivo. Nenhum arquivo mudou além desta entrada; o push não foi feito. Foram listados os 5 commits pendentes da `dev` (src/stack, step_view, sort, export, main, nota da sessão 13).
+- **Adaptações / correções:** Seguindo a skill, a IA parou sem fazer commit nem stash por conta própria e pediu à usuária que escolhesse como prosseguir.
+
+## #141 — Terça-feira, 24/11/2026
+
+- **Numeração original:** #121 na branch `ESDD/liliane` (renumerada no merge com a `dev`, que já tinha #116–#135; os números citados no texto seguem a numeração original).
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > pode fazer a opção 1
+- **Objetivo:** Commitar o `AI_LOG.md` pendente e repetir o pull da `dev`.
+- **Resposta da IA (resumo):** Commitou o `AI_LOG.md` (`fd654c7`) e rodou `git pull --no-edit origin dev`. O código da T11 (PR #4) entrou sem conflito; o `AI_LOG.md` conflitou porque as duas branches criaram #116–#119 e #121 para prompts diferentes. Concluiu o merge e deu push para `origin/ESDD/liliane`.
+- **Adaptações / correções:** A IA mostrou o conflito e perguntou como resolver antes de mexer. A Liliane escolheu manter tudo e renumerar: as entradas do Lucas foram para o fim como #122–#126, com o texto intacto e uma linha "Numeração original" indicando o número na `ESDD/lucas`. **Corrigido no merge seguinte (#143):** a `dev` já tinha #116–#135, então as entradas do Lucas voltaram à numeração da `dev` e as da Liliane foram renumeradas para #136–#143.
+
+## #142 — Terça-feira, 24/11/2026
+
+- **Numeração original:** #127 na branch `ESDD/liliane` (renumerada no merge com a `dev`, que já tinha #116–#135; os números citados no texto seguem a numeração original).
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > vamos fazer o próximo cartão, T15
+- **Objetivo:** Começar a T15 (animar comparações e trocas com cores distintas).
+- **Resposta da IA (resumo):** Leu o `TAREFAS.md`, as notas de sessão e o `contexto/formato_log.md`. Pela cópia local, a T13 e a T14 ainda estavam pendentes e não havia código de interface, então a IA ia perguntar como seguir. Nenhum arquivo mudou.
+- **Adaptações / correções:** A Liliane interrompeu a pergunta e avisou que a T13 e a T14 já estavam prontas. A cópia local estava desatualizada: os PRs já estavam na `dev` (ver #143).
+
+## #143 — Terça-feira, 24/11/2026
+
+- **Numeração original:** #128 na branch `ESDD/liliane` (renumerada no merge com a `dev`, que já tinha #116–#135; os números citados no texto seguem a numeração original).
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > as duas tarefas que antecedem as próximas minhas, que são do Lucas, já estão feitas. Confira e atualize para prosseguirmos
+- **Objetivo:** Conferir se a T13 e a T14 (Lucas), que antecedem a T15, já estão prontas e atualizar a `ESDD/liliane` e o quadro de tarefas para começar a T15.
+- **Resposta da IA (resumo):** Confirmou pelo `gh pr list` que os PRs #4 (T11) e #5 (T13/T14, interface Web em `web/`) já estavam na `dev`. Fez o pull da `dev`, que trouxe `web/index.html`, `web/app.js`, `web/styles.css`, a nota da sessão 14 e o `TAREFAS.md`. Resolveu o conflito do `AI_LOG.md` e atualizou o `contexto/TAREFAS.md`: T26, T10, T11, T13 e T14 concluídas e T15 em andamento. Concluiu o merge e deu push para a `ESDD/liliane`.
+- **Adaptações / correções:** Na resolução do conflito do `AI_LOG.md`, a numeração da `dev` (#116–#135, Lucas e Murilo) ficou como estava, e só as entradas da Liliane que não estavam na `dev` foram renumeradas (#136–#143, com a linha "Numeração original"). Isso desfaz a renumeração das entradas do Lucas feita na #121. O quadro "Plano Projeto ESDD" não abre pela conta da Liliane (o artefato é do Murilo), então só o espelho `TAREFAS.md` foi atualizado.
+
+## #144 — Terça-feira, 24/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > pode começar a T15 assim
+- **Objetivo:** Implementar a T15: animar no visualizador Web os passos do log (comparações, trocas e escritas) com cores distintas.
+- **Resposta da IA (resumo):** `web/app.js`: botão **Reproduzir**, que parte do `initial` e reaplica os passos (`applyStep`, `showStep`, `playLog`, `playFrame`, `finishPlayback`, `stopPlayback`). Comparação em amarelo (texto com `value_i`/`value_j`), troca em vermelho, escrita em azul e, se o vetor reaplicado bater com o `final`, todas as barras em verde; se não bater, a página avisa que o log pode estar incompleto. Logs grandes aplicam vários passos por quadro (no máximo 1.800 quadros e cerca de 30 s). O `parseLog` passou a rejeitar passos com tipo ou posição inválidos e logs sem `final`. `drawVector` guarda as barras em `barElements` e usa `setBarValue`. `web/index.html`: botão, linha do passo atual e legenda. `web/styles.css`: cores dos passos, legenda e barra de reprodução. `contexto/TAREFAS.md`: detalhes da T15 e da T16. Testes: logs dos 7 algoritmos (N = 30, dados aleatórios e invertidos) e do exemplo reaplicados num DOM simulado no Node, todos com o vetor final correto; Bubble Sort com N = 1000 (1,5 milhão de passos) em 1.799 quadros; logs inválidos e truncados tratados; capturas no Edge headless no meio e no fim da animação.
+- **Adaptações / correções:** Na primeira tentativa de gerar os logs, as respostas foram enviadas como 0/1, mas o menu pede Sim/Nao; o programa entrou em loop e foi interrompido. A segunda tentativa usou Sim/Nao. A IA trocou um `!important` do CSS por uma regra posterior de mesma especificidade.
+
+## #145 — Terça-feira, 24/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > faça o commit e o push
+- **Objetivo:** Fazer commit e push da T15.
+- **Resposta da IA (resumo):** Fez um commit na `ESDD/liliane` com `web/app.js`, `web/index.html`, `web/styles.css`, `contexto/TAREFAS.md` e o `AI_LOG.md` (#144–#145), e deu push para `origin/ESDD/liliane`.
+- **Adaptações / correções:** Nenhuma.
+
+## #146 — Terça-feira, 24/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > pode abrir o PR para o Murilo e o Lucas revisarem
+- **Objetivo:** Abrir o PR da T15 da `ESDD/liliane` para a `dev`, com revisão do Murilo e do Lucas.
+- **Resposta da IA (resumo):** Commitou esta entrada, deu push e abriu o PR da `ESDD/liliane` para a `dev` com a T15 (animação com cores no `web/`), a atualização do `TAREFAS.md` e a renumeração das entradas da Liliane no AI_LOG (#136–#146). Pediu a revisão de `Murilolss` e `xXLucasCruzXx`.
+- **Adaptações / correções:** Nenhuma.
+
+## #147 — Terça-feira, 24/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > pode dar o merge do pr 7 para continuarmos o próximo card
+- **Objetivo:** Fazer o merge do PR #7 (T15) na `dev` para seguir para a próxima tarefa.
+- **Resposta da IA (resumo):** Conferiu que o PR #7 tinha a aprovação do Murilo e fez o merge na `dev` (`ed98261`, merge commit, como nos PRs anteriores). Trouxe a `dev` para a `ESDD/liliane` e marcou a T15 como concluída no `contexto/TAREFAS.md`. Commitou e deu push na `ESDD/liliane`.
+- **Adaptações / correções:** O Lucas ainda não tinha revisado; a regra do projeto pede a revisão de um outro integrante, e a do Murilo bastou. O quadro do claude.ai continua sem atualização, porque não abre pela conta da Liliane.
+
+## #148 — Terça-feira, 24/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > pode começar a T16 assim
+- **Objetivo:** Implementar a T16: controles de reprodução do visualizador Web.
+- **Resposta da IA (resumo):** `web/app.js`: a reprodução da T15 passou a guardar a posição no log (`replay` com `array`, `position` e `timer`). Funções novas ou reescritas: `forward`, `stepBack`, `stepForward`, `playFrame`, `togglePlay`, `pauseReplay`, `resetReplay`, `showPosition`, `showSorted`, `updateButtons` e `showSpeed`; `applyStep` passou a só mudar o vetor e devolver os índices alterados. Saíram `playLog`, `finishPlayback`, `stopPlayback` e `MAX_DURATION_MS`. `web/index.html`: botões Reproduzir/Pausar/Continuar, ◀ Passo, Passo ▶ e Reiniciar e o controle de velocidade (5 posições, de 1 s a 16 ms por quadro). `web/styles.css`: layout dos controles. `contexto/TAREFAS.md`: T16 em andamento, com os detalhes. Testes num DOM simulado no Node: os 17 logs continuaram chegando ao `final`; 300 passos aleatórios à frente e atrás no Bubble, Insertion e Merge Sort bateram com uma reaplicação independente; pausar, continuar, reiniciar, reproduzir de novo, o verde sumindo ao voltar do fim e o estado dos botões foram conferidos; a velocidade muda o intervalo no quadro seguinte; voltar um passo no fim de um Bubble Sort com N = 1000 (1,5 milhão de passos) levou 120 ms. Captura no Edge headless com a reprodução pausada.
+- **Adaptações / correções:** O passo atrás reaplica desde o `initial`, como a Liliane aprovou, em vez de guardar os valores antigos numa pilha. A primeira tentativa de juntar o código com heredoc no bash falhou por causa das aspas, e uma edição com `sed` estragou o script auxiliar; o script foi reescrito antes de rodar e nenhum arquivo do projeto foi afetado.
+
+## #149 — Terça-feira, 24/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > faça o commit, o push e abra o PR
+- **Objetivo:** Fazer commit e push da T16 e abrir o PR para a `dev`.
+- **Resposta da IA (resumo):** Fez um commit na `ESDD/liliane` com `web/app.js`, `web/index.html`, `web/styles.css`, `contexto/TAREFAS.md` e o `AI_LOG.md` (#147–#149), deu push e abriu o PR da `ESDD/liliane` para a `dev`, com pedido de revisão para `Murilolss` e `xXLucasCruzXx`, como no PR #7.
+- **Adaptações / correções:** Nenhuma.
+
+## #150 — Terça-feira, 24/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > confira a revisão do pr e os ajustes à se fazer
+- **Objetivo:** Conferir a revisão do PR #8 (T16) e fazer os ajustes pedidos.
+- **Resposta da IA (resumo):** O Murilo pediu alterações: limitar o passo a passo a no máximo 100 números, porque com N = 1000 a reprodução demora demais e cada quadro pula centenas de passos. A IA perguntou onde aplicar o limite e o que fazer com os passos por quadro. `web/app.js`: `MAX_LOG_SIZE` passou de 1000 para 100, e um log maior é recusado com uma mensagem própria; a animação aplica um passo por quadro, e só a velocidade "Muito rápida" (`FASTEST_SPEED`) junta passos quando o log passa de 1.800. `contexto/formato_log.md`: nota sobre o limite do visualizador. `contexto/TAREFAS.md`: detalhe da T16 atualizado. Testes no Node: o log de N = 1000 foi recusado; logs de N = 100 (Bubble, Insertion e Merge Sort, dados invertidos) chegaram ao final com 1 passo por quadro na velocidade Normal e em cerca de 1.650 quadros na Muito rápida; trocar de Muito rápida para Normal no meio volta a 1 passo por quadro; os 51 testes anteriores continuaram passando.
+- **Adaptações / correções:** O pedido podia valer para o C, para a Web ou para o passo a passo do console. A Liliane escolheu aplicar o limite só na Web, mantendo a exportação do C até N = 1000, e juntar passos só na velocidade "Muito rápida".
+
+## #151 — Terça-feira, 24/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > faça o commit, o push e avise o Murilo no PR
+- **Objetivo:** Fazer commit e push do ajuste da revisão do PR #8 e avisar o Murilo no PR.
+- **Resposta da IA (resumo):** Fez um commit na `ESDD/liliane` com `web/app.js`, `contexto/formato_log.md`, `contexto/TAREFAS.md` e o `AI_LOG.md` (#150–#151) e deu push, o que atualizou o PR #8. Comentou no PR, marcando o Murilo, com o que mudou e como conferir, e pediu de novo a revisão dele.
+- **Adaptações / correções:** Nenhuma.
+
+## #152 — Terça-feira, 24/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > confira se o Murilo aprovou e faça o merge do PR 8
+- **Objetivo:** Conferir se o Murilo aprovou o PR #8 (T16) e fazer o merge.
+- **Resposta da IA (resumo):** Consultou o PR #8 pelo `gh`. A única revisão continuava sendo a do Murilo pedindo alterações (feita sobre o commit `967c6c5`), sem nova revisão depois do ajuste `b03da6d` e do comentário da Liliane. O PR está sem conflitos, mas a decisão de revisão segue "alterações pedidas". Por isso a IA não fez o merge. Nenhum arquivo mudou além desta entrada.
+- **Adaptações / correções:** O merge foi adiado: o projeto exige a revisão de outro integrante antes de integrar na `dev`, e o pedido de alterações do Murilo ainda estava em aberto.
+
+## #153 — Terça-feira, 24/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > confira de novo se o Murilo aprovou o PR 8
+- **Objetivo:** Conferir de novo se o Murilo aprovou o PR #8 (T16) e, com a aprovação, fazer o merge pedido na #152.
+- **Resposta da IA (resumo):** O Murilo aprovou o PR #8 sobre o commit `b03da6d` (25/11, 00:55 UTC). Ele conferiu que um log com N = 101 é recusado e que um Bubble Sort com N = 100 e dados invertidos chega ao `final` em "Normal" e em "Muito rápida". A IA fez o merge na `dev` (`81ea488`, merge commit), trouxe a `dev` para a `ESDD/liliane` e marcou a T16 como concluída no `contexto/TAREFAS.md`. Commitou o `AI_LOG.md` (#152–#153) e o `TAREFAS.md` e deu push na `ESDD/liliane`.
+- **Adaptações / correções:** O prompt pedia só para conferir a aprovação; a IA fez o merge porque a Liliane já tinha pedido isso na #152, condicionado à aprovação. O quadro do claude.ai continua sem a atualização da T15 e da T16, porque não abre pela conta da Liliane.
+
+## #154 — Terça-feira, 24/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > vamos fazer o próximo cartão, T17
+- **Objetivo:** Implementar a T17: tela comparativa das métricas.
+- **Resposta da IA (resumo):** A T17 não tinha detalhes; a IA propôs exportar o comparativo do C e mostrá-lo numa página Web, e a Liliane aprovou. **C:** `export_report` em `src/export.c`/`export.h` grava `logs/comparativo_n<N>_<data>_<hora>.json` com tempo, comparações, trocas e memória extra de cada algoritmo e a estrutura usada; `EXPORT_PATH_SIZE` foi para o `export.h`; em `src/main.c`, `menu_compare_all` guarda a estrutura de cada resultado e, depois da tabela, pergunta "Exportar o comparativo para a interface Web?". **Web:** página nova `web/comparativo.html` + `web/comparativo.js`: botões de métrica (tempo, comparações, trocas, memória extra), barras horizontais agrupadas por estrutura na mesma escala, tooltip com as quatro métricas no hover e no foco, e uma tabela com o menor valor de cada coluna em negrito; links "Animação" e "Comparativo" no topo das duas páginas; `web/app.js` avisa quando um comparativo é aberto na página de animação, e vice-versa; estilos em `web/styles.css`. **Docs:** `contexto/formato_comparativo.md` (novo), `contexto/TAREFAS.md` (T17 em andamento e detalhes), `.gitignore` e o exemplo versionado `logs/exemplo_comparativo_n10000.json`. **Testes:** compilou com `-Wall -Wextra` sem avisos; comparativos de N = 30 (invertido), 1.000 e 10.000 (aleatório) geraram JSON válido; rodando fora da raiz do projeto, o programa avisou que não conseguiu gravar; `parseReport` aceitou os três arquivos e recusou log de passos, JSON inválido, lista vazia, tempo negativo, estrutura ausente e `report` errado; os 51 testes da animação continuaram passando; capturas no Edge headless com as métricas Tempo e Comparações e com todos os tempos em 0.
+- **Adaptações / correções:** A ideia inicial era pintar cada estrutura de uma cor, mas o validador de paletas da skill de visualização reprovou todas as combinações de 4 cores testadas (pares indistinguíveis para daltônicos ou mesmo com visão normal). As barras ficaram com uma só cor e agrupadas por estrutura, com o nome no título do grupo. O tooltip passou a abrir a partir do início da barra para não cobrir os nomes. Achado anterior à T17: o tempo medido com `clock()` avança de cerca de 10 em 10 ms no Windows, então com N = 1000 quase todos os tempos saem 0; por isso o exemplo usa N = 10.000 e a página explica isso.
+
+## #155 — Terça-feira, 24/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > faça o commit, o push e abra o PR
+- **Objetivo:** Fazer commit e push da T17 e abrir o PR para a `dev`.
+- **Resposta da IA (resumo):** Fez um commit na `ESDD/liliane` com `src/export.c`, `src/export.h`, `src/main.c`, `web/comparativo.html`, `web/comparativo.js`, `web/app.js`, `web/index.html`, `web/styles.css`, `contexto/formato_comparativo.md`, `contexto/TAREFAS.md`, `.gitignore`, `logs/exemplo_comparativo_n10000.json` e o `AI_LOG.md` (#154–#155). Deu push e abriu o PR da `ESDD/liliane` para a `dev`, com pedido de revisão para `Murilolss` e `xXLucasCruzXx`.
+- **Adaptações / correções:** Nenhuma.
+
+## #156 — Terça-feira, 24/11/2026
 
 - **Autor:** Murilo Leandro
 - **Ferramenta:** Claude Code
@@ -2074,17 +2282,17 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** A IA leu o diff (`web/app.js`, `web/index.html`, `web/styles.css`, `contexto/TAREFAS.md`, `AI_LOG.md`, nota da sessão 12), compilou o programa em C numa pasta temporária, exportou logs dos 7 algoritmos com N = 30 e reaplicou cada um, mais o exemplo de N = 10, com o `app.js` do PR num DOM simulado no Node. Em todos, o vetor terminou igual ao `final`, todas as barras ficaram verdes e as cores apareceram como esperado (escrita só no Insertion e nos Merge Sorts). Logs inválidos (passo fora do vetor, `j = -2` na escrita, tipo desconhecido, sem `final`) foram recusados, e um log cortado ao meio mostrou o aviso. A regra de CSS do rótulo de barra curta ganha das cores pela ordem no arquivo, e o `final` nunca sai vazio no C (o `main.c` sempre passa a cópia). Nenhum defeito que impeça o merge; observações menores: um log pequeno (96 passos) leva cerca de 29 s por causa do atraso máximo de 300 ms, o que a T16 (velocidade) resolve, e um arquivo inválido aberto durante a animação mostra o erro mas deixa a animação anterior rodando. Nenhum arquivo do projeto mudou além desta entrada.
 - **Adaptações / correções:** O número desta entrada (#136) colide com as entradas da Liliane renumeradas no PR #7 (#136–#146). Se o PR #7 entrar na `dev` antes, esta entrada vira #147 no próximo merge da `dev` na `ESDD/murilo`.
 
-## #137 — Terça-feira, 24/11/2026
+## #157 — Terça-feira, 24/11/2026
 
 - **Autor:** Murilo Leandro
 - **Ferramenta:** Claude Code
 - **Prompt:**
   > marca a T15 no quadro e pode aprovar o PR
 - **Objetivo:** Aprovar o PR #7 (T15) e atualizar a T15 no quadro "Plano Projeto ESDD".
-- **Resposta da IA (resumo):** O PR #7 foi aprovado no GitHub com um comentário que resume os testes da entrada #136 e os dois pontos menores para a T16. O PR continua aberto, esperando o merge. No quadro só existe "concluída" ou não (não há "em andamento"), e a IA tentou marcar a T15 (`ui-anim`) como concluída, mas a permissão do Claude Code bloqueou a gravação. Como o primeiro texto da aprovação dizia que a T15 já estava marcada, a IA editou o comentário para tirar essa frase. Nenhum arquivo do projeto mudou além desta entrada.
+- **Resposta da IA (resumo):** O PR #7 foi aprovado no GitHub com um comentário que resume os testes da entrada #156 e os dois pontos menores para a T16. O PR continua aberto, esperando o merge. No quadro só existe "concluída" ou não (não há "em andamento"), e a IA tentou marcar a T15 (`ui-anim`) como concluída, mas a permissão do Claude Code bloqueou a gravação. Como o primeiro texto da aprovação dizia que a T15 já estava marcada, a IA editou o comentário para tirar essa frase. Nenhum arquivo do projeto mudou além desta entrada.
 - **Adaptações / correções:** A T15 continua desmarcada no quadro até o Murilo decidir: marcar como concluída agora (pela aprovação) ou só depois do merge. O `TAREFAS.md` do PR mostra a T15 "em andamento" e precisa virar "concluída" depois do merge.
 
-## #138 — Terça-feira, 24/11/2026
+## #158 — Terça-feira, 24/11/2026
 
 - **Autor:** Murilo Leandro
 - **Ferramenta:** Claude Code
@@ -2094,7 +2302,7 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Leu o diff (`web/app.js`, `web/index.html`, `web/styles.css`, `contexto/TAREFAS.md`, `AI_LOG.md` #147–#149) e o `app.js` inteiro da branch. Conferiu a sintaxe com `node --check` e rodou um teste num DOM simulado com o `logs/exemplo_bubble_sort_n10.json` (reproduzir, pausar, avançar até o fim, voltar do fim, reproduzir até o fim pelos timers) e com um log sem passos: tudo funcionou. Não achou bug que impeça o merge. Apontou detalhes: na velocidade "Muito lenta" um log grande continua pulando centenas de passos por quadro; `pauseReplay()` redundante no `loadLog`; `speedInput.value - 1` com conversão implícita; o controle de velocidade sem `aria-valuetext`; o botão fica "Reproduzir" no fim de um log sem passos; o texto da T15 no `TAREFAS.md` ("no máximo cerca de 30 s") agora só vale na velocidade mais rápida. Nenhum arquivo do projeto mudou, além desta entrada.
 - **Adaptações / correções:** A revisão não foi publicada no GitHub; fica para o Murilo decidir se aprova e se comenta os detalhes no PR. Também foi visto que as entradas #136–#138 da `ESDD/murilo` repetem os números #136–#146 que já estão na `dev` (PR #7) e vão precisar de renumeração ao trazer a `dev`.
 
-## #139 — Terça-feira, 24/11/2026
+## #159 — Terça-feira, 24/11/2026
 
 - **Autor:** Murilo Leandro
 - **Ferramenta:** Claude Code
@@ -2102,9 +2310,9 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
   > mande ela alterar no pr o modo passo a passo para no maximo 100 numeros assim reduz o tempo, só tem essa alteração para fazer
 - **Objetivo:** Pedir à Liliane, no PR #8, que limite o modo passo a passo a no máximo 100 números para reduzir o tempo da reprodução.
 - **Resposta da IA (resumo):** Publicou no PR #8, pela conta do Murilo, uma revisão "Changes requested" com uma única alteração: limitar o modo passo a passo (a reprodução do visualizador Web) a no máximo 100 números. A justificativa: com N = 1000 o log passa de 1,4 milhão de passos, e na velocidade "Muito lenta" a reprodução leva cerca de 30 min, pulando centenas de passos por quadro. Nenhum arquivo do projeto mudou, além desta entrada.
-- **Adaptações / correções:** Os outros detalhes da revisão #138 (redundância no `loadLog`, `Number(...)`, `aria-valuetext`, log sem passos, texto da T15 no `TAREFAS.md`) ficaram de fora do pedido, como o Murilo quis. A forma de tratar logs com mais de 100 números (recusar ou só desenhar sem os controles) ficou a critério da Liliane.
+- **Adaptações / correções:** Os outros detalhes da revisão #158 (redundância no `loadLog`, `Number(...)`, `aria-valuetext`, log sem passos, texto da T15 no `TAREFAS.md`) ficaram de fora do pedido, como o Murilo quis. A forma de tratar logs com mais de 100 números (recusar ou só desenhar sem os controles) ficou a critério da Liliane.
 
-## #140 — Terça-feira, 24/11/2026
+## #160 — Terça-feira, 24/11/2026
 
 - **Autor:** Murilo Leandro
 - **Ferramenta:** Claude Code
@@ -2114,7 +2322,7 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Criou o deck "Apresentação — Projeto Final ESDD" (https://claude.ai/artifact/5tkV4xJ97wBx5fHhJApAuy), com 13 slides e notas do apresentador. Abertura: capa e roteiro das três etapas. Etapa 1: o que o projeto faz, as IAs (Claude Code com o Murilo e a Liliane, Codex com o Lucas, mais de 140 prompts no AI_LOG.md, hook e CLAUDE.md), o fluxo de branches e PRs com a divisão da equipe e a tabela dos módulos de `src/` e `web/`. Etapa 2: o padrão TAD com um trecho do `src/stack.h` e o roteiro de arquivos para abrir no VS Code, com o comando do `gcc`. Etapa 3: o caminho do menu em C ao `logs/*.json` e ao `web/index.html`, a legenda de cores, o trecho do JSON de exemplo e o roteiro da demonstração no navegador. Encerramento com o link do repositório. O visual usa as cores do `web/styles.css`, como o Murilo escolheu. Nenhum arquivo do projeto mudou, além desta entrada.
 - **Adaptações / correções:** A tela comparativa de métricas (T17) ainda está pendente, e os controles de reprodução (T16, PR #8) estão esperando a alteração para no máximo 100 números. O slide do roteiro web cita os dois, e a nota do apresentador pede para conferir se já estão na `dev` antes da apresentação. O número de prompts aparece como "140+" para não ficar desatualizado.
 
-## #141 — Terça-feira, 24/11/2026
+## #161 — Terça-feira, 24/11/2026
 
 - **Autor:** Murilo Leandro
 - **Ferramenta:** Claude Code
@@ -2124,7 +2332,7 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** No deck https://claude.ai/artifact/5tkV4xJ97wBx5fHhJApAuy, removeu o slide 5 ("Como nos organizamos", com o fluxo de branches e a tabela da equipe) e incluiu o Matheus Miasaki na capa e no encerramento. Trocou o slide "O que vamos abrir no VS Code" por três slides com trechos reais do código da `dev`, dois por slide: `sort.c` (tabela de algoritmos) e `doubly_list.c` (laço do `merge_nodes`); `stack.c` (`stack_pop`) e `queue.c` (`queue_enqueue`); `export.c` (`export_step`) e o terminal (comando do `gcc` e o menu). Ajustou o roteiro, o slide de abertura da etapa 2 e as notas para dizer que o VS Code só é aberto se o professor pedir, e acrescentou ao `deck.css` o layout das demonstrações. O deck ficou com 14 slides. Nenhum arquivo do projeto mudou, além desta entrada.
 - **Adaptações / correções:** "Slide 9" foi entendido pela numeração original (o roteiro do VS Code), porque depois da remoção o 9º slide seria a abertura da etapa 3. As seis partes não cabiam legíveis num slide só (fonte mínima de 24 px), por isso viraram três slides. Os trechos foram encurtados com comentários `/* ... */`, algumas linhas longas foram quebradas para caber, e o menu do terminal mostra só as opções principais. Ao remover o slide 5, a tabela de quem fez o quê saiu do deck. Como não se sabe qual IA o Matheus usa, o slide das IAs não mudou.
 
-## #142 — Terça-feira, 24/11/2026
+## #162 — Terça-feira, 24/11/2026
 
 - **Autor:** Murilo Leandro
 - **Ferramenta:** Claude Code
@@ -2138,27 +2346,27 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** No deck https://claude.ai/artifact/5tkV4xJ97wBx5fHhJApAuy, criou no `deck.css` um selo "Apresenta: <nome>" fixo no canto superior direito, com cores invertidas nos slides escuros, e o colocou nos slides 2 a 14: Murilo nos slides 2 a 5, Matheus nos 6 a 8 (abertura do código, padrão TAD, `sort.c` e `doubly_list.c`), Lucas nos 9 e 10 (pilha e fila, exportação e terminal) e Liliane nos 11 a 14 (visualizador e encerramento). No slide do roteiro, cada etapa mostra quem apresenta, e a nota traz a divisão. O slide das IAs passou a ter três cartões (Claude Code, Claude Web e Codex), e os textos do hook e do CLAUDE.md agora citam só o Claude Code e o Codex. A memória do Matheus foi atualizada. Nenhum arquivo do projeto mudou, além desta entrada.
 - **Adaptações / correções:** O pedido não dizia como dividir o código entre Matheus e Lucas. O Lucas ficou com o slide da pilha e da fila (que ele implementou na T11 e na T12) e com o da exportação e do terminal, e o Matheus com a abertura, o padrão TAD e a ordenação e as listas. A capa ficou sem selo, porque o pedido começa no slide 2. A nota do slide das IAs avisa que o Claude Web não tem o hook e que os prompts dele entram no AI_LOG.md à mão.
 
-## #143 — Terça-feira, 24/11/2026
+## #163 — Terça-feira, 24/11/2026
 
 - **Autor:** Murilo Leandro
 - **Ferramenta:** Claude Code
 - **Prompt:**
   > revise novamente o PR
-- **Objetivo:** Revisar de novo o PR #8 (T16), agora com a alteração pedida na revisão #139: no máximo 100 números.
+- **Objetivo:** Revisar de novo o PR #8 (T16), agora com a alteração pedida na revisão #159: no máximo 100 números.
 - **Resposta da IA (resumo):** Leu o commit novo da Liliane (`b03da6d`) e o comentário dela no PR. Mudanças: `MAX_LOG_SIZE` de 1000 para 100 em `web/app.js`, com uma mensagem própria para logs maiores, e animação com 1 passo por quadro em todas as velocidades, menos na "Muito rápida". Também atualizou `contexto/formato_log.md`, `contexto/TAREFAS.md` e o AI_LOG (#150–#151). Conferiu a sintaxe com `node --check` e testou num DOM simulado: um log com N = 101 é recusado com a mensagem nova; um Bubble Sort com N = 100 e dados invertidos (14.850 passos) chega ao `final` em "Normal" com 14.850 quadros (cerca de 37 min) e em "Muito rápida" com 1.650 quadros (cerca de 26 s). O PR está `MERGEABLE`/`CLEAN` e contém a `dev` atual. Conclusão: a alteração pedida foi feita e pode ser aprovada. O único ponto é o tempo em "Normal" com logs grandes, por causa do fim do agrupamento de passos. Nada foi publicado no GitHub.
-- **Adaptações / correções:** A revisão #139 só pedia o limite de 100 números. A mudança de 1 passo por quadro veio do motivo citado na revisão ("cada quadro ainda pula centenas de passos"). Ficou para o Murilo decidir se aprova assim ou se pede para manter o agrupamento também em "Rápida".
+- **Adaptações / correções:** A revisão #159 só pedia o limite de 100 números. A mudança de 1 passo por quadro veio do motivo citado na revisão ("cada quadro ainda pula centenas de passos"). Ficou para o Murilo decidir se aprova assim ou se pede para manter o agrupamento também em "Rápida".
 
-## #144 — Terça-feira, 24/11/2026
+## #164 — Terça-feira, 24/11/2026
 
 - **Autor:** Murilo Leandro
 - **Ferramenta:** Claude Code
 - **Prompt:**
   > pode aprovar o PR
 - **Objetivo:** Aprovar o PR #8 (T16) no GitHub.
-- **Resposta da IA (resumo):** Conferiu que o PR continuava no commit revisado (`b03da6d`) e publicou, pela conta do Murilo, uma revisão "Approve", com o resumo dos testes da revisão #143 (log com N = 101 recusado; Bubble Sort com N = 100 invertido chegando ao `final` em "Normal" e em "Muito rápida"). O PR ficou com a decisão `APPROVED`. Nenhum arquivo do projeto mudou, além desta entrada.
+- **Resposta da IA (resumo):** Conferiu que o PR continuava no commit revisado (`b03da6d`) e publicou, pela conta do Murilo, uma revisão "Approve", com o resumo dos testes da revisão #163 (log com N = 101 recusado; Bubble Sort com N = 100 invertido chegando ao `final` em "Normal" e em "Muito rápida"). O PR ficou com a decisão `APPROVED`. Nenhum arquivo do projeto mudou, além desta entrada.
 - **Adaptações / correções:** O merge não foi feito, porque não foi pedido; fica com a Liliane, como no PR #7. Ao fazer o merge, a T16 deve virar "concluída" no `contexto/TAREFAS.md` e no quadro.
 
-## #145 — Terça-feira, 24/11/2026
+## #165 — Terça-feira, 24/11/2026
 
 - **Autor:** Murilo Leandro
 - **Ferramenta:** Claude Code
@@ -2168,17 +2376,17 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Leu o diff inteiro: `export_report` em `src/export.c`/`.h`, o vetor `structures[]` e a pergunta de exportação em `menu_compare_all` (`src/main.c`), `web/comparativo.html`/`.js`, o CSS, o aviso cruzado em `web/app.js`, `contexto/formato_comparativo.md`, o exemplo em `logs/`, o `.gitignore` e o `TAREFAS.md`. Numa cópia temporária da branch (git worktree no scratchpad, removida depois): compilou com `gcc -Wall -Wextra` sem avisos; rodou o menu com N = 10.000 aleatório, opção 3 e `Sim`, e o arquivo `logs/comparativo_n10000_...json` saiu com 13 resultados, JSON válido e "Memoria nao liberada: 0 bytes"; fora da raiz, o programa avisou que não conseguiu gravar. Testou o leitor da página no Node: aceitou o exemplo, o arquivo gerado e um arquivo com BOM, e recusou o log de passos com a indicação da página Animação. O PR está `MERGEABLE`/`CLEAN` e contém a `dev` com o PR #8. Conclusão: pode aprovar. Detalhes não obrigatórios: o BOM está como caractere invisível no regex (o `app.js` usa `﻿`); o texto "o `clock()` avança de cerca de 10 em 10 ms" não bateu com esta máquina (saíram 1, 3 e 7 ms); o tooltip mistura `innerHTML` e `textContent` (seguro, porque os textos são fixos). Nada foi publicado no GitHub.
 - **Adaptações / correções:** A página não foi aberta num navegador de verdade; o PR já trazia capturas no Edge headless. O arquivo do comparativo gerado no teste ficou só na cópia temporária, já apagada.
 
-## #146 — Terça-feira, 24/11/2026
+## #166 — Terça-feira, 24/11/2026
 
 - **Autor:** Murilo Leandro
 - **Ferramenta:** Claude Code
 - **Prompt:**
   > pode aprovar o PR
 - **Objetivo:** Aprovar o PR #9 (T17) no GitHub.
-- **Resposta da IA (resumo):** Conferiu que o PR continuava no commit revisado (`03433de`) e publicou, pela conta do Murilo, uma revisão "Approve" com o resumo dos testes da revisão #145 (compilação sem avisos, JSON válido com N = 10.000, aviso fora da raiz e leitura na página). O PR ficou com a decisão `APPROVED`. Nenhum arquivo do projeto mudou, além desta entrada.
-- **Adaptações / correções:** Os três detalhes da revisão #145 (BOM invisível no regex, texto dos 10 ms do `clock()` e o `innerHTML` do tooltip) não foram comentados no PR, porque o pedido foi só aprovar. O merge fica com a Liliane, que depois marca a T17 como concluída no `TAREFAS.md` e no quadro.
+- **Resposta da IA (resumo):** Conferiu que o PR continuava no commit revisado (`03433de`) e publicou, pela conta do Murilo, uma revisão "Approve" com o resumo dos testes da revisão #165 (compilação sem avisos, JSON válido com N = 10.000, aviso fora da raiz e leitura na página). O PR ficou com a decisão `APPROVED`. Nenhum arquivo do projeto mudou, além desta entrada.
+- **Adaptações / correções:** Os três detalhes da revisão #165 (BOM invisível no regex, texto dos 10 ms do `clock()` e o `innerHTML` do tooltip) não foram comentados no PR, porque o pedido foi só aprovar. O merge fica com a Liliane, que depois marca a T17 como concluída no `TAREFAS.md` e no quadro.
 
-## #147 — Quarta-feira, 25/11/2026
+## #167 — Quarta-feira, 25/11/2026
 
 - **Autor:** Murilo Leandro
 - **Ferramenta:** Claude Code
@@ -2188,7 +2396,7 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Conferiu a branch (`ESDD/murilo`, 9 commits à frente da origin) e rodou `git pull --no-edit origin dev`. O Git recusou o merge: "Your local changes to the following files would be overwritten by merge: AI_LOG.md". A alteração local era esta entrada, criada pelo hook. Nada foi mesclado e não houve push. Um `git merge-tree` (que não muda nada) mostrou que, mesmo depois de commitar esta entrada, o merge vai dar conflito no `AI_LOG.md`: as entradas #136–#147 da `ESDD/murilo` repetem números que a `dev` já usa (até #155, com os PRs #7, #8 e #9). Parou e perguntou ao Murilo como seguir, como a skill manda.
 - **Adaptações / correções:** O conflito não foi resolvido nem o merge abortado, porque a skill proíbe isso sem o pedido do usuário. Esta entrada ficou sem commit, porque a skill não faz commit manual.
 
-## #148 — Quarta-feira, 25/11/2026
+## #168 — Quarta-feira, 25/11/2026
 
 - **Autor:** Murilo Leandro
 - **Ferramenta:** Claude Code

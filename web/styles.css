@@ -26,6 +26,27 @@ body { margin: 0; }
     font-weight: 650;
 }
 
+/* Links between the two pages (animation and T17 comparison) */
+.masthead-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.site-nav { display: flex; gap: 0.35rem; }
+
+.site-nav a {
+    padding: 0.3rem 0.7rem;
+    border-radius: 0.35rem;
+    color: #bfe0d6;
+    text-decoration: none;
+}
+
+.site-nav a:hover { color: #fff; background: #1f4a45; }
+.site-nav a[aria-current="page"] { color: #fff; background: #2a5c56; }
+
 main { padding-block: clamp(2rem, 6vw, 4.5rem); }
 
 .page-heading, .card-heading {
@@ -203,6 +224,227 @@ h2 { font-size: clamp(1.25rem, 3vw, 1.55rem); letter-spacing: -0.025em; }
     color: var(--muted);
     text-align: center;
     font-size: 0.875rem;
+}
+
+/* T15: colors of the step being shown. --step-color paints the bar and the legend swatch;
+   --step-text keeps the value label readable on top of it. */
+.comparing { --step-color: #e3a21a; --step-text: #2b1d00; }
+.swapping  { --step-color: #c0392b; --step-text: #fff; }
+.writing   { --step-color: #2563c9; --step-text: #fff; }
+.sorted    { --step-color: #4caf50; --step-text: #0d2b12; }
+
+.bar.comparing, .bar.swapping, .bar.writing, .bar.sorted { background: var(--step-color); }
+.bar.comparing .bar-value, .bar.swapping .bar-value,
+.bar.writing .bar-value, .bar.sorted .bar-value { color: var(--step-text); }
+/* A short bar shows its value above the bar, on the white background
+   (same specificity as the rules above, so this later rule wins) */
+.bar.short .bar-value { color: #18443e; }
+
+.playback {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+}
+
+/* T16: play/pause, one step back and forward, reset and speed */
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem 0.65rem;
+    flex-wrap: wrap;
+}
+
+/* Fixed width: the text changes between Reproduzir, Pausar and Continuar */
+.play { min-width: 11rem; }
+
+.playback .button:disabled { opacity: 0.55; cursor: default; }
+.secondary:disabled:hover { background: white; }
+
+.speed {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: auto;
+    color: var(--muted);
+    font-weight: 650;
+}
+
+.speed input { accent-color: var(--accent); }
+
+.speed output {
+    min-width: 6.5rem;
+    color: #172e31;
+    font-weight: 400;
+}
+
+.step-info {
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    overflow-wrap: anywhere;
+}
+
+.legend {
+    grid-column: 2;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4rem 1.25rem;
+    margin: 0.4rem 0 0;
+    padding: 0;
+    list-style: none;
+    color: var(--muted);
+    font-size: 0.875rem;
+}
+
+.legend li { display: flex; align-items: center; gap: 0.4rem; }
+
+.swatch {
+    width: 0.9rem;
+    height: 0.9rem;
+    border-radius: 0.2rem;
+    background: var(--step-color);
+}
+
+/* ---------- T17: comparison page (comparativo.html) ---------- */
+
+.metric-picker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1.4rem 0 0;
+    padding: 0;
+    border: 0;
+}
+
+.metric-picker legend {
+    width: 100%;
+    margin-bottom: 0.5rem;
+    color: var(--muted);
+    font-weight: 650;
+}
+
+.metric-picker input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.metric-picker span {
+    display: inline-block;
+    padding: 0.45rem 0.9rem;
+    border: 1px solid #bad1c8;
+    border-radius: 999px;
+    color: #194e45;
+    font-weight: 650;
+    cursor: pointer;
+}
+
+.metric-picker span:hover { background: #e6f2ed; }
+.metric-picker input:checked + span { background: var(--accent); border-color: var(--accent); color: #fff; }
+.metric-picker input:focus-visible + span { outline: 3px solid #0b8270; outline-offset: 3px; }
+
+.metric-note {
+    margin-top: 0.75rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+.hbar-chart {
+    display: grid;
+    gap: 1.25rem;
+    margin-top: 1.4rem;
+}
+
+.hbar-group h3 {
+    margin: 0 0 0.45rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--border);
+    font-size: 1rem;
+}
+
+.hbar-list {
+    display: grid;
+    gap: 2px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* One row: name | bar | value. All rows share the same columns, so the bars line up */
+.hbar-row {
+    display: grid;
+    grid-template-columns: minmax(9rem, 14rem) minmax(0, 1fr) minmax(6.5rem, auto);
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.3rem 0.4rem;
+    border-radius: 0.35rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.hbar-row:hover, .hbar-row:focus-visible { background: #edf5f0; }
+
+.hbar-label { overflow-wrap: anywhere; }
+
+.hbar-track { height: 1.1rem; }
+
+.hbar {
+    height: 100%;
+    border-radius: 0 4px 4px 0; /* rounded data end, flat at the baseline */
+    background: #087567;
+}
+
+.hbar-value { color: #172e31; text-align: right; }
+
+.table-title { margin: 2rem 0 0; font-size: 1.1rem; }
+
+.table-scroll { overflow-x: auto; margin-top: 0.75rem; }
+
+.metrics-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-variant-numeric: tabular-nums;
+    font-size: 0.95rem;
+}
+
+.metrics-table th, .metrics-table td {
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+    white-space: nowrap;
+}
+
+.metrics-table thead th { color: var(--muted); font-weight: 650; }
+.metrics-table tbody th { font-weight: 400; }
+.metrics-table .number { text-align: right; }
+
+.tooltip {
+    position: absolute;
+    z-index: 10;
+    min-width: 14rem;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    background: #fff;
+    box-shadow: 0 8px 24px #163b2d29;
+    font-size: 0.875rem;
+    font-variant-numeric: tabular-nums;
+    pointer-events: none;
+}
+
+.tooltip-title { margin-bottom: 0.35rem; font-weight: 650; }
+
+.tooltip div {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    color: var(--muted);
+}
+
+.tooltip strong { color: #172e31; }
+
+@media (max-width: 35rem) {
+    .hbar-row { grid-template-columns: minmax(0, 1fr) auto; }
+    .hbar-track { grid-column: 1 / -1; grid-row: 2; }
 }
 
 .sr-only {

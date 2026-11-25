@@ -109,6 +109,8 @@ Os valores de N = 100 e 1.000 foram medidos em arquivos gravados pelo programa (
 
 Acima de 1000 o arquivo fica grande demais para gravar e para o navegador abrir, e uma animação com milhões de passos não dá para assistir. Por isso o programa não oferece a exportação nesses casos e explica o motivo ao usuário.
 
+**Limite do visualizador Web (N ≤ 100).** Na revisão do PR #8 (T16), o visualizador em `web/` passou a reproduzir só logs com até 100 números (`MAX_LOG_SIZE` em `web/app.js`). Com N = 1000, um log tem mais de 1 milhão de passos e não dá para acompanhar a animação. Com N ≤ 100, são no máximo cerca de 15 mil passos. O programa em C continua exportando até N = 1000; um log maior que 100 é recusado ao ser aberto na página, com uma mensagem que explica o motivo.
+
 ## Combinado com o Lucas (T14)
 
 Respostas do Lucas no PR #2, em 23/11:
