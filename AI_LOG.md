@@ -2138,6 +2138,16 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** No deck https://claude.ai/artifact/5tkV4xJ97wBx5fHhJApAuy, criou no `deck.css` um selo "Apresenta: <nome>" fixo no canto superior direito, com cores invertidas nos slides escuros, e o colocou nos slides 2 a 14: Murilo nos slides 2 a 5, Matheus nos 6 a 8 (abertura do código, padrão TAD, `sort.c` e `doubly_list.c`), Lucas nos 9 e 10 (pilha e fila, exportação e terminal) e Liliane nos 11 a 14 (visualizador e encerramento). No slide do roteiro, cada etapa mostra quem apresenta, e a nota traz a divisão. O slide das IAs passou a ter três cartões (Claude Code, Claude Web e Codex), e os textos do hook e do CLAUDE.md agora citam só o Claude Code e o Codex. A memória do Matheus foi atualizada. Nenhum arquivo do projeto mudou, além desta entrada.
 - **Adaptações / correções:** O pedido não dizia como dividir o código entre Matheus e Lucas. O Lucas ficou com o slide da pilha e da fila (que ele implementou na T11 e na T12) e com o da exportação e do terminal, e o Matheus com a abertura, o padrão TAD e a ordenação e as listas. A capa ficou sem selo, porque o pedido começa no slide 2. A nota do slide das IAs avisa que o Claude Web não tem o hook e que os prompts dele entram no AI_LOG.md à mão.
 
+## #143 — Terça-feira, 24/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > revise novamente o PR
+- **Objetivo:** Revisar de novo o PR #8 (T16), agora com a alteração pedida na revisão #139: no máximo 100 números.
+- **Resposta da IA (resumo):** Leu o commit novo da Liliane (`b03da6d`) e o comentário dela no PR. Mudanças: `MAX_LOG_SIZE` de 1000 para 100 em `web/app.js`, com uma mensagem própria para logs maiores, e animação com 1 passo por quadro em todas as velocidades, menos na "Muito rápida". Também atualizou `contexto/formato_log.md`, `contexto/TAREFAS.md` e o AI_LOG (#150–#151). Conferiu a sintaxe com `node --check` e testou num DOM simulado: um log com N = 101 é recusado com a mensagem nova; um Bubble Sort com N = 100 e dados invertidos (14.850 passos) chega ao `final` em "Normal" com 14.850 quadros (cerca de 37 min) e em "Muito rápida" com 1.650 quadros (cerca de 26 s). O PR está `MERGEABLE`/`CLEAN` e contém a `dev` atual. Conclusão: a alteração pedida foi feita e pode ser aprovada. O único ponto é o tempo em "Normal" com logs grandes, por causa do fim do agrupamento de passos. Nada foi publicado no GitHub.
+- **Adaptações / correções:** A revisão #139 só pedia o limite de 100 números. A mudança de 1 passo por quadro veio do motivo citado na revisão ("cada quadro ainda pula centenas de passos"). Ficou para o Murilo decidir se aprova assim ou se pede para manter o agrupamento também em "Rápida".
+
 ---
 
 <!--
