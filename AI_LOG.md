@@ -2402,9 +2402,9 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Ferramenta:** Claude Code
 - **Prompt:**
   > pode seguir assim
-- **Objetivo:** _(a preencher pelo Claude ao final da resposta)_
-- **Resposta da IA (resumo):** _(a preencher pelo Claude ao final da resposta)_
-- **Adaptações / correções:** _(a preencher pelo Claude ao final da resposta)_
+- **Objetivo:** Concluir a atualização da `ESDD/murilo` com a `dev`, resolvendo o conflito do `AI_LOG.md` como proposto na entrada #167.
+- **Resposta da IA (resumo):** Commitou as entradas pendentes (`0b167c1`) e rodou `git pull --no-edit origin dev`. Vieram os PRs #7, #8 e #9 da Liliane (T15, T16 e T17: `src/export.c`/`.h`, `src/main.c`, `web/`, `contexto/formato_comparativo.md`, `logs/exemplo_comparativo_n10000.json`, `.gitignore`, `TAREFAS.md`, `formato_log.md` e uma nota de `contexto/memory/`). O único conflito foi no `AI_LOG.md`. Para resolver, um script em Python manteve a versão da `dev` inteira (até #155) e acrescentou no fim as entradas da `ESDD/murilo`, renumeradas de #136–#148 para #156–#168. Também atualizou as referências entre elas ("entrada #136" → #156, "revisão #138" → #158, #139 → #159, #143 → #163, #145 → #165). Conferiu que o arquivo só acrescenta linhas em relação à `dev`. Commitou o merge (`24ccc81`) e deu push na `ESDD/murilo`.
+- **Adaptações / correções:** As frases que descrevem a colisão de números na época (nas entradas #156, #159 e #167) e os números de entradas da Liliane (#147–#151) ficaram como estavam. A entrada #156 diz que ela "vira #147"; o número final é #156. As mensagens dos commits antigos ("Log AI prompt #138" etc.) continuam com os números antigos.
 
 ---
 
