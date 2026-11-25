@@ -28,7 +28,7 @@ Leia nesta ordem:
 
 1. [CLAUDE.md](CLAUDE.md): requisitos, padrões obrigatórios do código (TAD em `.h`/`.c`, inglês no código, `malloc` checado etc.) e mapa das pastas. Quem usa o Codex lê também o [AGENTS.md](AGENTS.md).
 2. **A nota de sessão mais recente** em [contexto/memory/](contexto/memory/), a de maior `sessao-NN`. Ela diz o que foi feito por último, o que ficou pendente e qual é o próximo passo. As anteriores contam o histórico das decisões.
-3. [contexto/slides/Enunciado.md](contexto/slides/Enunciado.md), se precisar do texto completo do enunciado.
+3. `contexto/slides/Enunciado.md`, se precisar do texto completo do enunciado. As pastas `contexto/slides/` e `contexto/pdfs/` **não estão no git**: cada integrante guarda a própria cópia. Se você não tiver, peça a outro integrante e copie para dentro de `contexto/`; o `.gitignore` impede que elas entrem num commit.
 4. **O quadro de tarefas da equipe:** artefato "Plano Projeto ESDD" (https://claude.ai/artifact/G6eqVDUisHMbyCAS5mDpfr). Ele lista as tarefas **T01–T26**, com responsável, status e cronograma. As conversas e os commits citam as tarefas por esse número (ex.: "Vamos fazer a T12").
    - Qualquer pessoa com o link vê a página. Para ver e marcar o progresso é preciso estar logado no claude.ai.
    - O [contexto/TAREFAS.md](contexto/TAREFAS.md) é o espelho em texto do quadro, para o Codex e para quem está sem conta no claude.ai. Os dois precisam bater: quem muda um muda o outro.
@@ -252,7 +252,7 @@ gcc -Wall -Wextra src/*.c -o src/output/main.exe    # tem que compilar sem warni
 | `circular_list.h/.c` | lista circular simples (só `tail`) + Insertion/Merge (abre o ciclo, ordena e fecha) |
 | `benchmark.h/.c` | T09: comparativo vetor × listas, N = 1.000/10.000/50.000 nos 3 tipos de dados |
 
-Material de referência: [contexto/codigo-exemplos/](contexto/codigo-exemplos/) (o estilo das aulas, que o código deve seguir) e [contexto/slides/](contexto/slides/) (um `.md` por PDF; leia esses em vez dos PDFs).
+Material de referência: [contexto/codigo-exemplos/](contexto/codigo-exemplos/) (o estilo das aulas, que o código deve seguir) e `contexto/slides/` (um `.md` por PDF; leia esses em vez dos PDFs). A pasta `contexto/slides/` fica fora do git, só na cópia de cada integrante (veja a seção 1).
 
 ---
 
