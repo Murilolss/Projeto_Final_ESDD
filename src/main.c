@@ -554,6 +554,9 @@ static int menu_list_sort(const int *vector, int size, int data_kind)
 static void menu_compare_all(const int *vector, int size, int data_kind)
 {
     Metrics results[SORT_COUNT + SLIST_SORT_COUNT + DLIST_SORT_COUNT + CLIST_SORT_COUNT];
+    /* structures[k] = structure used by results[k], for the export of the comparison (T17) */
+    const char *structures[SORT_COUNT + SLIST_SORT_COUNT + DLIST_SORT_COUNT + CLIST_SORT_COUNT];
+    char path[EXPORT_PATH_SIZE];
     int count = 0;
     int *copy;
     SinglyList *list;
@@ -571,7 +574,10 @@ static void menu_compare_all(const int *vector, int size, int data_kind)
     for (int i = 0; i < SORT_COUNT; i++)
     {
         if (sort_run(i, vector, copy, size, &results[count]) == 1)
+        {
+            structures[count] = "Vetor";
             count++;
+        }
     }
 
     vector_destroy(&copy, size);
@@ -586,7 +592,10 @@ static void menu_compare_all(const int *vector, int size, int data_kind)
         for (int i = 0; i < SLIST_SORT_COUNT; i++)
         {
             if (slist_sort_run(i, vector, size, list, &results[count]) == 1)
+            {
+                structures[count] = "Lista Simples";
                 count++;
+            }
         }
         slist_destroy(&list);
     }
@@ -601,7 +610,10 @@ static void menu_compare_all(const int *vector, int size, int data_kind)
         for (int i = 0; i < DLIST_SORT_COUNT; i++)
         {
             if (dlist_sort_run(i, vector, size, dlist, &results[count]) == 1)
+            {
+                structures[count] = "Lista Dupla";
                 count++;
+            }
         }
         dlist_destroy(&dlist);
     }
@@ -616,12 +628,32 @@ static void menu_compare_all(const int *vector, int size, int data_kind)
         for (int i = 0; i < CLIST_SORT_COUNT; i++)
         {
             if (clist_sort_run(i, vector, size, clist, &results[count]) == 1)
+            {
+                structures[count] = "Lista Circular";
                 count++;
+            }
         }
         clist_destroy(&clist);
     }
 
     metrics_print_table(results, count, size, vector_fill_name(data_kind));
+
+    /* T17: the same table can be opened in the web page web/comparativo.html */
+    if (count > 0 && read_yes_no("\nExportar o comparativo para a interface Web?") == 1)
+    {
+        if (export_report(results, structures, count, size, vector_fill_name(data_kind),
+                          path) == 1)
+        {
+            printf("\nComparativo exportado em %s\n", path);
+            printf("Abra web/comparativo.html no navegador e selecione esse arquivo.\n");
+        }
+        else
+        {
+            printf("\nNao foi possivel gravar o arquivo na pasta %s.\n", EXPORT_FOLDER);
+            printf("Rode o programa a partir da pasta raiz do projeto (onde fica a pasta %s).\n",
+                   EXPORT_FOLDER);
+        }
+    }
     wait_enter();
 }
 

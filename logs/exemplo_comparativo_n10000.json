@@ -1,0 +1,20 @@
+{
+  "report": "comparativo",
+  "data_kind": "Aleatorio",
+  "size": 10000,
+  "results": [
+    {"algorithm": "Bubble Sort", "structure": "Vetor", "comparisons": 98860113, "swaps": 25050577, "time_ms": 333.000, "memory_bytes": 0},
+    {"algorithm": "Insertion Sort", "structure": "Vetor", "comparisons": 25060566, "swaps": 25050577, "time_ms": 91.000, "memory_bytes": 0},
+    {"algorithm": "Merge Sort Iterativo", "structure": "Vetor", "comparisons": 123727, "swaps": 136320, "time_ms": 9.000, "memory_bytes": 40000},
+    {"algorithm": "Merge Sort Recursivo", "structure": "Vetor", "comparisons": 120420, "swaps": 133616, "time_ms": 0.000, "memory_bytes": 40000},
+    {"algorithm": "Quick Sort Pivo Inicio", "structure": "Vetor", "comparisons": 155059, "swaps": 80671, "time_ms": 0.000, "memory_bytes": 0},
+    {"algorithm": "Quick Sort Pivo Fim", "structure": "Vetor", "comparisons": 153668, "swaps": 80725, "time_ms": 0.000, "memory_bytes": 0},
+    {"algorithm": "Selection Sort", "structure": "Vetor", "comparisons": 49995000, "swaps": 9993, "time_ms": 181.000, "memory_bytes": 0},
+    {"algorithm": "Insertion Lista Simples", "structure": "Lista Simples", "comparisons": 24946912, "swaps": 9993, "time_ms": 70.000, "memory_bytes": 0},
+    {"algorithm": "Merge Lista Simples", "structure": "Lista Simples", "comparisons": 120420, "swaps": 120420, "time_ms": 0.000, "memory_bytes": 0},
+    {"algorithm": "Insertion Lista Dupla", "structure": "Lista Dupla", "comparisons": 25060566, "swaps": 9993, "time_ms": 75.000, "memory_bytes": 0},
+    {"algorithm": "Merge Lista Dupla", "structure": "Lista Dupla", "comparisons": 120420, "swaps": 120420, "time_ms": 0.000, "memory_bytes": 0},
+    {"algorithm": "Insertion Lista Circular", "structure": "Lista Circular", "comparisons": 24946912, "swaps": 9993, "time_ms": 66.000, "memory_bytes": 0},
+    {"algorithm": "Merge Lista Circular", "structure": "Lista Circular", "comparisons": 120420, "swaps": 120420, "time_ms": 0.000, "memory_bytes": 0}
+  ]
+}

@@ -48,6 +48,9 @@ function parseLog(text) {
         throw new Error("O arquivo não contém um JSON válido.");
     }
 
+    if (log && log.report === "comparativo") {
+        throw new Error("Este arquivo é um comparativo de métricas. Abra-o na página Comparativo.");
+    }
     if (!log || typeof log.algorithm !== "string" || typeof log.data_kind !== "string" ||
         !Number.isInteger(log.size) || log.size < 1 ||
         !Array.isArray(log.initial) || log.initial.length !== log.size ||

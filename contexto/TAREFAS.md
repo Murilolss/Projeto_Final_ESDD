@@ -7,7 +7,7 @@ Cópia em texto do quadro **"Plano Projeto ESDD"**: https://claude.ai/artifact/G
   - O Claude atualiza o quadro (`ArtifactData`, coleção `tasks`) e este arquivo juntos.
   - Quem usa o Codex edita este arquivo, commita na sua `ESDD/<nome>` e marca a tarefa no quadro pelo navegador. Sem conta no claude.ai, avise o Murilo para ele marcar.
 - Status: `concluída`, `em andamento` ou `pendente`. A tarefa só vira `concluída` depois da revisão de outro integrante.
-- Atualizado em: 24/11/2026 (T26 e T10 concluídas com o PR #2, T11 com o PR #4, T13 e T14 com o PR #5, T15 com o PR #7, T16 com o PR #8).
+- Atualizado em: 24/11/2026 (T26 e T10 concluídas com o PR #2, T11 com o PR #4, T13 e T14 com o PR #5, T15 com o PR #7, T16 com o PR #8; T17 em andamento).
 
 ## Por integrante
 
@@ -40,7 +40,7 @@ Cópia em texto do quadro **"Plano Projeto ESDD"**: https://claude.ai/artifact/G
 | T14 | 4. Interface visual | Ler o log exportado e desenhar as barras | Lucas | concluída | T10 (formato do log), T13 |
 | T15 | 4. Interface visual | Animar comparações e trocas com cores distintas | Liliane | concluída | T14 |
 | T16 | 4. Interface visual | Controles de reprodução | Liliane | concluída | T14 |
-| T17 | 4. Interface visual | Tela comparativa das métricas | Liliane | pendente | T13 |
+| T17 | 4. Interface visual | Tela comparativa das métricas | Liliane | em andamento | T13 |
 | T18 | 5. Extra: hash | Tabela hash com encadeamento exterior (extra) | — | pendente | |
 | T19 | 5. Extra: hash | Buscar relatórios anteriores pelo menu (extra) | — | pendente | T18 |
 | T20 | 6. Revisão | Revisar o padrão da disciplina em todo o código | — | pendente | |
@@ -62,3 +62,4 @@ Ordem sugerida: **T12 → T11 → T13 → T14**. A T12 não depende de ninguém,
 
 - **T15 — Animar comparações e trocas com cores distintas.** Em [`web/`](../web/), o botão **Reproduzir** parte do `initial` e reaplica os passos do log em ordem. `compare` pinta as duas barras de amarelo e mostra `value_i` e `value_j`, `swap` pinta de vermelho e troca as alturas, e `write` pinta de azul e muda a altura da barra `i`. No fim, o vetor reaplicado é conferido com o `final`: se bater, todas as barras ficam verdes; se não bater, a página avisa que o log pode estar incompleto. A animação dura no máximo cerca de 30 s; num log com mais de 1.800 passos, cada quadro aplica vários passos e pinta só o último. Passos com tipo ou posição inválidos são rejeitados ao abrir o arquivo.
 - **T16 — Controles de reprodução.** Abaixo do status, em [`web/`](../web/): **Reproduzir/Pausar/Continuar** (um só botão), **◀ Passo** e **Passo ▶** (um passo exato, pausando a animação), **Reiniciar** (volta ao vetor inicial) e um controle de **Velocidade** com cinco posições, de 1 s a 16 ms por quadro, que muda a animação mesmo com ela rodando. A reprodução guarda a posição no log (`replay.position`). Voltar um passo reconstrói o vetor a partir do `initial`, reaplicando os passos até a posição anterior: os passos não têm "desfazer", e assim o código fica simples. Depois da revisão do PR #8, o visualizador aceita logs de até 100 números (o C continua exportando até 1000), e a animação mostra um passo por quadro em todas as velocidades, menos na "Muito rápida": nela, um log com mais de 1.800 passos junta vários passos por quadro para terminar em cerca de 30 s.
+- **T17 — Tela comparativa das métricas.** No C, a opção **Comparar todos os algoritmos** pergunta se exporta o comparativo (`export_report` em `src/export.c`) para `logs/comparativo_n<N>_<data>_<hora>.json`, com tempo, comparações, trocas e memória extra dos 7 algoritmos do vetor e dos 2 de cada lista. Na Web, a página [`web/comparativo.html`](../web/comparativo.html) (link **Comparativo** no topo) abre esse arquivo, mostra um gráfico de barras para a métrica escolhida, agrupado por estrutura, e uma tabela com todas as métricas. Formato em [formato_comparativo.md](formato_comparativo.md); exemplo em [`logs/exemplo_comparativo_n10000.json`](../logs/exemplo_comparativo_n10000.json).
