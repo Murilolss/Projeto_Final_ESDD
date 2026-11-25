@@ -198,6 +198,12 @@ gcc -Wall -Wextra src/*.c -o src/output/main.exe    # tem que compilar sem warni
   printf "100\n1\n7\n1\n\n8\n" | ./src/output/main.exe > saida.txt
   ```
   A última linha da saída deve ser `Memoria nao liberada: 0 bytes`.
+- **Teste dos casos-limite (T22):** antes de abrir um PR que mexa em `src/`, compile e rode o [tests/edge_cases.c](tests/edge_cases.c) a partir da pasta raiz. Ele precisa terminar com `0 falhas` e `Memoria nao liberada: 0 bytes`. Os casos cobertos e os testes manuais do menu estão em [contexto/casos_limite.md](contexto/casos_limite.md).
+  ```bash
+  gcc -Wall -Wextra -Isrc tests/edge_cases.c src/benchmark.c src/circular_list.c src/doubly_list.c src/export.c src/memory.c src/metrics.c src/queue.c src/search.c src/singly_list.c src/sort.c src/stack.c src/step_view.c src/vector.c -o tests/edge_cases.exe
+  ./tests/edge_cases.exe
+  ```
+  Ao criar um módulo `.c` novo, acrescente-o a esse comando e ao comentário do topo de `tests/edge_cases.c`. O `main.c` fica de fora, porque o teste tem o próprio `main`.
 - Testes caixa-branca (que incluem o `.c` para enxergar a struct) ficam **fora do repositório**: no scratchpad do Claude ou numa pasta temporária. Nunca deixe `#include "x.c"` no `src/`.
 - Os algoritmos O(n²) (Bubble, Selection, Insertion, Quick com dados ordenados ou invertidos) levam vários segundos com N = 50.000, e o comparativo completo (opção 7) leva uns 3 minutos. Avise antes de rodar e, no Claude, rode em segundo plano.
 

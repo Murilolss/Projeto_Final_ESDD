@@ -29,6 +29,8 @@
 
 static void clear_input(void);
 static void wait_enter(void);
+static int read_int(int *out);
+static int read_size(int *out);
 static int read_data_kind(void);
 static int read_yes_no(const char *question);
 static int run_sort(int index, const int *vector, int *copy, int size, int data_kind,
@@ -52,12 +54,11 @@ int main(void)
     srand((unsigned)time(NULL));
 
     printf("Digite o tamanho do vetor: ");
-    if (scanf("%d", &size) != 1 || size <= 0)
+    if (read_size(&size) == 0)
     {
-        printf("Tamanho invalido.\n");
+        printf("Tamanho invalido. Digite um inteiro entre 1 e %d.\n", VECTOR_MAX_SIZE);
         return 1;
     }
-    clear_input();
 
     data_kind = read_data_kind();
     if (data_kind == 0)
@@ -668,14 +669,12 @@ static void menu_resize(int **vector, int *size, int data_kind)
 
     printf("Tamanho atual: %d\n", *size);
     printf("Digite o novo tamanho do vetor: ");
-    if (scanf("%d", &new_size) != 1 || new_size <= 0)
+    if (read_size(&new_size) == 0)
     {
-        clear_input();
-        printf("\nTamanho invalido.\n");
+        printf("\nTamanho invalido. Digite um inteiro entre 1 e %d.\n", VECTOR_MAX_SIZE);
         wait_enter();
         return;
     }
-    clear_input();
 
     if (vector_resize(vector, *size, new_size) == 0)
     {
@@ -746,9 +745,13 @@ static void menu_benchmark(void)
     wait_enter();
 }
 
-/* Reads at most nine characters (sign included) to stay within int
-   and rejects extra text on the line. */
-static int read_batch_int(int *out)
+/* Reads one int and the rest of the line. Returns 1 on success; returns 0 (and the line
+   is discarded) if the line has no number or has extra text, as in "12abc".
+   At most nine characters (sign included) are read, so the value always fits in an int:
+   scanf("%d") with a longer number, such as 99999999999, has undefined behavior
+   (MinGW gives 1215752191). A number with ten or more digits leaves digits on the line
+   and is rejected as extra text. */
+static int read_int(int *out)
 {
     int read = scanf("%9d", out);
     int c;
@@ -763,6 +766,19 @@ static int read_batch_int(int *out)
 
     clear_input();
     return 0;
+}
+
+/* Reads the size of the array: an int between 1 and VECTOR_MAX_SIZE (vector.h).
+   Returns 1 on success, 0 if the answer is invalid. */
+static int read_size(int *out)
+{
+    int size;
+
+    if (read_int(&size) == 0 || size < 1 || size > VECTOR_MAX_SIZE)
+        return 0;
+
+    *out = size;
+    return 1;
 }
 
 static void run_batch(Queue *queue, int data_kind)
@@ -827,7 +843,7 @@ static void menu_batch(int data_kind)
     while (!feof(stdin) && !ferror(stdin))
     {
         printf("\nAlgoritmo ou acao: ");
-        if (read_batch_int(&choice) == 0 || choice < -1 || choice > SORT_COUNT)
+        if (read_int(&choice) == 0 || choice < -1 || choice > SORT_COUNT)
         {
             if (!feof(stdin) && !ferror(stdin))
                 printf("Opcao invalida.\n");
@@ -854,7 +870,7 @@ static void menu_batch(int data_kind)
 
         test.sort_index = choice - 1;
         printf("Digite o tamanho do vetor para o teste: ");
-        if (read_batch_int(&test.size) == 0 || test.size < 1 || test.size > BATCH_MAX_SIZE)
+        if (read_int(&test.size) == 0 || test.size < 1 || test.size > BATCH_MAX_SIZE)
         {
             if (!feof(stdin) && !ferror(stdin))
                 printf("Tamanho invalido. Digite um inteiro entre 1 e %d.\n", BATCH_MAX_SIZE);

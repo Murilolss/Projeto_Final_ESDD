@@ -2524,6 +2524,21 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** A `origin/dev` (`a26b872`) era ancestral da `ESDD/murilo`, então não houve merge. O Claude commitou o AI_LOG (#177–#179) na `ESDD/murilo`, avançou a `dev` local por fast-forward até o mesmo commit e fez o push das duas branches.
 - **Adaptações / correções:** O usuário pediu explicitamente para pular o PR. Com isso, a revisão de outro integrante (regra do CLAUDE.md) não aconteceu antes da `dev`, e por esse motivo a T20 continua "em andamento" no quadro e no `TAREFAS.md` até alguém revisar o commit `71169bc`.
 
+## #180 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > faça a t22
+- **Objetivo:** T22, que é testar os casos-limite do programa em C e da interface Web.
+- **Resposta da IA (resumo):**
+  - **Testes manuais do menu** (entrada por pipe), cobrindo tamanho 0, negativo, com letras, com texto sobrando e enorme; fim da entrada em cada pergunta; N = 1 e N = 2; exportação em N = 1000 (99 MB, JSON válido) e N = 1001; passo a passo com desfazer; fila cheia, vazia e com entradas inválidas.
+  - **Bug encontrado:** um tamanho como `1100000000` derrubava o programa. No MinGW de 32 bits, `size * sizeof(int)` estoura o `size_t`, o `malloc` recebe um bloco menor e o preenchimento escreve além dele. Correção: `VECTOR_MAX_SIZE` em `src/vector.h`, com `vector_create`/`vector_resize` recusando tamanhos acima dele (`src/vector.c`), e `read_size` em `src/main.c`, que reaproveita a leitura rígida do lote (`read_batch_int`, renomeada para `read_int`) no início e em Alterar tamanho.
+  - **Teste automático** novo em `tests/edge_cases.c`, com 590 verificações: vetor, busca, as 7 ordenações em vários tamanhos e dados (inclusive repetidos e `INT_MIN`/`INT_MAX`, reaplicando os passos como a Web faz), as três listas (vazia, 1 nó, `tail`/`prev`/círculo depois do Merge), pilha, fila (o exercício dos slides), exportação, outros módulos e vazamento. Passa com 0 falhas e 0 bytes não liberados.
+  - **Web:** `parseLog`/`parseReport` testadas com Node.js e um `document` falso, com cerca de 35 arquivos válidos e inválidos. Todos se comportaram como esperado.
+  - **Documentação e quadro:** casos e resultados em `contexto/casos_limite.md`; o comando do teste em `PRIMEIROS_PASSOS.md` (5.4); `contexto/TAREFAS.md` e o quadro com a T22 em andamento e responsável Murilo (antes era o Lucas).
+- **Adaptações / correções:** A primeira versão do teste usava `VECTOR_MAX_SIZE + 1` para o estouro e passava até com o código antigo, porque o `malloc` de 2 GB falha de qualquer jeito. Por isso o Claude acrescentou o caso 1073741825 (o tamanho em bytes dá a volta para 4). Com o `vector.c` antigo, o teste agora acusa 3 falhas. O Claude também corrigiu um erro próprio no teste da lista dupla, que pediria `dlist_to_array` com tamanho igual ao da lista e escreveria além do vetor `out`. O teste da Web ficou só no scratchpad, porque o projeto não exige Node.js.
+
 ---
 
 <!--

@@ -17,7 +17,7 @@ int *vector_create(int size)
 {
     int *v;
 
-    if (size <= 0)
+    if (size <= 0 || size > VECTOR_MAX_SIZE)
         return NULL;
 
     v = (int *)mem_alloc(size * sizeof(int));
@@ -31,7 +31,7 @@ int vector_resize(int **v, int old_size, int new_size)
 {
     int *temp;
 
-    if (v == NULL || *v == NULL || old_size <= 0 || new_size <= 0)
+    if (v == NULL || *v == NULL || old_size <= 0 || new_size <= 0 || new_size > VECTOR_MAX_SIZE)
         return 0;
 
     /* The result goes to a temporary pointer: if realloc fails it returns NULL but
