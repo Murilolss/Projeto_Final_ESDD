@@ -2124,6 +2124,20 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** No deck https://claude.ai/artifact/5tkV4xJ97wBx5fHhJApAuy, removeu o slide 5 ("Como nos organizamos", com o fluxo de branches e a tabela da equipe) e incluiu o Matheus Miasaki na capa e no encerramento. Trocou o slide "O que vamos abrir no VS Code" por três slides com trechos reais do código da `dev`, dois por slide: `sort.c` (tabela de algoritmos) e `doubly_list.c` (laço do `merge_nodes`); `stack.c` (`stack_pop`) e `queue.c` (`queue_enqueue`); `export.c` (`export_step`) e o terminal (comando do `gcc` e o menu). Ajustou o roteiro, o slide de abertura da etapa 2 e as notas para dizer que o VS Code só é aberto se o professor pedir, e acrescentou ao `deck.css` o layout das demonstrações. O deck ficou com 14 slides. Nenhum arquivo do projeto mudou, além desta entrada.
 - **Adaptações / correções:** "Slide 9" foi entendido pela numeração original (o roteiro do VS Code), porque depois da remoção o 9º slide seria a abertura da etapa 3. As seis partes não cabiam legíveis num slide só (fonte mínima de 24 px), por isso viraram três slides. Os trechos foram encurtados com comentários `/* ... */`, algumas linhas longas foram quebradas para caber, e o menu do terminal mostra só as opções principais. Ao remover o slide 5, a tabela de quem fez o quê saiu do deck. Como não se sabe qual IA o Matheus usa, o slide das IAs não mudou.
 
+## #142 — Terça-feira, 24/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > o Matheus usa o Claude Web também, coloque dos slides uma marca de quem vai apresentar
+  >
+  > Murilo: introdução slides 2 a 5 
+  > Matheus e Lucas dividem as partes do codigo
+  > Liliane: fica com a parte final
+- **Objetivo:** Incluir na apresentação o Claude Web, que o Matheus usa, e marcar em cada slide quem apresenta: Murilo nos slides 2 a 5, Matheus e Lucas no código e Liliane na parte final.
+- **Resposta da IA (resumo):** No deck https://claude.ai/artifact/5tkV4xJ97wBx5fHhJApAuy, criou no `deck.css` um selo "Apresenta: <nome>" fixo no canto superior direito, com cores invertidas nos slides escuros, e o colocou nos slides 2 a 14: Murilo nos slides 2 a 5, Matheus nos 6 a 8 (abertura do código, padrão TAD, `sort.c` e `doubly_list.c`), Lucas nos 9 e 10 (pilha e fila, exportação e terminal) e Liliane nos 11 a 14 (visualizador e encerramento). No slide do roteiro, cada etapa mostra quem apresenta, e a nota traz a divisão. O slide das IAs passou a ter três cartões (Claude Code, Claude Web e Codex), e os textos do hook e do CLAUDE.md agora citam só o Claude Code e o Codex. A memória do Matheus foi atualizada. Nenhum arquivo do projeto mudou, além desta entrada.
+- **Adaptações / correções:** O pedido não dizia como dividir o código entre Matheus e Lucas. O Lucas ficou com o slide da pilha e da fila (que ele implementou na T11 e na T12) e com o da exportação e do terminal, e o Matheus com a abertura, o padrão TAD e a ordenação e as listas. A capa ficou sem selo, porque o pedido começa no slide 2. A nota do slide das IAs avisa que o Claude Web não tem o hook e que os prompts dele entram no AI_LOG.md à mão.
+
 ---
 
 <!--
