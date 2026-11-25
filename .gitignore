@@ -5,6 +5,10 @@
 # Python cache
 __pycache__/
 
+# Class material (PDFs and their Markdown versions): kept only on each member's machine
+contexto/pdfs/
+contexto/slides/
+
 # Files exported by the program (T10 step logs, T17 comparisons): only the folder and the examples
 logs/*
 !logs/.gitkeep

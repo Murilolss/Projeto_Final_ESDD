@@ -202,7 +202,7 @@ static void pause_at_step(StepView *view)
     SwapIndices positions;
     int command;
 
-    for (;;)
+    while (1)
     {
         if (view->undo_available)
             printf("ENTER = avancar | u + ENTER = desfazer | f + ENTER = ir ate o fim: ");
@@ -226,9 +226,12 @@ static void pause_at_step(StepView *view)
         }
         else if (command == '\n')
         {
+            /* Nothing was undone (no change to replay): ENTER advances the sort */
             if (!view->undo_available ||
-                !stack_redo_change(view->history, view->playback, view->size, &positions) ||
-                !stack_has_redo(view->history))
+                !stack_redo_change(view->history, view->playback, view->size, &positions))
+                return;
+            /* The replay reached the latest step: the sort goes on */
+            if (!stack_has_redo(view->history))
                 return;
             show_history(view, positions, 1);
         }

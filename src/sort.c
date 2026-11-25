@@ -5,7 +5,8 @@
 #include "memory.h"
 
 /* Every sort function returns 1 on success and 0 on failure.
-   Only the Merge Sorts can fail (they allocate memory); the others always return 1. */
+   All of them fail if array or m is NULL; the Merge Sorts also fail when there is
+   not enough memory for the temporary halves. */
 
 /* ---------- Step notification ---------- */
 
@@ -27,6 +28,10 @@ static void notify(const StepObserver *observer, int kind, int i, int j,
 int bubble_sort(int *array, int size, Metrics *m, const StepObserver *observer)
 {
     int i, keep_going, aux;
+
+    if (array == NULL || m == NULL)
+        return 0;
+
     do
     {
         keep_going = 0;
@@ -54,6 +59,9 @@ int bubble_sort(int *array, int size, Metrics *m, const StepObserver *observer)
 /* ---------- Insertion Sort ---------- */
 int insertion_sort(int *array, int size, Metrics *m, const StepObserver *observer)
 {
+    if (array == NULL || m == NULL)
+        return 0;
+
     for (int i = 1; i < size; i++)
     {
         int key = array[i];
@@ -185,6 +193,9 @@ static int merge(int *array, int size, int left, int middle, int right, Metrics 
 /* ---------- Merge Sort (iterative) ---------- */
 int merge_sort_iterative(int *array, int size, Metrics *m, const StepObserver *observer)
 {
+    if (array == NULL || m == NULL)
+        return 0;
+
     /* current_size is the size of the subarrays being merged (1, 2, 4, 8...) */
     for (int current_size = 1; current_size <= size - 1; current_size = 2 * current_size)
     {
@@ -223,6 +234,9 @@ static int merge_sort_rec(int *array, int size, int left, int right, Metrics *m,
 
 int merge_sort_recursive(int *array, int size, Metrics *m, const StepObserver *observer)
 {
+    if (array == NULL || m == NULL)
+        return 0;
+
     return merge_sort_rec(array, size, 0, size - 1, m, observer);
 }
 
@@ -296,6 +310,9 @@ static void quick_sort_first_rec(int *array, int size, int start, int end, Metri
 
 int quick_sort_first_pivot(int *array, int size, Metrics *m, const StepObserver *observer)
 {
+    if (array == NULL || m == NULL)
+        return 0;
+
     quick_sort_first_rec(array, size, 0, size - 1, m, observer);
     return 1;
 }
@@ -362,6 +379,9 @@ static void quick_sort_last_rec(int *array, int size, int start, int end, Metric
 
 int quick_sort_last_pivot(int *array, int size, Metrics *m, const StepObserver *observer)
 {
+    if (array == NULL || m == NULL)
+        return 0;
+
     quick_sort_last_rec(array, size, 0, size - 1, m, observer);
     return 1;
 }
@@ -370,6 +390,10 @@ int quick_sort_last_pivot(int *array, int size, Metrics *m, const StepObserver *
 int selection_sort(int *array, int size, Metrics *m, const StepObserver *observer)
 {
     int i, j, min_pos, aux;
+
+    if (array == NULL || m == NULL)
+        return 0;
+
     for (i = 0; i < size - 1; i++)
     {
         min_pos = i;

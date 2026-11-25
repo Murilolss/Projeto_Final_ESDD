@@ -1,8 +1,17 @@
 #ifndef STACK_H
 #define STACK_H
 
+/* Stack of the changes made to the array in the step-by-step mode (Undo, T11).
+   Each element is one change: a swap (two positions) or a write (one position with
+   the value before and after it). The struct is opaque: only stack.c knows its fields.
+   It follows the convention of the classes: top is the next free position, so the
+   latest change is at top - 1. Undoing a change only moves top down; the changes
+   above top are kept until the next push, so they can be replayed (redo).
+   The array of changes is allocated with mem_alloc and grows with mem_realloc
+   (it doubles when it is full). */
 typedef struct Stack Stack;
 
+/* Positions changed by one step: two positions for a swap; for a write, second is -1. */
 typedef struct
 {
     int first;

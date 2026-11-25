@@ -53,10 +53,15 @@ static void build_path(const char *algorithm, int size, char *path)
     char name[48];
     char stamp[20];
     time_t now = time(NULL);
+    struct tm *local = localtime(&now);
     int number = 2;
 
     file_name_style(algorithm, name, (int)sizeof(name));
-    strftime(stamp, sizeof(stamp), "%Y%m%d_%H%M%S", localtime(&now));
+
+    /* localtime returns NULL if the clock cannot be read: the name gets zeros instead
+       of the date (the loop below still avoids overwriting an existing file) */
+    if (local == NULL || strftime(stamp, sizeof(stamp), "%Y%m%d_%H%M%S", local) == 0)
+        strcpy(stamp, "00000000_000000");
 
     snprintf(path, EXPORT_PATH_SIZE, "%s/%s_n%d_%s.json", EXPORT_FOLDER, name, size, stamp);
     while (file_exists(path))

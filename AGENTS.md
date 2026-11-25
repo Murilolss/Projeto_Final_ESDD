@@ -10,6 +10,7 @@ Resumo do que não pode faltar:
 - Responder sempre em **português do Brasil**. Código, comentários e o `README.md` em **inglês**; textos do `printf` em português **sem acento**.
 - Seguir o padrão das aulas (TAD em `.h`/`.c`, `malloc` checado, retorno `int` 1/0 com ponteiro de saída, nada de "caixa-preta").
 - Commitar só na `ESDD/<integrante>` do usuário. Nunca em `main` ou `dev`, nunca `git push --force`.
+- As pastas `contexto/pdfs/` e `contexto/slides/` ficam **fora do git**. Se não existirem neste computador, trabalhe com o resumo dos requisitos do CLAUDE.md e com o código de `src/`, e avise o usuário que pode pedir os arquivos a outro integrante. Nunca as adicione ao git.
 
 ## 2. Início de uma sessão nova
 

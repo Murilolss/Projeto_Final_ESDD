@@ -4,7 +4,7 @@
 
 **Plataforma de Análise de Estruturas e Algoritmos**: sistema de *benchmarking* e visualização de estruturas de dados em **C**, com interface Web (HTML/CSS/JS) que anima as barras de ordenação a partir de logs JSON/CSV exportados pelo C. Avaliação final da disciplina, equipe de 3–4 pessoas.
 
-Requisitos completos: [contexto/slides/Enunciado.md](contexto/slides/Enunciado.md) (original em `contexto/pdfs/Enunciado.pdf`).
+Requisitos completos: `contexto/slides/Enunciado.md` (original em `contexto/pdfs/Enunciado.pdf`). As pastas `contexto/pdfs/` e `contexto/slides/` **não estão no git** (estão no `.gitignore`): cada integrante guarda a própria cópia. Se elas não existirem no computador, use o resumo dos requisitos abaixo e peça os arquivos a outro integrante, sem recriá-los nem colocá-los no git.
 
 Primeira vez no projeto (integrante novo ou sessão nova do Claude): leia [PRIMEIROS_PASSOS.md](PRIMEIROS_PASSOS.md), com a configuração, a criação da branch `ESDD/<integrante>`, o fluxo de trabalho e os registros obrigatórios.
 
@@ -67,12 +67,12 @@ Isso atende à exigência do enunciado ("Registro de Prompts") e serve de materi
 | `.codex/`, `.agents/skills/`, `AGENTS.md` | configuração do Codex: hook (o mesmo script do `.claude/hooks/`), as mesmas skills (apontam para as do `.claude/skills/`) e as instruções |
 | `contexto/TAREFAS.md` | espelho em texto do quadro de tarefas (T01–T26) |
 | `contexto/codigo-exemplos/` | códigos das aulas (padrão de estilo a seguir) — recursão, ordenação, busca, hash (endereçamento aberto), ponteiros, TAD (carrinho), lista sequencial estática, lista simplesmente encadeada |
-| `contexto/pdfs/` | slides das aulas + `Enunciado.pdf` |
-| `contexto/slides/` | um `.md` por PDF (consultar estes em vez dos PDFs) |
+| `contexto/pdfs/` | slides das aulas + `Enunciado.pdf` (**fora do git**: só na cópia de cada integrante) |
+| `contexto/slides/` | um `.md` por PDF; consultar estes em vez dos PDFs (**fora do git**: só na cópia de cada integrante) |
 | `contexto/projeto-exemplo/` | protótipo feito à mão (menu de ordenação + métricas em vetor) — ponto de partida, não o padrão final. Inclui `Testes de algoritmos de ordenação.pdf`, a **1ª versão do enunciado** em que o protótipo se baseou (resumo e comparação com o final em `contexto/slides/Testes de algoritmos de ordenação.md`) |
 | `contexto/memory/` | uma nota por sessão, criada ou atualizada com `/salvar-memoria` (ler a mais recente ao iniciar) |
 
-Os PDFs de pilhas/filas e lista dupla **não** têm código em `codigo-exemplos`; o código de referência está nos `.md` correspondentes em `contexto/slides/`. Não há material de lista circular.
+Os PDFs de pilhas/filas e lista dupla **não** têm código em `codigo-exemplos`; o código de referência está nos `.md` correspondentes em `contexto/slides/`. Não há material de lista circular. Sem a pasta `contexto/slides/`, use como referência o código do projeto, que já segue esse padrão: `src/stack.c`, `src/queue.c`, `src/doubly_list.c` e `src/circular_list.c`.
 
 ## projeto-exemplo — o que já existe e o que falta corrigir
 

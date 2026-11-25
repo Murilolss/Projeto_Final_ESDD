@@ -28,7 +28,7 @@ Leia nesta ordem:
 
 1. [CLAUDE.md](CLAUDE.md): requisitos, padrões obrigatórios do código (TAD em `.h`/`.c`, inglês no código, `malloc` checado etc.) e mapa das pastas. Quem usa o Codex lê também o [AGENTS.md](AGENTS.md).
 2. **A nota de sessão mais recente** em [contexto/memory/](contexto/memory/), a de maior `sessao-NN`. Ela diz o que foi feito por último, o que ficou pendente e qual é o próximo passo. As anteriores contam o histórico das decisões.
-3. [contexto/slides/Enunciado.md](contexto/slides/Enunciado.md), se precisar do texto completo do enunciado.
+3. `contexto/slides/Enunciado.md`, se precisar do texto completo do enunciado. As pastas `contexto/slides/` e `contexto/pdfs/` **não estão no git**: cada integrante guarda a própria cópia. Se você não tiver, peça a outro integrante e copie para dentro de `contexto/`; o `.gitignore` impede que elas entrem num commit.
 4. **O quadro de tarefas da equipe:** artefato "Plano Projeto ESDD" (https://claude.ai/artifact/G6eqVDUisHMbyCAS5mDpfr). Ele lista as tarefas **T01–T26**, com responsável, status e cronograma. As conversas e os commits citam as tarefas por esse número (ex.: "Vamos fazer a T12").
    - Qualquer pessoa com o link vê a página. Para ver e marcar o progresso é preciso estar logado no claude.ai.
    - O [contexto/TAREFAS.md](contexto/TAREFAS.md) é o espelho em texto do quadro, para o Codex e para quem está sem conta no claude.ai. Os dois precisam bater: quem muda um muda o outro.
@@ -198,6 +198,12 @@ gcc -Wall -Wextra src/*.c -o src/output/main.exe    # tem que compilar sem warni
   printf "100\n1\n7\n1\n\n8\n" | ./src/output/main.exe > saida.txt
   ```
   A última linha da saída deve ser `Memoria nao liberada: 0 bytes`.
+- **Teste dos casos-limite (T22):** antes de abrir um PR que mexa em `src/`, compile e rode o [tests/edge_cases.c](tests/edge_cases.c) a partir da pasta raiz. Ele precisa terminar com `0 falhas` e `Memoria nao liberada: 0 bytes`. Os casos cobertos e os testes manuais do menu estão em [contexto/casos_limite.md](contexto/casos_limite.md).
+  ```bash
+  gcc -Wall -Wextra -Isrc tests/edge_cases.c src/benchmark.c src/circular_list.c src/doubly_list.c src/export.c src/memory.c src/metrics.c src/queue.c src/search.c src/singly_list.c src/sort.c src/stack.c src/step_view.c src/vector.c -o tests/edge_cases.exe
+  ./tests/edge_cases.exe
+  ```
+  Ao criar um módulo `.c` novo, acrescente-o a esse comando e ao comentário do topo de `tests/edge_cases.c`. O `main.c` fica de fora, porque o teste tem o próprio `main`.
 - Testes caixa-branca (que incluem o `.c` para enxergar a struct) ficam **fora do repositório**: no scratchpad do Claude ou numa pasta temporária. Nunca deixe `#include "x.c"` no `src/`.
 - Os algoritmos O(n²) (Bubble, Selection, Insertion, Quick com dados ordenados ou invertidos) levam vários segundos com N = 50.000, e o comparativo completo (opção 7) leva uns 3 minutos. Avise antes de rodar e, no Claude, rode em segundo plano.
 
@@ -252,7 +258,7 @@ gcc -Wall -Wextra src/*.c -o src/output/main.exe    # tem que compilar sem warni
 | `circular_list.h/.c` | lista circular simples (só `tail`) + Insertion/Merge (abre o ciclo, ordena e fecha) |
 | `benchmark.h/.c` | T09: comparativo vetor × listas, N = 1.000/10.000/50.000 nos 3 tipos de dados |
 
-Material de referência: [contexto/codigo-exemplos/](contexto/codigo-exemplos/) (o estilo das aulas, que o código deve seguir) e [contexto/slides/](contexto/slides/) (um `.md` por PDF; leia esses em vez dos PDFs).
+Material de referência: [contexto/codigo-exemplos/](contexto/codigo-exemplos/) (o estilo das aulas, que o código deve seguir) e `contexto/slides/` (um `.md` por PDF; leia esses em vez dos PDFs). A pasta `contexto/slides/` fica fora do git, só na cópia de cada integrante (veja a seção 1).
 
 ---
 

@@ -2,8 +2,27 @@
 
 Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes para Uso de Inteligência Artificial"): os prompts utilizados e **como as respostas da IA foram adaptadas ou corrigidas**.
 
-- **Ferramenta:** Claude Code (Anthropic)
-- **Formato:** uma entrada por prompt, em ordem cronológica, numeração sequencial, sem apagar entradas antigas.
+- **Ferramentas:** Claude Code (Anthropic), usado pelo Murilo e pela Liliane; Codex (OpenAI), usado pelo Lucas; Claude Web (claude.ai, no navegador), usado pelo Matheus. O Claude Code e o Codex registram cada prompt automaticamente, pelo hook [`.claude/hooks/log_prompt.py`](.claude/hooks/log_prompt.py). Os prompts do Claude Web entram à mão, no mesmo formato.
+- **Formato:** uma entrada por prompt, numeração sequencial, sem apagar entradas antigas.
+
+### Como ler este registro
+
+Revisão de 25/11/2026 (T21), que cobriu as entradas #001 a #182. A numeração não tem buracos nem repetições, e todo dia da semana bate com a data. Nenhuma entrada tem e-mail, senha ou token. As entradas antigas não foram reescritas; as diferenças entre elas estão explicadas aqui.
+
+- **A numeração segue a ordem em que as entradas chegaram à `dev`, não a data.** Cada integrante trabalha na própria branch. No merge, as entradas que só existiam na branch recebem os números seguintes aos da `dev`. Por isso a data volta no começo de quatro blocos: #061–#070 (Murilo, 19 a 23/11), #071–#097 (Liliane, 17 a 21/11), #123–#135 (Murilo, 23 e 24/11; as #123–#134 foram renumeradas no PR #6) e #136–#155 (Liliane, 23 e 24/11).
+- **Autor** é o `git config user.name` de quem enviou o prompt. `xXLucasCruzXx` e `Lucas Cruz` são o Lucas; `lilianeperim-ifsp` e `Liliane Perim` são a Liliane.
+- **Ferramenta:** o hook passou a gravar essa linha na #052. As entradas sem ela são todas do Claude Code: #001–#053 (Murilo) e #071–#078 (Liliane, numa branch com o hook ainda antigo).
+- **#048 e #053 não são prompts.** São avisos automáticos do Claude Code (o fim de um comando em segundo plano e o relatório de um subagente), que o hook gravava antes de ganhar o filtro na #052. Cada uma diz isso no campo Objetivo.
+- **"Nenhuma" em Adaptações / correções** quer dizer que a resposta foi usada como veio. Quando uma resposta foi corrigida depois, a correção aparece na entrada do prompt que corrigiu, e a entrada antiga só ganha uma nota em Adaptações (regra 3 do [CLAUDE.md](CLAUDE.md)).
+
+Contagem até a #182: 180 prompts (182 entradas menos os 2 avisos).
+
+| Integrante | Ferramenta | Entradas |
+|---|---|---|
+| Murilo | Claude Code | 103 (2 delas são os avisos #048 e #053) |
+| Liliane | Claude Code | 64 |
+| Lucas | Codex | 15 |
+| Matheus | Claude Web | 0: os prompts dele ainda precisam ser registrados à mão |
 
 ---
 
@@ -2274,6 +2293,353 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 
 ## #156 — Terça-feira, 24/11/2026
 
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > confira o pr7
+- **Objetivo:** Revisar o PR #7 da Liliane (T15: animação das comparações, trocas e escritas com cores no visualizador `web/`) antes do merge na `dev`.
+- **Resposta da IA (resumo):** A IA leu o diff (`web/app.js`, `web/index.html`, `web/styles.css`, `contexto/TAREFAS.md`, `AI_LOG.md`, nota da sessão 12), compilou o programa em C numa pasta temporária, exportou logs dos 7 algoritmos com N = 30 e reaplicou cada um, mais o exemplo de N = 10, com o `app.js` do PR num DOM simulado no Node. Em todos, o vetor terminou igual ao `final`, todas as barras ficaram verdes e as cores apareceram como esperado (escrita só no Insertion e nos Merge Sorts). Logs inválidos (passo fora do vetor, `j = -2` na escrita, tipo desconhecido, sem `final`) foram recusados, e um log cortado ao meio mostrou o aviso. A regra de CSS do rótulo de barra curta ganha das cores pela ordem no arquivo, e o `final` nunca sai vazio no C (o `main.c` sempre passa a cópia). Nenhum defeito que impeça o merge; observações menores: um log pequeno (96 passos) leva cerca de 29 s por causa do atraso máximo de 300 ms, o que a T16 (velocidade) resolve, e um arquivo inválido aberto durante a animação mostra o erro mas deixa a animação anterior rodando. Nenhum arquivo do projeto mudou além desta entrada.
+- **Adaptações / correções:** O número desta entrada (#136) colide com as entradas da Liliane renumeradas no PR #7 (#136–#146). Se o PR #7 entrar na `dev` antes, esta entrada vira #147 no próximo merge da `dev` na `ESDD/murilo`.
+
+## #157 — Terça-feira, 24/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > marca a T15 no quadro e pode aprovar o PR
+- **Objetivo:** Aprovar o PR #7 (T15) e atualizar a T15 no quadro "Plano Projeto ESDD".
+- **Resposta da IA (resumo):** O PR #7 foi aprovado no GitHub com um comentário que resume os testes da entrada #156 e os dois pontos menores para a T16. O PR continua aberto, esperando o merge. No quadro só existe "concluída" ou não (não há "em andamento"), e a IA tentou marcar a T15 (`ui-anim`) como concluída, mas a permissão do Claude Code bloqueou a gravação. Como o primeiro texto da aprovação dizia que a T15 já estava marcada, a IA editou o comentário para tirar essa frase. Nenhum arquivo do projeto mudou além desta entrada.
+- **Adaptações / correções:** A T15 continua desmarcada no quadro até o Murilo decidir: marcar como concluída agora (pela aprovação) ou só depois do merge. O `TAREFAS.md` do PR mostra a T15 "em andamento" e precisa virar "concluída" depois do merge.
+
+## #158 — Terça-feira, 24/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > Revise o PR8
+- **Objetivo:** Revisar o PR #8 da Liliane (T16: controles de reprodução do visualizador Web) antes do merge na `dev`.
+- **Resposta da IA (resumo):** Leu o diff (`web/app.js`, `web/index.html`, `web/styles.css`, `contexto/TAREFAS.md`, `AI_LOG.md` #147–#149) e o `app.js` inteiro da branch. Conferiu a sintaxe com `node --check` e rodou um teste num DOM simulado com o `logs/exemplo_bubble_sort_n10.json` (reproduzir, pausar, avançar até o fim, voltar do fim, reproduzir até o fim pelos timers) e com um log sem passos: tudo funcionou. Não achou bug que impeça o merge. Apontou detalhes: na velocidade "Muito lenta" um log grande continua pulando centenas de passos por quadro; `pauseReplay()` redundante no `loadLog`; `speedInput.value - 1` com conversão implícita; o controle de velocidade sem `aria-valuetext`; o botão fica "Reproduzir" no fim de um log sem passos; o texto da T15 no `TAREFAS.md` ("no máximo cerca de 30 s") agora só vale na velocidade mais rápida. Nenhum arquivo do projeto mudou, além desta entrada.
+- **Adaptações / correções:** A revisão não foi publicada no GitHub; fica para o Murilo decidir se aprova e se comenta os detalhes no PR. Também foi visto que as entradas #136–#138 da `ESDD/murilo` repetem os números #136–#146 que já estão na `dev` (PR #7) e vão precisar de renumeração ao trazer a `dev`.
+
+## #159 — Terça-feira, 24/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > mande ela alterar no pr o modo passo a passo para no maximo 100 numeros assim reduz o tempo, só tem essa alteração para fazer
+- **Objetivo:** Pedir à Liliane, no PR #8, que limite o modo passo a passo a no máximo 100 números para reduzir o tempo da reprodução.
+- **Resposta da IA (resumo):** Publicou no PR #8, pela conta do Murilo, uma revisão "Changes requested" com uma única alteração: limitar o modo passo a passo (a reprodução do visualizador Web) a no máximo 100 números. A justificativa: com N = 1000 o log passa de 1,4 milhão de passos, e na velocidade "Muito lenta" a reprodução leva cerca de 30 min, pulando centenas de passos por quadro. Nenhum arquivo do projeto mudou, além desta entrada.
+- **Adaptações / correções:** Os outros detalhes da revisão #158 (redundância no `loadLog`, `Number(...)`, `aria-valuetext`, log sem passos, texto da T15 no `TAREFAS.md`) ficaram de fora do pedido, como o Murilo quis. A forma de tratar logs com mais de 100 números (recusar ou só desenhar sem os controles) ficou a critério da Liliane.
+
+## #160 — Terça-feira, 24/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > Claude crie uma apresentação simples de introdução ao projeto, quais IAs foram utilizadas, como o projeto foi estruturado, a apresentação será feita por 3 etapas, introdução, código no vscode e mostrando como funciona o html de metricas crie essa apresentação em artefato mesmo
+- **Objetivo:** Criar, como artefato do claude.ai, uma apresentação simples do projeto em três etapas: introdução (inclusive as IAs usadas e a estrutura do projeto), código no VS Code e demonstração do HTML de métricas.
+- **Resposta da IA (resumo):** Criou o deck "Apresentação — Projeto Final ESDD" (https://claude.ai/artifact/5tkV4xJ97wBx5fHhJApAuy), com 13 slides e notas do apresentador. Abertura: capa e roteiro das três etapas. Etapa 1: o que o projeto faz, as IAs (Claude Code com o Murilo e a Liliane, Codex com o Lucas, mais de 140 prompts no AI_LOG.md, hook e CLAUDE.md), o fluxo de branches e PRs com a divisão da equipe e a tabela dos módulos de `src/` e `web/`. Etapa 2: o padrão TAD com um trecho do `src/stack.h` e o roteiro de arquivos para abrir no VS Code, com o comando do `gcc`. Etapa 3: o caminho do menu em C ao `logs/*.json` e ao `web/index.html`, a legenda de cores, o trecho do JSON de exemplo e o roteiro da demonstração no navegador. Encerramento com o link do repositório. O visual usa as cores do `web/styles.css`, como o Murilo escolheu. Nenhum arquivo do projeto mudou, além desta entrada.
+- **Adaptações / correções:** A tela comparativa de métricas (T17) ainda está pendente, e os controles de reprodução (T16, PR #8) estão esperando a alteração para no máximo 100 números. O slide do roteiro web cita os dois, e a nota do apresentador pede para conferir se já estão na `dev` antes da apresentação. O número de prompts aparece como "140+" para não ficar desatualizado.
+
+## #161 — Terça-feira, 24/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > Remova o Slide 5, Adicione o Matheus Miasaki como integrante, no slide 9 pode colocar uma demosntração de cada etapa no proprio slide e se o professor pedir para abrir o vscode nós abrimos
+- **Objetivo:** Ajustar a apresentação: tirar o slide 5, incluir o Matheus Miasaki como integrante e trocar o roteiro do VS Code (slide 9) por demonstrações do código nos próprios slides, abrindo o VS Code só se o professor pedir.
+- **Resposta da IA (resumo):** No deck https://claude.ai/artifact/5tkV4xJ97wBx5fHhJApAuy, removeu o slide 5 ("Como nos organizamos", com o fluxo de branches e a tabela da equipe) e incluiu o Matheus Miasaki na capa e no encerramento. Trocou o slide "O que vamos abrir no VS Code" por três slides com trechos reais do código da `dev`, dois por slide: `sort.c` (tabela de algoritmos) e `doubly_list.c` (laço do `merge_nodes`); `stack.c` (`stack_pop`) e `queue.c` (`queue_enqueue`); `export.c` (`export_step`) e o terminal (comando do `gcc` e o menu). Ajustou o roteiro, o slide de abertura da etapa 2 e as notas para dizer que o VS Code só é aberto se o professor pedir, e acrescentou ao `deck.css` o layout das demonstrações. O deck ficou com 14 slides. Nenhum arquivo do projeto mudou, além desta entrada.
+- **Adaptações / correções:** "Slide 9" foi entendido pela numeração original (o roteiro do VS Code), porque depois da remoção o 9º slide seria a abertura da etapa 3. As seis partes não cabiam legíveis num slide só (fonte mínima de 24 px), por isso viraram três slides. Os trechos foram encurtados com comentários `/* ... */`, algumas linhas longas foram quebradas para caber, e o menu do terminal mostra só as opções principais. Ao remover o slide 5, a tabela de quem fez o quê saiu do deck. Como não se sabe qual IA o Matheus usa, o slide das IAs não mudou.
+
+## #162 — Terça-feira, 24/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > o Matheus usa o Claude Web também, coloque dos slides uma marca de quem vai apresentar
+  >
+  > Murilo: introdução slides 2 a 5 
+  > Matheus e Lucas dividem as partes do codigo
+  > Liliane: fica com a parte final
+- **Objetivo:** Incluir na apresentação o Claude Web, que o Matheus usa, e marcar em cada slide quem apresenta: Murilo nos slides 2 a 5, Matheus e Lucas no código e Liliane na parte final.
+- **Resposta da IA (resumo):** No deck https://claude.ai/artifact/5tkV4xJ97wBx5fHhJApAuy, criou no `deck.css` um selo "Apresenta: <nome>" fixo no canto superior direito, com cores invertidas nos slides escuros, e o colocou nos slides 2 a 14: Murilo nos slides 2 a 5, Matheus nos 6 a 8 (abertura do código, padrão TAD, `sort.c` e `doubly_list.c`), Lucas nos 9 e 10 (pilha e fila, exportação e terminal) e Liliane nos 11 a 14 (visualizador e encerramento). No slide do roteiro, cada etapa mostra quem apresenta, e a nota traz a divisão. O slide das IAs passou a ter três cartões (Claude Code, Claude Web e Codex), e os textos do hook e do CLAUDE.md agora citam só o Claude Code e o Codex. A memória do Matheus foi atualizada. Nenhum arquivo do projeto mudou, além desta entrada.
+- **Adaptações / correções:** O pedido não dizia como dividir o código entre Matheus e Lucas. O Lucas ficou com o slide da pilha e da fila (que ele implementou na T11 e na T12) e com o da exportação e do terminal, e o Matheus com a abertura, o padrão TAD e a ordenação e as listas. A capa ficou sem selo, porque o pedido começa no slide 2. A nota do slide das IAs avisa que o Claude Web não tem o hook e que os prompts dele entram no AI_LOG.md à mão.
+
+## #163 — Terça-feira, 24/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > revise novamente o PR
+- **Objetivo:** Revisar de novo o PR #8 (T16), agora com a alteração pedida na revisão #159: no máximo 100 números.
+- **Resposta da IA (resumo):** Leu o commit novo da Liliane (`b03da6d`) e o comentário dela no PR. Mudanças: `MAX_LOG_SIZE` de 1000 para 100 em `web/app.js`, com uma mensagem própria para logs maiores, e animação com 1 passo por quadro em todas as velocidades, menos na "Muito rápida". Também atualizou `contexto/formato_log.md`, `contexto/TAREFAS.md` e o AI_LOG (#150–#151). Conferiu a sintaxe com `node --check` e testou num DOM simulado: um log com N = 101 é recusado com a mensagem nova; um Bubble Sort com N = 100 e dados invertidos (14.850 passos) chega ao `final` em "Normal" com 14.850 quadros (cerca de 37 min) e em "Muito rápida" com 1.650 quadros (cerca de 26 s). O PR está `MERGEABLE`/`CLEAN` e contém a `dev` atual. Conclusão: a alteração pedida foi feita e pode ser aprovada. O único ponto é o tempo em "Normal" com logs grandes, por causa do fim do agrupamento de passos. Nada foi publicado no GitHub.
+- **Adaptações / correções:** A revisão #159 só pedia o limite de 100 números. A mudança de 1 passo por quadro veio do motivo citado na revisão ("cada quadro ainda pula centenas de passos"). Ficou para o Murilo decidir se aprova assim ou se pede para manter o agrupamento também em "Rápida".
+
+## #164 — Terça-feira, 24/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > pode aprovar o PR
+- **Objetivo:** Aprovar o PR #8 (T16) no GitHub.
+- **Resposta da IA (resumo):** Conferiu que o PR continuava no commit revisado (`b03da6d`) e publicou, pela conta do Murilo, uma revisão "Approve", com o resumo dos testes da revisão #163 (log com N = 101 recusado; Bubble Sort com N = 100 invertido chegando ao `final` em "Normal" e em "Muito rápida"). O PR ficou com a decisão `APPROVED`. Nenhum arquivo do projeto mudou, além desta entrada.
+- **Adaptações / correções:** O merge não foi feito, porque não foi pedido; fica com a Liliane, como no PR #7. Ao fazer o merge, a T16 deve virar "concluída" no `contexto/TAREFAS.md` e no quadro.
+
+## #165 — Terça-feira, 24/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > revise o PR9
+- **Objetivo:** Revisar o PR #9 da Liliane (T17: exportação do comparativo de métricas e página `web/comparativo.html`).
+- **Resposta da IA (resumo):** Leu o diff inteiro: `export_report` em `src/export.c`/`.h`, o vetor `structures[]` e a pergunta de exportação em `menu_compare_all` (`src/main.c`), `web/comparativo.html`/`.js`, o CSS, o aviso cruzado em `web/app.js`, `contexto/formato_comparativo.md`, o exemplo em `logs/`, o `.gitignore` e o `TAREFAS.md`. Numa cópia temporária da branch (git worktree no scratchpad, removida depois): compilou com `gcc -Wall -Wextra` sem avisos; rodou o menu com N = 10.000 aleatório, opção 3 e `Sim`, e o arquivo `logs/comparativo_n10000_...json` saiu com 13 resultados, JSON válido e "Memoria nao liberada: 0 bytes"; fora da raiz, o programa avisou que não conseguiu gravar. Testou o leitor da página no Node: aceitou o exemplo, o arquivo gerado e um arquivo com BOM, e recusou o log de passos com a indicação da página Animação. O PR está `MERGEABLE`/`CLEAN` e contém a `dev` com o PR #8. Conclusão: pode aprovar. Detalhes não obrigatórios: o BOM está como caractere invisível no regex (o `app.js` usa `﻿`); o texto "o `clock()` avança de cerca de 10 em 10 ms" não bateu com esta máquina (saíram 1, 3 e 7 ms); o tooltip mistura `innerHTML` e `textContent` (seguro, porque os textos são fixos). Nada foi publicado no GitHub.
+- **Adaptações / correções:** A página não foi aberta num navegador de verdade; o PR já trazia capturas no Edge headless. O arquivo do comparativo gerado no teste ficou só na cópia temporária, já apagada.
+
+## #166 — Terça-feira, 24/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > pode aprovar o PR
+- **Objetivo:** Aprovar o PR #9 (T17) no GitHub.
+- **Resposta da IA (resumo):** Conferiu que o PR continuava no commit revisado (`03433de`) e publicou, pela conta do Murilo, uma revisão "Approve" com o resumo dos testes da revisão #165 (compilação sem avisos, JSON válido com N = 10.000, aviso fora da raiz e leitura na página). O PR ficou com a decisão `APPROVED`. Nenhum arquivo do projeto mudou, além desta entrada.
+- **Adaptações / correções:** Os três detalhes da revisão #165 (BOM invisível no regex, texto dos 10 ms do `clock()` e o `innerHTML` do tooltip) não foram comentados no PR, porque o pedido foi só aprovar. O merge fica com a Liliane, que depois marca a T17 como concluída no `TAREFAS.md` e no quadro.
+
+## #167 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > /atualizar-branch
+- **Objetivo:** Rodar a skill `/atualizar-branch`: trazer a `dev` para a `ESDD/murilo` e dar push.
+- **Resposta da IA (resumo):** Conferiu a branch (`ESDD/murilo`, 9 commits à frente da origin) e rodou `git pull --no-edit origin dev`. O Git recusou o merge: "Your local changes to the following files would be overwritten by merge: AI_LOG.md". A alteração local era esta entrada, criada pelo hook. Nada foi mesclado e não houve push. Um `git merge-tree` (que não muda nada) mostrou que, mesmo depois de commitar esta entrada, o merge vai dar conflito no `AI_LOG.md`: as entradas #136–#147 da `ESDD/murilo` repetem números que a `dev` já usa (até #155, com os PRs #7, #8 e #9). Parou e perguntou ao Murilo como seguir, como a skill manda.
+- **Adaptações / correções:** O conflito não foi resolvido nem o merge abortado, porque a skill proíbe isso sem o pedido do usuário. Esta entrada ficou sem commit, porque a skill não faz commit manual.
+
+## #168 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > pode seguir assim
+- **Objetivo:** Concluir a atualização da `ESDD/murilo` com a `dev`, resolvendo o conflito do `AI_LOG.md` como proposto na entrada #167.
+- **Resposta da IA (resumo):** Commitou as entradas pendentes (`0b167c1`) e rodou `git pull --no-edit origin dev`. Vieram os PRs #7, #8 e #9 da Liliane (T15, T16 e T17: `src/export.c`/`.h`, `src/main.c`, `web/`, `contexto/formato_comparativo.md`, `logs/exemplo_comparativo_n10000.json`, `.gitignore`, `TAREFAS.md`, `formato_log.md` e uma nota de `contexto/memory/`). O único conflito foi no `AI_LOG.md`. Para resolver, um script em Python manteve a versão da `dev` inteira (até #155) e acrescentou no fim as entradas da `ESDD/murilo`, renumeradas de #136–#148 para #156–#168. Também atualizou as referências entre elas ("entrada #136" → #156, "revisão #138" → #158, #139 → #159, #143 → #163, #145 → #165). Conferiu que o arquivo só acrescenta linhas em relação à `dev`. Commitou o merge (`24ccc81`) e deu push na `ESDD/murilo`.
+- **Adaptações / correções:** As frases que descrevem a colisão de números na época (nas entradas #156, #159 e #167) e os números de entradas da Liliane (#147–#151) ficaram como estavam. A entrada #156 diz que ela "vira #147"; o número final é #156. As mensagens dos commits antigos ("Log AI prompt #138" etc.) continuam com os números antigos.
+
+## #169 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > faça um arquivo .md que será transformado em pdf, esse arquivo é a documentação de ENGS
+- **Objetivo:** Criar a documentação de Engenharia de Software (ENGS) pedida no enunciado (requisitos funcionais, documentação da arquitetura e controle de versão com Git/GitHub), num `.md` que será convertido em PDF.
+- **Resposta da IA (resumo):** Criado `docs/DOCUMENTACAO_ENGS.md` em português, a partir dos `.h` de `src/`, do `main.c`, de `web/`, do `contexto/TAREFAS.md`, dos formatos `formato_log.md`/`formato_comparativo.md` e da lista de PRs do GitHub. Seções: introdução e glossário, escopo, 26 requisitos funcionais (RF01–RF26, com prioridade e situação; hash marcada como planejada), 11 requisitos não funcionais, arquitetura (diagramas em texto, camadas, padrão observador com `StepObserver`, tabela de algoritmos, contador de memória, fluxo da exportação), módulos, interface Web, formatos JSON, 11 decisões de projeto, branches e histórico dos PRs #1–#9, fases das tarefas, uso de IA, como compilar/executar e limitações. Diagramas em ASCII (sem Mermaid) e quebras de página em HTML, para funcionar em qualquer conversor de PDF.
+- **Adaptações / correções:** Documento em português (não em inglês) porque é a entrega de ENGS e não documentação de código nem o README. Prontuários e link do repositório ficaram como _(preencher)_; o sobrenome do Lucas ("Cruz") foi deduzido do usuário do git e precisa ser conferido.
+
+## #170 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > claude cada um precisa explicar um trecho do codigo, então na parte do codigo deixe um slide para cada um com um trecho do código, para mim coloque o vector create e vector resize. nos slides 11 e 14 tire a parte do apresentador
+- **Objetivo:** Na apresentação, deixar um slide de código para cada integrante explicar um trecho (o do Murilo com `vector_create` e `vector_resize`) e tirar o selo de apresentador dos slides 11 e 14.
+- **Resposta da IA (resumo):** No deck https://claude.ai/artifact/5tkV4xJ97wBx5fHhJApAuy, os três slides de código antigos (`codigo-1` a `codigo-3`) viraram quatro, um por integrante, todos com trechos reais da `ESDD/murilo` atualizada: Matheus, a tabela de algoritmos (`SortFunction` de `sort.h` e `SortAlgorithm`/`algorithms[]` de `sort.c`); Murilo, `vector_create` e `vector_resize` de `src/vector.c`, lado a lado; Lucas, `stack_pop` e `queue_enqueue`; Liliane, `export_step`. Saiu o painel do terminal; o comando do `gcc` foi para a nota do slide da Liliane. Os selos da abertura da etapa 3 e do encerramento (os slides 11 e 14 de antes) foram removidos. O roteiro (etapa 2: "Todos: um trecho cada"), as notas, a descrição da seção no `deck.json` e o `deck.css` (colunas 760 px + resto e espaçamento menor no código do Murilo) foram atualizados. O deck ficou com 15 slides. A memória da divisão da apresentação foi atualizada. Nenhum arquivo do projeto mudou, além desta entrada.
+- **Adaptações / correções:** O pedido só definia o trecho do Murilo. Os outros foram escolhidos pelo que cada um fez ou pelo que já estava no deck: Lucas com a pilha e a fila (T11 e T12), Liliane com a exportação (T10), Matheus com a tabela de algoritmos. A ordem (Matheus, Murilo, Lucas, Liliane) evita idas e vindas, porque o Matheus já abre a etapa e a Liliane segue para a etapa 3. Saíram do deck o trecho do Merge Sort da lista dupla e o painel do terminal. "Slides 11 e 14" foi lido pela numeração anterior (a abertura da etapa 3 e o encerramento).
+
+## #171 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > Claude, crie um guia de apresentação para o que cada um vai falar e no final um guia geral sobre as coisas mais importantes do projeto
+- **Objetivo:** Criar um guia do que cada integrante fala na apresentação e, no fim, um guia geral com o mais importante do projeto.
+- **Resposta da IA (resumo):** Criou o documento "Guia de apresentação — Projeto Final ESDD" no claude.ai (https://claude.ai/artifact/JKF4uHJpRxw3bUS6vVnEA9). Ele tem a ordem das falas, com slides e tempo sugerido, e uma lista do que preparar antes (compilação, abas do VS Code, páginas e JSONs de exemplo). Cada integrante tem uma seção com o que dizer em cada slide e respostas para perguntas prováveis: Murilo (slides 1–5 e `vector_create`/`vector_resize`), Matheus (abertura, padrão TAD e tabela de algoritmos), Lucas (pilha e fila) e Liliane (`export_step`, visualizador, demonstração e encerramento). O guia geral reúne uma tabela de cada requisito e onde ele está, os resultados do comparativo com N = 10.000, a complexidade dos algoritmos, as decisões que podem ser perguntadas e como as IAs foram usadas. Os dados foram conferidos no código da `ESDD/murilo`, no `TAREFAS.md`, no `PRIMEIROS_PASSOS.md` e no JSON de exemplo. Nenhum arquivo do projeto mudou, além desta entrada.
+- **Adaptações / correções:** Os tempos de cada fala são sugestões, e o tempo máximo da apresentação ficou como pergunta em aberto ("[__ min]"). A capa ficou com o Murilo, porque ele já abre no slide 2. O guia geral avisa que a tabela hash (extra, T18) não foi feita.
+
+## #172 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > <pasted_content id="e272">
+  > Nao foi possivel criar o arquivo na pasta logs.
+  > Rode o programa a partir da pasta raiz do projeto (onde fica a pasta logs).
+  > A ordenacao vai rodar sem exportar.
+  >
+  > Pressione ENTER para continuar...
+  > </pasted_content id="e272">
+  >
+  > Por que esse erro aparece?
+- **Objetivo:** Entender por que a exportação JSON falha com "Nao foi possivel criar o arquivo na pasta logs".
+- **Resposta da IA (resumo):** O Claude explicou a causa e não mudou nenhum arquivo de código. O caminho `logs/...` ([src/export.c](src/export.c), `EXPORT_FOLDER`) é relativo à pasta de onde o programa roda. O executável estava em `src/output/main.exe` e rodava de lá, pela extensão do VS Code. Lá não existe `logs/`, e o `fopen(..., "w")` não cria pastas, então devolve `NULL`. Solução: rodar o programa a partir da raiz do projeto (`.\src\output\main.exe`) ou compilar na raiz. Alternativas oferecidas: configurar o `cwd` do VS Code para `${workspaceFolder}` ou mudar o código para tentar `../logs` ou criar a pasta com `_mkdir`.
+- **Adaptações / correções:** O Claude não mudou o código sem perguntar. Ele recomendou ajustar o `cwd` do VS Code em vez de `_mkdir`, que só existe no Windows e é menos didático para a arguição.
+
+## #173 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > configure o VS Code para rodar da raiz
+- **Objetivo:** Fazer o botão de rodar do VS Code executar o programa a partir da raiz do projeto, para a exportação encontrar a pasta `logs/`.
+- **Resposta da IA (resumo):** O Claude leu o código da extensão "C/C++ Compile Run" (danielpinto8zz6), que é a instalada. Ela executa o programa na pasta de saída (`output-location`, padrão `output` ao lado do `.c`) e manda um `cd` para lá antes de cada execução. A extensão não tem uma opção de `cwd` separada, mas a de saída aceita `${workspaceFolder}`. Mudou o arquivo [.vscode/settings.json](.vscode/settings.json): acrescentou `"c-cpp-compile-run.output-location": "${workspaceFolder}"` e manteve a porta do Live Server. Agora o `main.exe` é gerado na raiz, que já é ignorada pelo `.gitignore` (`*.exe`), e roda de lá.
+- **Adaptações / correções:** Um `launch.json`/`tasks.json` com `cwd` não seria usado pelo botão dessa extensão, por isso foi mudada a configuração de saída. O Claude não testou o botão (não tem como clicar no VS Code). O `src/output/main.exe` antigo ficou no lugar.
+
+## #174 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > faça commit da pasta .vscode suba tambem no git ignore a pasta de pdf e de slides do contexto
+- **Objetivo:** Fazer commit da pasta `.vscode`, enviar para o GitHub e colocar no `.gitignore` as pastas `contexto/pdfs` e `contexto/slides`.
+- **Resposta da IA (resumo):** O Claude fez dois commits na `ESDD/murilo`. O primeiro (`e1e4fc5`) é o da [.vscode/settings.json](.vscode/settings.json). No segundo (`5ea6826`), acrescentou `contexto/pdfs/` e `contexto/slides/` ao [.gitignore](.gitignore) e rodou `git rm -r --cached` nas duas pastas: os 14 PDFs e os 15 `.md` saíram do repositório, mas continuam no disco. Depois fez o commit deste registro e o push da branch.
+- **Adaptações / correções:** As pastas já estavam no git, então só acrescentá-las ao `.gitignore` não adiantaria. O Claude perguntou antes e avisou que o pull apaga esses arquivos das máquinas dos outros integrantes e quebra os links para `contexto/slides/` no CLAUDE.md e no AGENTS.md. O usuário escolheu tirar as pastas do repositório. O Claude não mexeu no CLAUDE.md, no AGENTS.md nem na pasta `docs/`, que ainda não está no git.
+
+## #175 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > atualize o CLAUDE.md e o AGENTS.md
+- **Objetivo:** Atualizar o CLAUDE.md e o AGENTS.md depois que `contexto/pdfs/` e `contexto/slides/` saíram do git (#174).
+- **Resposta da IA (resumo):** Mudanças no [CLAUDE.md](CLAUDE.md): o link para `contexto/slides/Enunciado.md` virou texto em código e ganhou um aviso de que as duas pastas estão fora do git (cada integrante guarda a sua cópia; sem elas, usar o resumo dos requisitos e pedir os arquivos a outro integrante). A tabela de pastas marca as duas como "fora do git". A nota sobre o código de pilha/fila/lista dupla passou a indicar `src/stack.c`, `src/queue.c`, `src/doubly_list.c` e `src/circular_list.c` como referência quando os slides não estiverem no computador. No [AGENTS.md](AGENTS.md), entrou um item no resumo da seção 1 com a mesma regra para o Codex (nunca colocar as pastas de volta no git).
+- **Adaptações / correções:** O Claude não mexeu no PRIMEIROS_PASSOS.md (linhas 31 e 255) nem no contexto/TAREFAS.md (T12), que também apontam para `contexto/slides/`, porque o pedido era só para os dois arquivos. Também não fez commit.
+
+## #176 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > sim, ajuste os dois e faça commit e push
+- **Objetivo:** Ajustar também o PRIMEIROS_PASSOS.md e o contexto/TAREFAS.md, que apontavam para `contexto/slides/`, e fazer commit e push de tudo (#175 e #176).
+- **Resposta da IA (resumo):** No [PRIMEIROS_PASSOS.md](PRIMEIROS_PASSOS.md), seção 1 item 3: o link para o `Enunciado.md` virou texto em código, e o item explica que as pastas estão fora do git e que quem não tiver deve pedir a outro integrante e copiar para `contexto/`. A frase sobre o material de referência, no fim do guia, também deixou de ser link e avisa que a pasta fica fora do git. No [contexto/TAREFAS.md](contexto/TAREFAS.md), a T12 passou a citar o slide como texto e a apontar também para [src/queue.c](src/queue.c). Um `git grep` confirmou que não restou nenhum link para `slides/` ou `pdfs/`. Commit da documentação (CLAUDE.md, AGENTS.md, PRIMEIROS_PASSOS.md, TAREFAS.md), commit do AI_LOG e push da `ESDD/murilo`.
+- **Adaptações / correções:** As citações a `contexto/slides/` no AI_LOG.md e nas notas de `contexto/memory/` ficaram como estavam, porque são registros históricos e não devem ser reescritos.
+
+## #177 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > Faça a t20
+- **Objetivo:** T20, que é revisar todo o código C contra o padrão da disciplina (TAD opaco, include guards, checagem de `malloc`, `free` + `NULL`, retorno 1/0, validação de `NULL`/limites, convenções de pilha e fila, inglês no código).
+- **Resposta da IA (resumo):** Os 27 arquivos de `src/` foram lidos. A maior parte já seguia o padrão, e o projeto compila sem avisos (`-Wall -Wextra`, também `-pedantic -std=c99`). Correções: `sort.c`/`sort.h` (validação de `NULL` nos 7 algoritmos públicos); `stack.c`/`stack.h` (`cursor` → `top` = próxima posição livre e `top` → `recorded`, com comentários, sem mudar o comportamento); `main.c` (retorno do `scanf` nos submenus, que entravam em laço infinito com a entrada encerrada; retorno de `queue_enqueue`; `++number` fora do `printf`; `main(void)`); `export.c` (`NULL` de `localtime`); comentários de contrato em `queue.h` e `metrics.h`; `step_view.c` (`while (1)` e a condição do ENTER dividida). Testes: programa no scratchpad com as 7 ordenações em 3 tipos de dados e tamanhos de 1 a 300, `NULL`, e push/undo/redo/pop da pilha (0 falhas); o `main.exe` rodou com entrada simulada (EOF nos submenus, lote, exportação, passo a passo com desfazer), sempre com 0 bytes não liberados; a saída do passo a passo ficou idêntica à da versão anterior. `contexto/TAREFAS.md`: T20 em andamento com Murilo, mais a seção de detalhes, e o espelho foi sincronizado com o quadro (T17 concluída pelo PR #9; responsáveis de T18–T24). No quadro, a T20 já estava com o Murilo e não concluída, então nada mudou.
+- **Adaptações / correções:** O Claude não removeu as funções sem uso (`stack_pop`, `stack_undo_swap`, `sequential_search`) nem renumerou as opções 8/9 do menu: essas decisões ficam para a equipe. A T20 só vira concluída depois da revisão de outro integrante.
+
+## #178 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > pode mandar direto para a dev
+- **Objetivo:** Levar a `ESDD/murilo` para a `dev` sem abrir PR.
+- **Resposta da IA (resumo):** A `dev` não tinha nenhum commit que faltasse na `ESDD/murilo` (estava 0 commits atrás e 17 à frente) e não havia PR aberto. Então o Claude avançou a `dev` com `git push origin ESDD/murilo:dev` (fast-forward `af06346..a26b872`) e atualizou a `dev` local com `git fetch origin dev:dev`, sem trocar de branch. A `dev` passou a ter a configuração do VS Code (#173), a saída de `contexto/pdfs/` e `contexto/slides/` do git (#174) e a documentação ajustada (#175–#176). A numeração do AI_LOG não colidiu: a `dev` ia até a #155.
+- **Adaptações / correções:** Nesse momento, outra sessão fazia a T20 (#177) e tinha mudanças sem commit em `src/` (export.c, main.c, metrics.h, queue.h, sort.c/.h, stack.c/.h, step_view.c). O Claude não trocou de branch nem fez commit dessas mudanças, então só foi para a `dev` o que já estava commitado. Este registro (#178) ficou sem commit, junto com a #177, para não misturar com o trabalho da T20. O usuário pediu o merge direto, o que é uma exceção à regra de PR com revisão (memória "merge-direto-na-dev").
+
+## #179 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > Faça o push e comita direto na dev
+- **Objetivo:** Publicar a revisão da T20 (#177) e levá-la para a `dev` sem PR.
+- **Resposta da IA (resumo):** A `origin/dev` (`a26b872`) era ancestral da `ESDD/murilo`, então não houve merge. O Claude commitou o AI_LOG (#177–#179) na `ESDD/murilo`, avançou a `dev` local por fast-forward até o mesmo commit e fez o push das duas branches.
+- **Adaptações / correções:** O usuário pediu explicitamente para pular o PR. Com isso, a revisão de outro integrante (regra do CLAUDE.md) não aconteceu antes da `dev`, e por esse motivo a T20 continua "em andamento" no quadro e no `TAREFAS.md` até alguém revisar o commit `71169bc`.
+
+## #180 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > faça a t22
+- **Objetivo:** T22, que é testar os casos-limite do programa em C e da interface Web.
+- **Resposta da IA (resumo):**
+  - **Testes manuais do menu** (entrada por pipe), cobrindo tamanho 0, negativo, com letras, com texto sobrando e enorme; fim da entrada em cada pergunta; N = 1 e N = 2; exportação em N = 1000 (99 MB, JSON válido) e N = 1001; passo a passo com desfazer; fila cheia, vazia e com entradas inválidas.
+  - **Bug encontrado:** um tamanho como `1100000000` derrubava o programa. No MinGW de 32 bits, `size * sizeof(int)` estoura o `size_t`, o `malloc` recebe um bloco menor e o preenchimento escreve além dele. Correção: `VECTOR_MAX_SIZE` em `src/vector.h`, com `vector_create`/`vector_resize` recusando tamanhos acima dele (`src/vector.c`), e `read_size` em `src/main.c`, que reaproveita a leitura rígida do lote (`read_batch_int`, renomeada para `read_int`) no início e em Alterar tamanho.
+  - **Teste automático** novo em `tests/edge_cases.c`, com 590 verificações: vetor, busca, as 7 ordenações em vários tamanhos e dados (inclusive repetidos e `INT_MIN`/`INT_MAX`, reaplicando os passos como a Web faz), as três listas (vazia, 1 nó, `tail`/`prev`/círculo depois do Merge), pilha, fila (o exercício dos slides), exportação, outros módulos e vazamento. Passa com 0 falhas e 0 bytes não liberados.
+  - **Web:** `parseLog`/`parseReport` testadas com Node.js e um `document` falso, com cerca de 35 arquivos válidos e inválidos. Todos se comportaram como esperado.
+  - **Documentação e quadro:** casos e resultados em `contexto/casos_limite.md`; o comando do teste em `PRIMEIROS_PASSOS.md` (5.4); `contexto/TAREFAS.md` e o quadro com a T22 em andamento e responsável Murilo (antes era o Lucas).
+- **Adaptações / correções:** A primeira versão do teste usava `VECTOR_MAX_SIZE + 1` para o estouro e passava até com o código antigo, porque o `malloc` de 2 GB falha de qualquer jeito. Por isso o Claude acrescentou o caso 1073741825 (o tamanho em bytes dá a volta para 4). Com o `vector.c` antigo, o teste agora acusa 3 falhas. O Claude também corrigiu um erro próprio no teste da lista dupla, que pediria `dlist_to_array` com tamanho igual ao da lista e escreveria além do vetor `out`. O teste da Web ficou só no scratchpad, porque o projeto não exige Node.js.
+
+## #181 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > faça o push e manda direto na dev
+- **Objetivo:** Publicar a T22 (#180) e levá-la para a `dev` sem PR.
+- **Resposta da IA (resumo):** A `origin/dev` (`776a311`) era ancestral da `ESDD/murilo`, então não houve merge. O Claude commitou este registro (#181) na `ESDD/murilo`, fez o push e avançou a `dev` remota por fast-forward até o mesmo commit.
+- **Adaptações / correções:** O usuário pediu explicitamente para pular o PR. Por isso a T22, assim como a T20, continua "em andamento" no quadro e no `TAREFAS.md` até outro integrante revisar o commit `164f2b3`.
+
+## #182 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > faça a t21 e altere a quantidade na apresentação 180+
+- **Objetivo:** T21, que é revisar o `AI_LOG.md` inteiro, e atualizar a quantidade de prompts no deck da apresentação para "180+".
+- **Resposta da IA (resumo):**
+  - **Verificação por script** das 182 entradas: numeração sem buracos nem repetições, dia da semana igual à data, os seis campos presentes, nenhum "a preencher" esquecido (fora esta entrada, preenchida agora) e nenhum e-mail, senha ou token.
+  - **Diferenças encontradas, mas não corrigidas nas entradas** (regra 3 do CLAUDE.md):
+    - a data volta em quatro blocos (#061, #071, #123 e #136), porque a numeração segue a ordem de chegada à `dev`;
+    - dois nomes de autor para o Lucas e para a Liliane;
+    - #001–#053 e #071–#078 sem a linha Ferramenta;
+    - #048 e #053 são avisos automáticos, não prompts;
+    - o Matheus (Claude Web) tem 0 entradas.
+  - **Cabeçalho do `AI_LOG.md`:** as três ferramentas no lugar de "Claude Code" e a seção "Como ler este registro", que explica cada diferença, com a contagem por integrante (180 prompts até a #182).
+  - **`contexto/TAREFAS.md`:** T21 em andamento, com os detalhes. No quadro, a T21 já estava com o Murilo e não concluída, então nada mudou.
+  - **Deck** (https://claude.ai/artifact/5tkV4xJ97wBx5fHhJApAuy): no slide "As IAs que usamos", "140+ prompts" passou a "180+ prompts". Só esse slide mudou.
+- **Adaptações / correções:** "180+" bate com a contagem: 182 entradas menos os 2 avisos dão 180 prompts. Fica pendente para o Matheus registrar os prompts dele à mão.
+
+## #183 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > faça o push e manda direto na dev
+- **Objetivo:** Publicar a T21 (#182) e levá-la para a `dev` sem PR.
+- **Resposta da IA (resumo):** A `origin/dev` (`bada119`) era ancestral da `ESDD/murilo`, então não houve merge. O Claude commitou este registro (#183) na `ESDD/murilo`, fez o push e avançou a `dev` remota por fast-forward até o mesmo commit.
+- **Adaptações / correções:** O usuário pediu explicitamente para pular o PR. Por isso a T21, como a T20 e a T22, continua "em andamento" até outro integrante revisar o commit `9c5e5c1`.
+
+## #184 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > Prontuario não precisa colocar, atualize e gere o pdf
+- **Objetivo:** Tirar os prontuários da capa da documentação de ENGS e gerar o PDF.
+- **Resposta da IA (resumo):** Em `docs/DOCUMENTACAO_ENGS.md`: a tabela de prontuários virou uma lista com os 4 integrantes, o link do repositório (do `git remote`) substituiu o "(preencher)", o cabeçalho YAML foi removido e as linhas da capa foram separadas em parágrafos. Gerado `docs/DOCUMENTACAO_ENGS.pdf` (18 páginas A4): conversão do Markdown para HTML com a biblioteca `markdown` do Python e impressão em PDF pelo Chrome sem janela, com um CSS de impressão (capa centralizada, tabelas com cabeçalho, blocos de código monoespaçados). As páginas foram renderizadas em imagem e conferidas.
+- **Adaptações / correções:** Sem pandoc nem LaTeX na máquina, as bibliotecas `markdown` e `pymupdf` foram instaladas só na pasta temporária da sessão, e o script de conversão ficou fora do repositório.
+
+## #185 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > faz o commit e o push
+- **Objetivo:** Commitar e enviar ao GitHub a documentação de ENGS (`.md` e PDF).
+- **Resposta da IA (resumo):** Commit na `ESDD/murilo` com `docs/DOCUMENTACAO_ENGS.md`, `docs/DOCUMENTACAO_ENGS.pdf` e as entradas #184–#185 do `AI_LOG.md`, seguido de `git push origin ESDD/murilo`.
+- **Adaptações / correções:** Nenhuma. O commit foi feito na branch do integrante, sem tocar na `dev` ou na `main`; a entrada na `dev` segue o fluxo de PR com revisão.
+
+## #186 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > manda para a dev
+- **Objetivo:** Levar a documentação de ENGS para a `dev`.
+- **Resposta da IA (resumo):** Conferido que a `ESDD/murilo` já continha toda a `dev` (só 1 commit à frente) e que o AI_LOG da `dev` termina na #183, sem colisão de números. Aberto o PR #10 (`ESDD/murilo` → `dev`, "Add software engineering documentation (ENGS)") com resumo e lista de revisão (requisitos x código, nomes da capa, histórico de PRs).
+- **Adaptações / correções:** Pelo fluxo da equipe (revisão de outro integrante antes da `dev`), foi aberto um PR em vez de fazer o merge direto, como nos PRs #3 e #6. O `gh pr create` falhou duas vezes com erro do GraphQL do GitHub; o PR foi criado pela API REST (`gh api .../pulls`). O merge fica para depois da revisão.
+
+## #187 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > faz o merge na dev
+- **Objetivo:** Fazer o merge do PR #10 (documentação de ENGS) na `dev`.
+- **Resposta da IA (resumo):** Esta entrada foi commitada e enviada à `ESDD/murilo` antes do merge, para entrar no PR. Depois, merge do PR #10 na `dev` pelo GitHub (merge commit, como nos PRs anteriores).
+- **Adaptações / correções:** O merge foi feito sem a revisão de outro integrante, a pedido explícito do usuário (o fluxo normal pede revisão antes da `dev`).
+
+## #188 — Terça-feira, 24/11/2026
+
 - **Autor:** Liliane Perim
 - **Ferramenta:** Claude Code
 - **Prompt:**
@@ -2282,7 +2648,7 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** O Murilo aprovou o PR #9 sobre o commit atual (`03433de`), sem pedir alterações: compilou sem avisos, gerou o comparativo com N = 10.000, conferiu o aviso fora da raiz do projeto e a página com o exemplo, o arquivo gerado e o log de passos recusado. A IA fez o merge na `dev` (`af06346`, merge commit), trouxe a `dev` para a `ESDD/liliane` e marcou a T17 como concluída no `contexto/TAREFAS.md` (a Liliane ficou sem tarefas abertas). Commitou e deu push na `ESDD/liliane`.
 - **Adaptações / correções:** Nenhuma. O quadro do claude.ai continua sem a T15, a T16 e a T17 marcadas, porque não abre pela conta da Liliane.
 
-## #157 — Terça-feira, 24/11/2026
+## #189 — Terça-feira, 24/11/2026
 
 - **Autor:** Liliane Perim
 - **Ferramenta:** Claude Code
@@ -2292,17 +2658,17 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Criou `contexto/memory/2026-11-24_sessao-15_interface-t15-t16-t17.md` (prompts #140–#157): atualizações da branch, T15, T16 e T17 (PRs #7, #8 e #9), as decisões (numeração do AI_LOG, passo atrás por reaplicação, limite de 100 só na Web, barras de uma cor, aviso do `clock()`), as pendências e os próximos passos.
 - **Adaptações / correções:** Nenhuma.
 
-## #158 — Terça-feira, 24/11/2026
+## #190 — Terça-feira, 24/11/2026
 
 - **Autor:** Liliane Perim
 - **Ferramenta:** Claude Code
 - **Prompt:**
   > faça o commit e o push
 - **Objetivo:** Fazer commit e push da nota da sessão 15 e das entradas do AI_LOG.
-- **Resposta da IA (resumo):** Fez um commit na `ESDD/liliane` com `contexto/memory/2026-11-24_sessao-15_interface-t15-t16-t17.md` e o `AI_LOG.md` (#157–#158) e deu push para `origin/ESDD/liliane`.
+- **Resposta da IA (resumo):** Fez um commit na `ESDD/liliane` com `contexto/memory/2026-11-24_sessao-15_interface-t15-t16-t17.md` e o `AI_LOG.md` (#189–#190) e deu push para `origin/ESDD/liliane`.
 - **Adaptações / correções:** Nenhuma.
 
-## #159 — Quarta-feira, 25/11/2026
+## #191 — Quarta-feira, 25/11/2026
 
 - **Autor:** Liliane Perim
 - **Ferramenta:** Claude Code
@@ -2310,17 +2676,17 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
   > /atualizar-branch
 - **Objetivo:** Trazer para a `ESDD/liliane` o que já foi integrado na `dev`.
 - **Resposta da IA (resumo):** O `git pull origin dev` foi abortado pelo Git porque o `AI_LOG.md` tinha uma alteração local não commitada (esta entrada). A `dev` tem 27 commits novos (até o PR #10, AI_LOG até #187). Nada foi mesclado nem enviado, e nenhum arquivo do projeto mudou.
-- **Adaptações / correções:** A IA parou e pediu à usuária que decidisse como seguir. A numeração desta entrada (#159) colide com a da `dev`, que já passa do #187.
+- **Adaptações / correções:** A IA parou e pediu à usuária que decidisse como seguir. Esta entrada foi criada como #159, número que colidia com a `dev` (já no #187); foi renumerada para #191 no merge da `dev`, junto com as #156–#158 e #160 da Liliane (agora #188–#190 e #192).
 
-## #160 — Quarta-feira, 25/11/2026
+## #192 — Quarta-feira, 25/11/2026
 
 - **Autor:** Liliane Perim
 - **Ferramenta:** Claude Code
 - **Prompt:**
   > pode fazer a opção 1 e renumerar a entrada
-- **Objetivo:** _(a preencher pelo Claude ao final da resposta)_
-- **Resposta da IA (resumo):** _(a preencher pelo Claude ao final da resposta)_
-- **Adaptações / correções:** _(a preencher pelo Claude ao final da resposta)_
+- **Objetivo:** Commitar o `AI_LOG.md`, trazer a `dev` para a `ESDD/liliane` e renumerar as entradas locais.
+- **Resposta da IA (resumo):** Commit do `AI_LOG.md` e `git pull origin dev` (27 commits, até o PR #10), com conflito no `AI_LOG.md` e no `contexto/TAREFAS.md`. No `TAREFAS.md` ficou a versão da `dev`, mais nova e que já inclui a da Liliane. No `AI_LOG.md` ficou a versão da `dev` (renumerada na T21), e no fim entraram as entradas da Liliane que a `dev` não tinha, renumeradas: #156–#160 viraram #188–#192. O merge apagou do disco `contexto/pdfs/` e `contexto/slides/`, que a `dev` deixou de versionar. A IA os restaurou do commit `8b92a19` só no disco; eles seguem fora do Git pelo `.gitignore`. Commit do merge e push para `origin/ESDD/liliane`.
+- **Adaptações / correções:** Esta entrada foi criada como #160 e renumerada para #192. As referências antigas dentro das entradas (ex.: "prompts #140–#157" na #189) ficaram como estavam, porque citam a numeração da época.
 
 ---
 

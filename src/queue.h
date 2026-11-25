@@ -1,8 +1,15 @@
 #ifndef QUEUE_H
 #define QUEUE_H
 
+/* Static circular queue of the batch tests (T12).
+   The tests are kept in an array of fixed capacity. start is the position of the first
+   test and count is how many tests there are; the end is (start + count) % capacity,
+   so the positions go back to 0 after the last one and no element is ever shifted.
+   The struct is opaque: only queue.c knows its fields. */
 typedef struct Queue Queue;
 
+/* One test of the batch: the algorithm (index of the table in sort.h) and the size of
+   the array that will be sorted. */
 typedef struct
 {
     int sort_index;
