@@ -2539,6 +2539,16 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
   - **Documentação e quadro:** casos e resultados em `contexto/casos_limite.md`; o comando do teste em `PRIMEIROS_PASSOS.md` (5.4); `contexto/TAREFAS.md` e o quadro com a T22 em andamento e responsável Murilo (antes era o Lucas).
 - **Adaptações / correções:** A primeira versão do teste usava `VECTOR_MAX_SIZE + 1` para o estouro e passava até com o código antigo, porque o `malloc` de 2 GB falha de qualquer jeito. Por isso o Claude acrescentou o caso 1073741825 (o tamanho em bytes dá a volta para 4). Com o `vector.c` antigo, o teste agora acusa 3 falhas. O Claude também corrigiu um erro próprio no teste da lista dupla, que pediria `dlist_to_array` com tamanho igual ao da lista e escreveria além do vetor `out`. O teste da Web ficou só no scratchpad, porque o projeto não exige Node.js.
 
+## #181 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > faça o push e manda direto na dev
+- **Objetivo:** Publicar a T22 (#180) e levá-la para a `dev` sem PR.
+- **Resposta da IA (resumo):** A `origin/dev` (`776a311`) era ancestral da `ESDD/murilo`, então não houve merge. O Claude commitou este registro (#181) na `ESDD/murilo`, fez o push e avançou a `dev` remota por fast-forward até o mesmo commit.
+- **Adaptações / correções:** O usuário pediu explicitamente para pular o PR. Por isso a T22, assim como a T20, continua "em andamento" no quadro e no `TAREFAS.md` até outro integrante revisar o commit `164f2b3`.
+
 ---
 
 <!--
