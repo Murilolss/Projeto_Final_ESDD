@@ -2406,6 +2406,74 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Commitou as entradas pendentes (`0b167c1`) e rodou `git pull --no-edit origin dev`. Vieram os PRs #7, #8 e #9 da Liliane (T15, T16 e T17: `src/export.c`/`.h`, `src/main.c`, `web/`, `contexto/formato_comparativo.md`, `logs/exemplo_comparativo_n10000.json`, `.gitignore`, `TAREFAS.md`, `formato_log.md` e uma nota de `contexto/memory/`). O único conflito foi no `AI_LOG.md`. Para resolver, um script em Python manteve a versão da `dev` inteira (até #155) e acrescentou no fim as entradas da `ESDD/murilo`, renumeradas de #136–#148 para #156–#168. Também atualizou as referências entre elas ("entrada #136" → #156, "revisão #138" → #158, #139 → #159, #143 → #163, #145 → #165). Conferiu que o arquivo só acrescenta linhas em relação à `dev`. Commitou o merge (`24ccc81`) e deu push na `ESDD/murilo`.
 - **Adaptações / correções:** As frases que descrevem a colisão de números na época (nas entradas #156, #159 e #167) e os números de entradas da Liliane (#147–#151) ficaram como estavam. A entrada #156 diz que ela "vira #147"; o número final é #156. As mensagens dos commits antigos ("Log AI prompt #138" etc.) continuam com os números antigos.
 
+## #169 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > faça um arquivo .md que será transformado em pdf, esse arquivo é a documentação de ENGS
+- **Objetivo:** Criar a documentação de Engenharia de Software (ENGS) pedida no enunciado (requisitos funcionais, documentação da arquitetura e controle de versão com Git/GitHub), num `.md` que será convertido em PDF.
+- **Resposta da IA (resumo):** Criado `docs/DOCUMENTACAO_ENGS.md` em português, a partir dos `.h` de `src/`, do `main.c`, de `web/`, do `contexto/TAREFAS.md`, dos formatos `formato_log.md`/`formato_comparativo.md` e da lista de PRs do GitHub. Seções: introdução e glossário, escopo, 26 requisitos funcionais (RF01–RF26, com prioridade e situação; hash marcada como planejada), 11 requisitos não funcionais, arquitetura (diagramas em texto, camadas, padrão observador com `StepObserver`, tabela de algoritmos, contador de memória, fluxo da exportação), módulos, interface Web, formatos JSON, 11 decisões de projeto, branches e histórico dos PRs #1–#9, fases das tarefas, uso de IA, como compilar/executar e limitações. Diagramas em ASCII (sem Mermaid) e quebras de página em HTML, para funcionar em qualquer conversor de PDF.
+- **Adaptações / correções:** Documento em português (não em inglês) porque é a entrega de ENGS e não documentação de código nem o README. Prontuários e link do repositório ficaram como _(preencher)_; o sobrenome do Lucas ("Cruz") foi deduzido do usuário do git e precisa ser conferido.
+
+## #170 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > claude cada um precisa explicar um trecho do codigo, então na parte do codigo deixe um slide para cada um com um trecho do código, para mim coloque o vector create e vector resize. nos slides 11 e 14 tire a parte do apresentador
+- **Objetivo:** Na apresentação, deixar um slide de código para cada integrante explicar um trecho (o do Murilo com `vector_create` e `vector_resize`) e tirar o selo de apresentador dos slides 11 e 14.
+- **Resposta da IA (resumo):** No deck https://claude.ai/artifact/5tkV4xJ97wBx5fHhJApAuy, os três slides de código antigos (`codigo-1` a `codigo-3`) viraram quatro, um por integrante, todos com trechos reais da `ESDD/murilo` atualizada: Matheus, a tabela de algoritmos (`SortFunction` de `sort.h` e `SortAlgorithm`/`algorithms[]` de `sort.c`); Murilo, `vector_create` e `vector_resize` de `src/vector.c`, lado a lado; Lucas, `stack_pop` e `queue_enqueue`; Liliane, `export_step`. Saiu o painel do terminal; o comando do `gcc` foi para a nota do slide da Liliane. Os selos da abertura da etapa 3 e do encerramento (os slides 11 e 14 de antes) foram removidos. O roteiro (etapa 2: "Todos: um trecho cada"), as notas, a descrição da seção no `deck.json` e o `deck.css` (colunas 760 px + resto e espaçamento menor no código do Murilo) foram atualizados. O deck ficou com 15 slides. A memória da divisão da apresentação foi atualizada. Nenhum arquivo do projeto mudou, além desta entrada.
+- **Adaptações / correções:** O pedido só definia o trecho do Murilo. Os outros foram escolhidos pelo que cada um fez ou pelo que já estava no deck: Lucas com a pilha e a fila (T11 e T12), Liliane com a exportação (T10), Matheus com a tabela de algoritmos. A ordem (Matheus, Murilo, Lucas, Liliane) evita idas e vindas, porque o Matheus já abre a etapa e a Liliane segue para a etapa 3. Saíram do deck o trecho do Merge Sort da lista dupla e o painel do terminal. "Slides 11 e 14" foi lido pela numeração anterior (a abertura da etapa 3 e o encerramento).
+
+## #171 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > Claude, crie um guia de apresentação para o que cada um vai falar e no final um guia geral sobre as coisas mais importantes do projeto
+- **Objetivo:** Criar um guia do que cada integrante fala na apresentação e, no fim, um guia geral com o mais importante do projeto.
+- **Resposta da IA (resumo):** Criou o documento "Guia de apresentação — Projeto Final ESDD" no claude.ai (https://claude.ai/artifact/JKF4uHJpRxw3bUS6vVnEA9). Ele tem a ordem das falas, com slides e tempo sugerido, e uma lista do que preparar antes (compilação, abas do VS Code, páginas e JSONs de exemplo). Cada integrante tem uma seção com o que dizer em cada slide e respostas para perguntas prováveis: Murilo (slides 1–5 e `vector_create`/`vector_resize`), Matheus (abertura, padrão TAD e tabela de algoritmos), Lucas (pilha e fila) e Liliane (`export_step`, visualizador, demonstração e encerramento). O guia geral reúne uma tabela de cada requisito e onde ele está, os resultados do comparativo com N = 10.000, a complexidade dos algoritmos, as decisões que podem ser perguntadas e como as IAs foram usadas. Os dados foram conferidos no código da `ESDD/murilo`, no `TAREFAS.md`, no `PRIMEIROS_PASSOS.md` e no JSON de exemplo. Nenhum arquivo do projeto mudou, além desta entrada.
+- **Adaptações / correções:** Os tempos de cada fala são sugestões, e o tempo máximo da apresentação ficou como pergunta em aberto ("[__ min]"). A capa ficou com o Murilo, porque ele já abre no slide 2. O guia geral avisa que a tabela hash (extra, T18) não foi feita.
+
+## #172 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > <pasted_content id="e272">
+  > Nao foi possivel criar o arquivo na pasta logs.
+  > Rode o programa a partir da pasta raiz do projeto (onde fica a pasta logs).
+  > A ordenacao vai rodar sem exportar.
+  >
+  > Pressione ENTER para continuar...
+  > </pasted_content id="e272">
+  >
+  > Por que esse erro aparece?
+- **Objetivo:** Entender por que a exportação JSON falha com "Nao foi possivel criar o arquivo na pasta logs".
+- **Resposta da IA (resumo):** O Claude explicou a causa e não mudou nenhum arquivo de código. O caminho `logs/...` ([src/export.c](src/export.c), `EXPORT_FOLDER`) é relativo à pasta de onde o programa roda. O executável estava em `src/output/main.exe` e rodava de lá, pela extensão do VS Code. Lá não existe `logs/`, e o `fopen(..., "w")` não cria pastas, então devolve `NULL`. Solução: rodar o programa a partir da raiz do projeto (`.\src\output\main.exe`) ou compilar na raiz. Alternativas oferecidas: configurar o `cwd` do VS Code para `${workspaceFolder}` ou mudar o código para tentar `../logs` ou criar a pasta com `_mkdir`.
+- **Adaptações / correções:** O Claude não mudou o código sem perguntar. Ele recomendou ajustar o `cwd` do VS Code em vez de `_mkdir`, que só existe no Windows e é menos didático para a arguição.
+
+## #173 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > configure o VS Code para rodar da raiz
+- **Objetivo:** Fazer o botão de rodar do VS Code executar o programa a partir da raiz do projeto, para a exportação encontrar a pasta `logs/`.
+- **Resposta da IA (resumo):** O Claude leu o código da extensão "C/C++ Compile Run" (danielpinto8zz6), que é a instalada. Ela executa o programa na pasta de saída (`output-location`, padrão `output` ao lado do `.c`) e manda um `cd` para lá antes de cada execução. A extensão não tem uma opção de `cwd` separada, mas a de saída aceita `${workspaceFolder}`. Mudou o arquivo [.vscode/settings.json](.vscode/settings.json): acrescentou `"c-cpp-compile-run.output-location": "${workspaceFolder}"` e manteve a porta do Live Server. Agora o `main.exe` é gerado na raiz, que já é ignorada pelo `.gitignore` (`*.exe`), e roda de lá.
+- **Adaptações / correções:** Um `launch.json`/`tasks.json` com `cwd` não seria usado pelo botão dessa extensão, por isso foi mudada a configuração de saída. O Claude não testou o botão (não tem como clicar no VS Code). O `src/output/main.exe` antigo ficou no lugar.
+
+## #174 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > faça commit da pasta .vscode suba tambem no git ignore a pasta de pdf e de slides do contexto
+- **Objetivo:** Fazer commit da pasta `.vscode`, enviar para o GitHub e colocar no `.gitignore` as pastas `contexto/pdfs` e `contexto/slides`.
+- **Resposta da IA (resumo):** O Claude fez dois commits na `ESDD/murilo`. O primeiro (`e1e4fc5`) é o da [.vscode/settings.json](.vscode/settings.json). No segundo (`5ea6826`), acrescentou `contexto/pdfs/` e `contexto/slides/` ao [.gitignore](.gitignore) e rodou `git rm -r --cached` nas duas pastas: os 14 PDFs e os 15 `.md` saíram do repositório, mas continuam no disco. Depois fez o commit deste registro e o push da branch.
+- **Adaptações / correções:** As pastas já estavam no git, então só acrescentá-las ao `.gitignore` não adiantaria. O Claude perguntou antes e avisou que o pull apaga esses arquivos das máquinas dos outros integrantes e quebra os links para `contexto/slides/` no CLAUDE.md e no AGENTS.md. O usuário escolheu tirar as pastas do repositório. O Claude não mexeu no CLAUDE.md, no AGENTS.md nem na pasta `docs/`, que ainda não está no git.
+
 ---
 
 <!--
