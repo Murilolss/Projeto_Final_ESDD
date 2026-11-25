@@ -2114,6 +2114,16 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Criou o deck "Apresentação — Projeto Final ESDD" (https://claude.ai/artifact/5tkV4xJ97wBx5fHhJApAuy), com 13 slides e notas do apresentador. Abertura: capa e roteiro das três etapas. Etapa 1: o que o projeto faz, as IAs (Claude Code com o Murilo e a Liliane, Codex com o Lucas, mais de 140 prompts no AI_LOG.md, hook e CLAUDE.md), o fluxo de branches e PRs com a divisão da equipe e a tabela dos módulos de `src/` e `web/`. Etapa 2: o padrão TAD com um trecho do `src/stack.h` e o roteiro de arquivos para abrir no VS Code, com o comando do `gcc`. Etapa 3: o caminho do menu em C ao `logs/*.json` e ao `web/index.html`, a legenda de cores, o trecho do JSON de exemplo e o roteiro da demonstração no navegador. Encerramento com o link do repositório. O visual usa as cores do `web/styles.css`, como o Murilo escolheu. Nenhum arquivo do projeto mudou, além desta entrada.
 - **Adaptações / correções:** A tela comparativa de métricas (T17) ainda está pendente, e os controles de reprodução (T16, PR #8) estão esperando a alteração para no máximo 100 números. O slide do roteiro web cita os dois, e a nota do apresentador pede para conferir se já estão na `dev` antes da apresentação. O número de prompts aparece como "140+" para não ficar desatualizado.
 
+## #141 — Terça-feira, 24/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > Remova o Slide 5, Adicione o Matheus Miasaki como integrante, no slide 9 pode colocar uma demosntração de cada etapa no proprio slide e se o professor pedir para abrir o vscode nós abrimos
+- **Objetivo:** Ajustar a apresentação: tirar o slide 5, incluir o Matheus Miasaki como integrante e trocar o roteiro do VS Code (slide 9) por demonstrações do código nos próprios slides, abrindo o VS Code só se o professor pedir.
+- **Resposta da IA (resumo):** No deck https://claude.ai/artifact/5tkV4xJ97wBx5fHhJApAuy, removeu o slide 5 ("Como nos organizamos", com o fluxo de branches e a tabela da equipe) e incluiu o Matheus Miasaki na capa e no encerramento. Trocou o slide "O que vamos abrir no VS Code" por três slides com trechos reais do código da `dev`, dois por slide: `sort.c` (tabela de algoritmos) e `doubly_list.c` (laço do `merge_nodes`); `stack.c` (`stack_pop`) e `queue.c` (`queue_enqueue`); `export.c` (`export_step`) e o terminal (comando do `gcc` e o menu). Ajustou o roteiro, o slide de abertura da etapa 2 e as notas para dizer que o VS Code só é aberto se o professor pedir, e acrescentou ao `deck.css` o layout das demonstrações. O deck ficou com 14 slides. Nenhum arquivo do projeto mudou, além desta entrada.
+- **Adaptações / correções:** "Slide 9" foi entendido pela numeração original (o roteiro do VS Code), porque depois da remoção o 9º slide seria a abertura da etapa 3. As seis partes não cabiam legíveis num slide só (fonte mínima de 24 px), por isso viraram três slides. Os trechos foram encurtados com comentários `/* ... */`, algumas linhas longas foram quebradas para caber, e o menu do terminal mostra só as opções principais. Ao remover o slide 5, a tabela de quem fez o quê saiu do deck. Como não se sabe qual IA o Matheus usa, o slide das IAs não mudou.
+
 ---
 
 <!--
