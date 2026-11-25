@@ -2272,6 +2272,16 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Resposta da IA (resumo):** Fez um commit na `ESDD/liliane` com `src/export.c`, `src/export.h`, `src/main.c`, `web/comparativo.html`, `web/comparativo.js`, `web/app.js`, `web/index.html`, `web/styles.css`, `contexto/formato_comparativo.md`, `contexto/TAREFAS.md`, `.gitignore`, `logs/exemplo_comparativo_n10000.json` e o `AI_LOG.md` (#154–#155). Deu push e abriu o PR da `ESDD/liliane` para a `dev`, com pedido de revisão para `Murilolss` e `xXLucasCruzXx`.
 - **Adaptações / correções:** Nenhuma.
 
+## #156 — Terça-feira, 24/11/2026
+
+- **Autor:** Liliane Perim
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > confira a revisão do PR 9 e faça o merge
+- **Objetivo:** Conferir a revisão do PR #9 (T17) e fazer o merge.
+- **Resposta da IA (resumo):** O Murilo aprovou o PR #9 sobre o commit atual (`03433de`), sem pedir alterações: compilou sem avisos, gerou o comparativo com N = 10.000, conferiu o aviso fora da raiz do projeto e a página com o exemplo, o arquivo gerado e o log de passos recusado. A IA fez o merge na `dev` (`af06346`, merge commit), trouxe a `dev` para a `ESDD/liliane` e marcou a T17 como concluída no `contexto/TAREFAS.md` (a Liliane ficou sem tarefas abertas). Commitou e deu push na `ESDD/liliane`.
+- **Adaptações / correções:** Nenhuma. O quadro do claude.ai continua sem a T15, a T16 e a T17 marcadas, porque não abre pela conta da Liliane.
+
 ---
 
 <!--
