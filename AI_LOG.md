@@ -2,8 +2,27 @@
 
 Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes para Uso de Inteligência Artificial"): os prompts utilizados e **como as respostas da IA foram adaptadas ou corrigidas**.
 
-- **Ferramenta:** Claude Code (Anthropic)
-- **Formato:** uma entrada por prompt, em ordem cronológica, numeração sequencial, sem apagar entradas antigas.
+- **Ferramentas:** Claude Code (Anthropic), usado pelo Murilo e pela Liliane; Codex (OpenAI), usado pelo Lucas; Claude Web (claude.ai, no navegador), usado pelo Matheus. O Claude Code e o Codex registram cada prompt automaticamente, pelo hook [`.claude/hooks/log_prompt.py`](.claude/hooks/log_prompt.py). Os prompts do Claude Web entram à mão, no mesmo formato.
+- **Formato:** uma entrada por prompt, numeração sequencial, sem apagar entradas antigas.
+
+### Como ler este registro
+
+Revisão de 25/11/2026 (T21), que cobriu as entradas #001 a #182. A numeração não tem buracos nem repetições, e todo dia da semana bate com a data. Nenhuma entrada tem e-mail, senha ou token. As entradas antigas não foram reescritas; as diferenças entre elas estão explicadas aqui.
+
+- **A numeração segue a ordem em que as entradas chegaram à `dev`, não a data.** Cada integrante trabalha na própria branch. No merge, as entradas que só existiam na branch recebem os números seguintes aos da `dev`. Por isso a data volta no começo de quatro blocos: #061–#070 (Murilo, 19 a 23/11), #071–#097 (Liliane, 17 a 21/11), #123–#135 (Murilo, 23 e 24/11; as #123–#134 foram renumeradas no PR #6) e #136–#155 (Liliane, 23 e 24/11).
+- **Autor** é o `git config user.name` de quem enviou o prompt. `xXLucasCruzXx` e `Lucas Cruz` são o Lucas; `lilianeperim-ifsp` e `Liliane Perim` são a Liliane.
+- **Ferramenta:** o hook passou a gravar essa linha na #052. As entradas sem ela são todas do Claude Code: #001–#053 (Murilo) e #071–#078 (Liliane, numa branch com o hook ainda antigo).
+- **#048 e #053 não são prompts.** São avisos automáticos do Claude Code (o fim de um comando em segundo plano e o relatório de um subagente), que o hook gravava antes de ganhar o filtro na #052. Cada uma diz isso no campo Objetivo.
+- **"Nenhuma" em Adaptações / correções** quer dizer que a resposta foi usada como veio. Quando uma resposta foi corrigida depois, a correção aparece na entrada do prompt que corrigiu, e a entrada antiga só ganha uma nota em Adaptações (regra 3 do [CLAUDE.md](CLAUDE.md)).
+
+Contagem até a #182: 180 prompts (182 entradas menos os 2 avisos).
+
+| Integrante | Ferramenta | Entradas |
+|---|---|---|
+| Murilo | Claude Code | 103 (2 delas são os avisos #048 e #053) |
+| Liliane | Claude Code | 64 |
+| Lucas | Codex | 15 |
+| Matheus | Claude Web | 0: os prompts dele ainda precisam ser registrados à mão |
 
 ---
 
@@ -2548,6 +2567,26 @@ Registro exigido pelo enunciado do Projeto Final de ESDD (seção "Diretrizes pa
 - **Objetivo:** Publicar a T22 (#180) e levá-la para a `dev` sem PR.
 - **Resposta da IA (resumo):** A `origin/dev` (`776a311`) era ancestral da `ESDD/murilo`, então não houve merge. O Claude commitou este registro (#181) na `ESDD/murilo`, fez o push e avançou a `dev` remota por fast-forward até o mesmo commit.
 - **Adaptações / correções:** O usuário pediu explicitamente para pular o PR. Por isso a T22, assim como a T20, continua "em andamento" no quadro e no `TAREFAS.md` até outro integrante revisar o commit `164f2b3`.
+
+## #182 — Quarta-feira, 25/11/2026
+
+- **Autor:** Murilo Leandro
+- **Ferramenta:** Claude Code
+- **Prompt:**
+  > faça a t21 e altere a quantidade na apresentação 180+
+- **Objetivo:** T21, que é revisar o `AI_LOG.md` inteiro, e atualizar a quantidade de prompts no deck da apresentação para "180+".
+- **Resposta da IA (resumo):**
+  - **Verificação por script** das 182 entradas: numeração sem buracos nem repetições, dia da semana igual à data, os seis campos presentes, nenhum "a preencher" esquecido (fora esta entrada, preenchida agora) e nenhum e-mail, senha ou token.
+  - **Diferenças encontradas, mas não corrigidas nas entradas** (regra 3 do CLAUDE.md):
+    - a data volta em quatro blocos (#061, #071, #123 e #136), porque a numeração segue a ordem de chegada à `dev`;
+    - dois nomes de autor para o Lucas e para a Liliane;
+    - #001–#053 e #071–#078 sem a linha Ferramenta;
+    - #048 e #053 são avisos automáticos, não prompts;
+    - o Matheus (Claude Web) tem 0 entradas.
+  - **Cabeçalho do `AI_LOG.md`:** as três ferramentas no lugar de "Claude Code" e a seção "Como ler este registro", que explica cada diferença, com a contagem por integrante (180 prompts até a #182).
+  - **`contexto/TAREFAS.md`:** T21 em andamento, com os detalhes. No quadro, a T21 já estava com o Murilo e não concluída, então nada mudou.
+  - **Deck** (https://claude.ai/artifact/5tkV4xJ97wBx5fHhJApAuy): no slide "As IAs que usamos", "140+ prompts" passou a "180+ prompts". Só esse slide mudou.
+- **Adaptações / correções:** "180+" bate com a contagem: 182 entradas menos os 2 avisos dão 180 prompts. Fica pendente para o Matheus registrar os prompts dele à mão.
 
 ---
 

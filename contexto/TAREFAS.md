@@ -7,7 +7,7 @@ Cópia em texto do quadro **"Plano Projeto ESDD"**: https://claude.ai/artifact/G
   - O Claude atualiza o quadro (`ArtifactData`, coleção `tasks`) e este arquivo juntos.
   - Quem usa o Codex edita este arquivo, commita na sua `ESDD/<nome>` e marca a tarefa no quadro pelo navegador. Sem conta no claude.ai, avise o Murilo para ele marcar.
 - Status: `concluída`, `em andamento` ou `pendente`. A tarefa só vira `concluída` depois da revisão de outro integrante.
-- Atualizado em: 25/11/2026 (T26 e T10 concluídas com o PR #2, T11 com o PR #4, T13 e T14 com o PR #5, T15 com o PR #7, T16 com o PR #8, T17 com o PR #9; T20 e T22 em andamento; responsáveis de T18–T24 copiados do quadro; T22 passou do Lucas para o Murilo).
+- Atualizado em: 25/11/2026 (T26 e T10 concluídas com o PR #2, T11 com o PR #4, T13 e T14 com o PR #5, T15 com o PR #7, T16 com o PR #8, T17 com o PR #9; T20, T21 e T22 em andamento; responsáveis de T18–T24 copiados do quadro; T22 passou do Lucas para o Murilo).
 
 ## Por integrante
 
@@ -44,7 +44,7 @@ Cópia em texto do quadro **"Plano Projeto ESDD"**: https://claude.ai/artifact/G
 | T18 | 5. Extra: hash | Tabela hash com encadeamento exterior (extra) | Matheus | pendente | |
 | T19 | 5. Extra: hash | Buscar relatórios anteriores pelo menu (extra) | Matheus | pendente | T18 |
 | T20 | 6. Revisão | Revisar o padrão da disciplina em todo o código | Murilo | em andamento | |
-| T21 | 6. Revisão | Revisar o AI_LOG.md | Murilo | pendente | |
+| T21 | 6. Revisão | Revisar o AI_LOG.md | Murilo | em andamento | |
 | T22 | 7. Testes e arguição | Testar casos-limite | Murilo | em andamento | |
 | T23 | 7. Testes e arguição | Ensaiar a arguição individual | Murilo, Liliane e Lucas | pendente | |
 | T24 | 7. Testes e arguição | Fazer a entrega (02/12) | Murilo | pendente | |
@@ -74,3 +74,4 @@ Ordem sugerida: **T12 → T11 → T13 → T14**. A T12 não depende de ninguém,
   - `queue.h` e `metrics.h`: comentários de contrato que faltavam. `step_view.c`: `for (;;)` virou `while (1)` e a condição do ENTER foi dividida em duas, com comentários.
   - Fica para a equipe decidir: `stack_pop`, `stack_undo_swap` e `sequential_search` (`search.c`) não são chamadas em lugar nenhum; no menu principal, a opção 9 (Fila) aparece antes da 8 (Encerrar).
 - **T22 — Testar casos-limite.** Em 25/11/2026: teste automático [tests/edge_cases.c](../tests/edge_cases.c), com 590 verificações dos TADs (vazio, um elemento, cheio, `NULL`, índices inválidos, maior tamanho, dados repetidos e extremos, passos reaplicados como na Web, vazamento de memória), mais testes manuais do menu (entrada por pipe) e das páginas Web (leitura com Node.js). Lista completa e resultados em [casos_limite.md](casos_limite.md). Um bug foi encontrado e corrigido: um tamanho de vetor como `1100000000` estourava o `size_t` de 32 bits (`size * sizeof(int)` dava a volta), e o programa fechava sozinho. Agora `vector_create`/`vector_resize` recusam tamanhos acima de `VECTOR_MAX_SIZE`, e o `main.c` lê o tamanho com `read_size`. O comando para rodar o teste está no [PRIMEIROS_PASSOS.md](../PRIMEIROS_PASSOS.md), seção 5.4.
+- **T21 — Revisar o AI_LOG.md.** Em 25/11/2026 foram conferidas as entradas #001 a #182: numeração sem buracos nem repetições, dia da semana igual à data, os seis campos presentes, nenhum "a preencher" esquecido e nenhum e-mail, senha ou token. As entradas antigas não foram reescritas (regra 3 do CLAUDE.md). O cabeçalho do [AI_LOG.md](../AI_LOG.md) ganhou a seção "Como ler este registro", que explica as ferramentas, a numeração pela ordem de chegada à `dev` (por isso a data volta em quatro blocos), os dois nomes de autor do Lucas e da Liliane, as entradas sem a linha Ferramenta (#001–#053 e #071–#078, todas do Claude Code), os avisos automáticos #048 e #053 e a contagem por integrante (180 prompts até a #182). No deck da apresentação, o slide "As IAs que usamos" passou de "140+" para "180+ prompts". **Pendente:** o Matheus não tem nenhuma entrada. Os prompts dele no Claude Web precisam ser registrados à mão, no mesmo formato.
